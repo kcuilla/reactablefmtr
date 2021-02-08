@@ -75,7 +75,15 @@ data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
       neg_chart <- htmltools::div(style = list(flex = "1 1 0"))
       pos_chart <- htmltools::div(style = list(flex = "1 1 0"))
 
-      width <- paste0(abs(value / 1) * 100, "%")
+      if (is.numeric(value) & (is.null(percent) || percent == FALSE)) {
+        
+        width <- paste0(abs(value) / max(abs(data[[name]]), na.rm = TRUE) * 100, "%")
+        
+      } else if (is.numeric(value) & percent == TRUE) {
+        
+        width <- paste0(abs(value / 1) * 100, "%")
+        
+      } else return(value)
 
       if (value < 0) {
 
@@ -99,7 +107,15 @@ data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
       neg_chart <- htmltools::div(style = list(flex = "1 1 0"))
       pos_chart <- htmltools::div(style = list(flex = "1 1 0"))
 
-      width <- paste0(abs(value / 1) * 100, "%")
+      if (is.numeric(value) & (is.null(percent) || percent == FALSE)) {
+        
+        width <- paste0(abs(value) / max(abs(data[[name]]), na.rm = TRUE) * 100, "%")
+        
+      } else if (is.numeric(value) & percent == TRUE) {
+        
+        width <- paste0(abs(value / 1) * 100, "%")
+        
+      } else return(value)
 
       if (value < 0) {
 
