@@ -31,7 +31,7 @@
 #' cell = data_bars(data, c("firebrick1","gold","limegreen"))))
 
 
-data_bars <- function(data, colors, background = "white") {
+data_bars <- function(data, colors = "#ff3030", background = "white") {
 
   cell <- function(value, index, name) {
 
