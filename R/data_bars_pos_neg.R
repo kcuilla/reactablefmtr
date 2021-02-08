@@ -89,7 +89,7 @@ data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
         chart <- htmltools::div(style = list(display = "flex", alignItems = "center"), bar, label)
         pos_chart <- htmltools::tagAppendChild(pos_chart, chart)}
 
-      div(style = list(display = "flex"), neg_chart, pos_chart)
+      htmltools::div(style = list(display = "flex"), neg_chart, pos_chart)
 
     } else {
 
@@ -113,7 +113,7 @@ data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
         chart <- htmltools::div(style = list(display = "flex", alignItems = "center"), bar, label)
         pos_chart <- htmltools::tagAppendChild(pos_chart, chart)}
 
-      div(style = list(display = "flex"), neg_chart, pos_chart)
+      htmltools::div(style = list(display = "flex"), neg_chart, pos_chart)
 
     }
   }
