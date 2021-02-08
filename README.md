@@ -1,2 +1,2 @@
 # reactablefmtr
-An R package to simplify conditional formatting for tables made with reactable
+An R package to simplify formatting tables in {reactable}
