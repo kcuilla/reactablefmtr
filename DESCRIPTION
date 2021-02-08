@@ -14,3 +14,4 @@ Imports:
     magrittr,
     reactable,
     htmltools
+RoxygenNote: 7.1.1
