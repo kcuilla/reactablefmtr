@@ -25,7 +25,7 @@ A challenge of creating tables with `{reactable}` is that some of the code requi
 
 ### color_scales()
 
-Retrieve the number of visits for a given site. The default granularity is monthly, but can set to daily or weekly with the `gr` argument.
+By default, `color_scales()` assigns a three-color red-white-blue pattern based on the value of the cells in a column from low to high:
 
 ```{r}
 data <- iris[10:29, ]
@@ -34,3 +34,23 @@ reactable(data,
           columns = list(Petal.Length = colDef(style = color_scales(data))))
 ```
 <img src="man/figures/README_color_scales_default.PNG" align="center" />
+
+You can change the color scheme to any number of colors you'd like by specifying the colors in a vector and `color_scales` will assign the colors from low to high in the order you provide:
+
+```{r}
+data <- iris[10:29, ]
+
+reactable(data,
+          columns = list(Petal.Length = colDef(style = color_scales(data, c("purple", "pink", "white", "green")))))
+```
+<img src="man/figures/README_color_scales_example.PNG" align="center" />
+
+You can also apply `color_scales` across all columns and use custom color palettes such as the "Pastel1" color set from {RColorBrewer}:
+
+```{r}
+data <- iris[10:29, ]
+
+reactable(data,
+          defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))
+```
+<img src="man/figures/README_color_scales_custom.PNG" align="center" />
