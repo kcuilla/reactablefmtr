@@ -25,6 +25,7 @@ A challenge of creating tables with `{reactable}` is that some of the code requi
 
 A huge thank you to Greg Lin for creating the amazing {reactable} package! Without him, {reactablefmtr} simply would not exist.
 
+
 ## Showcase
 
 ### color_scales()
