@@ -15,20 +15,20 @@
 #' @examples
 #' data <- MASS::road[11:17, ]
 #'
-#' ## By default, the minimum value is bold with a black font color
+#' ## By default, the minimum value is bold with a red font color
 #' reactable(data, defaultColDef = colDef(
 #'     style = highlight_min(data)))
 #'
 #' ## Assign a different font color
 #' reactable(data, defaultColDef = colDef(
-#'     style = highlight_min(data, font_color = "red")))
+#'     style = highlight_min(data, font_color = "green")))
 #'
 #' ## Highlight the background of the cell for the minimum value in each column
 #' reactable(data, defaultColDef = colDef(
 #'     style = highlight_min(data, highlighter = "yellow")))
 
 
-highlight_min <- function(data, font_color = "black", highlighter = NULL) {
+highlight_min <- function(data, font_color = "red", highlighter = NULL) {
 
   style <- function(value, index, name) {
 
