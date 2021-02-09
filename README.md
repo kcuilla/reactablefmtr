@@ -23,7 +23,7 @@ A challenge of creating tables with `{reactable}` is that some of the code requi
 
 ### Acknowledgements
 
-A huge thank you to Greg Lin for creating the amazing {reactable} package! Without him, {reactablefmtr} simply would not exist.
+A huge thank you to Greg Lin for creating the amazing {reactable} package! Without Greg, {reactablefmtr} simply would not exist.
 
 
 ## Showcase
