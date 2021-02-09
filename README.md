@@ -159,3 +159,47 @@ reactable(data, # display all rows on one page
           defaultColDef = colDef(cell = icon_sets(data, icons = c("arrow-down","minus","arrow-up"), percent = TRUE)))
 ```
 <img src="man/figures/README_icon_sets_percent.PNG" align="center" />
+
+
+### highlight_min(), highlight_max(), highlight_min_max()
+
+Find the maximum value in each column (default color is green but can change to any color using the `font_color` option):
+
+```{r}
+data <- MASS::Cars93[17:25, c("Make", "Price", "EngineSize", "MPG.city", "MPG.highway")]  
+
+reactable(data, defaultColDef = colDef(
+  style = highlight_max(data)))
+```
+<img src="man/figures/README_highlight_max_default.PNG" align="center" />
+
+Find the minimum value in each column:
+
+```{r}
+data <- MASS::Cars93[17:25, c("Make", "Price", "EngineSize", "MPG.city", "MPG.highway")]  
+
+reactable(data, defaultColDef = colDef(
+  style = highlight_min(data)))
+```
+<img src="man/figures/README_highlight_min_default.PNG" align="center" />
+
+If you would like to highlight both the minimum and maximum values in each column you can use `highlight_min_max()`
+
+```{r}
+data <- MASS::Cars93[17:25, c("Make", "Price", "EngineSize", "MPG.city", "MPG.highway")]  
+
+reactable(data, defaultColDef = colDef(
+  style = highlight_min_max(data)))
+```
+<img src="man/figures/README_highlight_min_max_default.PNG" align="center" />
+
+You can optionally highlight the background of the cell as well with the `min_highlighter` and `max_highlighter` options:
+
+```{r}
+data <- MASS::Cars93[17:25, c("Make", "Price", "EngineSize", "MPG.city", "MPG.highway")]  
+
+reactable(data, defaultColDef = colDef(
+  style = highlight_min_max(data, min_font_color = "white", min_highlighter = "#ff3030",
+                                  max_font_color = "white", max_highlighter = "#1e90ff")))
+```
+<img src="man/figures/README_highlight_min_max_highlighter.PNG" align="center" />
