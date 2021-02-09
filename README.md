@@ -1,4 +1,4 @@
-# reactablefmtr <img src="man/figures/reactable_hex.png" align="right" />
+# reactablefmtr <img src="man/figures/reactablefmtr_hex.png" align="right" />
 
 <!-- badges: start -->
 <!-- badges: end -->
