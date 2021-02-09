@@ -220,3 +220,7 @@ reactable(data,
                                                            max_highlighter = "#1e90ff")))
 ```
 <img src="man/figures/README_highlight_min_max_highlighter.PNG" align="center" />
+
+## Acknowledgements
+
+A huge thank you to Greg Lin for creating the amazing {reactable} package! Without him, {reactablefmtr} simply would not exist.
