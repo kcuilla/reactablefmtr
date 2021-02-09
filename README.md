@@ -35,22 +35,127 @@ reactable(data,
 ```
 <img src="man/figures/README_color_scales_default.PNG" align="center" />
 
-You can change the color scheme to any number of colors you'd like by specifying the colors in a vector and `color_scales` will assign the colors from low to high in the order you provide:
+You can change the color scheme to any number of colors you'd like by specifying the colors in a vector and `color_scales()` will assign the colors from low to high in the order you provide:
 
 ```{r}
-data <- iris[10:29, ]
-
 reactable(data,
           columns = list(Petal.Length = colDef(style = color_scales(data, c("purple", "pink", "white", "green")))))
 ```
 <img src="man/figures/README_color_scales_example.PNG" align="center" />
 
-You can also apply `color_scales` across all columns and use custom color palettes such as the "Pastel1" color set from {RColorBrewer}:
+You can also apply `color_scales()` across all columns and use custom color palettes such as the "Pastel1" color set from {RColorBrewer}:
 
 ```{r}
-data <- iris[10:29, ]
-
 reactable(data,
           defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))
 ```
 <img src="man/figures/README_color_scales_custom.PNG" align="center" />
+
+
+### data_bars()
+
+By default, `data_bars()` assigns a horizontal bar to each row relative to it's value compared to other values in a particular column:
+
+```{r}
+data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
+
+reactable(data,
+          columns = list(MPG.city = colDef(align = "left", # align column header
+                                           cell = data_bars(data))))
+```
+<img src="man/figures/README_data_bars_default.PNG" align="center" />
+
+You can change both the color of the data bars and the background:
+
+```{r}
+reactable(data,
+          columns = list(MPG.city = colDef(align = "left", # align column header
+                                           cell = data_bars(data, "forestgreen", "lightgrey"))))
+```
+<img src="man/figures/README_data_bars_background.PNG" align="center" />
+
+Just like with `color_scales()`, you can apply a gradient of colors to your data bars if you assign more than one color in a vector:
+
+```{r}
+data <- MASS::Cars93[1:15, c("Make", "MPG.city", "MPG.highway")]
+
+reactable(
+  data,
+  pagination = FALSE, # display all rows on one page
+  defaultSortOrder = "desc", # sort by descending order
+  defaultSorted = "MPG.city", # sort by MPG.city
+  defaultColDef = colDef(cell = data_bars(data, c("firebrick1", "gold", "limegreen")
+  ))
+)
+```
+<img src="man/figures/README_data_bars_conditional.PNG" align="center" />
+
+
+### data_bars_pos_neg()
+
+If your column contains negative values but you would like to show data bars for the values, you can use `data_bars_pos_neg()`:
+
+```{r}
+data <- data %>% 
+  mutate(Change = round(runif(15, min = -7, max = 5))) %>% 
+  select(Make, Change)
+
+reactable(data, pagination = FALSE,
+          columns = list(Change = colDef(align = "center", # align column header
+                                         cell = data_bars_pos_neg(data))))
+```
+<img src="man/figures/README_data_bars_pos_neg_default1.PNG" align="center" />
+
+If your column is displaying percentages rather than whole numbers, you can add the percent symbol by setting `percent = TRUE`:
+
+```{r}
+data <- data %>% 
+  mutate('% Change' = round(runif(15, min = -0.7, max = 0.7), digits = 2)) %>% 
+  select(Make, '% Change')
+
+reactable(data, pagination = FALSE,
+          columns = list(`% Change` = colDef(align = "center", # align column header
+                                             cell = data_bars_pos_neg(data, percent = TRUE))))
+```
+<img src="man/figures/README_data_bars_pos_neg_percent.PNG" align="center" />
+
+You may also apply a color gradient to the data bars by assigning three or more colors:
+
+```{r}
+reactable(data, pagination = FALSE,
+          columns = list(`% Change` = colDef(align = "center",
+                                             cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), percent = TRUE))))
+
+```
+<img src="man/figures/README_data_bars_pos_neg_gradient.PNG" align="center" />
+
+
+### icon_sets()
+
+By default, `icon_sets()` adds a circle icon from [Font Awesome](https://fontawesome.com/icons?d=gallery) to each value and assigns a color from red-orange-green depending on the value in relation to other values within a particular column:
+
+```{r}
+data <- MASS::Cars93[1:10, c("Make", "MPG.city", "MPG.highway")]
+
+reactable(data, defaultColDef = colDef(cell = icon_sets(data)))
+```
+<img src="man/figures/README_icon_sets_default.PNG" align="center" />
+
+You can use any icon you'd like from the Font Awesome library by assigning the icons from low to high, as well as the color scheme:
+
+```{r}
+reactable(data, defaultColDef = colDef(cell = icon_sets(data, icons = c("times-circle","minus-circle","check-circle"), colors = c("#ff3030", "#d3d3d3", "#1e90ff"))))
+```
+<img src="man/figures/README_icon_sets_custom.PNG" align="center" />
+
+If you're working with percentages, you can add the percent symbol by setting `percent = TRUE`:
+
+```{r}
+data <- data %>% 
+  mutate('% Change' = round(runif(12, min = -0.7, max = 0.7), digits = 2)) %>% 
+  select(Make, '% Change')
+
+reactable(data, # display all rows on one page
+          defaultColDef = colDef(cell = icon_sets(data, icons = c("arrow-down","minus","arrow-up"), percent = TRUE)))
+```
+<img src="man/figures/README_icon_sets_percent.PNG" align="center" />
