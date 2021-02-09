@@ -6,7 +6,7 @@
 #' @param data Dataset containing at least one numeric column.
 #'
 #' @param font_color color to assign to minimum value in a column.
-#'     Default color is black.
+#'     Default color is red.
 #'
 #' @param highlighter color to assign the background of a cell containing minimum value in a column.
 #'
