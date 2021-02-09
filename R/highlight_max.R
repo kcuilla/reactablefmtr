@@ -15,7 +15,7 @@
 #' @examples
 #' data <- MASS::road[11:17, ]
 #'
-#' ## By default, the maximum value is bold with a black font color
+#' ## By default, the maximum value is bold with a green font color
 #' reactable(data, defaultColDef = colDef(
 #'     style = highlight_max(data)))
 #'
@@ -28,7 +28,7 @@
 #'     style = highlight_max(data, highlighter = "yellow")))
 
 
-highlight_max <- function(data, font_color = "black", highlighter = NULL) {
+highlight_max <- function(data, font_color = "green", highlighter = NULL) {
 
   style <- function(value, index, name) {
 
