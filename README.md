@@ -43,7 +43,7 @@ reactable(data,
 ```
 <img src="man/figures/README_color_scales_example.PNG" align="center" />
 
-You can also apply `color_scales()` across all columns and use custom color palettes such as the "Pastel1" color set from {RColorBrewer}:
+You can also apply `color_scales()` across all columns and use custom color palettes such as the "Spectral" color set from {RColorBrewer}:
 
 ```{r}
 reactable(data,
