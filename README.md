@@ -21,7 +21,7 @@ library(reactablefmtr)
 
 A challenge of creating tables with `{reactable}` is that some of the code required to style and format the tables is a bit lengthy and can be difficult to understand for someone who is a novice R user. The `{reactablefmtr}` aims to firstly simplify the customization and formatting process that can be used by any R user regardless of their experience, and secondly, reduce the amount of time and effort required to build a table with {reactable}. 
 
-## Acknowledgements
+### Acknowledgements
 
 A huge thank you to Greg Lin for creating the amazing {reactable} package! Without him, {reactablefmtr} simply would not exist.
 
