@@ -29,7 +29,7 @@
 #' reactable(data, defaultColDef = colDef(cell = icon_sets(data, icons = c("arrow-down","minus","arrow-up"))))
 
 
-icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("red","orange","green")) {
+icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("red","orange","green"), percent = NULL) {
 
   if (length(icons) != 3) {
 
@@ -44,13 +44,19 @@ icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("r
   cell <- function(value, index, name) {
 
     if (!is.numeric(value) | is.na(value)) return(value)
+    
+    if (is.null(percent) || percent == FALSE) {
+    
+      label <- value
+    
+    } else label <- paste0(round(value * 100), "%")
 
     normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
 
     if (normalized >= 0.66667) {
 
       htmltools::tagList(
-        value,
+        label,
         htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
             htmltools::tagAppendAttributes(shiny::icon(icons[[3]]),
                                 style = paste("color:", colors[[3]])))
@@ -59,7 +65,7 @@ icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("r
     } else if (normalized <= 0.66666 & normalized >= 0.33333) {
 
       htmltools::tagList(
-        value,
+        label,
         htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
             htmltools::tagAppendAttributes(shiny::icon(icons[[2]]),
                                 style = paste("color:", colors[[2]])))
@@ -67,7 +73,7 @@ icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("r
 
     } else {
       htmltools::tagList(
-        value,
+        label,
         htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
             htmltools::tagAppendAttributes(shiny::icon(icons[[1]]),
                                 style = paste("color:", colors[[1]])))
