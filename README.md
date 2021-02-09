@@ -33,4 +33,4 @@ data <- iris[10:29, ]
 reactable(data,
           columns = list(Petal.Length = colDef(style = color_scales(data))))
 ```
-<img src="man/figures/README_color_scales_default.png" />
+<img src="man/figures/README_color_scales_default.PNG" align="center" />
