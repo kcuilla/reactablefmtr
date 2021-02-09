@@ -124,7 +124,9 @@ You may also apply a color gradient to the data bars by assigning three or more 
 ```{r}
 reactable(data, pagination = FALSE,
           columns = list(`% Change` = colDef(align = "center",
-                                             cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), percent = TRUE))))
+                                             cell = data_bars_pos_neg(data, 
+                                                                      colors = c("#ff3030", "#ffffff", "#1e90ff"), 
+                                                                      percent = TRUE))))
 
 ```
 <img src="man/figures/README_data_bars_pos_neg_gradient.PNG" align="center" />
@@ -144,7 +146,9 @@ reactable(data, defaultColDef = colDef(cell = icon_sets(data)))
 You can use any icon you'd like from the Font Awesome library by assigning the icons from low to high, as well as the color scheme:
 
 ```{r}
-reactable(data, defaultColDef = colDef(cell = icon_sets(data, icons = c("times-circle","minus-circle","check-circle"), colors = c("#ff3030", "#d3d3d3", "#1e90ff"))))
+reactable(data, defaultColDef = colDef(cell = icon_sets(data, 
+                                                        icons = c("times-circle","minus-circle","check-circle"), 
+                                                        colors = c("#ff3030", "#d3d3d3", "#1e90ff"))))
 ```
 <img src="man/figures/README_icon_sets_custom.PNG" align="center" />
 
