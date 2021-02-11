@@ -15,6 +15,9 @@ Can use R's built-in colors or other color packages.}
 
 \item{background}{Optionally assign a color to use as the background for cells.
 Default is set to white.}
+
+\item{commas}{Optionally format values as commas.
+Default is set to NULL or FALSE}
 }
 \description{
 The `data_bars()` function conditionally adds a horizontal bar to each row of a column.
