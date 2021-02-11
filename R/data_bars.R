@@ -12,6 +12,9 @@
 #'
 #' @param background Optionally assign a color to use as the background for cells.
 #'     Default is set to white.
+#' 
+#' @param commas Optionally format values as commas.
+#'     Default is set to NULL or FALSE.
 #'
 #' @export
 #'
@@ -31,7 +34,7 @@
 #' cell = data_bars(data, c("firebrick1","gold","limegreen"))))
 
 
-data_bars <- function(data, colors = "#1e90ff", background = "white") {
+data_bars <- function(data, colors = "#1e90ff", background = "white", commas = NULL) {
 
   cell <- function(value, index, name) {
 
@@ -85,6 +88,14 @@ data_bars <- function(data, colors = "#1e90ff", background = "white") {
     } else if (!is.numeric(value))
 
       return(value)
+    
+     if (is.null(commas) || commas == FALSE) {
+      
+      value <- value
+      
+    } else value <- format(value, big.mark = ",")
+    
+    value <- format(value, width = 9, justify = "right")
 
     bar_chart(value,
               width = width,
