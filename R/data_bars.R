@@ -95,7 +95,9 @@ data_bars <- function(data, colors = "#1e90ff", background = "white", commas = N
       
     } else value <- format(value, big.mark = ",")
     
-    value <- format(value, width = 9, justify = "right")
+    max_digits <- nchar(max(data[[name]]))
+    
+    value <- format(value, width = max_digits, justify = "right")
 
     bar_chart(value,
               width = width,
