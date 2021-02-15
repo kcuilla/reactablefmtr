@@ -4,6 +4,7 @@ Title: Simplifies the formatting and styling while creating tables using {reacta
 Version: 0.1.0
 Author: Kyle Cuilla
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
+URL: https://kcuilla.github.io/reactablefmtr/, https://github.com/kcuilla/reactablefmtr
 Description: Streamlines the process of applying formats and styles to tables using {reactable} .
     Style your reactable table with conditional formatting, color scales, data bars, and icons. 
 License: MIT + file LICENSE
