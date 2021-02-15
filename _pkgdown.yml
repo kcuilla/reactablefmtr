@@ -8,14 +8,8 @@ home:
 
 navbar:
   structure:
-    left:
-    - home
-    - intro
-    - articles
-    - reference
-    - tutorials
-    - news
-    right: github
+    left: [home, examples, reference]
+    right: [github]
   components:
     home:
       icon: fas fa-home fa-lg
@@ -24,11 +18,11 @@ navbar:
       text: Examples
       menu:
       - text: Color Scales
-        href: vignettes/color_scales.html
+        href: articles/color_scales.html
       - text: Data Bars
-        href: vignettes/data_bars.html
+        href: articles/data_bars.html
       - text: Icon Sets
-        href: vignettes/icon_sets.html
+        href: articles/icon_sets.html
     reference:
       text: Reference
       href: reference/index.html
