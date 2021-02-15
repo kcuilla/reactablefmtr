@@ -5,7 +5,9 @@
 
 Simplify the styling, formatting, and customization of tables made with `{reactable}`.
 
-Examples can be found [here](https://kcuilla.github.io/reactablefmtr/)
+- [Color Scales](https://kcuilla.github.io/reactablefmtr/vignettes/color_scales.html)
+- [Data Bars](https://kcuilla.github.io/reactablefmtr/vignettes/data_bars.html)
+- [Icon Sets](https://kcuilla.github.io/reactablefmtr/vignettes/icon_sets.html)
 
 
 ## Installation
