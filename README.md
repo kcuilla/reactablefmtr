@@ -5,6 +5,8 @@
 
 Simplify the styling, formatting, and customization of tables made with `{reactable}`.
 
+Examples can be found [here](https://kcuilla.github.io/reactablefmtr/)
+
 
 ## Installation
 
