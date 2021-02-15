@@ -1,0 +1,35 @@
+template:
+  params:
+    bootswatch: cosmo
+
+home:
+  title: reactablefmtr package
+
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - articles
+    - reference
+    - tutorials
+    - news
+    right: github
+  components:
+    home:
+      icon: fas fa-home fa-lg
+      href: index.html
+    articles:
+      text: Examples
+      menu:
+      - text: Color Scales
+        href: vignettes/color_scales.html
+      - text: Data Bars
+        href: vignettes/data_bars.html
+      - text: Icon Sets
+        href: vignettes/icon_sets.html
+      - text: Highlight Min & Max
+        href: vignettes/highlight_min_max.html
+    reference:
+      text: Reference
+      href: reference/index.html
