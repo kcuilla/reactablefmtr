@@ -28,8 +28,6 @@ navbar:
         href: vignettes/data_bars.html
       - text: Icon Sets
         href: vignettes/icon_sets.html
-      - text: Highlight Min & Max
-        href: vignettes/highlight_min_max.html
     reference:
       text: Reference
       href: reference/index.html
