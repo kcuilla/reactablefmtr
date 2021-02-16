@@ -91,6 +91,11 @@
 <!-- badges: start -->
 <!-- badges: end -->
 <p>Simplify the styling, formatting, and customization of tables made with <code>{reactable}</code>.</p>
+<ul>
+<li><a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">Color Scales</a></li>
+<li><a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars.html">Data Bars</a></li>
+<li><a href="https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html">Icon Sets</a></li>
+</ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -130,6 +135,7 @@ reactable(data,
 <pre class="{r}"><code>reactable(data,
           defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))</code></pre>
 <p><img src="reference/figures/README_color_scales_custom.PNG" align="center"></p>
+<p><br></p>
 </div>
 <div id="data_bars" class="section level3">
 <h3 class="hasAnchor">
@@ -159,6 +165,7 @@ reactable(data,
   ))
 )</code></pre>
 <p><img src="reference/figures/README_data_bars_conditional.PNG" align="center"></p>
+<p><br></p>
 </div>
 <div id="data_bars_pos_neg" class="section level3">
 <h3 class="hasAnchor">
@@ -193,6 +200,7 @@ reactable(data,
                               cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), percent = TRUE))))
 </code></pre>
 <p><img src="reference/figures/README_data_bars_pos_neg_gradient.PNG" align="center"></p>
+<p><br></p>
 </div>
 <div id="icon_sets" class="section level3">
 <h3 class="hasAnchor">
@@ -219,6 +227,7 @@ reactable(data,
           defaultColDef = colDef(cell = icon_sets(data, 
                                                   icons = c("arrow-down","minus","arrow-up"), percent = TRUE)))</code></pre>
 <p><img src="reference/figures/README_icon_sets_percent.PNG" align="center"></p>
+<p><br></p>
 </div>
 <div id="highlight_min-highlight_max-highlight_min_max" class="section level3">
 <h3 class="hasAnchor">
