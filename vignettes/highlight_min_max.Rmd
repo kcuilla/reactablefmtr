@@ -45,6 +45,8 @@ reactable(data,
           defaultColDef = colDef(style = highlight_min_max(data)))
 ```
 
+<br>
+
 ## Custom Colors
 
 If we want to change the color of any of either the `highlight_min()` or `highlight_max()` functions above, we can do so by assigning the color with the `font_color` option.
@@ -62,6 +64,8 @@ reactable(data,
           defaultColDef = colDef(style = highlight_min_max(data, 
                                                            min_font_color = "purple", max_font_color = "orange")))
 ```
+
+<br>
 
 ## Highlight Cells
 

@@ -20,7 +20,7 @@ library(palmerpenguins)
 Let's say that we want to add conditional data bars to the `body_mass_g` column of the palmerpenguins [dataset](https://allisonhorst.github.io/palmerpenguins/).
 
 ```{r, echo=TRUE}
-data <- sample_n(penguins,50) %>% select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+data <- sample_n(penguins,50) %>% select(species, bill_length_mm, bill_depth_mm, body_mass_g)
 
 reactable(data)
 ```
@@ -50,6 +50,8 @@ reactable(data, columns = list(
 ))
 ```
 
+<br>
+
 ## Custom Color Palettes
 
 By default, the data bars are blue and the background is white. Both of these colors can be modified as shown below:
@@ -68,6 +70,8 @@ reactable(data,
             body_mass_g = colDef(cell = data_bars(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), background = "lightgrey"))))
 ```
 
+<br>
+
 ## Apply to All Columns
 
 We can apply data bars across all columns using `defaultColDef`: 
@@ -76,6 +80,8 @@ We can apply data bars across all columns using `defaultColDef`:
 reactable(data,
           defaultColDef = colDef(cell = data_bars(data)))
 ```
+
+<br>
 
 ## Aligning Values
 
@@ -89,6 +95,8 @@ reactable(data,
 
 Now all the values are aligned properly with the data bars!
 
+<hr>
+
 ## Example 2 - Negative Values
 
 If your dataset contains negative values, you'll need to use `data_bars_pos_neg()`. 
@@ -96,7 +104,7 @@ If your dataset contains negative values, you'll need to use `data_bars_pos_neg(
 For example, let's say we wanted to show the percent difference between the price of each car and the average price of all cars in the `Cars93` dataset from the `MASS` package:
 
 ```{r, echo=TRUE}
-data <- MASS::Cars93[c("Make", "Price")]
+data <- sample_n(MASS::Cars93,20) %>% select(Make, Price)
 
 data <- data %>% mutate("Price vs Avg" = round(Price/mean(Price)-1,2)*100)
 
@@ -149,6 +157,8 @@ reactable(data,
 ))
 ```
 
+<br>
+
 ## Custom Color Palettes
 
 Changing the colors assigned to the negative and positive values can be done using the `colors` argument below:
@@ -169,6 +179,8 @@ reactable(data,
             `Price vs Avg` = colDef(cell = data_bars_pos_neg(data, colors = c("#1e90ff", "#ffd700", "#ff3030")))))
 ```
 
+<br>
+
 ## Adding Percentages to Labels
 
 If you recall in the example above, we calculated the `Price vs Avg` column as the percent difference between the car's price and the average for all cars in the dataset. If we want to display the percentages on the values next to the data bars, we can do so by including `percent = TRUE`:
@@ -180,6 +192,8 @@ reactable(data,
           columns = list(
             `Price vs Avg` = colDef(cell = data_bars_pos_neg(data, percent = TRUE))))
 ```
+
+<br>
 
 ## Combining Multiple Formatters 
 

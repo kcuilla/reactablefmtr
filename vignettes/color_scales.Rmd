@@ -48,6 +48,8 @@ reactable(data, columns = list(
 
 As you can see, `color_scales()` significantly reduces the amount of code needed, is more reproducible, and is easier to customize as I'm about to further show below.
 
+<br>
+
 ## Custom Color Palettes
 
 If we want to show a different color palette than the default, we can call them within the `colors` argument like so: 
@@ -89,6 +91,8 @@ reactable(data,
           columns = list(
             bill_length_mm = colDef(style = color_scales(data, colors = wes_palette("Chevalier1")))))
 ```
+
+<br>
 
 ## Apply to All Columns
 

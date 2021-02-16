@@ -32,6 +32,8 @@ reactable(data,
             bill_length_mm = colDef(cell = icon_sets(data))))
 ```
 
+<br>
+
 ## Custom Color Palettes
 
 If we want to change the color palette to something other than the default, we can do so using the `colors` argument:
@@ -46,6 +48,8 @@ Note that the order of the colors matters. The first color provided is assigned 
 
 If assigning custom colors, three colors must be provided. If the number of colors is not three, it will throw an error message requesting three colors to be used.
 
+<br>
+
 ## Custom Icons
 
 By default, the three icons displayed when using `icon_sets()` are all circles. However, we can change the icons to anything from the Font Awesome icon gallery using the `icons` argument below:
@@ -59,6 +63,8 @@ reactable(data,
 ```
 
 Just like with the `colors` argument, the order of the icons we provide matters and goes in order from smallest values to largest values in the column.
+
+<br>
 
 ## Adding Percentages to Values
 
@@ -84,6 +90,8 @@ reactable(cars_data,
                                                      icons = c("arrow-down", "minus", "arrow-up"),
                                                      percent = TRUE))))
 ```
+
+<br>
 
 ## Apply to All Columns
 
