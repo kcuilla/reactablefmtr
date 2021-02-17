@@ -4,13 +4,13 @@
 \alias{highlight_min}
 \title{Highlights the minimum value in a column}
 \usage{
-highlight_min(data, font_color = "black", highlighter = NULL)
+highlight_min(data, font_color = "red", highlighter = NULL)
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
 
 \item{font_color}{color to assign to minimum value in a column.
-Default color is black.}
+Default color is red.}
 
 \item{highlighter}{color to assign the background of a cell containing minimum value in a column.}
 }
@@ -21,15 +21,20 @@ The `highlight_min()` function assigns a font color and/or background color to t
 \examples{
 data <- MASS::road[11:17, ]
 
-## By default, the minimum value is bold with a black font color
-reactable(data, defaultColDef = colDef(
+## By default, the minimum value is bold with a red font color
+reactable(data,
+defaultColDef = colDef(
     style = highlight_min(data)))
 
 ## Assign a different font color
-reactable(data, defaultColDef = colDef(
-    style = highlight_min(data, font_color = "red")))
+reactable(data,
+defaultColDef = colDef(
+    style = highlight_min(data,
+    font_color = "green")))
 
 ## Highlight the background of the cell for the minimum value in each column
-reactable(data, defaultColDef = colDef(
-    style = highlight_min(data, highlighter = "yellow")))
+reactable(data,
+defaultColDef = colDef(
+    style = highlight_min(data,
+    highlighter = "yellow")))
 }

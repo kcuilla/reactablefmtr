@@ -10,22 +10,28 @@
 #'
 #' @param highlighter color to assign the background of a cell containing minimum value in a column.
 #'
+#' @import reactable
 #' @export
 #'
 #' @examples
 #' data <- MASS::road[11:17, ]
 #'
 #' ## By default, the minimum value is bold with a red font color
-#' reactable(data, defaultColDef = colDef(
+#' reactable(data,
+#' defaultColDef = colDef(
 #'     style = highlight_min(data)))
 #'
 #' ## Assign a different font color
-#' reactable(data, defaultColDef = colDef(
-#'     style = highlight_min(data, font_color = "green")))
+#' reactable(data,
+#' defaultColDef = colDef(
+#'     style = highlight_min(data,
+#'     font_color = "green")))
 #'
 #' ## Highlight the background of the cell for the minimum value in each column
-#' reactable(data, defaultColDef = colDef(
-#'     style = highlight_min(data, highlighter = "yellow")))
+#' reactable(data,
+#' defaultColDef = colDef(
+#'     style = highlight_min(data,
+#'     highlighter = "yellow")))
 
 
 highlight_min <- function(data, font_color = "red", highlighter = NULL) {

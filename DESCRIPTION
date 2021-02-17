@@ -1,12 +1,13 @@
 Package: reactablefmtr
 Type: Package
-Title: Simplifies the formatting and styling while creating tables using 'reactable' 
+Title: Simplify the styling, formatting, and customization of tables made with {reactable}.
 Version: 0.1.0
 Author: Kyle Cuilla
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
-Description: Streamlines the process of applying formats and styles to tables using 'reactable'.
+Description: Streamlines the process of applying formats and styles to tables using {reactable}.
     Style your reactable table with conditional formatting, color scales, data bars, and icons. 
 URL: https://kcuilla.github.io/reactablefmtr/, https://github.com/kcuilla/reactablefmtr
+BugReports: https://github.com/kcuilla/reactablefmtr/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -14,9 +15,11 @@ Depends:
     R (>= 3.5.0),
     reactable (>= 0.2.0)
 Imports: 
-    dplyr,
+    grDevices,
     magrittr,
-    reactable,
-    htmltools
+    htmltools,
+    shiny
+Suggests:
+    MASS
 RoxygenNote: 7.1.1
 Language: en-US

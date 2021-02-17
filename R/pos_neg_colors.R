@@ -10,6 +10,7 @@
 #' @param bold optional argument to bold values.
 #'     Default is set to NULL or not bold.
 #'
+#' @import reactable
 #' @export
 #'
 #' @examples
@@ -19,15 +20,21 @@
 #' Change = c(4.14, 1.51, -19.45, 5.32, -12.45))
 #'
 #' ## Assign the color red to negative values and green to positive values
-#' reactable(data, columns = list(Change = colDef(
+#' reactable(data,
+#' columns = list(
+#' Change = colDef(
 #' style = pos_neg_colors("red", "green"))))
 #'
 #' ## Bold values
-#' reactable(data, columns = list(Change = colDef(
+#' reactable(data,
+#' columns = list(
+#' Change = colDef(
 #' style = pos_neg_colors("red", "green", bold = TRUE))))
 #'
 #' ## Can be used in conjunction with add_plus_sign()
-#' reactable(data, columns = list(Change = colDef(
+#' reactable(data,
+#' columns = list(
+#' Change = colDef(
 #' cell = add_plus_sign,
 #' style = pos_neg_colors("red", "green", bold = TRUE))))
 

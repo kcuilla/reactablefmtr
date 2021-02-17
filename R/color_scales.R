@@ -10,6 +10,9 @@
 #'     Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 #'     Can use R's built-in colors or other color packages.
 #'
+#' @importFrom grDevices rgb
+#' @importFrom grDevices colorRamp
+#' @import reactable
 #' @export
 #'
 #' @examples
@@ -20,10 +23,13 @@
 #'  columns = list(
 #'  Petal.Length = colDef(style = color_scales(data))))
 #'
-#' ## If only two colors are desired, you can specify them within 'c(color1, color2)' or 'colors = c(color1, color2)':
+#' ## If only two colors are desired,
+#' ## you can specify them with colors = 'c(color1, color2)';
+#'
 #' reactable(data,
 #'  columns = list(
-#'  Petal.Length = colDef(style = color_scales(data, c("red", "green")))))
+#'  Petal.Length = colDef(style = color_scales(data,
+#'  colors = c("red", "green")))))
 #'
 #' ## Apply color_scales() across all numeric columns using reactable::defaultColDef
 #' reactable(data,

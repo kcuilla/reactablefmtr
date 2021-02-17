@@ -14,19 +14,29 @@
 #'     Default colors provided are c('red','orange','green').
 #'     Can use R's built-in colors or other color packages.
 #'
+#' @param percent Optionally format numbers as percentages.
+#'
+#' @import reactable
 #' @export
 #'
 #' @examples
 #' data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 #'
-#' ## By default, icon_sets() assigns red circles to the lowest-third values, orange circles to the middle-third values, and green to the top-third values
-#' reactable(data, defaultColDef = colDef(cell = icon_sets(data)))
+#' ## By default, icon_sets() assigns red circles to the lowest-third values,
+#' ## orange circles to the middle-third values,
+#' ## and green to the top-third values
+#' reactable(data,
+#' defaultColDef = colDef(cell = icon_sets(data)))
 #'
 #' ## Assign custom colors
-#' reactable(data, defaultColDef = colDef(cell = icon_sets(data, colors = c("tomato", "grey", "dodgerblue"))))
+#' reactable(data,
+#' defaultColDef = colDef(cell = icon_sets(data,
+#' colors = c("tomato", "grey", "dodgerblue"))))
 #'
 #' ## Assign icons from Font Awesome's icon library
-#' reactable(data, defaultColDef = colDef(cell = icon_sets(data, icons = c("arrow-down","minus","arrow-up"))))
+#' reactable(data,
+#' defaultColDef = colDef(cell = icon_sets(data,
+#' icons = c("arrow-down","minus","arrow-up"))))
 
 
 icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("red","orange","green"), percent = NULL) {
@@ -44,11 +54,11 @@ icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("r
   cell <- function(value, index, name) {
 
     if (!is.numeric(value) | is.na(value)) return(value)
-    
+
     if (is.null(percent) || percent == FALSE) {
-    
+
       label <- value
-    
+
     } else label <- paste0(round(value * 100), "%")
 
     normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))

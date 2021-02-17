@@ -26,10 +26,13 @@ reactable(data,
  columns = list(
  Petal.Length = colDef(style = color_scales(data))))
 
-## If only two colors are desired, you can specify them within 'c(color1, color2)' or 'colors = c(color1, color2)':
+## If only two colors are desired,
+## you can specify them with colors = 'c(color1, color2)';
+
 reactable(data,
  columns = list(
- Petal.Length = colDef(style = color_scales(data, c("red", "green")))))
+ Petal.Length = colDef(style = color_scales(data,
+ colors = c("red", "green")))))
 
 ## Apply color_scales() across all numeric columns using reactable::defaultColDef
 reactable(data,

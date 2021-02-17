@@ -7,7 +7,8 @@
 icon_sets(
   data,
   icons = c("circle", "circle", "circle"),
-  colors = c("red", "orange", "green")
+  colors = c("red", "orange", "green"),
+  percent = NULL
 )
 }
 \arguments{
@@ -21,6 +22,8 @@ Default icons are circles.}
 Colors should be given in order from low values to high values.
 Default colors provided are c('red','orange','green').
 Can use R's built-in colors or other color packages.}
+
+\item{percent}{Optionally format numbers as percentages.}
 }
 \description{
 The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each row of a column and assigns a color depending on their value in relation to other values in that particular column.
@@ -29,12 +32,19 @@ The `icon_sets()` function conditionally adds an icon from the Font Awesome libr
 \examples{
 data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 
-## By default, icon_sets() assigns red circles to the lowest-third values, orange circles to the middle-third values, and green to the top-third values
-reactable(data, defaultColDef = colDef(cell = icon_sets(data)))
+## By default, icon_sets() assigns red circles to the lowest-third values,
+## orange circles to the middle-third values,
+## and green to the top-third values
+reactable(data,
+defaultColDef = colDef(cell = icon_sets(data)))
 
 ## Assign custom colors
-reactable(data, defaultColDef = colDef(cell = icon_sets(data, colors = c("tomato", "grey", "dodgerblue"))))
+reactable(data,
+defaultColDef = colDef(cell = icon_sets(data,
+colors = c("tomato", "grey", "dodgerblue"))))
 
 ## Assign icons from Font Awesome's icon library
-reactable(data, defaultColDef = colDef(cell = icon_sets(data, icons = c("arrow-down","minus","arrow-up"))))
+reactable(data,
+defaultColDef = colDef(cell = icon_sets(data,
+icons = c("arrow-down","minus","arrow-up"))))
 }

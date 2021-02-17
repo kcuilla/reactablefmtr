@@ -12,6 +12,9 @@
 #'
 #' @param percent Optionally format numbers as percentages.
 #'
+#' @importFrom grDevices rgb
+#' @importFrom grDevices colorRamp
+#' @import reactable
 #' @export
 #'
 #' @examples
@@ -19,9 +22,13 @@
 #' company = sprintf("Company%02d", 1:10),
 #' profit_chg = c(0.2, 0.685, 0.917, 0.284, 0.105, -0.701, -0.528, -0.808, -0.957, -0.11))
 #'
-#' ## By default, the negative values are assigned a red bar, and the positive values are assigned a green bar
-#' reactable(data, bordered = TRUE, columns = list(
-#'  company = colDef(name = "Company", minWidth = 100),
+#' ## By default, the negative values are assigned a red bar,
+#' ## and the positive values are assigned a green bar
+#' reactable(data,
+#' bordered = TRUE,
+#' columns = list(
+#'  company = colDef(name = "Company",
+#'  minWidth = 100),
 #'  profit_chg = colDef(
 #'    name = "Change in Profit",
 #'    defaultSortOrder = "desc",
@@ -30,24 +37,33 @@
 #'    cell = data_bars_pos_neg(data))))
 #'
 #' ## You can apply a relative color scale to the bars by assigning three or more colors
-#' reactable(data, bordered = TRUE, columns = list(
-#'   company = colDef(name = "Company", minWidth = 100),
+#' reactable(data,
+#' bordered = TRUE,
+#' columns = list(
+#'   company = colDef(name = "Company",
+#'   minWidth = 100),
 #'   profit_chg = colDef(
 #'   name = "Change in Profit",
 #'   defaultSortOrder = "desc",
 #'   align = "center",
 #'   minWidth = 400,
-#'   cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff")))))
+#'   cell = data_bars_pos_neg(data,
+#'   colors = c("#ff3030", "#ffffff", "#1e90ff")))))
 #'
 #' ## Set 'percent = TRUE' to format the numbers as percentages
-#' reactable(data, bordered = TRUE, columns = list(
-#'   company = colDef(name = "Company", minWidth = 100),
+#' reactable(data,
+#' bordered = TRUE,
+#' columns = list(
+#'   company = colDef(name = "Company",
+#'   minWidth = 100),
 #'   profit_chg = colDef(
 #'   name = "Change in Profit",
 #'   defaultSortOrder = "desc",
 #'   align = "center",
 #'   minWidth = 400,
-#'   cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), percent = TRUE))))
+#'   cell = data_bars_pos_neg(data,
+#'   colors = c("#ff3030", "#ffffff", "#1e90ff"),
+#'   percent = TRUE))))
 
 
 data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
@@ -76,13 +92,13 @@ data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
       pos_chart <- htmltools::div(style = list(flex = "1 1 0"))
 
       if (is.numeric(value) & (is.null(percent) || percent == FALSE)) {
-        
+
         width <- paste0(abs(value) / max(abs(data[[name]]), na.rm = TRUE) * 100, "%")
-        
+
       } else if (is.numeric(value) & percent == TRUE) {
-        
+
         width <- paste0(abs(value / 1) * 100, "%")
-        
+
       } else return(value)
 
       if (value < 0) {
@@ -108,13 +124,13 @@ data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
       pos_chart <- htmltools::div(style = list(flex = "1 1 0"))
 
       if (is.numeric(value) & (is.null(percent) || percent == FALSE)) {
-        
+
         width <- paste0(abs(value) / max(abs(data[[name]]), na.rm = TRUE) * 100, "%")
-        
+
       } else if (is.numeric(value) & percent == TRUE) {
-        
+
         width <- paste0(abs(value / 1) * 100, "%")
-        
+
       } else return(value)
 
       if (value < 0) {

@@ -21,5 +21,7 @@ Price = c(1265.13, 187.89, 1761.33, 276.82, 328.13),
 Change = c(4.14, 1.51, -19.45, 5.32, -12.45))
 
 ## Values with a positive value receive a preceding "+" sign
-reactable(data, columns = list(Change = colDef(cell = add_plus_sign)))
+reactable(data,
+columns = list(
+Change = colDef(cell = add_plus_sign)))
 }

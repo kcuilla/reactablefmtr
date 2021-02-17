@@ -4,7 +4,7 @@
 \alias{data_bars}
 \title{Add horizontal bars to rows in a column}
 \usage{
-data_bars(data, colors, background = "white")
+data_bars(data, colors = "#1e90ff", background = "white")
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
@@ -15,9 +15,6 @@ Can use R's built-in colors or other color packages.}
 
 \item{background}{Optionally assign a color to use as the background for cells.
 Default is set to white.}
-
-\item{commas}{Optionally format values as commas.
-Default is set to NULL or FALSE}
 }
 \description{
 The `data_bars()` function conditionally adds a horizontal bar to each row of a column.
@@ -28,14 +25,32 @@ The `data_bars()` function conditionally adds a horizontal bar to each row of a 
 data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 
 ## Horizontal bars with lengths relative to cell value
-reactable(data, columns = list(
-MPG.city = colDef(name = "MPG (city)", align = "left", cell = data_bars(data, "dodgerblue"))))
+reactable(data,
+columns = list(
+MPG.city = colDef(
+name = "MPG (city)",
+align = "left",
+cell = data_bars(data,
+colors = "dodgerblue"))))
 
 ## Add background color
-reactable(data, columns = list(
-MPG.city = colDef(name = "MPG (city)", align = "left", cell = data_bars(data, "dodgerblue", "grey"))))
+reactable(data,
+columns = list(
+MPG.city = colDef(
+name = "MPG (city)",
+align = "left",
+cell = data_bars(data,
+colors = "dodgerblue",
+background = "grey"))))
 
-## Conditionally color data bars based on their relative values by supplying more than one color and apply across all numeric columns using reactable::defaultColDef
-reactable(data, pagination = FALSE, defaultSortOrder = "desc", defaultSorted = "MPG.city", defaultColDef = colDef(
-cell = data_bars(data, c("firebrick1","gold","limegreen"))))
+## Conditionally color data bars based on their relative values
+## by supplying more than one color
+## and apply across all numeric columns using reactable::defaultColDef
+reactable(data,
+pagination = FALSE,
+defaultSortOrder = "desc",
+defaultSorted = "MPG.city",
+defaultColDef = colDef(
+cell = data_bars(data,
+colors = c("firebrick1","gold","limegreen"))))
 }

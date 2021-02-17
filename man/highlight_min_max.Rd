@@ -6,8 +6,8 @@
 \usage{
 highlight_min_max(
   data,
-  min_font_color = "black",
-  max_font_color = "black",
+  min_font_color = "red",
+  max_font_color = "green",
   min_highlighter = NULL,
   max_highlighter = NULL
 )
@@ -16,10 +16,10 @@ highlight_min_max(
 \item{data}{Dataset containing at least one numeric column.}
 
 \item{min_font_color}{color to assign to minimum value in a column.
-Default color is black.}
+Default color is red.}
 
 \item{max_font_color}{color to assign to maximum value in a column.
-Default color is black.}
+Default color is green.}
 
 \item{min_highlighter}{color to assign the background of a cell containing minimum value in a column.}
 
@@ -32,15 +32,22 @@ The `highlight_min_max()` function assigns a font color and/or background color 
 \examples{
 data <- MASS::road[11:17, ]
 
-## By default, the minimum and maximum values are bold with a black font color
-reactable(data, defaultColDef = colDef(
+## By default, the minimum and maximum values are bold with a red and green font color respectively
+reactable(data,
+defaultColDef = colDef(
     style = highlight_min_max(data)))
 
 ## Assign a different font color to the min and max values
-reactable(data, defaultColDef = colDef(
-    style = highlight_min_max(data, min_font_color = "red", max_font_color = "green")))
+reactable(data,
+defaultColDef = colDef(
+    style = highlight_min_max(data,
+    min_font_color = "orange",
+    max_font_color = "blue")))
 
 ## Highlight the background of the cell for the min and max values in each column
-reactable(data, defaultColDef = colDef(
-    style = highlight_min_max(data, min_highlighter = "salmon", max_highlighter = "skyblue")))
+reactable(data,
+defaultColDef = colDef(
+    style = highlight_min_max(data,
+    min_highlighter = "salmon",
+    max_highlighter = "skyblue")))
 }

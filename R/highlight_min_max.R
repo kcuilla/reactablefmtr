@@ -15,22 +15,30 @@
 #'
 #' @param max_highlighter color to assign the background of a cell containing maximum value in a column.
 #'
+#' @import reactable
 #' @export
 #'
 #' @examples
 #' data <- MASS::road[11:17, ]
 #'
-#' ## By default, the minimum and maximum values are bold with a black font color
-#' reactable(data, defaultColDef = colDef(
+#' ## By default, the minimum and maximum values are bold with a red and green font color respectively
+#' reactable(data,
+#' defaultColDef = colDef(
 #'     style = highlight_min_max(data)))
 #'
 #' ## Assign a different font color to the min and max values
-#' reactable(data, defaultColDef = colDef(
-#'     style = highlight_min_max(data, min_font_color = "orange", max_font_color = "blue")))
+#' reactable(data,
+#' defaultColDef = colDef(
+#'     style = highlight_min_max(data,
+#'     min_font_color = "orange",
+#'     max_font_color = "blue")))
 #'
 #' ## Highlight the background of the cell for the min and max values in each column
-#' reactable(data, defaultColDef = colDef(
-#'     style = highlight_min_max(data, min_highlighter = "salmon", max_highlighter = "skyblue")))
+#' reactable(data,
+#' defaultColDef = colDef(
+#'     style = highlight_min_max(data,
+#'     min_highlighter = "salmon",
+#'     max_highlighter = "skyblue")))
 
 
 highlight_min_max <- function(data, min_font_color = "red", max_font_color = "green", min_highlighter = NULL, max_highlighter = NULL) {

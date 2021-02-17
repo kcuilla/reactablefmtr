@@ -6,6 +6,7 @@
 #'
 #' @param value numeric values only.
 #'
+#' @import reactable
 #' @export
 #'
 #' @examples
@@ -15,7 +16,9 @@
 #' Change = c(4.14, 1.51, -19.45, 5.32, -12.45))
 #'
 #' ## Values with a positive value receive a preceding "+" sign
-#' reactable(data, columns = list(Change = colDef(cell = add_plus_sign)))
+#' reactable(data,
+#' columns = list(
+#' Change = colDef(cell = add_plus_sign)))
 
 
 add_plus_sign <- function(value) {
