@@ -1,11 +1,11 @@
 Package: reactablefmtr
 Type: Package
-Title: Simplify the Styling, Formatting, and Customization of Tables Made with {reactable}
+Title: Simplify the Styling, Formatting, and Customization of Tables Made with 'Reactable'
 Version: 0.1.0
 Author: Kyle Cuilla
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
-Description: Streamlines the process of applying formats and styles to tables using {reactable}.
-    Style your reactable table with conditional formatting, color scales, data bars, and icons. 
+Description: Streamlines the process of applying formats and styles to tables using 'reactable'.
+    Style your 'reactable' table with conditional formatting, color scales, data bars, and icons. 
 URL: https://kcuilla.github.io/reactablefmtr/, https://github.com/kcuilla/reactablefmtr
 BugReports: https://github.com/kcuilla/reactablefmtr/issues
 License: MIT + file LICENSE
