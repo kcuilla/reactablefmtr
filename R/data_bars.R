@@ -13,12 +13,16 @@
 #' @param background Optionally assign a color to use as the background for cells.
 #'     Default is set to white.
 #'
+#' @param commas Optionally format values as commas.
+#'     Default is set to NULL or FALSE.
+#'
 #' @importFrom grDevices rgb
 #' @importFrom grDevices colorRamp
 #' @import reactable
 #' @export
 #'
 #' @examples
+#' library(reactable)
 #' data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 #'
 #' ## Horizontal bars with lengths relative to cell value
@@ -27,8 +31,7 @@
 #' MPG.city = colDef(
 #' name = "MPG (city)",
 #' align = "left",
-#' cell = data_bars(data,
-#' colors = "dodgerblue"))))
+#' cell = data_bars(data, "dodgerblue"))))
 #'
 #' ## Add background color
 #' reactable(data,
@@ -36,9 +39,7 @@
 #' MPG.city = colDef(
 #' name = "MPG (city)",
 #' align = "left",
-#' cell = data_bars(data,
-#' colors = "dodgerblue",
-#' background = "grey"))))
+#' cell = data_bars(data, "dodgerblue", "grey"))))
 #'
 #' ## Conditionally color data bars based on their relative values
 #' ## by supplying more than one color
@@ -52,7 +53,7 @@
 #' colors = c("firebrick1","gold","limegreen"))))
 
 
-data_bars <- function(data, colors = "#1e90ff", background = "white") {
+data_bars <- function(data, colors = "#1e90ff", background = "white", commas = NULL) {
 
   cell <- function(value, index, name) {
 
@@ -106,6 +107,16 @@ data_bars <- function(data, colors = "#1e90ff", background = "white") {
     } else if (!is.numeric(value))
 
       return(value)
+
+     if (is.null(commas) || commas == FALSE) {
+
+      value <- value
+
+    } else value <- format(value, big.mark = ",")
+
+    max_digits <- nchar(max(data[[name]]))
+
+    value <- format(value, width = max_digits, justify = "right")
 
     bar_chart(value,
               width = width,
