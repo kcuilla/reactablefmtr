@@ -1,7 +1,7 @@
 template:
   params:
     bootswatch: cosmo
-    ganalytics: UA-262184839-01
+    ganalytics: UA-155982987-1
 
 home:
   title: reactablefmtr package
