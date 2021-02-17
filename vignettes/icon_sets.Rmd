@@ -1,13 +1,13 @@
 ---
 title: "Conditional Formatting with Icon Sets"
-output:
-  html_document:
-    toc: true
-    toc_float:
-      smooth_scroll: false
+output: html_document 
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
 library(reactable)
 library(reactablefmtr)
 library(dplyr)
@@ -18,15 +18,17 @@ library(palmerpenguins)
 
 With `{reactablefmtr}`, you can now conditionally format values using icons from [Font Awesome](https://fontawesome.com/icons?d=gallery).
 
-```{r, echo=TRUE}
-data <- sample_n(penguins,50) %>% select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+```{r}
+data <- sample_n(penguins,50) %>% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
 
 reactable(data)
 ```
 
 By including `icon_sets()` within the `cell` argument of `colDef`, circle icons are added to each of the values in the `bill_length_mm` column and are colored either red, orange, or green depending on their value in relation to all the other values in the column.
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             bill_length_mm = colDef(cell = icon_sets(data))))
@@ -38,7 +40,7 @@ reactable(data,
 
 If we want to change the color palette to something other than the default, we can do so using the `colors` argument:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             bill_length_mm = colDef(cell = icon_sets(data, colors = c("tomato", "grey", "dodgerblue")))))
@@ -54,7 +56,7 @@ If assigning custom colors, three colors must be provided. If the number of colo
 
 By default, the three icons displayed when using `icon_sets()` are all circles. However, we can change the icons to anything from the Font Awesome icon gallery using the `icons` argument below:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             bill_length_mm = colDef(cell = icon_sets(data, 
@@ -70,7 +72,7 @@ Just like with the `colors` argument, the order of the icons we provide matters 
 
 If we want to show a column that contains percentages, like the dataset below that is used within the `data_bars()` example...
 
-```{r, echo=TRUE}
+```{r}
 cars_data <- MASS::Cars93[c("Make", "Price")]
 
 cars_data <- cars_data %>% mutate("Price vs Avg" = round(Price/mean(Price)-1,2))
@@ -83,7 +85,7 @@ reactable(cars_data,
 
 We can include `percent = TRUE` to that particular column:
 
-```{r, echo=TRUE}
+```{r}
 reactable(cars_data,
           columns = list(
             `Price vs Avg` = colDef(cell = icon_sets(cars_data, 
@@ -97,7 +99,7 @@ reactable(cars_data,
 
 Lastly, if we want to apply `icon_sets()` to every numeric column, we can simply use `defaultColDef` as shown below:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(cell = icon_sets(data)))
 ```

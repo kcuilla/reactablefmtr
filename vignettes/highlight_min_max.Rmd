@@ -1,13 +1,13 @@
 ---
 title: "Highlight Min & Max Values"
-output:
-  html_document:
-    toc: true
-    toc_float:
-      smooth_scroll: false
+output: html_document 
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
 library(reactable)
 library(reactablefmtr)
 library(dplyr)
@@ -18,29 +18,31 @@ library(palmerpenguins)
 
 If we wanted to highlight the minimum, maximum, or even both the minimum and maximum values in a particular column, we can do this using `highlight_max()`, `highlight_min()`, or `highlight_min_max()`.
 
-```{r, echo=TRUE}
-data <- sample_n(penguins,10) %>% select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+```{r}
+data <- sample_n(penguins,10) %>% # sample 10 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
 
 reactable(data)
 ```
 
 By default, the `highlight_max()` function identifies the maximum value in a column with green bold text...
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(style = highlight_max(data)))
 ```
 
 And the `highlight_min()` function identifies the minimum value in a column with red bold text:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(style = highlight_min(data)))
 ```
 
 If we want to identify both the minimum and maximum value in a column, we can use  the `highlight_min_max()`:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(style = highlight_min_max(data)))
 ```
@@ -51,7 +53,7 @@ reactable(data,
 
 If we want to change the color of any of either the `highlight_min()` or `highlight_max()` functions above, we can do so by assigning the color with the `font_color` option.
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(style = highlight_max(data, 
                                                        font_color = "blue")))
@@ -59,7 +61,7 @@ reactable(data,
 
 For `highlight_min_max()`, the minimum value font color can be changed with `min_font_color` and the maximum value font color can be changed with `max_font_color`.
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(style = highlight_min_max(data, 
                                                            min_font_color = "purple", max_font_color = "orange")))
@@ -71,7 +73,7 @@ reactable(data,
 
 Additionally, we have the option to highlight the entire cell, rather than just the value, using the `highlighter` option below:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(style = highlight_max(data, 
                                                        font_color = "black", 
@@ -80,7 +82,7 @@ reactable(data,
 
 If we want to do the same within `highlight_min_max`, we just follow a step similar to assigning the min and max font colors with `min_highlighter` and `max_highlighter`:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(style = highlight_min_max(data, 
                                                            min_font_color = "orange", max_font_color = "purple",

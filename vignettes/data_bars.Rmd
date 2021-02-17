@@ -1,13 +1,13 @@
 ---
 title: "Conditional Formatting with Data Bars"
-output:
-  html_document:
-    toc: true
-    toc_float:
-      smooth_scroll: false
+output: html_document 
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
 library(reactable)
 library(reactablefmtr)
 library(htmltools)
@@ -19,15 +19,17 @@ library(palmerpenguins)
 
 Let's say that we want to add conditional data bars to the `body_mass_g` column of the palmerpenguins [dataset](https://allisonhorst.github.io/palmerpenguins/).
 
-```{r, echo=TRUE}
-data <- sample_n(penguins,50) %>% select(species, bill_length_mm, bill_depth_mm, body_mass_g)
+```{r}
+data <- sample_n(penguins,50) %>% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, bill_length_mm, bill_depth_mm, body_mass_g)
 
 reactable(data)
 ```
 
 To do this, we just need to add `data_bars(data)` within the `cell` argument of `colDef`, and a default blue data bar will be applied to the `body_mass_g` column:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             body_mass_g = colDef(cell = data_bars(data))))
@@ -35,7 +37,7 @@ reactable(data,
 
 Adding conditional data bars to a column is significantly easier compared to the original method via `{reactable}`:
 
-```{r, echo=TRUE}
+```{r}
 bar_chart <- function(label, width = "100%", height = "16px", fill = "#1e90ff", background = NULL) {
   bar <- div(style = list(background = fill, width = width, height = height))
   chart <- div(style = list(flexGrow = 1, marginLeft = "8px", background = background), bar)
@@ -56,7 +58,7 @@ reactable(data, columns = list(
 
 By default, the data bars are blue and the background is white. Both of these colors can be modified as shown below:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             body_mass_g = colDef(cell = data_bars(data, colors = "red", background = "lightgrey"))))
@@ -64,7 +66,7 @@ reactable(data,
 
 You may be wondering why the `colors` argument is plural and not singular. That is because you can apply multiple colors to the data bars, which is something that we could not previously do using the original method from `{reactable}` shown in Example 1 above.
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             body_mass_g = colDef(cell = data_bars(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), background = "lightgrey"))))
@@ -76,7 +78,7 @@ reactable(data,
 
 We can apply data bars across all columns using `defaultColDef`: 
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(cell = data_bars(data)))
 ```
@@ -87,7 +89,7 @@ reactable(data,
 
 You may have noticed that when we applied the data bars across all columns, the `bill_length_mm` and `bill_depth_mm` did not fully align properly due to the different value lengths. We can correct this by using a monospaced font as shown in the [Building the Twitter Follows Demo](https://glin.github.io/reactable/articles/building-twitter-followers.html#add-bar-charts-1) from the `{reactable}` package documentation:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(cell = data_bars(data),
                                  style = list(fontFamily = "monospace", whiteSpace = "pre")))
@@ -95,7 +97,17 @@ reactable(data,
 
 Now all the values are aligned properly with the data bars!
 
+If any columns contain numbers greater than one thousand, such as the `body_mass_g` column, we can include `commas = TRUE` to display commas in the values.
+
+```{r}
+reactable(data,
+          defaultColDef = colDef(cell = data_bars(data, commas = TRUE),
+                                 style = list(fontFamily = "monospace", whiteSpace = "pre")))
+```
+
+
 <hr>
+
 
 ## Example 2 - Negative Values
 
@@ -103,17 +115,19 @@ If your dataset contains negative values, you'll need to use `data_bars_pos_neg(
 
 For example, let's say we wanted to show the percent difference between the price of each car and the average price of all cars in the `Cars93` dataset from the `MASS` package:
 
-```{r, echo=TRUE}
-data <- sample_n(MASS::Cars93,20) %>% select(Make, Price)
+```{r}
+data <- sample_n(MASS::Cars93,20) %>% 
+  select(Make, Price)
 
-data <- data %>% mutate("Price vs Avg" = round(Price/mean(Price)-1,2)*100)
+data <- data %>% 
+  mutate("Price vs Avg" = round(Price/mean(Price)-1,2)*100)
 
 reactable(data)
 ```
 
 If we try displaying the `MPG.Difference` column with `data_bars()`, the negative values show as positive values:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             `Price vs Avg` = colDef(cell = data_bars(data))))
@@ -121,7 +135,7 @@ reactable(data,
 
 To fix this, we just need to replace `data_bars()` with `data_bars_pos_neg()`:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             `Price vs Avg` = colDef(cell = data_bars_pos_neg(data))))
@@ -129,7 +143,7 @@ reactable(data,
 
 As with `data_bars()`, using `data_bars_pos_neg()` requires significantly less code vs the original method via `{reactable}` shown below:
 
-```{r, echo=TRUE}
+```{r}
 bar_chart_pos_neg <- function(label, value, max_value = 1, height = "16px",
                               pos_fill = "green", neg_fill = "red") {
   neg_chart <- div(style = list(flex = "1 1 0"))
@@ -163,7 +177,7 @@ reactable(data,
 
 Changing the colors assigned to the negative and positive values can be done using the `colors` argument below:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           columns = list(
             `Price vs Avg` = colDef(cell = data_bars_pos_neg(data, colors = c("orange", "dodgerblue")))))
@@ -171,7 +185,7 @@ reactable(data,
 
 Just like with `data_bars()` above, if we provide more than two colors, `data_bars_pos_neg()` will assign a normalized color palette to the column:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultSortOrder = "desc", # sort by descending order
           defaultSorted = "Price vs Avg", # sort by 'Price vs Avg'
@@ -186,7 +200,8 @@ reactable(data,
 If you recall in the example above, we calculated the `Price vs Avg` column as the percent difference between the car's price and the average for all cars in the dataset. If we want to display the percentages on the values next to the data bars, we can do so by including `percent = TRUE`:
 
 ```{r, echo=TRUE}
-data <- data %>% mutate("Price vs Avg" = round(Price/mean(Price)-1,2))
+data <- data %>% 
+  mutate("Price vs Avg" = round(Price/mean(Price)-1,2))
 
 reactable(data,
           columns = list(
@@ -199,7 +214,7 @@ reactable(data,
 
 If we wanted to apply `data_bars()` to one column and `data_bars_pos_neg()` to another, it can be done as shown below:
 
-```{r, echo=TRUE}
+```{r}
 reactable(data,
           defaultColDef = colDef(style = list(fontFamily = "monospace", whiteSpace = "pre")), # apply monospace font across all columns
           columns = list(
