@@ -1,6 +1,6 @@
 Package: reactablefmtr
 Type: Package
-Title: Simplify the styling, formatting, and customization of tables made with {reactable}
+Title: Simplify the Styling, Formatting, and Customization of Tables Made with {reactable}
 Version: 0.1.0
 Author: Kyle Cuilla
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
