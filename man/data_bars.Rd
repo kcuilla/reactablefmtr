@@ -4,7 +4,7 @@
 \alias{data_bars}
 \title{Add horizontal bars to rows in a column}
 \usage{
-data_bars(data, colors = "#1e90ff", background = "white")
+data_bars(data, colors = "#1e90ff", background = "white", commas = NULL)
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
@@ -15,6 +15,9 @@ Can use R's built-in colors or other color packages.}
 
 \item{background}{Optionally assign a color to use as the background for cells.
 Default is set to white.}
+
+\item{commas}{Optionally format values as commas.
+Default is set to NULL or FALSE.}
 }
 \description{
 The `data_bars()` function conditionally adds a horizontal bar to each row of a column.
@@ -22,6 +25,7 @@ The `data_bars()` function conditionally adds a horizontal bar to each row of a 
     It should be placed within the cell argument in reactable::colDef.
 }
 \examples{
+library(reactable)
 data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 
 ## Horizontal bars with lengths relative to cell value
@@ -30,8 +34,7 @@ columns = list(
 MPG.city = colDef(
 name = "MPG (city)",
 align = "left",
-cell = data_bars(data,
-colors = "dodgerblue"))))
+cell = data_bars(data, "dodgerblue"))))
 
 ## Add background color
 reactable(data,
@@ -39,9 +42,7 @@ columns = list(
 MPG.city = colDef(
 name = "MPG (city)",
 align = "left",
-cell = data_bars(data,
-colors = "dodgerblue",
-background = "grey"))))
+cell = data_bars(data, "dodgerblue", "grey"))))
 
 ## Conditionally color data bars based on their relative values
 ## by supplying more than one color
