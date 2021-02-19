@@ -3,6 +3,7 @@
 export(add_plus_sign)
 export(color_scales)
 export(data_bars)
+export(data_bars_gradient)
 export(data_bars_pos_neg)
 export(highlight_max)
 export(highlight_min)
