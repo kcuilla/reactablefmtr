@@ -10,10 +10,12 @@
 #'     Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 #'     Can use R's built-in colors or other color packages.
 #'
+#' @return a function that applies conditional colors
+#'     to a column of numeric values.
+#'
 #' @importFrom grDevices rgb
 #' @importFrom grDevices colorRamp
 #' @import reactable
-#' @export
 #'
 #' @examples
 #' data <- iris[10:29, ]
@@ -34,6 +36,8 @@
 #' ## Apply color_scales() across all numeric columns using reactable::defaultColDef
 #' reactable(data,
 #' defaultColDef = colDef(style = color_scales(data)))
+#'
+#' @export
 
 color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff")) {
 
@@ -47,8 +51,7 @@ color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff")) {
 
     style <- function(value, index, name) {
 
-      if (!is.numeric(value))
-        return()
+      if (!is.numeric(value)) return(value)
 
       normalized <-
         (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))

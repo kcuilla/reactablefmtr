@@ -16,7 +16,9 @@
 #' @param max_highlighter color to assign the background of a cell containing maximum value in a column.
 #'
 #' @import reactable
-#' @export
+#'
+#' @return a function that applies a color
+#'     to the minimum and maximum values in a column of numeric values.
 #'
 #' @examples
 #' data <- MASS::road[11:17, ]
@@ -39,6 +41,8 @@
 #'     style = highlight_min_max(data,
 #'     min_highlighter = "salmon",
 #'     max_highlighter = "skyblue")))
+#'
+#' @export
 
 
 highlight_min_max <- function(data, min_font_color = "red", max_font_color = "green", min_highlighter = NULL, max_highlighter = NULL) {

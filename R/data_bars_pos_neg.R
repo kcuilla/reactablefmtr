@@ -12,10 +12,12 @@
 #'
 #' @param percent Optionally format numbers as percentages.
 #'
+#' @return a function that applies positive and negative data bars
+#'     to a column of numeric values.
+#'
 #' @importFrom grDevices rgb
 #' @importFrom grDevices colorRamp
 #' @import reactable
-#' @export
 #'
 #' @examples
 #' data <- data.frame(
@@ -64,6 +66,8 @@
 #'   cell = data_bars_pos_neg(data,
 #'   colors = c("#ff3030", "#ffffff", "#1e90ff"),
 #'   percent = TRUE))))
+#'
+#' @export
 
 
 data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {

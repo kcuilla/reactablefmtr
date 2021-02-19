@@ -6,8 +6,10 @@
 #'
 #' @param value numeric values only.
 #'
+#' @return a function that applies a plus-minus
+#'     format to a column of numeric values.
+#'
 #' @import reactable
-#' @export
 #'
 #' @examples
 #' data <- data.frame(
@@ -19,9 +21,13 @@
 #' reactable(data,
 #' columns = list(
 #' Change = colDef(cell = add_plus_sign)))
+#'
+#' @export
 
 
 add_plus_sign <- function(value) {
+
+  if (!is.numeric(value)) return(value)
 
   if (!is.na(value) & value >= 0)
     paste0("+", value)

@@ -16,10 +16,12 @@
 #' @param commas Optionally format values as commas.
 #'     Default is set to NULL or FALSE.
 #'
+#' @return a function that applies data bars
+#'     to a column of numeric values.
+#'
 #' @importFrom grDevices rgb
 #' @importFrom grDevices colorRamp
 #' @import reactable
-#' @export
 #'
 #' @examples
 #' library(reactable)
@@ -51,14 +53,15 @@
 #' defaultColDef = colDef(
 #' cell = data_bars(data,
 #' colors = c("firebrick1","gold","limegreen"))))
+#'
+#' @export
 
 
 data_bars <- function(data, colors = "#1e90ff", background = "white", commas = NULL) {
 
   cell <- function(value, index, name) {
 
-    if (!is.numeric(value))
-      return(value)
+    if (!is.numeric(value)) return(value)
 
     color_pal <- function(x) {
 

@@ -11,7 +11,9 @@
 #'     Default is set to NULL or not bold.
 #'
 #' @import reactable
-#' @export
+#'
+#' @return a function that applies a color
+#'     to the positive and negative values of numeric column.
 #'
 #' @examples
 #' data <- data.frame(
@@ -37,11 +39,16 @@
 #' Change = colDef(
 #' cell = add_plus_sign,
 #' style = pos_neg_colors("red", "green", bold = TRUE))))
+#'
+#' @export
 
 
 pos_neg_colors <- function(neg_col, pos_col, bold = NULL) {
 
   colors <- function(value) {
+
+    if (!is.numeric(value)) return(value)
+
     color <- if (!is.na(value) & value > 0) {
       pos_col
 

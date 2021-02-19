@@ -17,7 +17,9 @@
 #' @param percent Optionally format numbers as percentages.
 #'
 #' @import reactable
-#' @export
+#'
+#' @return a function that applies an icon
+#'     to a column of numeric values.
 #'
 #' @examples
 #' data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
@@ -37,6 +39,8 @@
 #' reactable(data,
 #' defaultColDef = colDef(cell = icon_sets(data,
 #' icons = c("arrow-down","minus","arrow-up"))))
+#'
+#' @export
 
 
 icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("red","orange","green"), percent = NULL) {
