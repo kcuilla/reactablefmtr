@@ -8,6 +8,7 @@ Simplify the styling, formatting, and customization of tables made with `{reacta
 - [Color Scales](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html)
 - [Data Bars](https://kcuilla.github.io/reactablefmtr/articles/data_bars.html)
 - [Icon Sets](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html)
+- [Highlight Min & Max](https://kcuilla.github.io/reactablefmtr/articles/highlight_min_max.html)
 
 
 ## Installation
@@ -35,7 +36,16 @@ A challenge of creating tables with `{reactable}` is that some of the code requi
 A huge thank you to Greg Lin for creating the amazing {reactable} package! Without Greg, {reactablefmtr} simply would not exist.
 
 
+
 ## Showcase
+
+### Animated Bars - development version only
+
+Data bars are now animated! 
+
+![](man/figures/data_bars_animated_demo.gif)
+
+You may also notice that gradient colors can be applied to data bars as well, which is covered in the `data_bars_gradient()` section below.  
 
 ### color_scales()
 
@@ -66,6 +76,17 @@ reactable(data,
 ```
 <img src="man/figures/README_color_scales_custom.PNG" align="center" />
 
+By using `round = TRUE`, you can now round the corners of the cells. 
+<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
+
+```{r}
+reactable(data,
+          columns = list(
+            bill_length_mm = colDef(style = color_scales(data, round = TRUE)),
+            bill_depth_mm = colDef(style = color_scales(data, round = TRUE)),
+            flipper_length_mm = colDef(style = color_scales(data, round = TRUE))))
+```
+<img src="man/figures/README_color_scales_round_corners.PNG" align="center" />
 
 ### data_bars()
 
@@ -105,6 +126,33 @@ reactable(data,
 )
 ```
 <img src="man/figures/README_data_bars_conditional.PNG" align="center" />
+
+
+### data_bars_gradient() - development version only
+
+<i>Please note: this function is currently only available in the development version and not on CRAN as of this moment.</i>
+
+If you would like to customize your `data_bars()` a step further and apply a linear color gradient, you can now use `data_bars_gradient()`:
+
+```{r}
+data <- sample_n(penguins,50) %>% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, island, body_mass_g)
+
+reactable(data,
+          columns = list(
+            body_mass_g = colDef(cell = data_bars_gradient(data))))
+```
+<img src="man/figures/README_data_bars_gradient.PNG" align="center" />
+
+You can add as many colors as you would like to make the gradient:
+
+```{r}
+reactable(data,
+          columns = list(
+            body_mass_g = colDef(cell = data_bars_gradient(data, colors = c("red", "orange", "yellow", "green", "blue", "indigo", "violet"))))
+```
+<img src="man/figures/README_data_bars_gradient_rainbow.PNG" align="center" />
 
 
 ### data_bars_pos_neg()
