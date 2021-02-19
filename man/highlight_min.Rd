@@ -14,6 +14,10 @@ Default color is red.}
 
 \item{highlighter}{color to assign the background of a cell containing minimum value in a column.}
 }
+\value{
+a function that applies a color
+    to the minimum value in a column of numeric values.
+}
 \description{
 The `highlight_min()` function assigns a font color and/or background color to the minimum value in a column.
     It should be placed within the style argument in reactable::colDef.
@@ -37,4 +41,5 @@ reactable(data,
 defaultColDef = colDef(
     style = highlight_min(data,
     highlighter = "yellow")))
+
 }

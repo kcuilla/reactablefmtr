@@ -9,6 +9,10 @@ add_plus_sign(value)
 \arguments{
 \item{value}{numeric values only.}
 }
+\value{
+a function that applies a plus-minus
+    format to a column of numeric values.
+}
 \description{
 The `add_plus_sign()` function adds a "+" sign to each row of a column that contains a positive value.
     Negative ("-") values remain the same.
@@ -24,4 +28,5 @@ Change = c(4.14, 1.51, -19.45, 5.32, -12.45))
 reactable(data,
 columns = list(
 Change = colDef(cell = add_plus_sign)))
+
 }

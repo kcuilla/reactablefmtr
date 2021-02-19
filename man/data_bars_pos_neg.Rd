@@ -15,6 +15,10 @@ Can use R's built-in colors or other color packages.}
 
 \item{percent}{Optionally format numbers as percentages.}
 }
+\value{
+a function that applies positive and negative data bars
+    to a column of numeric values.
+}
 \description{
 The `data_bars_pos_neg()` function conditionally adds a negative horizontal bar to each row of a column containing negative values, and a positive horizontal bar to each row containing positive values.
     The length of the bars are relative to the value of the row in relation to other values within the same column.
@@ -67,4 +71,5 @@ columns = list(
   cell = data_bars_pos_neg(data,
   colors = c("#ff3030", "#ffffff", "#1e90ff"),
   percent = TRUE))))
+
 }

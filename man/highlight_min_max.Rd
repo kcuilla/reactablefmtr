@@ -25,6 +25,10 @@ Default color is green.}
 
 \item{max_highlighter}{color to assign the background of a cell containing maximum value in a column.}
 }
+\value{
+a function that applies a color
+    to the minimum and maximum values in a column of numeric values.
+}
 \description{
 The `highlight_min_max()` function assigns a font color and/or background color to both the minimum and maximum values in a column.
     It should be placed within the style argument in reactable::colDef.
@@ -50,4 +54,5 @@ defaultColDef = colDef(
     style = highlight_min_max(data,
     min_highlighter = "salmon",
     max_highlighter = "skyblue")))
+
 }

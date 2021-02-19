@@ -14,6 +14,10 @@ pos_neg_colors(neg_col, pos_col, bold = NULL)
 \item{bold}{optional argument to bold values.
 Default is set to NULL or not bold.}
 }
+\value{
+a function that applies a color
+    to the positive and negative values of numeric column.
+}
 \description{
 The `pos_neg_colors()` function assigns a color to all negative values and a color to all positive values.
     It should be placed within the style argument in reactable::colDef.
@@ -42,4 +46,5 @@ columns = list(
 Change = colDef(
 cell = add_plus_sign,
 style = pos_neg_colors("red", "green", bold = TRUE))))
+
 }

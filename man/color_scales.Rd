@@ -14,6 +14,10 @@ Colors should be given in order from low values to high values.
 Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 Can use R's built-in colors or other color packages.}
 }
+\value{
+a function that applies conditional colors
+    to a column of numeric values.
+}
 \description{
 The `color_scales()` function conditionally colors each cell of a column depending on their value in relation to other values in that particular column.
     It should be placed within the style argument in reactable::colDef.
@@ -37,4 +41,5 @@ reactable(data,
 ## Apply color_scales() across all numeric columns using reactable::defaultColDef
 reactable(data,
 defaultColDef = colDef(style = color_scales(data)))
+
 }

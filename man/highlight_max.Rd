@@ -14,6 +14,10 @@ Default color is green.}
 
 \item{highlighter}{color to assign the background of a cell containing maximum value in a column.}
 }
+\value{
+a function that applies a color
+    to the maximum value in a column of numeric values.
+}
 \description{
 The `highlight_max()` function assigns a font color and/or background color to the maximum value in a column.
     It should be placed within the style argument in reactable::colDef.
@@ -37,4 +41,5 @@ reactable(data,
 defaultColDef = colDef(
     style = highlight_max(data,
     highlighter = "yellow")))
+
 }

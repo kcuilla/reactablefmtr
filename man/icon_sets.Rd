@@ -25,6 +25,10 @@ Can use R's built-in colors or other color packages.}
 
 \item{percent}{Optionally format numbers as percentages.}
 }
+\value{
+a function that applies an icon
+    to a column of numeric values.
+}
 \description{
 The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each row of a column and assigns a color depending on their value in relation to other values in that particular column.
     It should be placed within the cell argument in reactable::colDef.
@@ -47,4 +51,5 @@ colors = c("tomato", "grey", "dodgerblue"))))
 reactable(data,
 defaultColDef = colDef(cell = icon_sets(data,
 icons = c("arrow-down","minus","arrow-up"))))
+
 }

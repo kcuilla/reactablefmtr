@@ -19,6 +19,10 @@ Default is set to white.}
 \item{commas}{Optionally format values as commas.
 Default is set to NULL or FALSE.}
 }
+\value{
+a function that applies data bars
+    to a column of numeric values.
+}
 \description{
 The `data_bars()` function conditionally adds a horizontal bar to each row of a column.
     The length of the bars are relative to the value of the row in relation to other values within the same column.
@@ -54,4 +58,5 @@ defaultSorted = "MPG.city",
 defaultColDef = colDef(
 cell = data_bars(data,
 colors = c("firebrick1","gold","limegreen"))))
+
 }
