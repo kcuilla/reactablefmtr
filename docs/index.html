@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="reactablefmtr package">
-<meta property="og:description" content="Streamlines the process of applying formats and styles to tables using {reactable} .
+<meta property="og:description" content="Streamlines the process of applying formats and styles to tables using reactable.
     Style your reactable table with conditional formatting, color scales, data bars, and icons. ">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -69,10 +69,20 @@
     <li>
       <a href="articles/icon_sets.html">Icon Sets</a>
     </li>
+    <li>
+      <a href="articles/highlight_min_max.html">Highlight Min &amp; Max</a>
+    </li>
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/kcuilla/reactablefmtr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -91,17 +101,12 @@
 <!-- badges: start -->
 <!-- badges: end -->
 <p>Simplify the styling, formatting, and customization of tables made with <code>{reactable}</code>.</p>
-<ul>
-<li><a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">Color Scales</a></li>
-<li><a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars.html">Data Bars</a></li>
-<li><a href="https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html">Icon Sets</a></li>
-</ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The <code>{reactablefmtr}</code> package is available from CRAN:</p>
 <pre class="{r}"><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("reactablefmtr")</a></code></pre>
-<p>To use a feature from the development version, you can install the development version from GitHub:</p>
+<p>Or you can install the development version from GitHub with:</p>
 <pre class="{r}"><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("kcuilla/reactablefmtr")</a></code></pre>
 </div>
 <div id="background" class="section level2">
@@ -118,6 +123,14 @@
 <div id="showcase" class="section level2">
 <h2 class="hasAnchor">
 <a href="#showcase" class="anchor"></a>Showcase</h2>
+<div id="animated-data-bars---development-version-only" class="section level3">
+<h3 class="hasAnchor">
+<a href="#animated-data-bars---development-version-only" class="anchor"></a>Animated Data Bars - development version only</h3>
+<p>Data bars are now animated! Please note that this feature is only available in the development version only and is not on CRAN at the moment. To download the development version of {reactablefmtr} please see the installation section above.</p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo_default.gif" alt="animated_data_bars"></p>
+<p>You may also notice that gradient colors can be applied to data bars as well, which is covered in the <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code> section below.</p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo.gif" alt="animated_data_bars_demo"></p>
+</div>
 <div id="color_scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#color_scales" class="anchor"></a>color_scales()</h3>
@@ -136,7 +149,13 @@ reactable(data,
 <pre class="{r}"><code>reactable(data,
           defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))</code></pre>
 <p><img src="reference/figures/README_color_scales_custom.PNG" align="center"></p>
-<p><br></p>
+<p>By using <code>round = TRUE</code>, you can now round the corners of the cells. <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i></p>
+<pre class="{r}"><code>reactable(data,
+          columns = list(
+            bill_length_mm = colDef(style = color_scales(data, round = TRUE)),
+            bill_depth_mm = colDef(style = color_scales(data, round = TRUE)),
+            flipper_length_mm = colDef(style = color_scales(data, round = TRUE))))</code></pre>
+<p><img src="reference/figures/README_color_scales_round_corners.PNG" align="center"></p>
 </div>
 <div id="data_bars" class="section level3">
 <h3 class="hasAnchor">
@@ -166,7 +185,25 @@ reactable(data,
   ))
 )</code></pre>
 <p><img src="reference/figures/README_data_bars_conditional.PNG" align="center"></p>
-<p><br></p>
+</div>
+<div id="data_bars_gradient---development-version-only" class="section level3">
+<h3 class="hasAnchor">
+<a href="#data_bars_gradient---development-version-only" class="anchor"></a>data_bars_gradient() - development version only</h3>
+<p><i>Please note: this function is currently only available in the development version and not on CRAN as of this moment.</i></p>
+<p>If you would like to customize your <code><a href="reference/data_bars.html">data_bars()</a></code> a step further and apply a linear color gradient, you can now use <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code>:</p>
+<pre class="{r}"><code>data &lt;- sample_n(penguins,50) %&gt;% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %&gt;% # remove NA's
+  select(species, island, body_mass_g)
+
+reactable(data,
+          columns = list(
+            body_mass_g = colDef(cell = data_bars_gradient(data))))</code></pre>
+<p><img src="reference/figures/README_data_bars_gradient.PNG" align="center"></p>
+<p>You can add as many colors as you would like to make the gradient:</p>
+<pre class="{r}"><code>reactable(data,
+          columns = list(
+            body_mass_g = colDef(cell = data_bars_gradient(data, colors = c("red", "orange", "yellow", "green", "blue", "indigo", "violet"))))</code></pre>
+<p><img src="reference/figures/README_data_bars_gradient_rainbow.PNG" align="center"></p>
 </div>
 <div id="data_bars_pos_neg" class="section level3">
 <h3 class="hasAnchor">
@@ -201,7 +238,6 @@ reactable(data,
                               cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), percent = TRUE))))
 </code></pre>
 <p><img src="reference/figures/README_data_bars_pos_neg_gradient.PNG" align="center"></p>
-<p><br></p>
 </div>
 <div id="icon_sets" class="section level3">
 <h3 class="hasAnchor">
@@ -228,7 +264,6 @@ reactable(data,
           defaultColDef = colDef(cell = icon_sets(data, 
                                                   icons = c("arrow-down","minus","arrow-up"), percent = TRUE)))</code></pre>
 <p><img src="reference/figures/README_icon_sets_percent.PNG" align="center"></p>
-<p><br></p>
 </div>
 <div id="highlight_min-highlight_max-highlight_min_max" class="section level3">
 <h3 class="hasAnchor">
@@ -271,6 +306,10 @@ reactable(data,
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=reactablefmtr">https://​cloud.r-project.org/​package=reactablefmtr</a>
+</li>
+<li>Browse source code at <br><a href="https://github.com/kcuilla/reactablefmtr/">https://​github.com/​kcuilla/​reactablefmtr/​</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/kcuilla/reactablefmtr/issues">https://​github.com/​kcuilla/​reactablefmtr/​issues</a>
 </li>
 </ul>
 </div>
