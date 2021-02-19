@@ -57,13 +57,13 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-262184839-01"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-155982987-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-262184839-01');
+  gtag('config', 'UA-155982987-1');
 </script>
 
 
@@ -114,11 +114,19 @@
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
     </li>
+    <li>
+      <a href="../articles/highlight_min_max.html">Highlight Min &amp; Max</a>
+    </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/kcuilla/reactablefmtr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -133,7 +141,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add colored icons to rows in a column</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/icon_sets.R'><code>R/icon_sets.R</code></a></small>
     <div class="hidden name"><code>icon_sets.Rd</code></div>
     </div>
 
@@ -145,7 +153,8 @@
     <pre class="usage"><span class='fu'>icon_sets</span>(
   <span class='kw'>data</span>,
   icons = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"circle"</span>, <span class='st'>"circle"</span>, <span class='st'>"circle"</span>),
-  colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"orange"</span>, <span class='st'>"green"</span>)
+  colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"orange"</span>, <span class='st'>"green"</span>),
+  percent = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -168,21 +177,36 @@ Colors should be given in order from low values to high values.
 Default colors provided are c('red','orange','green').
 Can use R's built-in colors or other color packages.</p></td>
     </tr>
+    <tr>
+      <th>percent</th>
+      <td><p>Optionally format numbers as percentages.</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a function that applies an icon
+    to a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://glin.github.io/reactable'>reactable</a></span>)
-<span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span>[<span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span>)]
+    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span>[<span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span>)]
 
-<span class='co'>## By default, icon_sets() assigns red circles to the lowest-third values, orange circles to the middle-third values, and green to the top-third values</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>icon_sets</span>(<span class='kw'>data</span>)))
+<span class='co'>## By default, icon_sets() assigns red circles to the lowest-third values,</span>
+<span class='co'>## orange circles to the middle-third values,</span>
+<span class='co'>## and green to the top-third values</span>
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>icon_sets</span>(<span class='kw'>data</span>)))
 
 <span class='co'>## Assign custom colors</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>icon_sets</span>(<span class='kw'>data</span>, colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tomato"</span>, <span class='st'>"grey"</span>, <span class='st'>"dodgerblue"</span>))))
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>icon_sets</span>(<span class='kw'>data</span>,
+colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tomato"</span>, <span class='st'>"grey"</span>, <span class='st'>"dodgerblue"</span>))))
 
 <span class='co'>## Assign icons from Font Awesome's icon library</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>icon_sets</span>(<span class='kw'>data</span>, icons = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"arrow-down"</span>,<span class='st'>"minus"</span>,<span class='st'>"arrow-up"</span>))))
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>icon_sets</span>(<span class='kw'>data</span>,
+icons = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"arrow-down"</span>,<span class='st'>"minus"</span>,<span class='st'>"arrow-up"</span>))))
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

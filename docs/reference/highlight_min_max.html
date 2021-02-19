@@ -57,13 +57,13 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-262184839-01"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-155982987-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-262184839-01');
+  gtag('config', 'UA-155982987-1');
 </script>
 
 
@@ -114,11 +114,19 @@
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
     </li>
+    <li>
+      <a href="../articles/highlight_min_max.html">Highlight Min &amp; Max</a>
+    </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/kcuilla/reactablefmtr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -133,7 +141,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Highlights the minimum and maximum value in a column</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/highlight_min_max.R'><code>R/highlight_min_max.R</code></a></small>
     <div class="hidden name"><code>highlight_min_max.Rd</code></div>
     </div>
 
@@ -144,8 +152,8 @@
 
     <pre class="usage"><span class='fu'>highlight_min_max</span>(
   <span class='kw'>data</span>,
-  min_font_color = <span class='st'>"black"</span>,
-  max_font_color = <span class='st'>"black"</span>,
+  min_font_color = <span class='st'>"red"</span>,
+  max_font_color = <span class='st'>"green"</span>,
   min_highlighter = <span class='kw'>NULL</span>,
   max_highlighter = <span class='kw'>NULL</span>
 )</pre>
@@ -160,12 +168,12 @@
     <tr>
       <th>min_font_color</th>
       <td><p>color to assign to minimum value in a column.
-Default color is black.</p></td>
+Default color is red.</p></td>
     </tr>
     <tr>
       <th>max_font_color</th>
       <td><p>color to assign to maximum value in a column.
-Default color is black.</p></td>
+Default color is green.</p></td>
     </tr>
     <tr>
       <th>min_highlighter</th>
@@ -177,22 +185,33 @@ Default color is black.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a function that applies a color
+    to the minimum and maximum values in a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://glin.github.io/reactable'>reactable</a></span>)
-<span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/road.html'>road</a></span>[<span class='fl'>11</span><span class='op'>:</span><span class='fl'>17</span>, ]
+    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/road.html'>road</a></span>[<span class='fl'>11</span><span class='op'>:</span><span class='fl'>17</span>, ]
 
-<span class='co'>## By default, the minimum and maximum values are bold with a black font color</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
+<span class='co'>## By default, the minimum and maximum values are bold with a red and green font color respectively</span>
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
     style = <span class='fu'>highlight_min_max</span>(<span class='kw'>data</span>)))
 
 <span class='co'>## Assign a different font color to the min and max values</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-    style = <span class='fu'>highlight_min_max</span>(<span class='kw'>data</span>, min_font_color = <span class='st'>"red"</span>, max_font_color = <span class='st'>"green"</span>)))
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
+    style = <span class='fu'>highlight_min_max</span>(<span class='kw'>data</span>,
+    min_font_color = <span class='st'>"orange"</span>,
+    max_font_color = <span class='st'>"blue"</span>)))
 
 <span class='co'>## Highlight the background of the cell for the min and max values in each column</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-    style = <span class='fu'>highlight_min_max</span>(<span class='kw'>data</span>, min_highlighter = <span class='st'>"salmon"</span>, max_highlighter = <span class='st'>"skyblue"</span>)))
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
+    style = <span class='fu'>highlight_min_max</span>(<span class='kw'>data</span>,
+    min_highlighter = <span class='st'>"salmon"</span>,
+    max_highlighter = <span class='st'>"skyblue"</span>)))
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

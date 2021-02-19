@@ -58,13 +58,13 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-262184839-01"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-155982987-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-262184839-01');
+  gtag('config', 'UA-155982987-1');
 </script>
 
 
@@ -115,11 +115,19 @@
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
     </li>
+    <li>
+      <a href="../articles/highlight_min_max.html">Highlight Min &amp; Max</a>
+    </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/kcuilla/reactablefmtr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -134,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add plus (+) sign to positive values</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/add_plus_sign.R'><code>R/add_plus_sign.R</code></a></small>
     <div class="hidden name"><code>add_plus_sign.Rd</code></div>
     </div>
 
@@ -155,16 +163,22 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a function that applies a plus-minus
+    format to a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://glin.github.io/reactable'>reactable</a></span>)
-<span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
 Symbol = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"GOOG"</span>, <span class='st'>"FB"</span>, <span class='st'>"AMZN"</span>, <span class='st'>"NFLX"</span>, <span class='st'>"TSLA"</span>),
 Price = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1265.13</span>, <span class='fl'>187.89</span>, <span class='fl'>1761.33</span>, <span class='fl'>276.82</span>, <span class='fl'>328.13</span>),
 Change = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4.14</span>, <span class='fl'>1.51</span>, <span class='op'>-</span><span class='fl'>19.45</span>, <span class='fl'>5.32</span>, <span class='op'>-</span><span class='fl'>12.45</span>))
 
 <span class='co'>## Values with a positive value receive a preceding "+" sign</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(Change = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='kw'>add_plus_sign</span>)))
+<span class='fu'>reactable</span>(<span class='kw'>data</span>,
+columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+Change = <span class='fu'>colDef</span>(cell = <span class='kw'>add_plus_sign</span>)))
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

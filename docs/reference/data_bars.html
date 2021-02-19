@@ -58,13 +58,13 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-262184839-01"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-155982987-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-262184839-01');
+  gtag('config', 'UA-155982987-1');
 </script>
 
 
@@ -115,11 +115,19 @@
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
     </li>
+    <li>
+      <a href="../articles/highlight_min_max.html">Highlight Min &amp; Max</a>
+    </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/kcuilla/reactablefmtr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -134,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add horizontal bars to rows in a column</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/data_bars.R'><code>R/data_bars.R</code></a></small>
     <div class="hidden name"><code>data_bars.Rd</code></div>
     </div>
 
@@ -144,7 +152,7 @@
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_bars</span>(<span class='kw'>data</span>, <span class='kw'>colors</span>, background = <span class='st'>"white"</span>)</pre>
+    <pre class="usage"><span class='fu'>data_bars</span>(<span class='kw'>data</span>, colors = <span class='st'>"#1e90ff"</span>, background = <span class='st'>"white"</span>, commas = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,26 +175,46 @@ Default is set to white.</p></td>
     <tr>
       <th>commas</th>
       <td><p>Optionally format values as commas.
-Default is set to NULL or FALSE</p></td>
+Default is set to NULL or FALSE.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a function that applies data bars
+    to a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://glin.github.io/reactable'>reactable</a></span>)
 <span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span>[<span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span>)]
 
 <span class='co'>## Horizontal bars with lengths relative to cell value</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-MPG.city = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(name = <span class='st'>"MPG (city)"</span>, align = <span class='st'>"left"</span>, cell = <span class='fu'>data_bars</span>(<span class='kw'>data</span>, <span class='st'>"dodgerblue"</span>))))
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+MPG.city = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
+name = <span class='st'>"MPG (city)"</span>,
+align = <span class='st'>"left"</span>,
+cell = <span class='fu'>data_bars</span>(<span class='kw'>data</span>, <span class='st'>"dodgerblue"</span>))))
 
 <span class='co'>## Add background color</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-MPG.city = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(name = <span class='st'>"MPG (city)"</span>, align = <span class='st'>"left"</span>, cell = <span class='fu'>data_bars</span>(<span class='kw'>data</span>, <span class='st'>"dodgerblue"</span>, <span class='st'>"grey"</span>))))
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+MPG.city = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
+name = <span class='st'>"MPG (city)"</span>,
+align = <span class='st'>"left"</span>,
+cell = <span class='fu'>data_bars</span>(<span class='kw'>data</span>, <span class='st'>"dodgerblue"</span>, <span class='st'>"grey"</span>))))
 
-<span class='co'>## Conditionally color data bars based on their relative values by supplying more than one color and apply across all numeric columns using reactable::defaultColDef</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>, pagination = <span class='fl'>FALSE</span>, defaultSortOrder = <span class='st'>"desc"</span>, defaultSorted = <span class='st'>"MPG.city"</span>, defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-cell = <span class='fu'>data_bars</span>(<span class='kw'>data</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"firebrick1"</span>,<span class='st'>"gold"</span>,<span class='st'>"limegreen"</span>))))
+<span class='co'>## Conditionally color data bars based on their relative values</span>
+<span class='co'>## by supplying more than one color</span>
+<span class='co'>## and apply across all numeric columns using reactable::defaultColDef</span>
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
+pagination = <span class='fl'>FALSE</span>,
+defaultSortOrder = <span class='st'>"desc"</span>,
+defaultSorted = <span class='st'>"MPG.city"</span>,
+defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
+cell = <span class='fu'>data_bars</span>(<span class='kw'>data</span>,
+colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"firebrick1"</span>,<span class='st'>"gold"</span>,<span class='st'>"limegreen"</span>))))
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
