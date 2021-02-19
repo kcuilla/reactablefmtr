@@ -68,7 +68,8 @@ data_bars_gradient <- function(data, colors = c("#1efffd", "#1e20ff"), backgroun
           htmltools::div(style = list(
             background = gradient,
             width = width,
-            height = height
+            height = height,
+            transition = "width 1s"
           ))
 
         chart <-

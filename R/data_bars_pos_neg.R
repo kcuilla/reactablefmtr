@@ -107,13 +107,13 @@ data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
 
       if (value < 0) {
 
-        bar <- htmltools::div(style = list(marginLeft = "8px", background = fill_color, width = width, height = "16px"))
+        bar <- htmltools::div(style = list(marginLeft = "8px", background = fill_color, width = width, height = "16px", transition = "width 1s"))
         chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"), label, bar)
         neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
       } else {
 
-        bar <- htmltools::div(style = list(marginRight = "8px", background = fill_color, width = width, height = "16px"))
+        bar <- htmltools::div(style = list(marginRight = "8px", background = fill_color, width = width, height = "16px", transition = "width 1s"))
         chart <- htmltools::div(style = list(display = "flex", alignItems = "center"), bar, label)
         pos_chart <- htmltools::tagAppendChild(pos_chart, chart)}
 
@@ -139,13 +139,13 @@ data_bars_pos_neg <- function(data, colors = c("red","green"), percent = NULL) {
 
       if (value < 0) {
 
-        bar <- htmltools::div(style = list(marginLeft = "8px", background = neg_color, width = width, height = "16px"))
+        bar <- htmltools::div(style = list(marginLeft = "8px", background = neg_color, width = width, height = "16px", transition = "width 1s"))
         chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"), label, bar)
         neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
       } else {
 
-        bar <- htmltools::div(style = list(marginRight = "8px", background = pos_color, width = width, height = "16px"))
+        bar <- htmltools::div(style = list(marginRight = "8px", background = pos_color, width = width, height = "16px", transition = "width 1s"))
         chart <- htmltools::div(style = list(display = "flex", alignItems = "center"), bar, label)
         pos_chart <- htmltools::tagAppendChild(pos_chart, chart)}
 

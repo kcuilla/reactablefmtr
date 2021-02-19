@@ -87,7 +87,8 @@ data_bars <- function(data, colors = "#1e90ff", background = "white", commas = N
           htmltools::div(style = list(
             background = fill,
             width = width,
-            height = height
+            height = height,
+            transition = "width 1s"
           ))
 
         chart <-
