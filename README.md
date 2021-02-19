@@ -39,7 +39,7 @@ A huge thank you to Greg Lin for creating the amazing {reactable} package! Witho
 
 ## Showcase
 
-### Animated Bars - development version only
+### Animated Data Bars - development version only
 
 Data bars are now animated! Please note that this feature is only available in the development version only and is not on CRAN at the moment. To download the development version of {reactablefmtr} please see the installation section above.
 
