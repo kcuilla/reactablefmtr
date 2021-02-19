@@ -12,11 +12,16 @@ Simplify the styling, formatting, and customization of tables made with `{reacta
 
 ## Installation
 
-You can install the `{reactablefmtr}` package from GitHub with:
+The `{reactablefmtr}` package is available from CRAN:
+
+```{r}
+install.packages("reactablefmtr")
+```
+
+Or you can install the development version from GitHub with:
 
 ```{r}
 remotes::install_github("kcuilla/reactablefmtr")
-library(reactablefmtr)
 ```
 
 ## Background
