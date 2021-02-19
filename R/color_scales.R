@@ -10,6 +10,9 @@
 #'     Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 #'     Can use R's built-in colors or other color packages.
 #'
+#' @param round Optionally round corners of cells by setting to TRUE.
+#'     Default is set to NULL.
+#'
 #' @return a function that applies conditional colors
 #'     to a column of numeric values.
 #'
@@ -27,7 +30,6 @@
 #'
 #' ## If only two colors are desired,
 #' ## you can specify them with colors = 'c(color1, color2)';
-#'
 #' reactable(data,
 #'  columns = list(
 #'  Petal.Length = colDef(style = color_scales(data,
@@ -37,27 +39,38 @@
 #' reactable(data,
 #' defaultColDef = colDef(style = color_scales(data)))
 #'
+#' ## Round corners of cells with 'round = TRUE'
+#' reactable(data,
+#'  defaultColDef = colDef(style = color_scales(data, round = TRUE)))
+#'
 #' @export
 
-color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff")) {
+color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), round = NULL) {
 
-    color_pal <- function(x) {
+  color_pal <- function(x) {
 
-      if (!is.na(x))
-        rgb(colorRamp(c(colors))(x), maxColorValue = 255)
-      else
-        NULL
-    }
+    if (!is.na(x))
+      rgb(colorRamp(c(colors))(x), maxColorValue = 255)
+    else
+      NULL
+  }
 
-    style <- function(value, index, name) {
+  style <- function(value, index, name) {
 
-      if (!is.numeric(value)) return(value)
+    if (!is.numeric(value)) return(value)
 
-      normalized <-
-        (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+    normalized <-
+      (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
 
-      cell_color <- color_pal(normalized)
+    cell_color <- color_pal(normalized)
+
+    if (is.null(round) || round == FALSE) {
 
       list(background = cell_color)
+
+    } else if (round == TRUE) {
+
+      list(background = cell_color, borderRadius = "25px")
     }
   }
+}
