@@ -14,7 +14,8 @@
 #'     Default colors provided are c('red','orange','green').
 #'     Can use R's built-in colors or other color packages.
 #'
-#' @param percent Optionally format numbers as percentages.
+#' @param number_fmt Optionally format numbers using formats from the scales package.
+#'     Default is set to NULL.
 #'
 #' @import reactable
 #'
@@ -40,10 +41,17 @@
 #' defaultColDef = colDef(cell = icon_sets(data,
 #' icons = c("arrow-down","minus","arrow-up"))))
 #'
+#' ## Use number_fmt to format numbers using the scales package
+#' car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
+#'
+#' reactable(car_prices,
+#' defaultColDef = colDef(cell = icon_sets(car_prices,
+#' number_fmt = scales::dollar)))
+#'
 #' @export
 
 
-icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("red","orange","green"), percent = NULL) {
+icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("red","orange","green"), number_fmt = NULL) {
 
   if (length(icons) != 3) {
 
@@ -59,11 +67,11 @@ icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("r
 
     if (!is.numeric(value) | is.na(value)) return(value)
 
-    if (is.null(percent) || percent == FALSE) {
+    if (is.null(number_fmt)) {
 
       label <- value
 
-    } else label <- paste0(round(value * 100), "%")
+    } else label <- number_fmt(value)
 
     normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
 
