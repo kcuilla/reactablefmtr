@@ -13,8 +13,8 @@
 #' @param background Optionally assign a color to use as the background for cells.
 #'     Default is set to white.
 #'
-#' @param commas Optionally format values as commas.
-#'     Default is set to NULL or FALSE.
+#' @param number_fmt Optionally format numbers using formats from the scales package.
+#'     Default is set to NULL.
 #'
 #' @return a function that applies data bars
 #'     to a column of numeric values.
@@ -43,10 +43,17 @@
 #' align = "left",
 #' cell = data_bars_gradient(data, background = "black")))
 #'
+#' ## Use number_fmt to format numbers using the scales package
+#' car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
+#'
+#' reactable(car_prices,
+#' defaultColDef = colDef(cell = data_bars_gradient(car_prices,
+#' number_fmt = scales::dollar_format(accuracy = 0.1))))
+#'
 #' @export
 
 
-data_bars_gradient <- function(data, colors = c("#1efffd", "#1e20ff"), background = "white", commas = NULL) {
+data_bars_gradient <- function(data, colors = c("#1efffd", "#1e20ff"), background = "white", number_fmt = NULL) {
 
   if (length(colors) == 1) {
 
@@ -56,6 +63,14 @@ data_bars_gradient <- function(data, colors = c("#1efffd", "#1e20ff"), backgroun
   gradient <- paste0("linear-gradient(to right,", paste(colors, collapse = ", "))
 
   cell <- function(value, index, name) {
+
+    if (!is.numeric(value)) return(value)
+
+    if (is.null(number_fmt)) {
+
+      label <- value
+
+    } else label <- number_fmt(value)
 
     bar_chart <-
       function(label,
@@ -93,17 +108,11 @@ data_bars_gradient <- function(data, colors = c("#1efffd", "#1e20ff"), backgroun
 
       return(value)
 
-    if (is.null(commas) || commas == FALSE) {
+    max_digits <- max(nchar(data[[name]]))+1
 
-      value <- value
+    chart_label <- stringr::str_pad(label, max_digits)
 
-    } else value <- format(value, big.mark = ",")
-
-    max_digits <- nchar(max(data[[name]]))
-
-    value <- format(value, width = max_digits, justify = "right")
-
-    bar_chart(value,
+    bar_chart(chart_label,
               width = width,
               backgroundImage = gradient,
               background = background)
