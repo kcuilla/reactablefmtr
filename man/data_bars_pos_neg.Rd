@@ -4,7 +4,7 @@
 \alias{data_bars_pos_neg}
 \title{Add horizontal bars to rows in a column containing positive and negative values}
 \usage{
-data_bars_pos_neg(data, colors = c("red", "green"), percent = NULL)
+data_bars_pos_neg(data, colors = c("red", "green"), number_fmt = NULL)
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
@@ -13,7 +13,8 @@ data_bars_pos_neg(data, colors = c("red", "green"), percent = NULL)
 Colors should be given in order from negative values to positive values.
 Can use R's built-in colors or other color packages.}
 
-\item{percent}{Optionally format numbers as percentages.}
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
+Default is set to NULL.}
 }
 \value{
 a function that applies positive and negative data bars
@@ -57,7 +58,7 @@ columns = list(
   cell = data_bars_pos_neg(data,
   colors = c("#ff3030", "#ffffff", "#1e90ff")))))
 
-## Set 'percent = TRUE' to format the numbers as percentages
+## Use number_fmt to format numbers using the scales package
 reactable(data,
 bordered = TRUE,
 columns = list(
@@ -70,6 +71,6 @@ columns = list(
   minWidth = 400,
   cell = data_bars_pos_neg(data,
   colors = c("#ff3030", "#ffffff", "#1e90ff"),
-  percent = TRUE))))
+  number_fmt = scales::percent))))
 
 }

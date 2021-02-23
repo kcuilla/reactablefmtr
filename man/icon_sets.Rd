@@ -8,7 +8,7 @@ icon_sets(
   data,
   icons = c("circle", "circle", "circle"),
   colors = c("red", "orange", "green"),
-  percent = NULL
+  number_fmt = NULL
 )
 }
 \arguments{
@@ -23,7 +23,8 @@ Colors should be given in order from low values to high values.
 Default colors provided are c('red','orange','green').
 Can use R's built-in colors or other color packages.}
 
-\item{percent}{Optionally format numbers as percentages.}
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
+Default is set to NULL.}
 }
 \value{
 a function that applies an icon
@@ -51,5 +52,12 @@ colors = c("tomato", "grey", "dodgerblue"))))
 reactable(data,
 defaultColDef = colDef(cell = icon_sets(data,
 icons = c("arrow-down","minus","arrow-up"))))
+
+## Use number_fmt to format numbers using the scales package
+car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
+
+reactable(car_prices,
+defaultColDef = colDef(cell = icon_sets(car_prices,
+number_fmt = scales::dollar)))
 
 }

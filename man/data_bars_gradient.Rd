@@ -8,7 +8,7 @@ data_bars_gradient(
   data,
   colors = c("#1efffd", "#1e20ff"),
   background = "white",
-  commas = NULL
+  number_fmt = NULL
 )
 }
 \arguments{
@@ -21,8 +21,8 @@ Default colors are c("#1efffd", "#1e20ff").}
 \item{background}{Optionally assign a color to use as the background for cells.
 Default is set to white.}
 
-\item{commas}{Optionally format values as commas.
-Default is set to NULL or FALSE.}
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
+Default is set to NULL.}
 }
 \value{
 a function that applies data bars
@@ -54,5 +54,12 @@ reactable(data,
 defaultColDef = colDef(
 align = "left",
 cell = data_bars_gradient(data, background = "black")))
+
+## Use number_fmt to format numbers using the scales package
+car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
+
+reactable(car_prices,
+defaultColDef = colDef(cell = data_bars_gradient(car_prices,
+number_fmt = scales::dollar_format(accuracy = 0.1))))
 
 }

@@ -4,7 +4,7 @@
 \alias{data_bars}
 \title{Add horizontal bars to rows in a column}
 \usage{
-data_bars(data, colors = "#1e90ff", background = "white", commas = NULL)
+data_bars(data, colors = "#1e90ff", background = "white", number_fmt = NULL)
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
@@ -16,8 +16,8 @@ Can use R's built-in colors or other color packages.}
 \item{background}{Optionally assign a color to use as the background for cells.
 Default is set to white.}
 
-\item{commas}{Optionally format values as commas.
-Default is set to NULL or FALSE.}
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
+Default is set to NULL.}
 }
 \value{
 a function that applies data bars
@@ -58,5 +58,12 @@ defaultSorted = "MPG.city",
 defaultColDef = colDef(
 cell = data_bars(data,
 colors = c("firebrick1","gold","limegreen"))))
+
+## Use number_fmt to format numbers using the scales package
+car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
+
+reactable(car_prices,
+defaultColDef = colDef(cell = data_bars(car_prices,
+number_fmt = scales::dollar_format(accuracy = 0.1))))
 
 }
