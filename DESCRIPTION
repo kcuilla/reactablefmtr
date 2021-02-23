@@ -16,10 +16,11 @@ Depends:
     reactable (>= 0.2.0)
 Imports: 
     grDevices,
-    magrittr,
+    stringr,
     htmltools,
     shiny
 Suggests:
-    MASS
+    MASS,
+    scales
 RoxygenNote: 7.1.1
 Language: en-US
