@@ -1,0 +1,89 @@
+---
+title: "Conditional Formatting with Color Tiles"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(reactablefmtr)
+library(dplyr)
+library(palmerpenguins)
+```
+
+<i>Please note: the `color_tiles()` formatter used in the examples below are currently only available in the development version of `{reactablefmtr}` and not on CRAN as of this moment. Please download the development version of the package from GitHub via `remotes::install_github("kcuilla/reactablefmtr")` if would like to use `color_tiles()`.</i>
+
+## Example
+
+Let's start with an example using the palmerpenguins [dataset](https://allisonhorst.github.io/palmerpenguins/) from Allison Horst, Alison Hill, and Kristen Gorman.   
+
+```{r}
+data <- sample_n(penguins,50) %>% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm)
+
+reactable(data)
+```
+
+An alternative method to `color_scales()` is the `color_tiles()` formatter. The main difference between `color_scales()` and `color_tiles()` is that the `color_tiles()` formatter provides:
+
+- Round color tiles around values vs coloring the entire background of the cell
+- Called within the `cell` argument of reactable vs the `style` argument
+- Since it is called within the `cell` argument, you can format numbers directly using the scales package
+
+```{r}
+reactable(data,
+          columns = list(
+            bill_length_mm = colDef(align = "center", # center column header
+                                    cell = color_tiles(data))))
+```
+
+Below is a side-by-side comparison of the `color_tiles()` and `color_scales()` formatters and how they are called within reactable:
+
+```{r}
+reactable(data,
+          columns = list(
+            bill_length_mm = colDef(align = "center", # center column header
+                                    cell = color_tiles(data)),
+            bill_depth_mm = colDef(align = "center",
+                                   style = color_scales(data))))
+```
+
+<br>
+
+## Custom Color Palettes
+
+If we want to show a different color palette than the default, we can call them within the `colors` argument just like we would with `color_scales()`: 
+
+```{r}
+my_color_pal = c("purple", "white", "green")
+
+reactable(data,
+          columns = list(
+            bill_length_mm = colDef(cell = color_tiles(data, colors = my_color_pal)),
+            bill_depth_mm = colDef(cell = color_tiles(data, colors = my_color_pal)),
+            flipper_length_mm = colDef(cell = color_tiles(data, colors = my_color_pal))))
+```
+
+<br>
+
+## Formatting Numbers
+
+You can now use the scales package to format numbers within `color_tiles()` similarly to how you would within ggplot2.
+
+For example, if we wanted to round the numbers in the `bill_length_mm` column to the nearest whole number and add commas to the `body_mass_g` column, we could do so using the `number_fmt` argument below and calling the comma formatter directly from the scales package:
+
+```{r}
+data <- sample_n(penguins,50) %>% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, bill_length_mm, body_mass_g)
+
+reactable(data,
+          defaultColDef = colDef(align = "center", # center column header
+                                 cell = color_tiles(data, 
+                                                    number_fmt = scales::comma)))
+```
+
+

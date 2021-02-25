@@ -8,7 +8,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, include=FALSE}
-library(reactable)
 library(reactablefmtr)
 library(dplyr)
 library(palmerpenguins)
@@ -21,7 +20,7 @@ If we wanted to highlight the minimum, maximum, or even both the minimum and max
 ```{r}
 data <- sample_n(penguins,10) %>% # sample 10 rows
   filter(!is.na(bill_length_mm)) %>% # remove NA's
-  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm)
 
 reactable(data)
 ```
@@ -30,21 +29,24 @@ By default, the `highlight_max()` function identifies the maximum value in a col
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(style = highlight_max(data)))
+          columns = list(
+            bill_length_mm = colDef(style = highlight_max(data))))
 ```
 
 And the `highlight_min()` function identifies the minimum value in a column with red bold text:
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(style = highlight_min(data)))
+          columns = list(
+            bill_depth_mm = colDef(style = highlight_min(data))))
 ```
 
 If we want to identify both the minimum and maximum value in a column, we can use  the `highlight_min_max()`:
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(style = highlight_min_max(data)))
+          columns = list(
+            flipper_length_mm = colDef(style = highlight_min_max(data))))
 ```
 
 <br>
@@ -55,16 +57,19 @@ If we want to change the color of any of either the `highlight_min()` or `highli
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(style = highlight_max(data, 
-                                                       font_color = "blue")))
+          columns = list(
+            bill_length_mm = colDef(style = highlight_max(data,
+                                                          font_color = "blue"))))
 ```
 
 For `highlight_min_max()`, the minimum value font color can be changed with `min_font_color` and the maximum value font color can be changed with `max_font_color`.
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(style = highlight_min_max(data, 
-                                                           min_font_color = "purple", max_font_color = "orange")))
+          columns = list(
+            bill_length_mm = colDef(style = highlight_min_max(data,
+                                                              min_font_color = "purple", 
+                                                              max_font_color = "orange"))))
 ```
 
 <br>
@@ -75,16 +80,36 @@ Additionally, we have the option to highlight the entire cell, rather than just 
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(style = highlight_max(data, 
+          columns = list(
+            bill_length_mm = colDef(style = highlight_max(data, 
                                                        font_color = "black", 
-                                                       highlighter = "gold")))
+                                                       highlighter = "gold")),
+            bill_depth_mm = colDef(style = highlight_max(data, 
+                                                       font_color = "black", 
+                                                       highlighter = "gold")),
+            flipper_length_mm = colDef(style = highlight_max(data, 
+                                                       font_color = "black", 
+                                                       highlighter = "gold"))))
 ```
 
 If we want to do the same within `highlight_min_max`, we just follow a step similar to assigning the min and max font colors with `min_highlighter` and `max_highlighter`:
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(style = highlight_min_max(data, 
-                                                           min_font_color = "orange", max_font_color = "purple",
-                                                           min_highlighter = "purple", max_highlighter = "orange")))
+          columns = list(
+            bill_length_mm = colDef(style = highlight_min_max(data, 
+                                                             min_font_color = "orange", 
+                                                             max_font_color = "purple",
+                                                             min_highlighter = "purple", 
+                                                             max_highlighter = "orange")),
+            bill_depth_mm = colDef(style = highlight_min_max(data, 
+                                                             min_font_color = "orange", 
+                                                             max_font_color = "purple",
+                                                             min_highlighter = "purple", 
+                                                             max_highlighter = "orange")),
+            flipper_length_mm = colDef(style = highlight_min_max(data, 
+                                                             min_font_color = "orange", 
+                                                             max_font_color = "purple",
+                                                             min_highlighter = "purple", 
+                                                             max_highlighter = "orange"))))
 ```

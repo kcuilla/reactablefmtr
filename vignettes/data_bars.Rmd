@@ -8,21 +8,24 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, include=FALSE}
-library(reactable)
 library(reactablefmtr)
 library(htmltools)
 library(dplyr)
 library(palmerpenguins)
 ```
 
-## Example 1 - Positive Values
+<i>Please note: the animation of the data bars, `data_bars_gradient()` formatter, and the `number_fmt` argument used in the examples below are currently only available in the development version of `{reactablefmtr}` and not on CRAN as of this moment. Please download the development version of the package from GitHub via `remotes::install_github("kcuilla/reactablefmtr")` if would like to use those features.</i>
 
-Let's say that we want to add conditional data bars to the `body_mass_g` column of the palmerpenguins [dataset](https://allisonhorst.github.io/palmerpenguins/).
+## Example 1 - data_bars()
+
+The `data_bars()` function can be used to apply conditional data bars to <b>positive</b> values.
+
+For example, let's say that we want to add conditional data bars to the `body_mass_g` column of the palmerpenguins [dataset](https://allisonhorst.github.io/palmerpenguins/).
 
 ```{r}
 data <- sample_n(penguins,50) %>% # sample 50 rows
   filter(!is.na(bill_length_mm)) %>% # remove NA's
-  select(species, bill_length_mm, bill_depth_mm, body_mass_g)
+  select(species, island, body_mass_g)
 
 reactable(data)
 ```
@@ -35,7 +38,7 @@ reactable(data,
             body_mass_g = colDef(cell = data_bars(data))))
 ```
 
-Adding conditional data bars to a column is significantly easier compared to the original method via `{reactable}`:
+Adding conditional data bars to a column is significantly easier compared to the original method via `{reactable}` (and you also lose out on the animation of the bars too):
 
 ```{r}
 bar_chart <- function(label, width = "100%", height = "16px", fill = "#1e90ff", background = NULL) {
@@ -79,6 +82,10 @@ reactable(data,
 We can apply data bars across all columns using `defaultColDef`: 
 
 ```{r}
+data <- sample_n(penguins,50) %>% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, island, bill_length_mm, body_mass_g)
+
 reactable(data,
           defaultColDef = colDef(cell = data_bars(data)))
 ```
@@ -87,7 +94,7 @@ reactable(data,
 
 ## Aligning Values
 
-You may have noticed that when we applied the data bars across all columns, the `bill_length_mm` and `bill_depth_mm` did not fully align properly due to the different value lengths. We can correct this by using a monospaced font as shown in the [Building the Twitter Follows Demo](https://glin.github.io/reactable/articles/building-twitter-followers.html#add-bar-charts-1) from the `{reactable}` package documentation:
+You may have noticed that when we applied the data bars across all columns, the `bill_length_mm` column did not fully align properly due to the different value lengths. We can correct this by using a monospaced font as shown in the [Building the Twitter Follows Demo](https://glin.github.io/reactable/articles/building-twitter-followers.html#add-bar-charts-1) from the `{reactable}` package documentation:
 
 ```{r}
 reactable(data,
@@ -97,11 +104,12 @@ reactable(data,
 
 Now all the values are aligned properly with the data bars!
 
-If any columns contain numbers greater than one thousand, such as the `body_mass_g` column, we can include `commas = TRUE` to display commas in the values.
+If we would like to format the numbers, such as rounding the numbers in the `bill_length_mm` to the nearest whole number and adding commas to the `body_mass_g` column, we can do so calling the comma formatter from the scales package within `number_fmt`:
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(cell = data_bars(data, commas = TRUE),
+          defaultColDef = colDef(cell = data_bars(data,
+                                                  number_fmt = scales::comma),
                                  style = list(fontFamily = "monospace", whiteSpace = "pre")))
 ```
 
@@ -109,14 +117,106 @@ reactable(data,
 <hr>
 
 
-## Example 2 - Negative Values
+## Example 2 - data_bars_gradient()
 
-If your dataset contains negative values, you'll need to use `data_bars_pos_neg()`. 
+If you would like to customize your `data_bars()` a step further and apply a linear color gradient, you can now use `data_bars_gradient()`.
+
+```{r}
+data <- sample_n(penguins,50) %>% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, island, body_mass_g)
+
+reactable(data)
+```
+
+By default, a light blue-to-dark blue linear gradient is applied when applying `data_bars_gradient()` to a column:
+
+```{r}
+reactable(data,
+          columns = list(
+            body_mass_g = colDef(cell = data_bars_gradient(data))))
+```
+
+<br>
+
+## Custom Color Palettes
+
+You can provide as many colors as you want to your color gradient as long as you provide at least two colors:
+
+```{r}
+reactable(data,
+          columns = list(
+            body_mass_g = colDef(cell = data_bars_gradient(data, 
+                                                           colors = c("white", "pink", "red", "firebrick")))))
+```
+
+If you always wanted to apply a rainbow gradient to your column, you can now do that!
+
+```{r}
+reactable(data,
+          columns = list(
+            body_mass_g = colDef(cell = data_bars_gradient(data, 
+                                                           colors = c("red", "orange", "yellow", "green", "blue", "indigo", "violet")))))
+```
+
+Just like with `data_bars()`, you can also apply a singular background color:
+
+```{r}
+reactable(data,
+          columns = list(
+            body_mass_g = colDef(cell = data_bars_gradient(data,
+                                                           colors = c("white", "pink", "red"),
+                                                           background = "grey"))))
+```
+
+<br>
+
+## Apply to All Columns
+
+We can apply `data_bars_gradient()` across all columns using `defaultColDef`: 
+
+```{r}
+data <- sample_n(penguins,50) %>% # sample 50 rows
+  filter(!is.na(bill_length_mm)) %>% # remove NA's
+  select(species, island, bill_length_mm, body_mass_g)
+
+reactable(data,
+          defaultColDef = colDef(cell = data_bars_gradient(data)))
+```
+
+<br>
+
+## Aligning Values
+
+If your values contain different numeric lengths, you can use the same method of aligning them with the bars as you would with `data_bars()` as shown below:
+
+```{r}
+reactable(data,
+          defaultColDef = colDef(cell = data_bars_gradient(data),
+                                 style = list(fontFamily = "monospace", whiteSpace = "pre")))
+```
+
+You can also still use `commas = TRUE` to display commas in the values of any column containing values in the thousands or greater.
+
+```{r}
+reactable(data,
+          defaultColDef = colDef(cell = data_bars_gradient(data,
+                                                           number_fmt = scales::comma),
+                                 style = list(fontFamily = "monospace", whiteSpace = "pre")))
+```
+
+
+<hr>
+
+
+## Example 3 - data_bars_pos_neg()
+
+If your dataset contains <b>negative</b> values, you can use `data_bars_pos_neg()` to display conditional data bars. 
 
 For example, let's say we wanted to show the percent difference between the price of each car and the average price of all cars in the `Cars93` dataset from the `MASS` package:
 
 ```{r}
-data <- sample_n(MASS::Cars93,20) %>% 
+data <- sample_n(MASS::Cars93,15) %>% 
   select(Make, Price)
 
 data <- data %>% 
@@ -125,15 +225,7 @@ data <- data %>%
 reactable(data)
 ```
 
-If we try displaying the `MPG.Difference` column with `data_bars()`, the negative values show as positive values:
-
-```{r}
-reactable(data,
-          columns = list(
-            `Price vs Avg` = colDef(cell = data_bars(data))))
-```
-
-To fix this, we just need to replace `data_bars()` with `data_bars_pos_neg()`:
+To to show data bars for both positive and negative values, we can use `data_bars_pos_neg()`:
 
 ```{r}
 reactable(data,
@@ -141,7 +233,7 @@ reactable(data,
             `Price vs Avg` = colDef(cell = data_bars_pos_neg(data))))
 ```
 
-As with `data_bars()`, using `data_bars_pos_neg()` requires significantly less code vs the original method via `{reactable}` shown below:
+As with `data_bars()`, using `data_bars_pos_neg()` requires significantly less code vs the original method via `{reactable}` shown below (and again, you also lose out on the animation of the bars as well):
 
 ```{r}
 bar_chart_pos_neg <- function(label, value, max_value = 1, height = "16px",
@@ -197,15 +289,16 @@ reactable(data,
 
 ## Adding Percentages to Labels
 
-If you recall in the example above, we calculated the `Price vs Avg` column as the percent difference between the car's price and the average for all cars in the dataset. If we want to display the percentages on the values next to the data bars, we can do so by including `percent = TRUE`:
+If you recall in the example above, we calculated the `Price vs Avg` column as the percent difference between the car's price and the average for all cars in the dataset. If we want to display the percentages on the values next to the data bars, we can do so by calling the percent formatter from the scales package within `number_fmt`:
 
 ```{r, echo=TRUE}
 data <- data %>% 
-  mutate("Price vs Avg" = round(Price/mean(Price)-1,2))
+  mutate("Price vs Avg" = Price/mean(Price)-1)
 
 reactable(data,
           columns = list(
-            `Price vs Avg` = colDef(cell = data_bars_pos_neg(data, percent = TRUE))))
+            `Price vs Avg` = colDef(cell = data_bars_pos_neg(data,
+                                                             number_fmt = scales::percent))))
 ```
 
 <br>
@@ -221,7 +314,21 @@ reactable(data,
             Price = colDef(align = "left", # align column header to the left
                            cell = data_bars(data)),
             `Price vs Avg` = colDef(align = "center", # align column header to the center
-                                    cell = data_bars_pos_neg(data, percent = TRUE))))
+                                    cell = data_bars_pos_neg(data, 
+                                                             number_fmt = scales::percent))))
 ```
 
+Similarly, we could also use `data_bars_gradient()` instead of `data_bars()`:
+
+```{r}
+reactable(data,
+          defaultColDef = colDef(style = list(fontFamily = "monospace", whiteSpace = "pre")), # apply monospace font across all columns
+          columns = list(
+            Price = colDef(align = "left", # align column header to the left
+                           cell = data_bars_gradient(data)),
+            `Price vs Avg` = colDef(align = "center", # align column header to the center
+                                    cell = data_bars_pos_neg(data, 
+                                                             colors = c("#1e90ff", "#ffd700", "#ff3030"), 
+                                                             number_fmt = scales::percent))))
+```
 

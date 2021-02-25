@@ -1,6 +1,6 @@
 ---
 title: "Conditional Formatting with Color Scales"
-output: html_document 
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -8,7 +8,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, include=FALSE}
-library(reactable)
 library(reactablefmtr)
 library(dplyr)
 library(palmerpenguins)
@@ -21,7 +20,7 @@ Let's start with an example using the palmerpenguins [dataset](https://allisonho
 ```{r}
 data <- sample_n(penguins,50) %>% # sample 50 rows
   filter(!is.na(bill_length_mm)) %>% # remove NA's
-  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm)
 
 reactable(data)
 ```
@@ -61,7 +60,9 @@ my_color_pal = c("purple", "lightgrey", "green")
 
 reactable(data,
           columns = list(
-            bill_length_mm = colDef(style = color_scales(data, colors = my_color_pal))))
+            bill_length_mm = colDef(style = color_scales(data, colors = my_color_pal)),
+            bill_depth_mm = colDef(style = color_scales(data, colors = my_color_pal)),
+            flipper_length_mm = colDef(style = color_scales(data, colors = my_color_pal))))
 ```
 
 The order of the color palette matters. In the example above, the color purple is assigned to the lowest values, lightgrey is assigned to middle values, and green is assigned to highest values. If we want green to represent the lowest values and purple to represent the highest values, we can just reverse the order of the color palette:
@@ -71,7 +72,9 @@ my_color_pal = c("green", "lightgrey", "purple")
 
 reactable(data,
           columns = list(
-            bill_length_mm = colDef(style = color_scales(data, colors = my_color_pal))))
+            bill_length_mm = colDef(style = color_scales(data, colors = my_color_pal)),
+            bill_depth_mm = colDef(style = color_scales(data, colors = my_color_pal)),
+            flipper_length_mm = colDef(style = color_scales(data, colors = my_color_pal))))
 ```
 
 In the examples above, we've only used three colors in each color palette, but we can use as many colors as we desire:
@@ -80,6 +83,7 @@ In the examples above, we've only used three colors in each color palette, but w
 my_color_pal = c("red", "orange", "yellow", "green", "skyblue", "purple")
 
 reactable(data,
+          defaultSorted = "bill_length_mm", # sort by ascending values in bill_length_mm
           columns = list(
             bill_length_mm = colDef(style = color_scales(data, colors = my_color_pal))))
 ```
@@ -91,17 +95,9 @@ library(wesanderson)
 
 reactable(data,
           columns = list(
-            bill_length_mm = colDef(style = color_scales(data, colors = wes_palette("Chevalier1")))))
+            bill_length_mm = colDef(style = color_scales(data, colors = wes_palette("Chevalier1"))),
+            bill_depth_mm = colDef(style = color_scales(data, colors = wes_palette("Chevalier1"))),
+            flipper_length_mm = colDef(style = color_scales(data, colors = wes_palette("Chevalier1")))))
 ```
 
-<br>
-
-## Apply to All Columns
-
-Lastly, if we want to apply `color_scales()` to every numeric column, we can simply use `defaultColDef` as shown below:
-
-```{r}
-reactable(data,
-          defaultColDef = colDef(style = color_scales(data)))
-```
 

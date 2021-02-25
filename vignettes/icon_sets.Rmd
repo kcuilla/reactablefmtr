@@ -8,7 +8,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, include=FALSE}
-library(reactable)
 library(reactablefmtr)
 library(dplyr)
 library(palmerpenguins)
@@ -83,14 +82,14 @@ reactable(cars_data,
                                                      icons = c("arrow-down", "minus", "arrow-up")))))
 ```
 
-We can include `percent = TRUE` to that particular column:
+We can call the percent formatter from the scales package within `number_fmt` to format the numbers as percentages:
 
 ```{r}
 reactable(cars_data,
           columns = list(
             `Price vs Avg` = colDef(cell = icon_sets(cars_data, 
                                                      icons = c("arrow-down", "minus", "arrow-up"),
-                                                     percent = TRUE))))
+                                                     number_fmt = scales::percent))))
 ```
 
 <br>
