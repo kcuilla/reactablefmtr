@@ -135,4 +135,3 @@ data_bars <- function(data, colors = "#1e90ff", background = "white", number_fmt
               background = background)
   }
 }
-

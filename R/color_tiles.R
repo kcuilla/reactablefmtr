@@ -25,7 +25,7 @@
 #' @examples
 #' data <- iris[10:29, ]
 #'
-#' ## By default, the colors_scales() function uses a red-white-blue three-color pattern
+#' ## By default, the colors_tiles() function uses a red-white-blue three-color pattern
 #' reactable(data,
 #'  columns = list(
 #'  Petal.Length = colDef(cell = color_tiles(data))))
@@ -81,3 +81,4 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
 
   }
 }
+
