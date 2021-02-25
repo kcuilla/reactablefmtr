@@ -10,9 +10,6 @@
 #'     Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 #'     Can use R's built-in colors or other color packages.
 #'
-#' @param round Optionally round corners of cells by setting to TRUE.
-#'     Default is set to NULL.
-#'
 #' @return a function that applies conditional colors
 #'     to a column of numeric values.
 #'
@@ -39,13 +36,9 @@
 #' reactable(data,
 #' defaultColDef = colDef(style = color_scales(data)))
 #'
-#' ## Round corners of cells with 'round = TRUE'
-#' reactable(data,
-#'  defaultColDef = colDef(style = color_scales(data, round = TRUE)))
-#'
 #' @export
 
-color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), round = NULL) {
+color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff")) {
 
   color_pal <- function(x) {
 
@@ -64,13 +57,6 @@ color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), roun
 
     cell_color <- color_pal(normalized)
 
-    if (is.null(round) || round == FALSE) {
-
-      list(background = cell_color)
-
-    } else if (round == TRUE) {
-
-      list(background = cell_color, borderRadius = "25px")
-    }
+    list(background = cell_color)
   }
 }
