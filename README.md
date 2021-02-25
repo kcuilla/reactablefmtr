@@ -7,6 +7,7 @@
 Simplify the styling, formatting, and customization of tables made with `{reactable}`.
 
 - [Color Scales](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html)
+- [Color Tiles](https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html)
 - [Data Bars](https://kcuilla.github.io/reactablefmtr/articles/data_bars.html)
 - [Icon Sets](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html)
 - [Highlight Min & Max](https://kcuilla.github.io/reactablefmtr/articles/highlight_min_max.html)
@@ -77,17 +78,34 @@ reactable(data,
 ```
 <img src="man/figures/README_color_scales_custom.PNG" align="center" />
 
-By using `round = TRUE`, you can now round the corners of the cells. 
+### color_tiles() - development version only
+
+Another option of conditionally coloring cells based on their values is with `color_tiles()`: 
 <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
 
 ```{r}
+data <- iris[10:29, ]
+
 reactable(data,
-          columns = list(
-            bill_length_mm = colDef(style = color_scales(data, round = TRUE)),
-            bill_depth_mm = colDef(style = color_scales(data, round = TRUE)),
-            flipper_length_mm = colDef(style = color_scales(data, round = TRUE))))
+          defaultColDef = colDef(cell = color_tiles(data)))
 ```
-<img src="man/figures/README_color_scales_round_corners.PNG" align="center" />
+<img src="man/figures/README_color_tiles.PNG" align="center" />
+
+Note that `color_tiles()` needs to be placed within the `cell` argument, whereas `color_scales()` is placed within `style`. A benefit of using `color_tiles()` over `color_scales()` is that you have the option to format the values using formatters from the [scales](https://www.tidyverse.org/blog/2018/08/scales-1-0-0/) package similar to how you would in ggplot2: 
+
+```{r}
+car_prices <- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
+
+reactable(car_prices,
+          columns = list(
+            Price = colDef(align = "center",
+                           cell = color_tiles(car_prices,
+                                              number_fmt = scales::dollar)),
+            Weight = colDef(align = "center",
+                            cell = color_tiles(car_prices,
+                                               number_fmt = scales::comma))))
+```
+<img src="man/figures/README_color_tiles_number_fmt.PNG" align="center" />
 
 ### data_bars()
 
@@ -128,6 +146,23 @@ reactable(data,
 ```
 <img src="man/figures/README_data_bars_conditional.PNG" align="center" />
 
+You can also now format numbers with the scales package the same way that you would format numbers in the `color_tiles()` example above. The `number_fmt` option is available for `data_bars_gradient()` and `data_bars_pos_neg()` as well.
+
+```{r}
+car_prices <- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
+
+reactable(car_prices,
+          columns = list(
+            Price = colDef(align = "center",
+                           cell = data_bars(car_prices,
+                                            number_fmt = scales::dollar_format(accuracy = 1))),
+            Weight = colDef(align = "center",
+                            cell = data_bars(car_prices,
+                                             number_fmt = scales::comma))))
+```
+<img src="man/figures/README_data_bar_number_fmt.PNG" align="center" />
+
+<i>Note: the `number_fmt` option is currently only available in the development version.</i>
 
 ### data_bars_gradient() - development version only
 
@@ -173,7 +208,7 @@ reactable(data,
 ```
 <img src="man/figures/README_data_bars_pos_neg_default1.PNG" align="center" />
 
-If your column is displaying percentages rather than whole numbers, you can add the percent symbol by setting `percent = TRUE`:
+If your column is displaying percentages rather than whole numbers, you can add the percent symbol by using the percent formatter from the scales package within `number_fmt`:
 
 ```{r}
 data <- data %>% 
@@ -184,7 +219,8 @@ reactable(data,
           pagination = FALSE,
           columns = list(
           `% Change` = colDef(align = "center", # align column header
-                              cell = data_bars_pos_neg(data, percent = TRUE))))
+                              cell = data_bars_pos_neg(data,
+                                                       number_fmt = scales::percent))))
 ```
 <img src="man/figures/README_data_bars_pos_neg_percent.PNG" align="center" />
 
@@ -223,19 +259,23 @@ reactable(data,
 ```
 <img src="man/figures/README_icon_sets_custom.PNG" align="center" />
 
-If you're working with percentages, you can add the percent symbol by setting `percent = TRUE`:
+Format numbers using formatters from the scales package with `number_fmt`:
 
 ```{r}
-data <- data %>% 
-  mutate('% Change' = round(runif(12, min = -0.7, max = 0.7), digits = 2)) %>% 
-  select(Make, '% Change')
+car_prices <- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
 
-reactable(data, 
-          pagination = FALSE, # display all rows on one page
-          defaultColDef = colDef(cell = icon_sets(data, 
-                                                  icons = c("arrow-down","minus","arrow-up"), percent = TRUE)))
+reactable(car_prices,
+          columns = list(
+            Price = colDef(align = "center",
+                           cell = icon_sets(car_prices,
+                                            number_fmt = scales::dollar_format(accuracy = 1))),
+            Weight = colDef(align = "center",
+                            cell = icon_sets(car_prices,
+                                             number_fmt = scales::comma))))
 ```
-<img src="man/figures/README_icon_sets_percent.PNG" align="center" />
+<img src="man/figures/README_icon_sets_number_fmt.PNG" align="center" />
+
+<i>Note: the `number_fmt` option is currently only available in the development version.</i>
 
 
 ### highlight_min(), highlight_max(), highlight_min_max()
