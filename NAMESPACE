@@ -2,6 +2,7 @@
 
 export(add_plus_sign)
 export(color_scales)
+export(color_tiles)
 export(data_bars)
 export(data_bars_gradient)
 export(data_bars_pos_neg)
