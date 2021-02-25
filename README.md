@@ -231,7 +231,9 @@ reactable(data,
           pagination = FALSE,
           columns = list(
           `% Change` = colDef(align = "center",
-                              cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), percent = TRUE))))
+                              cell = data_bars_pos_neg(data, 
+                                                       colors = c("#ff3030", "#ffffff", "#1e90ff"), 
+                                                       number_fmt = scales::percent))))
 
 ```
 <img src="man/figures/README_data_bars_pos_neg_gradient.PNG" align="center" />
