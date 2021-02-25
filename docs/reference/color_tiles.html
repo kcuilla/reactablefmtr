@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add horizontal gradient bars to rows in a column — data_bars_gradient • reactablefmtr</title>
+<title>Add color tiles to rows in a column — color_tiles • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,11 @@
 
 
 
-<meta property="og:title" content="Add horizontal gradient bars to rows in a column — data_bars_gradient" />
-<meta property="og:description" content="The `data_bars_gradient()` function conditionally adds a left-to-right linear gradient to each row of a column.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef." />
+<meta property="og:title" content="Add color tiles to rows in a column — color_tiles" />
+<meta property="og:description" content="The `color_tiles()` function conditionally colors the background of each cell similarly to color_scales().
+    The difference is that color_tiles() uses round colored tiles around values instead of the entire background of the cell.
+    Another difference is color_tiles() allows number formatting with number_fmt whereas color_scales() does not.
+    The last difference is it needs to placed within the cell argument in reactable::colDef vs the style argument for color_scales()." />
 
 
 
@@ -144,21 +145,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add horizontal gradient bars to rows in a column</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/data_bars_gradient.R'><code>R/data_bars_gradient.R</code></a></small>
-    <div class="hidden name"><code>data_bars_gradient.Rd</code></div>
+    <h1>Add color tiles to rows in a column</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/color_tiles.R'><code>R/color_tiles.R</code></a></small>
+    <div class="hidden name"><code>color_tiles.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The `data_bars_gradient()` function conditionally adds a left-to-right linear gradient to each row of a column.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef.</p>
+    <p>The `color_tiles()` function conditionally colors the background of each cell similarly to color_scales().
+    The difference is that color_tiles() uses round colored tiles around values instead of the entire background of the cell.
+    Another difference is color_tiles() allows number formatting with number_fmt whereas color_scales() does not.
+    The last difference is it needs to placed within the cell argument in reactable::colDef vs the style argument for color_scales().</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_bars_gradient</span>(
+    <pre class="usage"><span class='fu'>color_tiles</span>(
   <span class='kw'>data</span>,
-  colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#1efffd"</span>, <span class='st'>"#1e20ff"</span>),
-  background = <span class='st'>"white"</span>,
+  colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span>),
   number_fmt = <span class='kw'>NULL</span>
 )</pre>
 
@@ -171,14 +172,10 @@
     </tr>
     <tr>
       <th>colors</th>
-      <td><p>A vector of colors of at least two colors.
-Colors should be given in order from left to right as shown on the data bar.
-Default colors are c("#1efffd", "#1e20ff").</p></td>
-    </tr>
-    <tr>
-      <th>background</th>
-      <td><p>Optionally assign a color to use as the background for cells.
-Default is set to white.</p></td>
+      <td><p>A vector of colors to color the cells.
+Colors should be given in order from low values to high values.
+Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
+Can use R's built-in colors or other color packages.</p></td>
     </tr>
     <tr>
       <th>number_fmt</th>
@@ -189,37 +186,30 @@ Default is set to NULL.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a function that applies data bars
+    <p>a function that applies conditional color tiles
     to a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://glin.github.io/reactable'>reactable</a></span>)
-<span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span>[<span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span>)]
+    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>iris</span>[<span class='fl'>10</span><span class='op'>:</span><span class='fl'>29</span>, ]
 
-<span class='co'>## By default, colors are provided</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-align = <span class='st'>"left"</span>,
-cell = <span class='fu'>data_bars_gradient</span>(<span class='kw'>data</span>)))
+<span class='co'>## By default, the colors_scales() function uses a red-white-blue three-color pattern</span>
+<span class='fu'>reactable</span>(<span class='kw'>data</span>,
+ columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+ Petal.Length = <span class='fu'>colDef</span>(cell = <span class='fu'>color_tiles</span>(<span class='kw'>data</span>))))
 
-<span class='co'>## Apply custom colors for gradient</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-align = <span class='st'>"left"</span>,
-cell = <span class='fu'>data_bars_gradient</span>(<span class='kw'>data</span>, colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>,<span class='st'>"grey"</span>,<span class='st'>"black"</span>))))
-
-<span class='co'>## Apply bacground color</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-align = <span class='st'>"left"</span>,
-cell = <span class='fu'>data_bars_gradient</span>(<span class='kw'>data</span>, background = <span class='st'>"black"</span>)))
+<span class='co'>## If only two colors are desired,</span>
+<span class='co'>## you can specify them with colors = 'c(color1, color2)';</span>
+<span class='fu'>reactable</span>(<span class='kw'>data</span>,
+ columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+ Petal.Length = <span class='fu'>colDef</span>(cell = <span class='fu'>color_tiles</span>(<span class='kw'>data</span>,
+ colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"green"</span>)))))
 
 <span class='co'>## Use number_fmt to format numbers using the scales package</span>
 <span class='kw'>car_prices</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span>[<span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Make"</span>, <span class='st'>"Price"</span>)]
 
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>car_prices</span>,
-defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>data_bars_gradient</span>(<span class='kw'>car_prices</span>,
-number_fmt = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar_format</a></span>(accuracy = <span class='fl'>0.1</span>))))
+<span class='fu'>reactable</span>(<span class='kw'>car_prices</span>,
+defaultColDef = <span class='fu'>colDef</span>(cell = <span class='fu'>color_tiles</span>(<span class='kw'>car_prices</span>,
+number_fmt = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar</a></span>)))
 
 </div></pre>
   </div>

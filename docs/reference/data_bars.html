@@ -92,7 +92,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -110,6 +110,9 @@
       <a href="../articles/color_scales.html">Color Scales</a>
     </li>
     <li>
+      <a href="../articles/color_tiles.html">Color Tiles</a>
+    </li>
+    <li>
       <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
@@ -124,7 +127,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/kcuilla/reactablefmtr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -152,7 +155,7 @@
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_bars</span>(<span class='kw'>data</span>, colors = <span class='st'>"#1e90ff"</span>, background = <span class='st'>"white"</span>, commas = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>data_bars</span>(<span class='kw'>data</span>, colors = <span class='st'>"#1e90ff"</span>, background = <span class='st'>"white"</span>, number_fmt = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,9 +176,9 @@ Can use R's built-in colors or other color packages.</p></td>
 Default is set to white.</p></td>
     </tr>
     <tr>
-      <th>commas</th>
-      <td><p>Optionally format values as commas.
-Default is set to NULL or FALSE.</p></td>
+      <th>number_fmt</th>
+      <td><p>Optionally format numbers using formats from the scales package.
+Default is set to NULL.</p></td>
     </tr>
     </table>
 
@@ -214,6 +217,13 @@ defaultSorted = <span class='st'>"MPG.city"</span>,
 defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
 cell = <span class='fu'>data_bars</span>(<span class='kw'>data</span>,
 colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"firebrick1"</span>,<span class='st'>"gold"</span>,<span class='st'>"limegreen"</span>))))
+
+<span class='co'>## Use number_fmt to format numbers using the scales package</span>
+<span class='kw'>car_prices</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span>[<span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Make"</span>, <span class='st'>"Price"</span>)]
+
+<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>car_prices</span>,
+defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>data_bars</span>(<span class='kw'>car_prices</span>,
+number_fmt = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar_format</a></span>(accuracy = <span class='fl'>0.1</span>))))
 
 </div></pre>
   </div>

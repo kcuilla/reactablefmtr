@@ -91,7 +91,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +109,9 @@
       <a href="../articles/color_scales.html">Color Scales</a>
     </li>
     <li>
+      <a href="../articles/color_tiles.html">Color Tiles</a>
+    </li>
+    <li>
       <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
@@ -123,7 +126,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/kcuilla/reactablefmtr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -150,7 +153,7 @@
     It should be placed within the style argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>color_scales</span>(<span class='kw'>data</span>, colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span>), round = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>color_scales</span>(<span class='kw'>data</span>, colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,11 +168,6 @@
 Colors should be given in order from low values to high values.
 Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 Can use R's built-in colors or other color packages.</p></td>
-    </tr>
-    <tr>
-      <th>round</th>
-      <td><p>Optionally round corners of cells by setting to TRUE.
-Default is set to NULL.</p></td>
     </tr>
     </table>
 
@@ -196,10 +194,6 @@ Default is set to NULL.</p></td>
 <span class='co'>## Apply color_scales() across all numeric columns using reactable::defaultColDef</span>
 <span class='fu'>reactable</span>(<span class='kw'>data</span>,
 defaultColDef = <span class='fu'>colDef</span>(style = <span class='fu'>color_scales</span>(<span class='kw'>data</span>)))
-
-<span class='co'>## Round corners of cells with 'round = TRUE'</span>
-<span class='fu'>reactable</span>(<span class='kw'>data</span>,
- defaultColDef = <span class='fu'>colDef</span>(style = <span class='fu'>color_scales</span>(<span class='kw'>data</span>, round = <span class='fl'>TRUE</span>)))
 
 </div></pre>
   </div>

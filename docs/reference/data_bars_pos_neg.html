@@ -92,7 +92,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -110,6 +110,9 @@
       <a href="../articles/color_scales.html">Color Scales</a>
     </li>
     <li>
+      <a href="../articles/color_tiles.html">Color Tiles</a>
+    </li>
+    <li>
       <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
@@ -124,7 +127,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/kcuilla/reactablefmtr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -152,7 +155,7 @@
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_bars_pos_neg</span>(<span class='kw'>data</span>, colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"green"</span>), percent = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>data_bars_pos_neg</span>(<span class='kw'>data</span>, colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"green"</span>), number_fmt = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,8 +171,9 @@ Colors should be given in order from negative values to positive values.
 Can use R's built-in colors or other color packages.</p></td>
     </tr>
     <tr>
-      <th>percent</th>
-      <td><p>Optionally format numbers as percentages.</p></td>
+      <th>number_fmt</th>
+      <td><p>Optionally format numbers using formats from the scales package.
+Default is set to NULL.</p></td>
     </tr>
     </table>
 
@@ -211,7 +215,7 @@ columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></
   cell = <span class='fu'>data_bars_pos_neg</span>(<span class='kw'>data</span>,
   colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span>)))))
 
-<span class='co'>## Set 'percent = TRUE' to format the numbers as percentages</span>
+<span class='co'>## Use number_fmt to format numbers using the scales package</span>
 <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
 bordered = <span class='fl'>TRUE</span>,
 columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
@@ -224,7 +228,7 @@ columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></
   minWidth = <span class='fl'>400</span>,
   cell = <span class='fu'>data_bars_pos_neg</span>(<span class='kw'>data</span>,
   colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span>),
-  percent = <span class='fl'>TRUE</span>))))
+  number_fmt = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>))))
 
 </div></pre>
   </div>
