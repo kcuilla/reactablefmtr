@@ -1,10 +1,11 @@
-pandoc: 2.7.3
+pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   color_scales: color_scales.html
+  color_tiles: color_tiles.html
   data_bars: data_bars.html
   highlight_min_max: highlight_min_max.html
   icon_sets: icon_sets.html
-last_built: 2021-02-19T21:17Z
+last_built: 2021-02-25T17:16Z
 

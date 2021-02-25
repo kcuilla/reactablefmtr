@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -64,6 +64,9 @@
       <a href="articles/color_scales.html">Color Scales</a>
     </li>
     <li>
+      <a href="articles/color_tiles.html">Color Tiles</a>
+    </li>
+    <li>
       <a href="articles/data_bars.html">Data Bars</a>
     </li>
     <li>
@@ -78,7 +81,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/kcuilla/reactablefmtr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -149,13 +152,28 @@ reactable(data,
 <pre class="{r}"><code>reactable(data,
           defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))</code></pre>
 <p><img src="reference/figures/README_color_scales_custom.PNG" align="center"></p>
-<p>By using <code>round = TRUE</code>, you can now round the corners of the cells. <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i></p>
+<p><br></p>
+</div>
+<div id="color_tiles---development-version-only" class="section level3">
+<h3 class="hasAnchor">
+<a href="#color_tiles---development-version-only" class="anchor"></a>color_tiles() - development version only</h3>
+<p>Another option of conditionally coloring cells based on their values is with <code><a href="reference/color_tiles.html">color_tiles()</a></code>: <i>Note: <code><a href="reference/color_tiles.html">color_tiles()</a></code> is only available in the development version through GitHub and is not on CRAN at the moment.</i></p>
 <pre class="{r}"><code>reactable(data,
+          defaultColDef = colDef(cell = color_tiles(data)))</code></pre>
+<p><img src="reference/figures/README_color_tiles.PNG" align="center"></p>
+<p>Note that <code><a href="reference/color_tiles.html">color_tiles()</a></code> needs to be placed within the <code>cell</code> argument, whereas <code><a href="reference/color_scales.html">color_scales()</a></code> is placed within <code>style</code>. A benefit of using <code><a href="reference/color_tiles.html">color_tiles()</a></code> over <code><a href="reference/color_scales.html">color_scales()</a></code> is that you have the option to format the values using formatters from the <a href="https://www.tidyverse.org/blog/2018/08/scales-1-0-0/">scales</a> package similar to how you would in ggplot2:</p>
+<pre class="{r}"><code>car_prices &lt;- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
+
+reactable(car_prices,
           columns = list(
-            bill_length_mm = colDef(style = color_scales(data, round = TRUE)),
-            bill_depth_mm = colDef(style = color_scales(data, round = TRUE)),
-            flipper_length_mm = colDef(style = color_scales(data, round = TRUE))))</code></pre>
-<p><img src="reference/figures/README_color_scales_round_corners.PNG" align="center"></p>
+            Price = colDef(align = "center",
+                           cell = color_tiles(car_prices,
+                                              number_fmt = scales::dollar)),
+            Weight = colDef(align = "center",
+                            cell = color_tiles(car_prices,
+                                               number_fmt = scales::comma))))</code></pre>
+<p><img src="reference/figures/README_color_tiles_number_fmt.PNG" align="center"></p>
+<p><br></p>
 </div>
 <div id="data_bars" class="section level3">
 <h3 class="hasAnchor">
@@ -181,15 +199,27 @@ reactable(data,
   pagination = FALSE, # display all rows on one page
   defaultSortOrder = "desc", # sort by descending order
   defaultSorted = "MPG.city", # sort by MPG.city
-  defaultColDef = colDef(cell = data_bars(data, c("firebrick1", "gold", "limegreen")
-  ))
-)</code></pre>
+  defaultColDef = colDef(cell = data_bars(data, c("firebrick1", "gold", "limegreen"))))</code></pre>
 <p><img src="reference/figures/README_data_bars_conditional.PNG" align="center"></p>
+<p>You can also now format numbers with the scales package the same way that you would format numbers in the <code><a href="reference/color_tiles.html">color_tiles()</a></code> example above. The <code>number_fmt</code> option is available for <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code> and <code><a href="reference/data_bars_pos_neg.html">data_bars_pos_neg()</a></code> as well.</p>
+<pre class="{r}"><code>car_prices &lt;- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
+
+reactable(car_prices,
+          columns = list(
+            Price = colDef(align = "center",
+                           cell = data_bars(car_prices,
+                                            number_fmt = scales::dollar_format(accuracy = 1))),
+            Weight = colDef(align = "center",
+                            cell = data_bars(car_prices,
+                                             number_fmt = scales::comma))))</code></pre>
+<p><img src="reference/figures/README_data_bars_number_fmt.PNG" align="center"></p>
+<p><i>Note: the <code>number_fmt</code> option is currently only available in the development version.</i></p>
+<p><br></p>
 </div>
 <div id="data_bars_gradient---development-version-only" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data_bars_gradient---development-version-only" class="anchor"></a>data_bars_gradient() - development version only</h3>
-<p><i>Please note: this function is currently only available in the development version and not on CRAN as of this moment.</i></p>
+<p><i>Please note: this function is currently only available in the development version through GitHub and not on CRAN as of this moment.</i></p>
 <p>If you would like to customize your <code><a href="reference/data_bars.html">data_bars()</a></code> a step further and apply a linear color gradient, you can now use <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code>:</p>
 <pre class="{r}"><code>data &lt;- sample_n(penguins,50) %&gt;% # sample 50 rows
   filter(!is.na(bill_length_mm)) %&gt;% # remove NA's
@@ -204,6 +234,7 @@ reactable(data,
           columns = list(
             body_mass_g = colDef(cell = data_bars_gradient(data, colors = c("red", "orange", "yellow", "green", "blue", "indigo", "violet"))))</code></pre>
 <p><img src="reference/figures/README_data_bars_gradient_rainbow.PNG" align="center"></p>
+<p><br></p>
 </div>
 <div id="data_bars_pos_neg" class="section level3">
 <h3 class="hasAnchor">
@@ -219,7 +250,7 @@ reactable(data,
           Change = colDef(align = "center", # align column header
                           cell = data_bars_pos_neg(data))))</code></pre>
 <p><img src="reference/figures/README_data_bars_pos_neg_default1.PNG" align="center"></p>
-<p>If your column is displaying percentages rather than whole numbers, you can add the percent symbol by setting <code>percent = TRUE</code>:</p>
+<p>If your column is displaying percentages rather than whole numbers, you can add the percent symbol by using the percent formatter from the scales package within <code>number_fmt</code>:</p>
 <pre class="{r}"><code>data &lt;- data %&gt;% 
   mutate('% Change' = round(runif(15, min = -0.7, max = 0.7), digits = 2)) %&gt;% 
   select(Make, '% Change')
@@ -228,16 +259,21 @@ reactable(data,
           pagination = FALSE,
           columns = list(
           `% Change` = colDef(align = "center", # align column header
-                              cell = data_bars_pos_neg(data, percent = TRUE))))</code></pre>
+                              cell = data_bars_pos_neg(data,
+                                                       number_fmt = scales::percent))))</code></pre>
 <p><img src="reference/figures/README_data_bars_pos_neg_percent.PNG" align="center"></p>
 <p>You may also apply a color gradient to the data bars by assigning three or more colors:</p>
 <pre class="{r}"><code>reactable(data, 
           pagination = FALSE,
           columns = list(
           `% Change` = colDef(align = "center",
-                              cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), percent = TRUE))))
+                              cell = data_bars_pos_neg(data, 
+                                                       colors = c("#ff3030", "#ffffff", "#1e90ff"), 
+                                                       number_fmt = scales::percent))))
 </code></pre>
 <p><img src="reference/figures/README_data_bars_pos_neg_gradient.PNG" align="center"></p>
+<p><i>Note: the <code>number_fmt</code> option is currently only available in the development version.</i></p>
+<p><br></p>
 </div>
 <div id="icon_sets" class="section level3">
 <h3 class="hasAnchor">
@@ -254,16 +290,20 @@ reactable(data,
                                                   icons = c("times-circle","minus-circle","check-circle"), 
                                                   colors = c("#ff3030", "#d3d3d3", "#1e90ff"))))</code></pre>
 <p><img src="reference/figures/README_icon_sets_custom.PNG" align="center"></p>
-<p>If you’re working with percentages, you can add the percent symbol by setting <code>percent = TRUE</code>:</p>
-<pre class="{r}"><code>data &lt;- data %&gt;% 
-  mutate('% Change' = round(runif(12, min = -0.7, max = 0.7), digits = 2)) %&gt;% 
-  select(Make, '% Change')
+<p>Format numbers using formatters from the scales package with <code>number_fmt</code>:</p>
+<pre class="{r}"><code>car_prices &lt;- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
 
-reactable(data, 
-          pagination = FALSE, # display all rows on one page
-          defaultColDef = colDef(cell = icon_sets(data, 
-                                                  icons = c("arrow-down","minus","arrow-up"), percent = TRUE)))</code></pre>
-<p><img src="reference/figures/README_icon_sets_percent.PNG" align="center"></p>
+reactable(car_prices,
+          columns = list(
+            Price = colDef(align = "center",
+                           cell = icon_sets(car_prices,
+                                            number_fmt = scales::dollar_format(accuracy = 1))),
+            Weight = colDef(align = "center",
+                            cell = icon_sets(car_prices,
+                                             number_fmt = scales::comma))))</code></pre>
+<p><img src="reference/figures/README_icon_sets_number_fmt.PNG" align="center"></p>
+<p><i>Note: the <code>number_fmt</code> option is currently only available in the development version.</i></p>
+<p><br></p>
 </div>
 <div id="highlight_min-highlight_max-highlight_min_max" class="section level3">
 <h3 class="hasAnchor">
