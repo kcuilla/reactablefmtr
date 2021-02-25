@@ -4,7 +4,7 @@
 \alias{color_scales}
 \title{Add color scales to rows in a column}
 \usage{
-color_scales(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), round = NULL)
+color_scales(data, colors = c("#ff3030", "#ffffff", "#1e90ff"))
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
@@ -13,9 +13,6 @@ color_scales(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), round = NULL)
 Colors should be given in order from low values to high values.
 Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 Can use R's built-in colors or other color packages.}
-
-\item{round}{Optionally round corners of cells by setting to TRUE.
-Default is set to NULL.}
 }
 \value{
 a function that applies conditional colors
@@ -43,9 +40,5 @@ reactable(data,
 ## Apply color_scales() across all numeric columns using reactable::defaultColDef
 reactable(data,
 defaultColDef = colDef(style = color_scales(data)))
-
-## Round corners of cells with 'round = TRUE'
-reactable(data,
- defaultColDef = colDef(style = color_scales(data, round = TRUE)))
 
 }
