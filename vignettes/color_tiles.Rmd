@@ -61,10 +61,15 @@ If we want to show a different color palette than the default, we can call them 
 my_color_pal = c("purple", "white", "green")
 
 reactable(data,
-          columns = list(
-            bill_length_mm = colDef(cell = color_tiles(data, colors = my_color_pal)),
-            bill_depth_mm = colDef(cell = color_tiles(data, colors = my_color_pal)),
-            flipper_length_mm = colDef(cell = color_tiles(data, colors = my_color_pal))))
+          defaultColDef = colDef(cell = color_tiles(data, colors = my_color_pal)))
+```
+
+And just like with `color_scales()`, you are now free to use dark color palettes:
+
+```{r}
+library(viridis)
+reactable(data,
+          defaultColDef = colDef(cell = color_tiles(data, colors = viridis::magma(5))))
 ```
 
 <br>
@@ -76,13 +81,13 @@ You can now use the scales package to format numbers within `color_tiles()` simi
 For example, if we wanted to round the numbers in the `bill_length_mm` column to the nearest whole number and add commas to the `body_mass_g` column, we could do so using the `number_fmt` argument below and calling the comma formatter directly from the scales package:
 
 ```{r}
-data <- sample_n(penguins,50) %>% # sample 50 rows
+df <- sample_n(penguins,50) %>% # sample 50 rows
   filter(!is.na(bill_length_mm)) %>% # remove NA's
   select(species, bill_length_mm, body_mass_g)
 
-reactable(data,
+reactable(df,
           defaultColDef = colDef(align = "center", # center column header
-                                 cell = color_tiles(data, 
+                                 cell = color_tiles(df, 
                                                     number_fmt = scales::comma)))
 ```
 

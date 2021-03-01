@@ -83,7 +83,6 @@ In the examples above, we've only used three colors in each color palette, but w
 my_color_pal = c("red", "orange", "yellow", "green", "skyblue", "purple")
 
 reactable(data,
-          defaultSorted = "bill_length_mm", # sort by ascending values in bill_length_mm
           columns = list(
             bill_length_mm = colDef(style = color_scales(data, colors = my_color_pal))))
 ```
@@ -100,4 +99,16 @@ reactable(data,
             flipper_length_mm = colDef(style = color_scales(data, colors = wes_palette("Chevalier1")))))
 ```
 
+Previously in {reactable}, using dark color palettes such as the "magma" color set from {viridis} was troublesome since you couldn't see the values in the cells with dark backgrounds. 
+
+But, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:
+<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
+
+```{r}
+library(viridis)
+
+reactable(data,
+          defaultColDef = colDef(style = color_scales(data,
+                                                      colors = viridis::magma(5))))
+```
 
