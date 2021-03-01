@@ -7,7 +7,8 @@
 color_tiles(
   data,
   colors = c("#ff3030", "#ffffff", "#1e90ff"),
-  number_fmt = NULL
+  number_fmt = NULL,
+  bright_values = TRUE
 )
 }
 \arguments{
@@ -20,6 +21,10 @@ Can use R's built-in colors or other color packages.}
 
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is set to NULL.}
+
+\item{bright_values}{Optionally display values as white.
+Values with a dark-colored background will be shown in white.
+Default is set to TRUE but can be turned off by setting to FALSE.}
 }
 \value{
 a function that applies conditional color tiles
@@ -34,7 +39,7 @@ The `color_tiles()` function conditionally colors the background of each cell si
 \examples{
 data <- iris[10:29, ]
 
-## By default, the colors_scales() function uses a red-white-blue three-color pattern
+## By default, the colors_tiles() function uses a red-white-blue three-color pattern
 reactable(data,
  columns = list(
  Petal.Length = colDef(cell = color_tiles(data))))
