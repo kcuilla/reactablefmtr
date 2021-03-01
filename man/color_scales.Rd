@@ -4,7 +4,11 @@
 \alias{color_scales}
 \title{Add color scales to rows in a column}
 \usage{
-color_scales(data, colors = c("#ff3030", "#ffffff", "#1e90ff"))
+color_scales(
+  data,
+  colors = c("#ff3030", "#ffffff", "#1e90ff"),
+  bright_values = TRUE
+)
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
@@ -13,6 +17,10 @@ color_scales(data, colors = c("#ff3030", "#ffffff", "#1e90ff"))
 Colors should be given in order from low values to high values.
 Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 Can use R's built-in colors or other color packages.}
+
+\item{bright_values}{Optionally display values as white.
+Values with a dark-colored background will be shown in white.
+Default is set to TRUE but can be turned off by setting to FALSE.}
 }
 \value{
 a function that applies conditional colors
