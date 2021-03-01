@@ -86,7 +86,7 @@ Previously in {reactable}, using dark color palettes such as the "magma" color s
 library(viridis)
 reactable(data,
           defaultColDef = colDef(style = color_scales(data,
-                                                      colors = viridis::magma(5)))
+                                                      colors = viridis::magma(5))))
 ```
 <img src="man/figures/README_color_scales_bright_values.PNG" align="center" />
 <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
@@ -126,7 +126,7 @@ Just like with `color_scales()`, you are now free to use dark color palettes:
 library(viridis)
 reactable(data,
           defaultColDef = colDef(style = color_tiles(data,
-                                                     colors = viridis::magma(5)))
+                                                     colors = viridis::magma(5))))
 ```
 <img src="man/figures/README_color_tiles_bright_values.PNG" align="center" />
 <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
