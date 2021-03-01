@@ -15,6 +15,10 @@
 #' @param number_fmt Optionally format numbers using formats from the scales package.
 #'     Default is set to NULL.
 #'
+#' @param bright_values Optionally display values as white.
+#'     Values with a dark-colored background will be shown in white.
+#'     Default is set to TRUE but can be turned off by setting to FALSE.
+#'
 #' @return a function that applies conditional color tiles
 #'     to a column of numeric values.
 #'
@@ -47,13 +51,23 @@
 #' @export
 
 
-color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), number_fmt = NULL) {
+color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), number_fmt = NULL, bright_values = TRUE) {
 
   color_pal <- function(x) {
 
     if (!is.na(x))
       rgb(colorRamp(c(colors))(x), maxColorValue = 255)
     else
+      NULL
+  }
+
+  assign_color <- function(x) {
+
+    if (!is.na(x)) {
+      rgb_sum <- rowSums(colorRamp(c(colors))(x))
+      color <- ifelse(rgb_sum >= 375, "black", "white")
+      color
+    } else
       NULL
   }
 
@@ -72,8 +86,22 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
 
     cell_color <- color_pal(normalized)
 
+    font_color <- assign_color(normalized)
+
+    if (bright_values == FALSE) {
+
     htmltools::div(label,
                      style = list(background = cell_color,
+                                  display = "flex",
+                                  justifyContent = "center",
+                                  borderRadius = "4px",
+                                  height = "18px"))
+
+    } else
+
+      htmltools::div(label,
+                     style = list(background = cell_color,
+                                  color = font_color,
                                   display = "flex",
                                   justifyContent = "center",
                                   borderRadius = "4px",
