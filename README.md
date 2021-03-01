@@ -120,7 +120,7 @@ reactable(car_prices,
 ```
 <img src="man/figures/README_color_tiles_number_fmt.PNG" align="center" />
 
-Just like with `color_scales()`, you can now free to use dark color palettes:
+Just like with `color_scales()`, you are now free to use dark color palettes:
 
 ```{r}
 library(viridis)
