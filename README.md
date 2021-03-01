@@ -66,7 +66,8 @@ You can change the color scheme to any number of colors you'd like by specifying
 ```{r}
 reactable(data,
           columns = list(
-          Petal.Length = colDef(style = color_scales(data, c("purple", "pink", "white", "green")))))
+          Petal.Length = colDef(style = color_scales(data, 
+                                                     colors = c("purple", "pink", "white", "green")))))
 ```
 <img src="man/figures/README_color_scales_example.PNG" align="center" />
 
@@ -74,9 +75,21 @@ You can also apply `color_scales()` across all columns and use custom color pale
 
 ```{r}
 reactable(data,
-          defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))
+          defaultColDef = colDef(style = color_scales(data, 
+                                                      colors = brewer.pal(3, "Pastel1"))))
 ```
 <img src="man/figures/README_color_scales_custom.PNG" align="center" />
+
+Previously in {reactable}, using dark color palettes such as the "magma" color set from {viridis} used to be troublesome as you couldn't see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:
+
+```{r}
+library(viridis)
+reactable(data,
+          defaultColDef = colDef(style = color_scales(data,
+                                                      colors = viridis::magma(5)))
+```
+<img src="man/figures/README_color_scales_bright_values.PNG" align="center" />
+<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
 
 ### color_tiles() - development version only
 
@@ -106,6 +119,17 @@ reactable(car_prices,
                                                number_fmt = scales::comma))))
 ```
 <img src="man/figures/README_color_tiles_number_fmt.PNG" align="center" />
+
+Just like with `color_scales()`, you can now free to use dark color palettes:
+
+```{r}
+library(viridis)
+reactable(data,
+          defaultColDef = colDef(style = color_tiles(data,
+                                                     colors = viridis::magma(5)))
+```
+<img src="man/figures/README_color_tiles_bright_values.PNG" align="center" />
+<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
 
 ### data_bars()
 
