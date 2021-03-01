@@ -103,11 +103,11 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>Simplify the styling, formatting, and customization of tables made with <code>{reactable}</code>.</p>
+<p>Simplify the styling, formatting, and customization of tables made with <a href="https://glin.github.io/reactable">reactable</a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The <code>{reactablefmtr}</code> package is available from CRAN:</p>
+<p>The <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> package is available from CRAN:</p>
 <pre class="{r}"><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("reactablefmtr")</a></code></pre>
 <p>Or you can install the development version from GitHub with:</p>
 <pre class="{r}"><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("kcuilla/reactablefmtr")</a></code></pre>
@@ -115,8 +115,8 @@
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
-<p><code>{reactablefmtr}</code> is an extension of the <code>{reactable}</code> package created by Greg Lin. Before you use <code>{reactablefmtr}</code>, you need to first have an understanding of how to use <code>{reactable}</code>. Greg Lin put together a great overview <a href="https://glin.github.io/reactable/index.html">here</a> that I recommend checking out. It has many examples and tutorials that are necessary to learn <code>{reactable}</code>.</p>
-<p>A challenge of creating tables with <code>{reactable}</code> is that some of the code required to style and format the tables is a bit lengthy and can be difficult to understand for someone who is a novice R user. The <code>{reactablefmtr}</code> aims to firstly simplify the customization and formatting process that can be used by any R user regardless of their experience, and secondly, reduce the amount of time and effort required to build a table with {reactable}.</p>
+<p><a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> is an extension of the <a href="https://glin.github.io/reactable">reactable</a> package created by Greg Lin. Before you use <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a>, you need to first have an understanding of how to use <a href="https://glin.github.io/reactable">reactable</a>. Greg Lin put together a great overview <a href="https://glin.github.io/reactable/index.html">here</a> that I recommend checking out. It has many examples and tutorials that are necessary to learn <a href="https://glin.github.io/reactable">reactable</a>.</p>
+<p>A challenge of creating tables with <a href="https://glin.github.io/reactable">reactable</a> is that some of the code required to style and format the tables is a bit lengthy and can be difficult to understand for someone who is a novice R user. The <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> aims to firstly simplify the customization and formatting process that can be used by any R user regardless of their experience, and secondly, reduce the amount of time and effort required to build a table with {reactable}.</p>
 <div id="acknowledgements" class="section level3">
 <h3 class="hasAnchor">
 <a href="#acknowledgements" class="anchor"></a>Acknowledgements</h3>
@@ -152,6 +152,12 @@ reactable(data,
 <pre class="{r}"><code>reactable(data,
           defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))</code></pre>
 <p><img src="reference/figures/README_color_scales_custom.PNG" align="center"></p>
+<p>Previously in {reactable}, using dark color palettes such as the “magma” color set from {viridis} was troublesome since you couldn’t see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark: <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i></p>
+<pre class="{r}"><code><a href="https://github.com/sjmgarnier/viridis">library(viridis)
+reactable(data,
+          defaultColDef = colDef(style = color_scales(data,
+                                                      colors = viridis::magma(5))))</a></code></pre>
+<p><img src="reference/figures/README_color_scales_bright_values.PNG" align="center"></p>
 <p><br></p>
 </div>
 <div id="color_tiles---development-version-only" class="section level3">
@@ -173,6 +179,12 @@ reactable(car_prices,
                             cell = color_tiles(car_prices,
                                                number_fmt = scales::comma))))</code></pre>
 <p><img src="reference/figures/README_color_tiles_number_fmt.PNG" align="center"></p>
+<p>Just like with <code><a href="reference/color_scales.html">color_scales()</a></code>, you are now free to use dark color palettes. Note: this option can be turned off by setting <code>bright_values = FALSE</code>: <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i></p>
+<pre class="{r}"><code><a href="https://github.com/sjmgarnier/viridis">library(viridis)
+reactable(data,
+          defaultColDef = colDef(style = color_tiles(data,
+                                                     colors = viridis::magma(5))))</a></code></pre>
+<p><img src="reference/figures/README_color_tiles_bright_values.PNG" align="center"></p>
 <p><br></p>
 </div>
 <div id="data_bars" class="section level3">
