@@ -80,7 +80,7 @@ reactable(data,
 ```
 <img src="man/figures/README_color_scales_custom.PNG" align="center" />
 
-Previously in {reactable}, using dark color palettes such as the "magma" color set from {viridis} used to be troublesome as you couldn't see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:
+Previously in {reactable}, using dark color palettes such as the "magma" color set from {viridis} was troublesome since you couldn't see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:
 
 ```{r}
 library(viridis)
