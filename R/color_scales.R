@@ -10,6 +10,10 @@
 #'     Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 #'     Can use R's built-in colors or other color packages.
 #'
+#' @param bright_values Optionally display values as white.
+#'     Values with a dark-colored background will be shown in white.
+#'     Default is set to TRUE but can be turned off by setting to FALSE.
+#'
 #' @return a function that applies conditional colors
 #'     to a column of numeric values.
 #'
@@ -38,13 +42,23 @@
 #'
 #' @export
 
-color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff")) {
+color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), bright_values = TRUE) {
 
   color_pal <- function(x) {
 
     if (!is.na(x))
       rgb(colorRamp(c(colors))(x), maxColorValue = 255)
     else
+      NULL
+  }
+
+  assign_color <- function(x) {
+
+    if (!is.na(x)) {
+      rgb_sum <- rowSums(colorRamp(c(colors))(x))
+      color <- ifelse(rgb_sum >= 375, "black", "white")
+      color
+    } else
       NULL
   }
 
@@ -57,6 +71,12 @@ color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff")) {
 
     cell_color <- color_pal(normalized)
 
-    list(background = cell_color)
+    font_color <- assign_color(normalized)
+
+    if (bright_values == FALSE) {
+
+      list(background = cell_color)
+
+    } else list(background = cell_color, color = font_color)
   }
 }
