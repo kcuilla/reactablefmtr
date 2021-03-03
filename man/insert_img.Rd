@@ -4,7 +4,7 @@
 \alias{insert_img}
 \title{Add image from web to rows in a column}
 \usage{
-insert_img(height = "36", width = "36", label = NULL)
+insert_img(data, height = "36", width = "36", label = NULL)
 }
 \arguments{
 \item{height}{A value given for the height of the image in px.
@@ -46,6 +46,6 @@ columns = list(
 ## Optionally assign a label to the image from another column
 reactable(data,
 columns = list(
- img = colDef(cell = insert_img(label = "Species"))))
+ img = colDef(cell = insert_img(data, label = "Species"))))
 
 }
