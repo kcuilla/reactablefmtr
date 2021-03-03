@@ -7,11 +7,16 @@
 insert_img(data, height = "36", width = "36", label = NULL)
 }
 \arguments{
+\item{data}{Dataset containing URL's to images}
+
 \item{height}{A value given for the height of the image in px.
 Default height is 36px.}
 
 \item{width}{A value given for the width of the image in px.
 Default width is 36px.}
+
+\item{label}{Optionally assign a label to the image from another column.
+Default is set to NULL or no label.}
 }
 \value{
 a function that renders an image
