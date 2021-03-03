@@ -37,7 +37,7 @@
 #'  img = colDef(cell = insert_img(height = "50", width = "45"))))
 #'
 #' ## Optionally assign a label to the image from another column
-#' ## reactable(data,
+#' reactable(data,
 #' columns = list(
 #'  img = colDef(cell = insert_img(label = "Species"))))
 #'
