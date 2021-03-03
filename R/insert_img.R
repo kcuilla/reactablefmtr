@@ -39,12 +39,12 @@
 #' ## Optionally assign a label to the image from another column
 #' reactable(data,
 #' columns = list(
-#'  img = colDef(cell = insert_img(label = "Species"))))
+#'  img = colDef(cell = insert_img(data, label = "Species"))))
 #'
 #' @export
 
 
-insert_img <- function(height = "36", width = "36", label = NULL) {
+insert_img <- function(data, height = "36", width = "36", label = NULL) {
 
   image <- function(value, index, name) {
 
@@ -66,3 +66,4 @@ insert_img <- function(height = "36", width = "36", label = NULL) {
     } else htmltools::tagList(image)
   }
 }
+
