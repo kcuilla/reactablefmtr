@@ -108,7 +108,9 @@ But, with {reactablefmtr}, the colors of the values automatically are changed to
 library(viridis)
 
 reactable(data,
-          defaultColDef = colDef(style = color_scales(data,
-                                                      colors = viridis::magma(5))))
+          columns = list(
+            bill_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
+            bill_depth_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
+            flipper_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5)))))
 ```
 
