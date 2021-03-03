@@ -64,11 +64,10 @@ embed_img <- function(data, height = "24", width = "24", label = NULL) {
 
     if (!is.null(label)) {
 
-      col_label <- sprintf("  %s", data[[index, label]])
+      col_label <- sprintf("    %s", data[[index, label]])
 
       htmltools::tagList(image, col_label)
 
     } else htmltools::tagList(image)
   }
 }
-
