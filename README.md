@@ -11,6 +11,7 @@ Simplify the styling, formatting, and customization of tables made with `{reacta
 - [Data Bars](https://kcuilla.github.io/reactablefmtr/articles/data_bars.html)
 - [Icon Sets](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html)
 - [Highlight Min & Max](https://kcuilla.github.io/reactablefmtr/articles/highlight_min_max.html)
+- [Embed Images](https://kcuilla.github.io/reactablefmtr/articles/embed_img.html)
 
 
 ## Installation
