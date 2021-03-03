@@ -117,18 +117,19 @@ reactable(qbs,
               qbs,
               colors = c("#d7191c", "#ffffbf", "#1a9641"),
               number_fmt = scales::comma),
-              maxWidth = 80), ## set column width
+              align = "center", ## align column header
+              maxWidth = 100), ## set column width
             cpoe = colDef(cell = data_bars_pos_neg(
               qbs,
               colors = c("#d7191c", "#ffffbf", "#1a9641"),
-              number_fmt = scales::percent
-            )),
+              number_fmt = scales::percent),
+              align = "center"), ## align column header
             epa = colDef(cell = data_bars_pos_neg(
               qbs,
               colors = c("#d7191c", "#ffffbf", "#1a9641"),
-              number_fmt = scales::number_format(accuracy = 0.01)
+              number_fmt = scales::number_format(accuracy = 0.01)),
+              align = "center") ## align column header
             ))
-          ))
 ```
 
 
