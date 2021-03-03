@@ -67,7 +67,7 @@ Let's limit the dataset to only the columns that we need:
 
 ```{r}
 qbs <- qbs %>%
-  select(name, team_logo_espn, cpoe, epa)
+  select(name, team_logo_espn, n_plays, cpoe, epa)
 
 reactable(qbs)
 ```
@@ -106,10 +106,18 @@ We can finish up the table by adding data bars to the `cpoe` and `epa` columns w
 
 ```{r}
 reactable(qbs,
+          defaultPageSize = 20, ## change pagination size from 10 to 20
           columns = list(
-            team_logo_espn = colDef(cell = embed_img(qbs, label = "name"),
-                                    maxWidth = 175), ## set column width
             name = colDef(show = FALSE), ## hide name column
+            team_logo_espn = colDef(cell = embed_img(
+              qbs, 
+              label = "name"),
+              maxWidth = 175), ## set column width
+            n_plays = colDef(cell = color_tiles(
+              qbs,
+              colors = c("#d7191c", "#ffffbf", "#1a9641"),
+              number_fmt = scales::comma),
+              maxWidth = 80), ## set column width
             cpoe = colDef(cell = data_bars_pos_neg(
               qbs,
               colors = c("#d7191c", "#ffffbf", "#1a9641"),
@@ -122,3 +130,6 @@ reactable(qbs,
             ))
           ))
 ```
+
+
+
