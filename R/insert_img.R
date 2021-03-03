@@ -3,11 +3,16 @@
 #' The `insert_img()` function adds images obtained from the web to a column within reactable.
 #'     It should be placed within the cell argument in reactable::colDef.
 #'
+#' @param data Dataset containing URL's to images
+#'
 #' @param height A value given for the height of the image in px.
 #'     Default height is 36px.
 #'
 #' @param width A value given for the width of the image in px.
 #'     Default width is 36px.
+#'
+#' @param label Optionally assign a label to the image from another column.
+#'     Default is set to NULL or no label.
 #'
 #' @import reactable
 #'
