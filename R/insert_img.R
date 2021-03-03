@@ -6,10 +6,10 @@
 #' @param data Dataset containing URL's to images
 #'
 #' @param height A value given for the height of the image in px.
-#'     Default height is 36px.
+#'     Default height is 24px.
 #'
 #' @param width A value given for the width of the image in px.
-#'     Default width is 36px.
+#'     Default width is 24px.
 #'
 #' @param label Optionally assign a label to the image from another column.
 #'     Default is set to NULL or no label.
@@ -35,7 +35,7 @@
 #' columns = list(
 #'  img = colDef(cell = insert_img())))
 #'
-#' ## By default, images are given a size of 36px by 36px,
+#' ## By default, images are given a size of 24px by 24px,
 #' ## but you can adjust the size using height and width:
 #' reactable(data,
 #' columns = list(
@@ -49,7 +49,7 @@
 #' @export
 
 
-insert_img <- function(data, height = "36", width = "36", label = NULL) {
+insert_img <- function(data, height = "24", width = "24", label = NULL) {
 
   image <- function(value, index, name) {
 
