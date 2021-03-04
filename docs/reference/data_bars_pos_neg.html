@@ -121,6 +121,9 @@
     <li>
       <a href="../articles/highlight_min_max.html">Highlight Min &amp; Max</a>
     </li>
+    <li>
+      <a href="../articles/embed_img.html">Embed Images</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -155,7 +158,7 @@
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_bars_pos_neg</span>(<span class='kw'>data</span>, colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"green"</span>), number_fmt = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>data_bars_pos_neg</span><span class='op'>(</span><span class='va'>data</span>, colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"green"</span><span class='op'>)</span>, number_fmt <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,52 +186,52 @@ Default is set to NULL.</p></td>
     to a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-company = <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"Company%02d"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>),
-profit_chg = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.2</span>, <span class='fl'>0.685</span>, <span class='fl'>0.917</span>, <span class='fl'>0.284</span>, <span class='fl'>0.105</span>, <span class='op'>-</span><span class='fl'>0.701</span>, <span class='op'>-</span><span class='fl'>0.528</span>, <span class='op'>-</span><span class='fl'>0.808</span>, <span class='op'>-</span><span class='fl'>0.957</span>, <span class='op'>-</span><span class='fl'>0.11</span>))
+    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+company <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>"Company%02d"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>,
+profit_chg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.685</span>, <span class='fl'>0.917</span>, <span class='fl'>0.284</span>, <span class='fl'>0.105</span>, <span class='op'>-</span><span class='fl'>0.701</span>, <span class='op'>-</span><span class='fl'>0.528</span>, <span class='op'>-</span><span class='fl'>0.808</span>, <span class='op'>-</span><span class='fl'>0.957</span>, <span class='op'>-</span><span class='fl'>0.11</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## By default, the negative values are assigned a red bar,</span>
 <span class='co'>## and the positive values are assigned a green bar</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-bordered = <span class='fl'>TRUE</span>,
-columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
- company = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(name = <span class='st'>"Company"</span>,
- minWidth = <span class='fl'>100</span>),
- profit_chg = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-   name = <span class='st'>"Change in Profit"</span>,
-   defaultSortOrder = <span class='st'>"desc"</span>,
-   align = <span class='st'>"center"</span>,
-   minWidth = <span class='fl'>400</span>,
-   cell = <span class='fu'>data_bars_pos_neg</span>(<span class='kw'>data</span>))))
+<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+bordered <span class='op'>=</span> <span class='cn'>TRUE</span>,
+columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+ company <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Company"</span>,
+ minWidth <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>,
+ profit_chg <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+   name <span class='op'>=</span> <span class='st'>"Change in Profit"</span>,
+   defaultSortOrder <span class='op'>=</span> <span class='st'>"desc"</span>,
+   align <span class='op'>=</span> <span class='st'>"center"</span>,
+   minWidth <span class='op'>=</span> <span class='fl'>400</span>,
+   cell <span class='op'>=</span> <span class='fu'>data_bars_pos_neg</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## You can apply a relative color scale to the bars by assigning three or more colors</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-bordered = <span class='fl'>TRUE</span>,
-columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  company = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(name = <span class='st'>"Company"</span>,
-  minWidth = <span class='fl'>100</span>),
-  profit_chg = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-  name = <span class='st'>"Change in Profit"</span>,
-  defaultSortOrder = <span class='st'>"desc"</span>,
-  align = <span class='st'>"center"</span>,
-  minWidth = <span class='fl'>400</span>,
-  cell = <span class='fu'>data_bars_pos_neg</span>(<span class='kw'>data</span>,
-  colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span>)))))
+<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+bordered <span class='op'>=</span> <span class='cn'>TRUE</span>,
+columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  company <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Company"</span>,
+  minWidth <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>,
+  profit_chg <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+  name <span class='op'>=</span> <span class='st'>"Change in Profit"</span>,
+  defaultSortOrder <span class='op'>=</span> <span class='st'>"desc"</span>,
+  align <span class='op'>=</span> <span class='st'>"center"</span>,
+  minWidth <span class='op'>=</span> <span class='fl'>400</span>,
+  cell <span class='op'>=</span> <span class='fu'>data_bars_pos_neg</span><span class='op'>(</span><span class='va'>data</span>,
+  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Use number_fmt to format numbers using the scales package</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-bordered = <span class='fl'>TRUE</span>,
-columns = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  company = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(name = <span class='st'>"Company"</span>,
-  minWidth = <span class='fl'>100</span>),
-  profit_chg = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-  name = <span class='st'>"Change in Profit"</span>,
-  defaultSortOrder = <span class='st'>"desc"</span>,
-  align = <span class='st'>"center"</span>,
-  minWidth = <span class='fl'>400</span>,
-  cell = <span class='fu'>data_bars_pos_neg</span>(<span class='kw'>data</span>,
-  colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span>),
-  number_fmt = <span class='kw'>scales</span>::<span class='kw'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>))))
+<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+bordered <span class='op'>=</span> <span class='cn'>TRUE</span>,
+columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  company <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>name <span class='op'>=</span> <span class='st'>"Company"</span>,
+  minWidth <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>,
+  profit_chg <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+  name <span class='op'>=</span> <span class='st'>"Change in Profit"</span>,
+  defaultSortOrder <span class='op'>=</span> <span class='st'>"desc"</span>,
+  align <span class='op'>=</span> <span class='st'>"center"</span>,
+  minWidth <span class='op'>=</span> <span class='fl'>400</span>,
+  cell <span class='op'>=</span> <span class='fu'>data_bars_pos_neg</span><span class='op'>(</span><span class='va'>data</span>,
+  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span><span class='op'>)</span>,
+  number_fmt <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>
   </div>

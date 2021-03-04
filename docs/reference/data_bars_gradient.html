@@ -121,6 +121,9 @@
     <li>
       <a href="../articles/highlight_min_max.html">Highlight Min &amp; Max</a>
     </li>
+    <li>
+      <a href="../articles/embed_img.html">Embed Images</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -155,12 +158,12 @@
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_bars_gradient</span>(
-  <span class='kw'>data</span>,
-  colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#1efffd"</span>, <span class='st'>"#1e20ff"</span>),
-  background = <span class='st'>"white"</span>,
-  number_fmt = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>data_bars_gradient</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#1efffd"</span>, <span class='st'>"#1e20ff"</span><span class='op'>)</span>,
+  background <span class='op'>=</span> <span class='st'>"white"</span>,
+  number_fmt <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -193,33 +196,33 @@ Default is set to NULL.</p></td>
     to a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://glin.github.io/reactable'>reactable</a></span>)
-<span class='kw'>data</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span>[<span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span>)]
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://glin.github.io/reactable'>reactable</a></span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span><span class='op'>)</span><span class='op'>]</span>
 
 <span class='co'>## By default, colors are provided</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-align = <span class='st'>"left"</span>,
-cell = <span class='fu'>data_bars_gradient</span>(<span class='kw'>data</span>)))
+<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+align <span class='op'>=</span> <span class='st'>"left"</span>,
+cell <span class='op'>=</span> <span class='fu'>data_bars_gradient</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Apply custom colors for gradient</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-align = <span class='st'>"left"</span>,
-cell = <span class='fu'>data_bars_gradient</span>(<span class='kw'>data</span>, colors = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>,<span class='st'>"grey"</span>,<span class='st'>"black"</span>))))
+<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+align <span class='op'>=</span> <span class='st'>"left"</span>,
+cell <span class='op'>=</span> <span class='fu'>data_bars_gradient</span><span class='op'>(</span><span class='va'>data</span>, colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"white"</span>,<span class='st'>"grey"</span>,<span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Apply bacground color</span>
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>data</span>,
-defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(
-align = <span class='st'>"left"</span>,
-cell = <span class='fu'>data_bars_gradient</span>(<span class='kw'>data</span>, background = <span class='st'>"black"</span>)))
+<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+align <span class='op'>=</span> <span class='st'>"left"</span>,
+cell <span class='op'>=</span> <span class='fu'>data_bars_gradient</span><span class='op'>(</span><span class='va'>data</span>, background <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Use number_fmt to format numbers using the scales package</span>
-<span class='kw'>car_prices</span> <span class='op'>&lt;-</span> <span class='kw'>MASS</span>::<span class='kw'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span>[<span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Make"</span>, <span class='st'>"Price"</span>)]
+<span class='va'>car_prices</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"Price"</span><span class='op'>)</span><span class='op'>]</span>
 
-<span class='fu'><a href='https://rdrr.io/pkg/reactable/man/reactable.html'>reactable</a></span>(<span class='kw'>car_prices</span>,
-defaultColDef = <span class='fu'><a href='https://rdrr.io/pkg/reactable/man/colDef.html'>colDef</a></span>(cell = <span class='fu'>data_bars_gradient</span>(<span class='kw'>car_prices</span>,
-number_fmt = <span class='kw'>scales</span>::<span class='fu'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar_format</a></span>(accuracy = <span class='fl'>0.1</span>))))
+<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>car_prices</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>data_bars_gradient</span><span class='op'>(</span><span class='va'>car_prices</span>,
+number_fmt <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/label_dollar.html'>dollar_format</a></span><span class='op'>(</span>accuracy <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>
   </div>
