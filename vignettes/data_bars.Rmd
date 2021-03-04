@@ -147,7 +147,7 @@ You can provide as many colors as you want to your color gradient as long as you
 reactable(data,
           columns = list(
             body_mass_g = colDef(cell = data_bars_gradient(data, 
-                                                           colors = c("white", "pink", "red", "firebrick")))))
+                                                           colors = c("firebrick", "red", "pink")))))
 ```
 
 If you always wanted to apply a rainbow gradient to your column, you can now do that!
@@ -165,7 +165,7 @@ Just like with `data_bars()`, you can also apply a singular background color:
 reactable(data,
           columns = list(
             body_mass_g = colDef(cell = data_bars_gradient(data,
-                                                           colors = c("white", "pink", "red"),
+                                                           colors = c("firebrick", "red", "pink"),
                                                            background = "grey"))))
 ```
 
@@ -196,7 +196,7 @@ reactable(data,
                                  style = list(fontFamily = "monospace", whiteSpace = "pre")))
 ```
 
-You can also still use `commas = TRUE` to display commas in the values of any column containing values in the thousands or greater.
+You can also still use the comma formatter from the scales package to display commas in the values of any column containing values in the thousands or greater.
 
 ```{r}
 reactable(data,

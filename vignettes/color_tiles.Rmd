@@ -40,17 +40,6 @@ reactable(data,
                                     cell = color_tiles(data))))
 ```
 
-Below is a side-by-side comparison of the `color_tiles()` and `color_scales()` formatters and how they are called within reactable:
-
-```{r}
-reactable(data,
-          columns = list(
-            bill_length_mm = colDef(align = "center", # center column header
-                                    cell = color_tiles(data)),
-            bill_depth_mm = colDef(align = "center",
-                                   style = color_scales(data))))
-```
-
 <br>
 
 ## Custom Color Palettes
