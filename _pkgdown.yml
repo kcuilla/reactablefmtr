@@ -27,7 +27,7 @@ navbar:
         href: articles/icon_sets.html
       - text: Highlight Min & Max
         href: articles/highlight_min_max.html
-      - text: Embed Image
+      - text: Embed Images
         href: articles/embed_img.html
     reference:
       text: Reference
