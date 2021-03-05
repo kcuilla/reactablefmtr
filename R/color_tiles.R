@@ -19,6 +19,9 @@
 #'     Values with a dark-colored background will be shown in white.
 #'     Default is set to TRUE but can be turned off by setting to FALSE.
 #'
+#' @param span Optionally apply colors to values in relation to the entire dataset instead of by column.
+#'     Default is set to NULL but can be turned on by setting to TRUE.
+#'
 #' @return a function that applies conditional color tiles
 #'     to a column of numeric values.
 #'
@@ -41,6 +44,10 @@
 #'  Petal.Length = colDef(cell = color_tiles(data,
 #'  colors = c("red", "green")))))
 #'
+#' ## Use span to apply colors to values in relation to the entire dataset
+#' reactable(data,
+#' defaultColDef = colDef(cell = color_tiles(data, span = TRUE)))
+#'
 #' ## Use number_fmt to format numbers using the scales package
 #' car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
 #'
@@ -51,7 +58,7 @@
 #' @export
 
 
-color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), number_fmt = NULL, bright_values = TRUE) {
+color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), number_fmt = NULL, bright_values = TRUE, span = NULL) {
 
   color_pal <- function(x) {
 
@@ -81,8 +88,13 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
 
     } else label <- number_fmt(value)
 
-    normalized <-
+    normalized <- if (is.null(span) || span == FALSE) {
+
       (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+
+    } else if (span == TRUE)
+
+      (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
 
     cell_color <- color_pal(normalized)
 
@@ -90,7 +102,7 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
 
     if (bright_values == FALSE) {
 
-    htmltools::div(label,
+      htmltools::div(label,
                      style = list(background = cell_color,
                                   display = "flex",
                                   justifyContent = "center",
@@ -109,4 +121,3 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
 
   }
 }
-

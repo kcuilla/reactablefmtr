@@ -14,6 +14,9 @@
 #'     Values with a dark-colored background will be shown in white.
 #'     Default is set to TRUE but can be turned off by setting to FALSE.
 #'
+#' @param span Optionally apply colors to values in relation to the entire dataset instead of by column.
+#'     Default is set to NULL but can be turned on by setting to TRUE.
+#'
 #' @return a function that applies conditional colors
 #'     to a column of numeric values.
 #'
@@ -40,9 +43,13 @@
 #' reactable(data,
 #' defaultColDef = colDef(style = color_scales(data)))
 #'
+#' ## Use span to apply colors to values in relation to the entire dataset
+#' reactable(data,
+#' defaultColDef = colDef(style = color_scales(data, span = TRUE)))
+#'
 #' @export
 
-color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), bright_values = TRUE) {
+color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), bright_values = TRUE, span = NULL) {
 
   color_pal <- function(x) {
 
@@ -66,8 +73,13 @@ color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), brig
 
     if (!is.numeric(value)) return(value)
 
-    normalized <-
+    normalized <- if (is.null(span) || span == FALSE) {
+
       (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+
+    } else if (span == TRUE)
+
+      (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
 
     cell_color <- color_pal(normalized)
 
