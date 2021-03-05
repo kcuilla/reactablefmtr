@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, include=FALSE}
 library(reactablefmtr)
 library(dplyr)
+library(tibble)
 library(palmerpenguins)
 ```
 
@@ -114,3 +115,37 @@ reactable(data,
 ```
 
 <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
+
+## Using Span
+
+By default, `color_scales()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month as shown below:
+
+<i>Note: the dataset for this example is sourced from the reactable [demo cookbook](https://glin.github.io/reactable/articles/cookbook/cookbook.html#conditional-formatting-1)</i>
+
+```{r}
+dimnames <- list(start(nottem)[1]:end(nottem)[1], month.abb)
+temps <- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
+temps <- as_tibble(temps, rownames = "Year")
+
+reactable(
+  temps,
+  defaultColDef = colDef(
+    style = color_scales(temps, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    minWidth = 50))
+```
+
+By including `span = TRUE` within our `color_scales()` formatter, we can conditionally assign colors to the values based on their relation to other values within the entire dataset, instead of within each column. Now our table displaying temperatures is much easier to read when comparing temperatures across months:
+
+```{r}
+reactable(
+  temps,
+  defaultColDef = colDef(
+    style = color_scales(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    minWidth = 50))
+```
+
+<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
+
+
+
+
