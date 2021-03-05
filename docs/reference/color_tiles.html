@@ -167,7 +167,8 @@
   <span class='va'>data</span>,
   colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span><span class='op'>)</span>,
   number_fmt <span class='op'>=</span> <span class='cn'>NULL</span>,
-  bright_values <span class='op'>=</span> <span class='cn'>TRUE</span>
+  bright_values <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  span <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -195,6 +196,11 @@ Default is set to NULL.</p></td>
 Values with a dark-colored background will be shown in white.
 Default is set to TRUE but can be turned off by setting to FALSE.</p></td>
     </tr>
+    <tr>
+      <th>span</th>
+      <td><p>Optionally apply colors to values in relation to the entire dataset instead of by column.
+Default is set to NULL but can be turned on by setting to TRUE.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -216,6 +222,10 @@ Default is set to TRUE but can be turned off by setting to FALSE.</p></td>
  columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
  Petal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>data</span>,
  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"green"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## Use span to apply colors to values in relation to the entire dataset</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>data</span>, span <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Use number_fmt to format numbers using the scales package</span>
 <span class='va'>car_prices</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"Price"</span><span class='op'>)</span><span class='op'>]</span>
