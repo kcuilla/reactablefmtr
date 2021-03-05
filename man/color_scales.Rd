@@ -7,7 +7,8 @@
 color_scales(
   data,
   colors = c("#ff3030", "#ffffff", "#1e90ff"),
-  bright_values = TRUE
+  bright_values = TRUE,
+  span = NULL
 )
 }
 \arguments{
@@ -21,6 +22,9 @@ Can use R's built-in colors or other color packages.}
 \item{bright_values}{Optionally display values as white.
 Values with a dark-colored background will be shown in white.
 Default is set to TRUE but can be turned off by setting to FALSE.}
+
+\item{span}{Optionally apply colors to values in relation to the entire dataset instead of by column.
+Default is set to NULL but can be turned on by setting to TRUE.}
 }
 \value{
 a function that applies conditional colors
@@ -48,5 +52,9 @@ reactable(data,
 ## Apply color_scales() across all numeric columns using reactable::defaultColDef
 reactable(data,
 defaultColDef = colDef(style = color_scales(data)))
+
+## Use span to apply colors to values in relation to the entire dataset
+reactable(data,
+defaultColDef = colDef(style = color_scales(data, span = TRUE)))
 
 }

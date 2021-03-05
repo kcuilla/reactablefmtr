@@ -8,7 +8,8 @@ color_tiles(
   data,
   colors = c("#ff3030", "#ffffff", "#1e90ff"),
   number_fmt = NULL,
-  bright_values = TRUE
+  bright_values = TRUE,
+  span = NULL
 )
 }
 \arguments{
@@ -25,6 +26,9 @@ Default is set to NULL.}
 \item{bright_values}{Optionally display values as white.
 Values with a dark-colored background will be shown in white.
 Default is set to TRUE but can be turned off by setting to FALSE.}
+
+\item{span}{Optionally apply colors to values in relation to the entire dataset instead of by column.
+Default is set to NULL but can be turned on by setting to TRUE.}
 }
 \value{
 a function that applies conditional color tiles
@@ -50,6 +54,10 @@ reactable(data,
  columns = list(
  Petal.Length = colDef(cell = color_tiles(data,
  colors = c("red", "green")))))
+
+## Use span to apply colors to values in relation to the entire dataset
+reactable(data,
+defaultColDef = colDef(cell = color_tiles(data, span = TRUE)))
 
 ## Use number_fmt to format numbers using the scales package
 car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
