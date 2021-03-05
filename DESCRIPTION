@@ -18,10 +18,10 @@ Imports:
     grDevices,
     stringr,
     htmltools,
-    shiny
+    shiny,
+    dplyr
 Suggests:
     MASS,
-    scales,
-    dplyr
+    scales
 RoxygenNote: 7.1.1
 Language: en-US
