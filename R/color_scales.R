@@ -47,20 +47,28 @@
 #' reactable(data,
 #' defaultColDef = colDef(style = color_scales(data, span = TRUE)))
 #'
+#' ## Span can take column names
+#' reactable(data,
+#' defaultColDef = colDef(style = color_scales(dat, span = c("Sepal.Length", "Sepal.Width"))))
+#'
+#' ## Or it can also take column positions instead
+#' reactable(data,
+#' defaultColDef = colDef(style = color_scales(dat, span = 1:2)))
+#'
 #' @export
 
-color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), bright_values = TRUE, span = NULL) {
-
+color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), bright_values = TRUE, span = FALSE) {
+  
   color_pal <- function(x) {
-
+    
     if (!is.na(x))
       rgb(colorRamp(c(colors))(x), maxColorValue = 255)
     else
       NULL
   }
-
+  
   assign_color <- function(x) {
-
+    
     if (!is.na(x)) {
       rgb_sum <- rowSums(colorRamp(c(colors))(x))
       color <- ifelse(rgb_sum >= 375, "black", "white")
@@ -68,27 +76,54 @@ color_scales <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), brig
     } else
       NULL
   }
-
+  
   style <- function(value, index, name) {
-
+    
     if (!is.numeric(value)) return(value)
-
-    normalized <- if (is.null(span) || span == FALSE) {
-
-      (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
-
-    } else if (span == TRUE)
-
-      (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
-
-    cell_color <- color_pal(normalized)
-
-    font_color <- assign_color(normalized)
-
+    
+    if (is.logical(span)) {
+      
+      if (span) {
+        
+        normalized <- (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
+        
+      } else {
+        
+        normalized <- (value - min(data[[name]], na.rm = TRUE))/(max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+        
+      }
+      
+      cell_color <- color_pal(normalized)
+      font_color <- assign_color(normalized)
+      
+    } else if (is.numeric(span) | is.character(span)) {
+      
+      if (all(span %in% which(sapply(data, is.numeric))) | all(span %in% names(which(sapply(data, is.numeric))))) {
+        
+        if (is.character(span)) { span <- which(names(data) %in% span) }
+        
+        normalized <- (value - min(dplyr::select(data, !!span), na.rm = TRUE)) / (max(dplyr::select(data, !!span), na.rm = TRUE) - min(dplyr::select(data, !!span), na.rm = TRUE))
+        cell_color <- if (name %in% colnames(data)[span]) { color_pal(normalized) }
+        font_color <- if (name %in% colnames(data)[span]) { assign_color(normalized) }
+        
+      } else {
+        
+        stop("Attempted to select non-existing or non-numeric columns with span")
+        
+      }
+      
+    }
+    
+    
     if (bright_values == FALSE) {
-
+      
       list(background = cell_color)
-
-    } else list(background = cell_color, color = font_color)
+      
+    } else {
+      
+      list(background = cell_color, color = font_color)
+      
+    }
+    
   }
 }
