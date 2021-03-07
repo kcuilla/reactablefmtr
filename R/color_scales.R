@@ -49,11 +49,11 @@
 #'
 #' ## Span can take column names
 #' reactable(data,
-#' defaultColDef = colDef(style = color_scales(dat, span = c("Sepal.Length", "Sepal.Width"))))
+#' defaultColDef = colDef(style = color_scales(data, span = c("Sepal.Length", "Sepal.Width"))))
 #'
 #' ## Or it can also take column positions instead
 #' reactable(data,
-#' defaultColDef = colDef(style = color_scales(dat, span = 1:2)))
+#' defaultColDef = colDef(style = color_scales(data, span = 1:2)))
 #'
 #' @export
 
