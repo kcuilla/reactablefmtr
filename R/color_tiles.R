@@ -19,8 +19,10 @@
 #'     Values with a dark-colored background will be shown in white.
 #'     Default is set to TRUE but can be turned off by setting to FALSE.
 #'
-#' @param span Optionally apply colors to values in relation to the entire dataset instead of by column.
-#'     Default is set to NULL but can be turned on by setting to TRUE.
+#' @param span Optionally apply colors to values across multiple columns instead of by each column.
+#'     To apply across all columns set to TRUE.
+#'     If applying to a set of columns, can provide either column names or column positions.
+#'     Default is set to FALSE.
 #'
 #' @return a function that applies conditional color tiles
 #'     to a column of numeric values.
@@ -55,10 +57,22 @@
 #' defaultColDef = colDef(cell = color_tiles(car_prices,
 #' number_fmt = scales::dollar)))
 #'
+#' ## Use span to apply colors to values in relation to the entire dataset
+#' reactable(data,
+#' defaultColDef = colDef(cell = color_tiles(data, span = TRUE)))
+#'
+#' ## Span can take column names
+#' reactable(data,
+#' defaultColDef = colDef(cell = color_tiles(data, span = c("Sepal.Length", "Sepal.Width"))))
+#'
+#' ## Or it can also take column positions instead
+#' reactable(data,
+#' defaultColDef = colDef(cell = color_tiles(data, span = 1:2)))
+#'
 #' @export
 
 
-color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), number_fmt = NULL, bright_values = TRUE, span = NULL) {
+color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), number_fmt = NULL, bright_values = TRUE, span = FALSE) {
 
   color_pal <- function(x) {
 
@@ -88,17 +102,38 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
 
     } else label <- number_fmt(value)
 
-    normalized <- if (is.null(span) || span == FALSE) {
+    if (is.logical(span)) {
 
-      (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+      if (span) {
 
-    } else if (span == TRUE)
+        normalized <- (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
 
-      (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
+      } else {
 
-    cell_color <- color_pal(normalized)
+        normalized <- (value - min(data[[name]], na.rm = TRUE))/(max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
 
-    font_color <- assign_color(normalized)
+      }
+
+      cell_color <- color_pal(normalized)
+      font_color <- assign_color(normalized)
+
+    } else if (is.numeric(span) | is.character(span)) {
+
+      if (all(span %in% which(sapply(data, is.numeric))) | all(span %in% names(which(sapply(data, is.numeric))))) {
+
+        if (is.character(span)) { span <- which(names(data) %in% span) }
+
+        normalized <- (value - min(dplyr::select(data, !!span), na.rm = TRUE)) / (max(dplyr::select(data, !!span), na.rm = TRUE) - min(dplyr::select(data, !!span), na.rm = TRUE))
+        cell_color <- if (name %in% colnames(data)[span]) { color_pal(normalized) }
+        font_color <- if (name %in% colnames(data)[span]) { assign_color(normalized) }
+
+      } else {
+
+        stop("Attempted to select non-existing or non-numeric columns with span")
+
+      }
+
+    }
 
     if (bright_values == FALSE) {
 
