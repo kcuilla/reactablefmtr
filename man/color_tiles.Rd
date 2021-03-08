@@ -9,7 +9,7 @@ color_tiles(
   colors = c("#ff3030", "#ffffff", "#1e90ff"),
   number_fmt = NULL,
   bright_values = TRUE,
-  span = NULL
+  span = FALSE
 )
 }
 \arguments{
@@ -27,8 +27,10 @@ Default is set to NULL.}
 Values with a dark-colored background will be shown in white.
 Default is set to TRUE but can be turned off by setting to FALSE.}
 
-\item{span}{Optionally apply colors to values in relation to the entire dataset instead of by column.
-Default is set to NULL but can be turned on by setting to TRUE.}
+\item{span}{Optionally apply colors to values across multiple columns instead of by each column.
+To apply across all columns set to TRUE.
+If applying to a set of columns, can provide either column names or column positions.
+Default is set to FALSE.}
 }
 \value{
 a function that applies conditional color tiles
@@ -65,5 +67,17 @@ car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
 reactable(car_prices,
 defaultColDef = colDef(cell = color_tiles(car_prices,
 number_fmt = scales::dollar)))
+
+## Use span to apply colors to values in relation to the entire dataset
+reactable(data,
+defaultColDef = colDef(cell = color_tiles(data, span = TRUE)))
+
+## Span can take column names
+reactable(data,
+defaultColDef = colDef(cell = color_tiles(data, span = c("Sepal.Length", "Sepal.Width"))))
+
+## Or it can also take column positions instead
+reactable(data,
+defaultColDef = colDef(cell = color_tiles(data, span = 1:2)))
 
 }
