@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: c(
     person("Kyle", "Cuilla", role = c("aut", "cre", "cph"), email = "kyle.cuilla@gmail.com"),
     person("Greg", "Lin", role = c("ctb")),
-    person("June", "Choe", role = c("ctb")),
+    person("June", "Choe", role = c("ctb"))
     )
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
 Description: Streamlines the process of applying formats and styles to tables using 'reactable'.
