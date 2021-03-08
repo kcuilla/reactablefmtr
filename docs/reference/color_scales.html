@@ -163,7 +163,7 @@
   <span class='va'>data</span>,
   colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span><span class='op'>)</span>,
   bright_values <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  span <span class='op'>=</span> <span class='cn'>NULL</span>
+  span <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -188,8 +188,10 @@ Default is set to TRUE but can be turned off by setting to FALSE.</p></td>
     </tr>
     <tr>
       <th>span</th>
-      <td><p>Optionally apply colors to values in relation to the entire dataset instead of by column.
-Default is set to NULL but can be turned on by setting to TRUE.</p></td>
+      <td><p>Optionally apply colors to values across multiple columns instead of by each column.
+To apply across all columns set to TRUE.
+If applying to a set of columns, can provide either column names or column positions.
+Default is set to FALSE.</p></td>
     </tr>
     </table>
 
@@ -220,6 +222,14 @@ defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span clas
 <span class='co'>## Use span to apply colors to values in relation to the entire dataset</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>style <span class='op'>=</span> <span class='fu'>color_scales</span><span class='op'>(</span><span class='va'>data</span>, span <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## Span can take column names</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>style <span class='op'>=</span> <span class='fu'>color_scales</span><span class='op'>(</span><span class='va'>data</span>, span <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## Or it can also take column positions instead</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>style <span class='op'>=</span> <span class='fu'>color_scales</span><span class='op'>(</span><span class='va'>data</span>, span <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>
   </div>
