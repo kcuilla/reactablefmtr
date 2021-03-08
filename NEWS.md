@@ -8,7 +8,7 @@
 * Columns can now be formatted using formatters from the `scales` package using the `number_fmt()` option
 * By default, values displayed with the `color_scales()` and `color_tiles()` packages will automatically be shown in black or white color depending on the saturation of the background color of the cell. This option can be turned off by setting `bright_values = FALSE`
 * Data bars are now animated on sort when using any of the three data bars formatters (`data_bars()`, `data_bars_pos_neg()`, `data_bars_gradient()`)
-* Conditional colors can now be applied to values in relation to the entire dataset or to a group of columns by providing column names or column positions with the `span` option within `color_scales()` and `color_tiles()`. Special thanks to June Chao for this added feature.
+* Conditional colors can now be applied to values in relation to the entire dataset or to a group of columns by providing column names or column positions with the `span` option within `color_scales()` and `color_tiles()`. Special thanks to June Chao for the contribution for this feature.
 
 ### Bug Fixes
 
