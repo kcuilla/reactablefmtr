@@ -53,7 +53,9 @@ embed_img <- function(data, height = "24", width = "24", label = NULL) {
 
   image <- function(value, index, name) {
 
-    if (!is.character(value) || value == "NA" || value == "na" || is.null(value) || stringr::str_detect(value, " ")) return(value)
+    if (!is.character(value)) return(value)
+
+    if (is.null(value) || is.na(value) || value == "NA" || value == "na" || stringr::str_detect(value, " ")) return("")
 
     if (grepl("https|http", value) == FALSE) {
 
