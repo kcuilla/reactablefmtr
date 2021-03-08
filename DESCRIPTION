@@ -2,7 +2,11 @@ Package: reactablefmtr
 Type: Package
 Title: Simplify Formatting of Tables Made with 'Reactable'
 Version: 0.1.0
-Author: Kyle Cuilla
+Authors@R: c(
+    person("Kyle", "Cuilla", role = c("aut", "cre", "cph"), email = "kyle.cuilla@gmail.com"),
+    person("Greg", "Lin", role = c("ctb")),
+    person("June", "Choe", role = c("ctb")),
+    )
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
 Description: Streamlines the process of applying formats and styles to tables using 'reactable'.
     Style your 'reactable' table with conditional formatting, color scales, data bars, and icons. 
@@ -15,11 +19,11 @@ Depends:
     R (>= 3.5.0),
     reactable (>= 0.2.0)
 Imports: 
+    dplyr,
     grDevices,
-    stringr,
     htmltools,
     shiny,
-    dplyr
+    stringr
 Suggests:
     MASS,
     scales
