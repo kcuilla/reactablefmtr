@@ -53,11 +53,11 @@ embed_img <- function(data, height = "24", width = "24", label = NULL) {
 
   image <- function(value, index, name) {
 
-    if (!is.character(value)) return(value)
+    if (!is.character(value) || value == "NA" || value == "na" || is.null(value) || stringr::str_detect(value, " ")) return(value)
 
     if (grepl("https|http", value) == FALSE) {
 
-      stop("must provide valid link to image")
+      stop("must provide valid link to image.")
     }
 
     image <- htmltools::img(src = value, align = "center", height = height, width = width)
@@ -71,3 +71,4 @@ embed_img <- function(data, height = "24", width = "24", label = NULL) {
     } else htmltools::tagList(image)
   }
 }
+
