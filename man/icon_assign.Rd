@@ -9,7 +9,9 @@ icon_assign(
   icon = "circle",
   fill_color = "#1e90ff",
   empty_color = "lightgrey",
-  buckets = NULL
+  buckets = NULL,
+  seq_by = 1,
+  show_values = FALSE
 )
 }
 \arguments{
@@ -27,6 +29,14 @@ Default color is lightgrey.}
 \item{buckets}{Optionally divide values in a column into buckets by providing a numeric value.
 Icons are then assigned by rank from lowest to highest.
 Default is set to NULL.}
+
+\item{seq_by}{A numerical input that determines what number each icon represents.
+Ex. instead of displaying 100 icons for the number 100, can set seq_by = 10 to show only 10 icons.
+Default value is set to 1.}
+
+\item{show_values}{Optionally display values next to icons.
+Icons can be displayed to the left of the icons with "left" or to the right with "right".
+Default is set to FALSE or no values.}
 }
 \value{
 a function that applies colored icons
@@ -65,5 +75,11 @@ reactable(data,
 columns = list(
 Sepal.Length = colDef(cell = icon_assign(data,
 buckets = 3))))
+
+## Optionally display values next to icons.
+reactable(data,
+columns = list(
+Sepal.Length = colDef(cell = icon_assign(data,
+show_values = "right"))))
 
 }
