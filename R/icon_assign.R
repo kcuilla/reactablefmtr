@@ -20,6 +20,14 @@
 #'     Icons are then assigned by rank from lowest to highest.
 #'     Default is set to NULL.
 #'
+#' @param seq_by A numerical input that determines what number each icon represents.
+#'     Ex. instead of displaying 100 icons for the number 100, can set seq_by = 10 to show only 10 icons.
+#'     Default value is set to 1.
+#'
+#' @param show_values Optionally display values next to icons.
+#'     Icons can be displayed to the left of the icons with "left" or to the right with "right".
+#'     Default is set to FALSE or no values.
+#'
 #' @import reactable
 #'
 #' @return a function that applies colored icons
@@ -53,10 +61,16 @@
 #' Sepal.Length = colDef(cell = icon_assign(data,
 #' buckets = 3))))
 #'
+#' ## Optionally display values next to icons.
+#' reactable(data,
+#' columns = list(
+#' Sepal.Length = colDef(cell = icon_assign(data,
+#' show_values = "right"))))
+#'
 #' @export
 
 
-icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_color = "lightgrey", buckets = NULL) {
+icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_color = "lightgrey", buckets = NULL, seq_by = 1, show_values = FALSE) {
 
   icons <- function(empty = FALSE) {
 
@@ -96,7 +110,7 @@ icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_col
 
       value_rounded <- floor(value + 0.5)
 
-      icon_seq <- lapply(seq_len(max_value), function(i) {
+      icon_seq <- lapply(seq(1, max_value, by = seq_by), function(i) {
 
         if (i <= value_rounded) icons() else icons(empty = TRUE)
       })
@@ -105,7 +119,16 @@ icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_col
 
     }
 
-    htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+    if (show_values == "right") {
+
+    htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left", paste0("  ", value))
+
+    } else if (show_values == "left") {
+
+    htmltools::div(paste0(value, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+
+    } else htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+
   }
 }
 
