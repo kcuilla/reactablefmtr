@@ -154,7 +154,9 @@ You can change both the color of the data bars and the background:
 reactable(data,
           columns = list(
           MPG.city = colDef(align = "left", # align column header
-                            cell = data_bars(data, "forestgreen", "lightgrey"))))
+                            cell = data_bars(data, "forestgreen", "lightgrey")),
+          MPG.highway = colDef(align = "left", # align column header
+                               cell = data_bars(data, "forestgreen", "lightgrey"))))
 ```
 <img src="man/figures/README_data_bars_background.PNG" align="center" />
 
