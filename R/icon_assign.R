@@ -93,16 +93,16 @@ icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_col
 
       bucketed_data <- dplyr::ntile(data[[name]], n = buckets)
 
-      value <- bucketed_data[index]
+      bucket_value <- bucketed_data[index]
 
-      value_rounded <- floor(value + 0.5)
+      value_rounded <- floor(bucket_value + 0.5)
 
       icon_seq <- lapply(seq_len(buckets), function(i) {
 
         if (i <= value_rounded) icons() else icons(empty = TRUE)
       })
 
-      label <- sprintf("%s out of %s", value, buckets)
+      label <- sprintf("%s out of %s", bucket_value, buckets)
 
     } else {
 
