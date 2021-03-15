@@ -142,7 +142,9 @@ data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 reactable(data,
           columns = list(
           MPG.city = colDef(align = "left", # align column header
-                            cell = data_bars(data))))
+                            cell = data_bars(data)),
+          MPG.highway = colDef(align = "left", # align column header
+                               cell = data_bars(data))))
 ```
 <img src="man/figures/README_data_bars_default.PNG" align="center" />
 
