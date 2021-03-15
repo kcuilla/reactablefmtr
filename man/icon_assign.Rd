@@ -10,6 +10,7 @@ icon_assign(
   fill_color = "#1e90ff",
   empty_color = "lightgrey",
   buckets = NULL,
+  number_fmt = NULL,
   seq_by = 1,
   show_values = FALSE
 )
@@ -28,6 +29,9 @@ Default color is lightgrey.}
 
 \item{buckets}{Optionally divide values in a column into buckets by providing a numeric value.
 Icons are then assigned by rank from lowest to highest.
+Default is set to NULL.}
+
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is set to NULL.}
 
 \item{seq_by}{A numerical input that determines what number each icon represents.
