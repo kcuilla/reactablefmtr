@@ -20,6 +20,9 @@
 #'     Icons are then assigned by rank from lowest to highest.
 #'     Default is set to NULL.
 #'
+#' @param number_fmt Optionally format numbers using formats from the scales package.
+#'     Default is set to NULL.
+#'
 #' @param seq_by A numerical input that determines what number each icon represents.
 #'     Ex. instead of displaying 100 icons for the number 100, can set seq_by = 10 to show only 10 icons.
 #'     Default value is set to 1.
@@ -70,7 +73,7 @@
 #' @export
 
 
-icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_color = "lightgrey", buckets = NULL, seq_by = 1, show_values = FALSE) {
+icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_color = "lightgrey", buckets = NULL, number_fmt = NULL, seq_by = 1, show_values = FALSE) {
 
   icons <- function(empty = FALSE) {
 
@@ -119,13 +122,33 @@ icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_col
 
     }
 
-    if (show_values == "right") {
+    if (show_values == "right" & is.null(number_fmt)) {
 
-    htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left", paste0("  ", value))
+      htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left", paste0("  ", value))
 
-    } else if (show_values == "left") {
+    } else if (show_values == "right" & !is.null(number_fmt)) {
 
-    htmltools::div(paste0(value, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+      label <- number_fmt(value)
+
+      htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left", paste0("  ", label))
+
+    } else if (show_values == "left" & is.null(number_fmt)) {
+
+      max_digits <- max(nchar(data[[name]]))+1
+
+      label <- stringr::str_pad(value, max_digits)
+
+      htmltools::div(paste0(label, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+
+    } else if (show_values == "left" & !is.null(number_fmt)) {
+
+      label <- number_fmt(value)
+
+      max_digits <- max(nchar(data[[name]]))+1
+
+      label <- stringr::str_pad(label, max_digits)
+
+      htmltools::div(paste0(label, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
 
     } else htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
 
