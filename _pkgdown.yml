@@ -23,12 +23,14 @@ navbar:
         href: articles/color_tiles.html
       - text: Data Bars
         href: articles/data_bars.html
-      - text: Icon Sets
-        href: articles/icon_sets.html
-      - text: Highlight Min & Max
-        href: articles/highlight_min_max.html
       - text: Embed Images
         href: articles/embed_img.html
+      - text: Highlight Min & Max
+        href: articles/highlight_min_max.html
+      - text: Icon Assign
+        href: articles/icon_assign.html
+      - text: Icon Sets
+        href: articles/icon_sets.html
     reference:
       text: Reference
       href: reference/index.html
