@@ -40,11 +40,4 @@ columns = list(
 Change = colDef(
 style = pos_neg_colors("red", "green", bold = TRUE))))
 
-## Can be used in conjunction with add_plus_sign()
-reactable(data,
-columns = list(
-Change = colDef(
-cell = add_plus_sign,
-style = pos_neg_colors("red", "green", bold = TRUE))))
-
 }
