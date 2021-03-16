@@ -93,6 +93,10 @@ reactable(data,
 <img src="man/figures/README_color_scales_bright_values.PNG" align="center" />
 <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
 
+If your table contains row-wise data, you can use `span = TRUE` to apply color scales across the dataset rather than for each column. You can also select particular columns either by column position or by column name. Note: `span` can also be used with `color_tiles()` as well.
+
+![](man/figures/reactable_span.gif)
+
 ### color_tiles() - development version only
 
 Another option of conditionally coloring cells based on their values is with `color_tiles()`: 
