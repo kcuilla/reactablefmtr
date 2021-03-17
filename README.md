@@ -43,6 +43,10 @@ A huge thank you to Greg Lin for creating the amazing {reactable} package! Witho
 
 ## Showcase
 
+Demo of how to add data bars to a {reactable} table using `data_bars()` and `data_bars_gradient()`:
+
+![](man/figures/all_data_bars_demo2.gif)
+
 ### Animated Data Bars - development version only
 
 Data bars are now animated! Please note that this feature is only available in the development version only and is not on CRAN at the moment. To download the development version of {reactablefmtr} please see the installation section above.
