@@ -14,8 +14,6 @@ library(dplyr)
 library(palmerpenguins)
 ```
 
-<i>Please note: the animation of the data bars, `data_bars_gradient()` formatter, and the `number_fmt` argument used in the examples below are currently only available in the development version of `{reactablefmtr}` and not on CRAN as of this moment. Please download the development version of the package from GitHub via `remotes::install_github("kcuilla/reactablefmtr")` if would like to use those features.</i>
-
 ## Example 1 - data_bars()
 
 The `data_bars()` function can be used to apply conditional data bars to <b>positive</b> values.

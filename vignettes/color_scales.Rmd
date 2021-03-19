@@ -114,8 +114,6 @@ reactable(data,
             flipper_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5)))))
 ```
 
-<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
-
 ## Using Span
 
 By default, `color_scales()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month as shown below:
@@ -143,9 +141,4 @@ reactable(
     style = color_scales(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
     minWidth = 50))
 ```
-
-<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
-
-
-
 

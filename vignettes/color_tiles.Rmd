@@ -13,8 +13,6 @@ library(dplyr)
 library(palmerpenguins)
 ```
 
-<i>Please note: the `color_tiles()` formatter used in the examples below are currently only available in the development version of `{reactablefmtr}` and not on CRAN as of this moment. Please download the development version of the package from GitHub via `remotes::install_github("kcuilla/reactablefmtr")` if would like to use `color_tiles()`.</i>
-
 ## Example
 
 Let's start with an example using the palmerpenguins [dataset](https://allisonhorst.github.io/palmerpenguins/) from Allison Horst, Alison Hill, and Kristen Gorman.   
@@ -108,4 +106,3 @@ reactable(
     minWidth = 50))
 ```
 
-<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
