@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reactablefmtr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -203,11 +203,14 @@ Default is set to NULL or no label.</p></td>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>iris</span> <span class='op'>%&gt;%</span>
  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>
-   img <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
-     <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span> <span class='op'>~</span> <span class='st'>"https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Kosaciec_szczecinkowaty_Iris_setosa.jpg/800px-Kosaciec_szczecinkowaty_Iris_setosa.jpg"</span>,
-     <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"versicolor"</span> <span class='op'>~</span> <span class='st'>"https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iris_versicolor_3.jpg/1920px-Iris_versicolor_3.jpg"</span>,
-     <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"virginica"</span> <span class='op'>~</span> <span class='st'>"https://www.fs.fed.us/wildflowers/beauty/iris/Blue_Flag/images/iris_virginica/iris_virginica_virginica.jpg"</span>,
-     <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"NA"</span><span class='op'>)</span><span class='op'>)</span>
+ img <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+ <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span> <span class='op'>~</span>
+ <span class='st'>"https://upload.wikimedia.org/wikipedia/commons/d/d9/Wild_iris_flower_iris_setosa.jpg"</span>,
+ <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"versicolor"</span> <span class='op'>~</span>
+ <span class='st'>"https://upload.wikimedia.org/wikipedia/commons/7/7a/Iris_versicolor.jpg"</span>,
+ <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"virginica"</span> <span class='op'>~</span>
+ <span class='st'>"https://upload.wikimedia.org/wikipedia/commons/9/9f/Iris_virginica.jpg"</span>,
+ <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"NA"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Then use embed_img() to display images</span>
 <span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
