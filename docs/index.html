@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">reactablefmtr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -126,22 +126,22 @@
 <a href="#background" class="anchor"></a>Background</h2>
 <p><a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> is an extension of the <a href="https://glin.github.io/reactable">reactable</a> package created by Greg Lin. Before you use <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a>, you need to first have an understanding of how to use <a href="https://glin.github.io/reactable">reactable</a>. Greg Lin put together a great overview <a href="https://glin.github.io/reactable/index.html">here</a> that I recommend checking out. It has many examples and tutorials that are necessary to learn <a href="https://glin.github.io/reactable">reactable</a>.</p>
 <p>A challenge of creating tables with <a href="https://glin.github.io/reactable">reactable</a> is that some of the code required to style and format the tables is a bit lengthy and can be difficult to understand for someone who is a novice R user. The <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> aims to firstly simplify the customization and formatting process that can be used by any R user regardless of their experience, and secondly, reduce the amount of time and effort required to build a table with {reactable}.</p>
-<div id="acknowledgements" class="section level3">
+<div id="acknowledgments" class="section level3">
 <h3 class="hasAnchor">
-<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h3>
+<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h3>
 <p>A huge thank you to Greg Lin for creating the amazing {reactable} package! Without Greg, {reactablefmtr} simply would not exist.</p>
 </div>
 </div>
 <div id="showcase" class="section level2">
 <h2 class="hasAnchor">
 <a href="#showcase" class="anchor"></a>Showcase</h2>
-<div id="animated-data-bars---development-version-only" class="section level3">
+<div id="animated-data-bars" class="section level3">
 <h3 class="hasAnchor">
-<a href="#animated-data-bars---development-version-only" class="anchor"></a>Animated Data Bars - development version only</h3>
-<p>Data bars are now animated! Please note that this feature is only available in the development version only and is not on CRAN at the moment. To download the development version of {reactablefmtr} please see the installation section above.</p>
+<a href="#animated-data-bars" class="anchor"></a>Animated Data Bars</h3>
+<p>Data bars are now animated!</p>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo_default.gif" alt="animated_data_bars"></p>
 <p>You may also notice that gradient colors can be applied to data bars as well, which is covered in the <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code> section below.</p>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo.gif" alt="animated_data_bars_demo"></p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/all_data_bars_demo2.gif" alt="animated_data_bars_demo"></p>
 </div>
 <div id="color_scales" class="section level3">
 <h3 class="hasAnchor">
@@ -161,7 +161,7 @@ reactable(data,
 <pre class="{r}"><code>reactable(data,
           defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))</code></pre>
 <p><img src="reference/figures/README_color_scales_custom.PNG" align="center"></p>
-<p>Previously in {reactable}, using dark color palettes such as the “magma” color set from {viridis} was troublesome since you couldn’t see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark: <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i></p>
+<p>Previously in {reactable}, using dark color palettes such as the “magma” color set from {viridis} was troublesome since you couldn’t see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:</p>
 <pre class="{r}"><code><a href="https://github.com/sjmgarnier/viridis">library(viridis)
 reactable(data,
           defaultColDef = colDef(style = color_scales(data,
@@ -169,10 +169,10 @@ reactable(data,
 <p><img src="reference/figures/README_color_scales_bright_values.PNG" align="center"></p>
 <p><br></p>
 </div>
-<div id="color_tiles---development-version-only" class="section level3">
+<div id="color_tiles" class="section level3">
 <h3 class="hasAnchor">
-<a href="#color_tiles---development-version-only" class="anchor"></a>color_tiles() - development version only</h3>
-<p>Another option of conditionally coloring cells based on their values is with <code><a href="reference/color_tiles.html">color_tiles()</a></code>: <i>Note: <code><a href="reference/color_tiles.html">color_tiles()</a></code> is only available in the development version through GitHub and is not on CRAN at the moment.</i></p>
+<a href="#color_tiles" class="anchor"></a>color_tiles()</h3>
+<p>Another option of conditionally coloring cells based on their values is with <code><a href="reference/color_tiles.html">color_tiles()</a></code>:</p>
 <pre class="{r}"><code>reactable(data,
           defaultColDef = colDef(cell = color_tiles(data)))</code></pre>
 <p><img src="reference/figures/README_color_tiles.PNG" align="center"></p>
@@ -188,7 +188,7 @@ reactable(car_prices,
                             cell = color_tiles(car_prices,
                                                number_fmt = scales::comma))))</code></pre>
 <p><img src="reference/figures/README_color_tiles_number_fmt.PNG" align="center"></p>
-<p>Just like with <code><a href="reference/color_scales.html">color_scales()</a></code>, you are now free to use dark color palettes. Note: this option can be turned off by setting <code>bright_values = FALSE</code>: <i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i></p>
+<p>Just like with <code><a href="reference/color_scales.html">color_scales()</a></code>, you are now free to use dark color palettes. Note: this option can be turned off by setting <code>bright_values = FALSE</code>:</p>
 <pre class="{r}"><code><a href="https://github.com/sjmgarnier/viridis">library(viridis)
 reactable(data,
           defaultColDef = colDef(style = color_tiles(data,
@@ -234,13 +234,11 @@ reactable(car_prices,
                             cell = data_bars(car_prices,
                                              number_fmt = scales::comma))))</code></pre>
 <p><img src="reference/figures/README_data_bar_number_fmt.PNG" align="center"></p>
-<p><i>Note: the <code>number_fmt</code> option is currently only available in the development version.</i></p>
 <p><br></p>
 </div>
-<div id="data_bars_gradient---development-version-only" class="section level3">
+<div id="data_bars_gradient" class="section level3">
 <h3 class="hasAnchor">
-<a href="#data_bars_gradient---development-version-only" class="anchor"></a>data_bars_gradient() - development version only</h3>
-<p><i>Please note: this function is currently only available in the development version through GitHub and not on CRAN as of this moment.</i></p>
+<a href="#data_bars_gradient" class="anchor"></a>data_bars_gradient()</h3>
 <p>If you would like to customize your <code><a href="reference/data_bars.html">data_bars()</a></code> a step further and apply a linear color gradient, you can now use <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code>:</p>
 <pre class="{r}"><code>data &lt;- sample_n(penguins,50) %&gt;% # sample 50 rows
   filter(!is.na(bill_length_mm)) %&gt;% # remove NA's
@@ -293,7 +291,6 @@ reactable(data,
                                                        number_fmt = scales::percent))))
 </code></pre>
 <p><img src="reference/figures/README_data_bars_pos_neg_gradient.PNG" align="center"></p>
-<p><i>Note: the <code>number_fmt</code> option is currently only available in the development version.</i></p>
 <p><br></p>
 </div>
 <div id="icon_sets" class="section level3">
