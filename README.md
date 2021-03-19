@@ -47,9 +47,9 @@ Demo of how to add data bars to a {reactable} table using `data_bars()` and `dat
 
 ![](man/figures/all_data_bars_demo2.gif)
 
-### Animated Data Bars - development version only
+### Animated Data Bars
 
-Data bars are now animated! Please note that this feature is only available in the development version only and is not on CRAN at the moment. To download the development version of {reactablefmtr} please see the installation section above.
+Data bars are now animated!
 
 ![](man/figures/data_bars_animated_demo.gif)
 
@@ -100,10 +100,9 @@ If your table contains row-wise data, you can use `span = TRUE` to apply color s
 
 ![](man/figures/reactable_span.gif)
 
-### color_tiles() - development version only
+### color_tiles()
 
 Another option of conditionally coloring cells based on their values is with `color_tiles()`: 
-<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
 
 ```{r}
 data <- iris[10:29, ]
@@ -138,7 +137,6 @@ reactable(data,
                                                      colors = viridis::magma(5))))
 ```
 <img src="man/figures/README_color_tiles_bright_values.PNG" align="center" />
-<i>Note: this feature is only available in the development version and is not on CRAN at the moment.</i>
 
 ### data_bars()
 
@@ -199,11 +197,8 @@ reactable(car_prices,
 ```
 <img src="man/figures/README_data_bar_number_fmt.PNG" align="center" />
 
-<i>Note: the `number_fmt` option is currently only available in the development version.</i>
 
-### data_bars_gradient() - development version only
-
-<i>Please note: this function is currently only available in the development version and not on CRAN as of this moment.</i>
+### data_bars_gradient()
 
 If you would like to customize your `data_bars()` a step further and apply a linear color gradient, you can now use `data_bars_gradient()`:
 
@@ -314,7 +309,6 @@ reactable(car_prices,
 ```
 <img src="man/figures/README_icon_sets_number_fmt.PNG" align="center" />
 
-<i>Note: the `number_fmt` option is currently only available in the development version.</i>
 
 
 ### highlight_min(), highlight_max(), highlight_min_max()
