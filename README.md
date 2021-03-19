@@ -1,7 +1,8 @@
 # reactablefmtr <img src="man/figures/reactablefmtr_hex_logo.png" align="right" />
 
 <!-- badges: start -->
-[![CRAN Status](https://www.r-pkg.org/badges/version/reactablefmtr)](https://cran.r-project.org/package=reactablefmtr)
+[![CRAN Status](https://www.r-pkg.org/badges/version/reactablefmtr?color=blue)](https://cran.r-project.org/package=reactablefmtr?color=blue)
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/last-month/reactablefmtr?color=brightgreen)](https://cranlogs.r-pkg.org/badges/last-month/reactablefmtr?color=brightgreen)
 <!-- badges: end -->
 
 Simplify the styling, formatting, and customization of tables made with `{reactable}`.
