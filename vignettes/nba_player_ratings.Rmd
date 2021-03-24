@@ -86,7 +86,7 @@ nba_table <-  reactable(
   columns = list(
     TEAM_NAME = colDef(show = FALSE),
     CONFERENCE = colDef(show = FALSE),
-    RANK = colDef(maxWidth = 45, name = ""),
+    RANK = colDef(maxWidth = 55, name = ""),
     PLAYER = colDef(maxWidth = 225),
     ### add logos using embed_img()
     TEAM_LOGO = colDef(
