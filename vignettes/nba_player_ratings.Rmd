@@ -159,7 +159,7 @@ Source: [FiveThirtyEight](https://projects.fivethirtyeight.com/nba-player-rating
 
 Raw Data: [modern_RAPTOR_by_team.csv](https://github.com/fivethirtyeight/data/blob/master/nba-raptor/modern_RAPTOR_by_team.csv)
 
-Cleaned Data: [`RAPTOR_by_team_19-20.csv`](RAPTOR_by_team_19-20.csv) 
+Cleaned Data: [`RAPTOR_by_team_19-20.csv`](https://github.com/kcuilla/reactablefmtr/blob/main/vignettes/RAPTOR_by_team_19-20.csv) 
 
 ### {reactablefmtr} elements used
 
