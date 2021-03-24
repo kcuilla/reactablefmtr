@@ -31,6 +31,11 @@ navbar:
         href: articles/icon_assign.html
       - text: Icon Sets
         href: articles/icon_sets.html
+    demos:
+      text: Demos
+      menu:
+      - text: NBA Player Ratings
+        href: articles/nba_player_ratings.html
     reference:
       text: Reference
       href: reference/index.html
