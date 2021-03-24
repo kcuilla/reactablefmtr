@@ -1,0 +1,175 @@
+---
+title: "2019 NBA Player Ratings"
+output: html_document 
+resource_files:
+  - '.'
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
+```
+
+```{r raptor_table, echo = FALSE}
+library(reactablefmtr)
+library(htmltools)
+library(crosstalk) # for control filters
+library(govdown) # used for unstrapping bootstrap theme from crosstalk
+
+### load data from 538
+data <- read.csv(file = "RAPTOR_by_team_19-20.csv")
+
+### create shared dataset for crosstalk
+crosstalk_data <- SharedData$new(data)
+
+### crosstalk team filter
+team_filter <- filter_select(
+  id = "team",
+  label = "TEAM",
+  sharedData = crosstalk_data,
+  group = ~ TEAM_NAME
+)
+
+### crosstalk conference filter
+conference_filter <- filter_select(
+  id = "conf",
+  label = "CONFERENCE",
+  sharedData = crosstalk_data,
+  group = ~ CONFERENCE
+)
+
+### crosstalk minutes filter
+minutes_filter <- filter_slider(
+  id = "minutes",
+  label = "MINUTES PLAYED",
+  sharedData = crosstalk_data,
+  column = ~ MIN,
+  ticks = TRUE,
+  dragRange = FALSE,
+  step = 100
+)
+
+### load font from google fonts
+htmltools::tags$link(href = "https://fonts.googleapis.com/css?family=Chivo:400,600,700&display=swap", rel = "stylesheet")
+
+### match 538's table theme
+theme_538 <- function() {
+  reactable::reactableTheme(
+    searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
+    style = list(
+      fontFamily = "Chivo"
+    ),
+    headerStyle = list(
+      "&:hover[aria-sort]" = list(
+        background = "hsl(0, 0%, 80%)"),
+      "&[aria-sort='ascending'], &[aria-sort='descending']" = list(
+        background = "#555",
+        color = "#FFF"
+      ),
+      borderColor = "#333"
+    ),
+    borderColor = "#CDCDCD"
+  )
+}
+
+nba_table <-  reactable(
+  crosstalk_data,
+  theme = theme_538,
+  ### add column group header
+  columnGroups = list(
+    colGroup(name = "OVERALL RAPTOR", columns = c("OFF","DEF","TOT"))
+    ),
+  showSortIcon = FALSE,
+  searchable = TRUE,
+  language = reactableLang(
+    searchPlaceholder = "SEARCH FOR A PLAYER..."),
+  defaultPageSize = 100,
+  columns = list(
+    TEAM_NAME = colDef(show = FALSE),
+    CONFERENCE = colDef(show = FALSE),
+    RANK = colDef(maxWidth = 45, name = ""),
+    PLAYER = colDef(maxWidth = 225),
+    ### add logos using embed_img()
+    TEAM_LOGO = colDef(
+      name = "TEAM",
+      maxWidth = 70,
+      align = "center",
+      cell = embed_img(height = "25", width = "40")
+    ),
+    ### add icons using icon_assign()
+    MIN = colDef(
+      maxWidth = 85,
+      align = "center",
+      cell = icon_assign(
+        data,
+        icon = "stopwatch",
+        fill_color = "#555",
+        buckets = 5
+      ),
+      style = list(borderRight = "1px dashed rgba(0, 0, 0, 0.3)")
+    ),
+    ### add color scales using color_scales()
+    OFF = colDef(
+      maxWidth = 60,
+      cell = function(x)
+        sprintf("%+0.1f", x),
+      style = color_scales(data, colors = c("#fd84a9", "white", "#42c2ca"))
+    ),
+    ### add color scales using color_scales()
+    DEF = colDef(
+      maxWidth = 60,
+      cell = function(x)
+        sprintf("%+0.1f", x),
+      style = color_scales(data, colors = c("#fd84a9", "white", "#42c2ca"))
+    ),
+    ### add color scales using color_scales()
+    TOT = colDef(
+      maxWidth = 60,
+      cell = function(x)
+        sprintf("%+0.1f", x),
+      style = color_scales(data, colors = c("#fd84a9", "white", "#42c2ca"))
+    ),
+    ### add bars using data_bars_pos_neg()
+    WAR = colDef(
+      maxWidth = 280,
+      align = "center",
+      cell = data_bars_pos_neg(
+        data,
+        colors = c("#fd84a9", "#fee6ed", "#d9f2f4", "#42c2ca"),
+        number_fmt = scales::number_format(accuracy = 0.1)
+      ),
+      style = list(borderLeft = "1px dashed rgba(0, 0, 0, 0.3)")
+    )
+  )
+)
+
+### display crosstalk filters
+### unstrap was used to prevent the crosstalk filters from applying their own bootsrap theme on this site. It is generally not needed.
+div(unstrap(bscols(
+  widths = c(4, 4, 4),
+    unstrap(team_filter),
+    unstrap(conference_filter),
+    unstrap(minutes_filter)))
+)
+
+### display table
+div(nba_table)
+```
+
+Source: [FiveThirtyEight](https://projects.fivethirtyeight.com/nba-player-ratings/)
+
+Raw Data: [modern_RAPTOR_by_team.csv](https://github.com/fivethirtyeight/data/blob/master/nba-raptor/modern_RAPTOR_by_team.csv)
+
+Cleaned Data: [`RAPTOR_by_team_19-20.csv`](RAPTOR_by_team_19-20.csv) 
+
+### {reactablefmtr} elements used
+
+- `embed_img()` is used to display team logos in the TEAM column. Logo URL's were imported to the cleaned dataset from [{teamcolors}](https://github.com/beanumber/teamcolors)
+- `icon_assign()` is used to bucket the number of minutes played into five groups and display as stopwatch icons in the MIN column
+- `color_scales()` is used to conditionally color the cells in the three columns under OVERALL RAPTOR
+- `data_bars_pos_neg()` is used to display the data bars in the WAR column
+
+### Code
+
+```{r ref.label="raptor_table", eval=FALSE}
+```
+
