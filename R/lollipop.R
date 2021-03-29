@@ -26,7 +26,6 @@
 #' @import reactable
 #'
 #' @examples
-#' library(reactable)
 #' data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 #'
 #' ## By default, colors for the lollipop bar and circle are provided
