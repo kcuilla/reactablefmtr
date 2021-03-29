@@ -62,7 +62,8 @@ MPG.highway = colDef(
  circle_color = "black"))))
 
 ## Providing more than one color to 'bar_color' applies a color gradient
-## and providing more than one color to 'circle_color' conditionally colors based on their relative values
+## and providing more than one color to 'circle_color'
+## conditionally colors based on their relative values
 reactable(
 data,
 columns = list(
