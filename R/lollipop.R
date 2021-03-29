@@ -49,7 +49,8 @@
 #'  circle_color = "black"))))
 #'
 #' ## Providing more than one color to 'bar_color' applies a color gradient
-#' ## and providing more than one color to 'circle_color' conditionally colors based on their relative values
+#' ## and providing more than one color to 'circle_color'
+#' ## conditionally colors based on their relative values
 #' reactable(
 #' data,
 #' columns = list(
@@ -108,8 +109,7 @@ lollipop <- function(data, circle_color = "#1e90ff", bar_color = "lightgrey", nu
                height = "9px",
                color = NULL,
                fill = NULL,
-               background = NULL,
-               align = NULL) {
+               background = NULL) {
 
         circle_label <-
           htmltools::div(style = list(
@@ -156,8 +156,7 @@ lollipop <- function(data, circle_color = "#1e90ff", bar_color = "lightgrey", nu
       bar_chart(chart_label,
                 width = width,
                 fill = fill_color,
-                background = bar_color,
-                align = align)
+                background = bar_color)
 
     } else {
 
@@ -165,7 +164,6 @@ lollipop <- function(data, circle_color = "#1e90ff", bar_color = "lightgrey", nu
                 width = width,
                 fill = fill_color,
                 background = bar_color,
-                align = align,
                 color = font_color)
 
     }
