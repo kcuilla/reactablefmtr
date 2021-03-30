@@ -84,6 +84,9 @@
     <li>
       <a href="articles/icon_sets.html">Icon Sets</a>
     </li>
+    <li>
+      <a href="articles/lollipop_chart.html">Lollipop Chart</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -124,7 +127,7 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>Simplify the styling, formatting, and customization of tables made with <a href="https://glin.github.io/reactable">reactable</a>.</p>
+<p>Simplify the styling, formatting, and customization of tables made with <a href="https://glin.github.io/reactable/">reactable</a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -136,8 +139,8 @@
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
-<p><a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> is an extension of the <a href="https://glin.github.io/reactable">reactable</a> package created by Greg Lin. Before you use <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a>, you need to first have an understanding of how to use <a href="https://glin.github.io/reactable">reactable</a>. Greg Lin put together a great overview <a href="https://glin.github.io/reactable/index.html">here</a> that I recommend checking out. It has many examples and tutorials that are necessary to learn <a href="https://glin.github.io/reactable">reactable</a>.</p>
-<p>A challenge of creating tables with <a href="https://glin.github.io/reactable">reactable</a> is that some of the code required to style and format the tables is a bit lengthy and can be difficult to understand for someone who is a novice R user. The <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> aims to firstly simplify the customization and formatting process that can be used by any R user regardless of their experience, and secondly, reduce the amount of time and effort required to build a table with {reactable}.</p>
+<p><a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> is an extension of the <a href="https://glin.github.io/reactable/">reactable</a> package created by Greg Lin. Before you use <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a>, you need to first have an understanding of how to use <a href="https://glin.github.io/reactable/">reactable</a>. Greg Lin put together a great overview <a href="https://glin.github.io/reactable/index.html">here</a> that I recommend checking out. It has many examples and tutorials that are necessary to learn <a href="https://glin.github.io/reactable/">reactable</a>.</p>
+<p>A challenge of creating tables with <a href="https://glin.github.io/reactable/">reactable</a> is that some of the code required to style and format the tables is a bit lengthy and can be difficult to understand for someone who is a novice R user. The <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> aims to firstly simplify the customization and formatting process that can be used by any R user regardless of their experience, and secondly, reduce the amount of time and effort required to build a table with {reactable}.</p>
 <div id="acknowledgments" class="section level3">
 <h3 class="hasAnchor">
 <a href="#acknowledgments" class="anchor"></a>Acknowledgments</h3>
@@ -304,68 +307,6 @@ reactable(data,
 </code></pre>
 <p><img src="reference/figures/README_data_bars_pos_neg_gradient.PNG" align="center"></p>
 <p><br></p>
-</div>
-<div id="icon_sets" class="section level3">
-<h3 class="hasAnchor">
-<a href="#icon_sets" class="anchor"></a>icon_sets()</h3>
-<p>By default, <code><a href="reference/icon_sets.html">icon_sets()</a></code> adds a circle icon from <a href="https://fontawesome.com/icons?d=gallery">Font Awesome</a> to each value and assigns a color from red-orange-green depending on the value in relation to other values within a particular column:</p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[1:10, c("Make", "MPG.city", "MPG.highway")]
-
-reactable(data, 
-          defaultColDef = colDef(cell = icon_sets(data)))</code></pre>
-<p><img src="reference/figures/README_icon_sets_default.PNG" align="center"></p>
-<p>You can use any icon you’d like from the Font Awesome library by assigning the icons from low to high, as well as the color scheme:</p>
-<pre class="{r}"><code>reactable(data, 
-          defaultColDef = colDef(cell = icon_sets(data, 
-                                                  icons = c("times-circle","minus-circle","check-circle"), 
-                                                  colors = c("#ff3030", "#d3d3d3", "#1e90ff"))))</code></pre>
-<p><img src="reference/figures/README_icon_sets_custom.PNG" align="center"></p>
-<p>Format numbers using formatters from the scales package with <code>number_fmt</code>:</p>
-<pre class="{r}"><code>car_prices &lt;- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
-
-reactable(car_prices,
-          columns = list(
-            Price = colDef(align = "center",
-                           cell = icon_sets(car_prices,
-                                            number_fmt = scales::dollar_format(accuracy = 1))),
-            Weight = colDef(align = "center",
-                            cell = icon_sets(car_prices,
-                                             number_fmt = scales::comma))))</code></pre>
-<p><img src="reference/figures/README_icon_sets_number_fmt.PNG" align="center"></p>
-<p><i>Note: the <code>number_fmt</code> option is currently only available in the development version.</i></p>
-<p><br></p>
-</div>
-<div id="highlight_min-highlight_max-highlight_min_max" class="section level3">
-<h3 class="hasAnchor">
-<a href="#highlight_min-highlight_max-highlight_min_max" class="anchor"></a>highlight_min(), highlight_max(), highlight_min_max()</h3>
-<p>Find the maximum value in each column (default color is green but can change to any color using the <code>font_color</code> option):</p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[17:25, c("Make", "Price", "EngineSize", "MPG.city", "MPG.highway")]  
-
-reactable(data, 
-          defaultColDef = colDef(style = highlight_max(data)))</code></pre>
-<p><img src="reference/figures/README_highlight_max_default.PNG" align="center"></p>
-<p>Find the minimum value in each column:</p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[17:25, c("Make", "Price", "EngineSize", "MPG.city", "MPG.highway")]  
-
-reactable(data, 
-          defaultColDef = colDef(style = highlight_min(data)))</code></pre>
-<p><img src="reference/figures/README_highlight_min_default.PNG" align="center"></p>
-<p>If you would like to highlight both the minimum and maximum values in each column you can use <code><a href="reference/highlight_min_max.html">highlight_min_max()</a></code></p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[17:25, c("Make", "Price", "EngineSize", "MPG.city", "MPG.highway")]  
-
-reactable(data, 
-          defaultColDef = colDef(style = highlight_min_max(data)))</code></pre>
-<p><img src="reference/figures/README_highlight_min_max_default.PNG" align="center"></p>
-<p>You can optionally highlight the background of the cell as well with the <code>min_highlighter</code> and <code>max_highlighter</code> options:</p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[17:25, c("Make", "Price", "EngineSize", "MPG.city", "MPG.highway")]  
-
-reactable(data, 
-          defaultColDef = colDef(style = highlight_min_max(data, 
-                                                           min_font_color = "white", 
-                                                           min_highlighter = "#ff3030",
-                                                           max_font_color = "white", 
-                                                           max_highlighter = "#1e90ff")))</code></pre>
-<p><img src="reference/figures/README_highlight_min_max_highlighter.PNG" align="center"></p>
 </div>
 </div>
 </div>
