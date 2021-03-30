@@ -31,6 +31,8 @@ navbar:
         href: articles/icon_assign.html
       - text: Icon Sets
         href: articles/icon_sets.html
+      - text: Lollipop Chart
+        href: articles/lollipop_chart.html
     demos:
       text: Demos
       menu:

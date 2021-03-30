@@ -1,3 +1,9 @@
+# reactablefmtr 0.3.0 (development version)
+
+### New Features
+
+* Columns can be styled like lollipop charts with `lollipop()`
+
 # reactablefmtr 0.2.0
 
 ### New Features
