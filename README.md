@@ -14,7 +14,7 @@ Simplify the styling, formatting, and customization of tables made with `{reacta
 - [Highlight Min & Max](https://kcuilla.github.io/reactablefmtr/articles/highlight_min_max.html)
 - [Icon Assign](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html)
 - [Icon Sets](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html)
-
+- [Lollipop Charts](https://kcuilla.github.io/reactablefmtr/articles/lollipop_chart.html)
 
 ## Installation
 
