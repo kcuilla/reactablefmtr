@@ -2,7 +2,25 @@
 
 ### New Features
 
-* Columns can be styled like lollipop charts with `lollipop()`
+#### data_bars()
+
+* `data_bars()` can now handle columns with positive and negative values. `data_bars_pos_neg()` is being depreciated
+* `data_bars()` can create color gradients when more than two colors are provided with `fill_gradient = TRUE`. `data_bars_gradient()` is being depreciated
+* `data_bars()` can now be either right-aligned or left-aligned with the `align_bars` argument by specifying either "left" or "right". By default, `data_bars()` are aligned left.
+* The placement of the labels can now be adjusted within `data_bars()` with the `text_position` argument. Labels can be placed either outside the filled bars with "outside-end" or "outside-base", inside the filled bars with "inside-end", "inside-base", or "center", or labels can be hidden with "none". By default, labels are placed on the "outside-end" of the filled bars
+* The color of the labels can be changed by using the `text_color` argument. The default color is black
+* Labels can be shown in bold text with the `bold_text` logical argument.
+* If labels are placed inside the filled bars and the bars are filled with a dark color, the color of the labels will automatically change to white rather than the default black with the `brighten_text` logical argument. The color of `brighten_text_color` can be changed to any color
+* The colors for the fill of the `data_bars()` can be provided from another column by naming the column within the `fill_color_ref` argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
+* The opacity of the fill color can be adjusted with `fill_opacity` by providing a value between 0 and 1
+* The maximum width of the fill of `data_bars()` can be adjusted with the `max_value` argument. By default, the maximum width is the maximum value contained in the column. Ex. if showing percentages and the maximum value is 80%, by default, 80% will look 100% filled (since it's 80% out of 80%). By changing `max_value = 1` (or `max_value = 100` depending on how your percentages are displayed), it will shrink the 80% to be relative to 100%. If a maximum value is provided, a minimum value can also be set with `min_value`
+* Icons can now be added to the data bars with either `icon` or `icon_ref`
+* By default, the color of the icon is inherited from the fill color of the data bars, but can be changed with `icon_color` or `icon_color_ref`
+* Images can now be added to the data bars with either `img` or `img_ref`
+
+#### lollipop()
+
+* Lollipop charts can be created by using `lollipop()` within the cell argument of `reactable::colDef()`. The colors of both the lollipop bars and circles can be adjusted the `bar_color` and `circle_color` arguments.  
 
 # reactablefmtr 0.2.0
 
