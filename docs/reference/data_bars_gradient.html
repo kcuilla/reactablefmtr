@@ -40,9 +40,9 @@
 
 
 <meta property="og:title" content="Add horizontal gradient bars to rows in a column — data_bars_gradient" />
-<meta property="og:description" content="The `data_bars_gradient()` function conditionally adds a left-to-right linear gradient to each row of a column.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef." />
+<meta property="og:description" content="The `data_bars_gradient()` function is depreciated.
+    The new version of `data_bars()` can convert colors into gradients with `gradient = TRUE`.
+    Please use `data_bars()` instead." />
 
 
 
@@ -116,7 +116,10 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars.html">Data Bars</a>
+      <a href="../articles/data_bars.html">Data Bars (CRAN)</a>
+    </li>
+    <li>
+      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -174,9 +177,9 @@
     </div>
 
     <div class="ref-description">
-    <p>The `data_bars_gradient()` function conditionally adds a left-to-right linear gradient to each row of a column.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef.</p>
+    <p>The `data_bars_gradient()` function is depreciated.
+    The new version of `data_bars()` can convert colors into gradients with `gradient = TRUE`.
+    Please use `data_bars()` instead.</p>
     </div>
 
     <pre class="usage"><span class='fu'>data_bars_gradient</span><span class='op'>(</span>
@@ -217,33 +220,15 @@ Default is set to NULL.</p></td>
     to a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://glin.github.io/reactable/'>reactable</a></span><span class='op'>)</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span><span class='op'>)</span><span class='op'>]</span>
+    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span><span class='op'>)</span><span class='op'>]</span>
 
 <span class='co'>## By default, colors are provided</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
 align <span class='op'>=</span> <span class='st'>"left"</span>,
-cell <span class='op'>=</span> <span class='fu'>data_bars_gradient</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Apply custom colors for gradient</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
-align <span class='op'>=</span> <span class='st'>"left"</span>,
-cell <span class='op'>=</span> <span class='fu'>data_bars_gradient</span><span class='op'>(</span><span class='va'>data</span>, colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"white"</span>,<span class='st'>"grey"</span>,<span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Apply bacground color</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
-align <span class='op'>=</span> <span class='st'>"left"</span>,
-cell <span class='op'>=</span> <span class='fu'>data_bars_gradient</span><span class='op'>(</span><span class='va'>data</span>, background <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Use number_fmt to format numbers using the scales package</span>
-<span class='va'>car_prices</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"Price"</span><span class='op'>)</span><span class='op'>]</span>
-
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>car_prices</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>data_bars_gradient</span><span class='op'>(</span><span class='va'>car_prices</span>,
-number_fmt <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_dollar.html'>dollar_format</a></span><span class='op'>(</span>accuracy <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+cell <span class='op'>=</span> <span class='fu'><a href='data_bars.html'>data_bars</a></span><span class='op'>(</span><span class='va'>data</span>,
+fill_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#1efffd"</span>, <span class='st'>"#1e20ff"</span><span class='op'>)</span>,
+fill_gradient <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>
   </div>

@@ -115,7 +115,10 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars.html">Data Bars</a>
+      <a href="../articles/data_bars.html">Data Bars (CRAN)</a>
+    </li>
+    <li>
+      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -206,19 +209,19 @@ Default color is red.</p></td>
     <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/road.html'>road</a></span><span class='op'>[</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>17</span>, <span class='op'>]</span>
 
 <span class='co'>## By default, the minimum value is bold with a red font color</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
     style <span class='op'>=</span> <span class='fu'>highlight_min</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Assign a different font color</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
     style <span class='op'>=</span> <span class='fu'>highlight_min</span><span class='op'>(</span><span class='va'>data</span>,
     font_color <span class='op'>=</span> <span class='st'>"green"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Highlight the background of the cell for the minimum value in each column</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
     style <span class='op'>=</span> <span class='fu'>highlight_min</span><span class='op'>(</span><span class='va'>data</span>,
     highlighter <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 

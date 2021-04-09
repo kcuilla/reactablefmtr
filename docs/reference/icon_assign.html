@@ -117,7 +117,10 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars.html">Data Bars</a>
+      <a href="../articles/data_bars.html">Data Bars (CRAN)</a>
+    </li>
+    <li>
+      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -249,33 +252,33 @@ Default is set to FALSE or no values.</p></td>
 <span class='co'>## By default, icon_assign() assigns a cirlce icon for each value up to the maximum value.</span>
 <span class='co'>## If a value is 5 and the maximum value in the column is 6,</span>
 <span class='co'>## It will assign 5 blue icons and 1 grey icon.</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-Sepal.Length <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+Sepal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Assign colors to filled icons and empty icons</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-Sepal.Length <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span>,
+Sepal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span>,
 fill_color <span class='op'>=</span> <span class='st'>"red"</span>,
 empty_color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Assign any icon from the Font Awesome Library</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-Sepal.Length <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span>,
+Sepal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span>,
 icon <span class='op'>=</span> <span class='st'>"fan"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Optionally divide values into buckets and assign icons based on rank.</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-Sepal.Length <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span>,
+Sepal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span>,
 buckets <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Optionally display values next to icons.</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-Sepal.Length <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span>,
+Sepal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_assign</span><span class='op'>(</span><span class='va'>data</span>,
 show_values <span class='op'>=</span> <span class='st'>"right"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>

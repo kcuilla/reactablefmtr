@@ -40,8 +40,28 @@
 
 
 <meta property="og:title" content="Add horizontal bars to rows in a column — data_bars" />
-<meta property="og:description" content="The `data_bars()` function conditionally adds a horizontal bar to each row of a column.
+<meta property="og:description" content="The `data_bars()` function adds a horizontal bar to each row of a column.
     The length of the bars are relative to the value of the row in relation to other values within the same column.
+    The maximum width of the filled bars can be adjusted. Ex. if you are displaying percentages,
+    and the maximum value in your column is 50
+    you could increase the maximum fill to 100
+    The values for the bars can be displayed inside or outside the filled bars with the `text_position` option.
+    By default, the values are displayed on the outside-end of the filled bars.
+    The fill_color of both the fill and the background of the bars can be adjusted.
+    To adjust the fill_color of the filled bar, use `fill_color`.
+    If more than one color is provided, a conditional color palette will be applied to to the values,
+    or if `fill_gradient` is set to TRUE, a left-to-right gradient fill color will be applied.
+    The fill colors can also be provided via another column in the dataset by referencing the column by name with `fill_color_ref`.
+    `text_color` can be used to change the color of the text_position. By default, the label color is black.
+    If values are displayed inside the bars and a dark color palette is used to fill the bars,
+    `brighten_text` will display the values in white text so the values are visible by default.
+    The color of `brighten_text_color` can be changed to a color other than white if desired.
+    An icon or image can be added to the data bars with `icon` or `img`.
+    Alternatively, icons and images can be assigned from another column with `icon_ref` and `img_ref`, similar to `fill_color_ref`.
+    The color of the icons can be assigned through either `icon_color` (a single color) or `icon_color_ref` (from another column).
+    The size of the images can be adjusted using `img_height` and `img_width`.
+    The size of the icons can be adjusted using `icon_size`.
+    `data_bars()` works with columns containing both positive and negative values.
     It should be placed within the cell argument in reactable::colDef." />
 
 
@@ -116,7 +136,10 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars.html">Data Bars</a>
+      <a href="../articles/data_bars.html">Data Bars (CRAN)</a>
+    </li>
+    <li>
+      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -174,12 +197,57 @@
     </div>
 
     <div class="ref-description">
-    <p>The `data_bars()` function conditionally adds a horizontal bar to each row of a column.
+    <p>The `data_bars()` function adds a horizontal bar to each row of a column.
     The length of the bars are relative to the value of the row in relation to other values within the same column.
+    The maximum width of the filled bars can be adjusted. Ex. if you are displaying percentages,
+    and the maximum value in your column is 50<!-- % but you would like the bars to show only half-filled, -->
+    you could increase the maximum fill to 100<!-- % with `max_value`. -->
+    The values for the bars can be displayed inside or outside the filled bars with the `text_position` option.
+    By default, the values are displayed on the outside-end of the filled bars.
+    The fill_color of both the fill and the background of the bars can be adjusted.
+    To adjust the fill_color of the filled bar, use `fill_color`.
+    If more than one color is provided, a conditional color palette will be applied to to the values,
+    or if `fill_gradient` is set to TRUE, a left-to-right gradient fill color will be applied.
+    The fill colors can also be provided via another column in the dataset by referencing the column by name with `fill_color_ref`.
+    `text_color` can be used to change the color of the text_position. By default, the label color is black.
+    If values are displayed inside the bars and a dark color palette is used to fill the bars,
+    `brighten_text` will display the values in white text so the values are visible by default.
+    The color of `brighten_text_color` can be changed to a color other than white if desired.
+    An icon or image can be added to the data bars with `icon` or `img`.
+    Alternatively, icons and images can be assigned from another column with `icon_ref` and `img_ref`, similar to `fill_color_ref`.
+    The color of the icons can be assigned through either `icon_color` (a single color) or `icon_color_ref` (from another column).
+    The size of the images can be adjusted using `img_height` and `img_width`.
+    The size of the icons can be adjusted using `icon_size`.
+    `data_bars()` works with columns containing both positive and negative values.
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>data</span>, colors <span class='op'>=</span> <span class='st'>"#1e90ff"</span>, background <span class='op'>=</span> <span class='st'>"white"</span>, number_fmt <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>data_bars</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  fill_color <span class='op'>=</span> <span class='st'>"#1e90ff"</span>,
+  fill_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fill_opacity <span class='op'>=</span> <span class='fl'>1</span>,
+  fill_gradient <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  background <span class='op'>=</span> <span class='st'>"white"</span>,
+  max_value <span class='op'>=</span> <span class='cn'>NULL</span>,
+  min_value <span class='op'>=</span> <span class='cn'>NULL</span>,
+  align_bars <span class='op'>=</span> <span class='st'>"left"</span>,
+  text_position <span class='op'>=</span> <span class='st'>"outside-end"</span>,
+  text_color <span class='op'>=</span> <span class='st'>"black"</span>,
+  brighten_text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  brighten_text_color <span class='op'>=</span> <span class='st'>"white"</span>,
+  bold_text <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  number_fmt <span class='op'>=</span> <span class='cn'>NULL</span>,
+  icon <span class='op'>=</span> <span class='cn'>NULL</span>,
+  icon_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
+  icon_size <span class='op'>=</span> <span class='fl'>20</span>,
+  icon_color <span class='op'>=</span> <span class='cn'>NULL</span>,
+  icon_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
+  img <span class='op'>=</span> <span class='cn'>NULL</span>,
+  img_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
+  img_height <span class='op'>=</span> <span class='fl'>20</span>,
+  img_width <span class='op'>=</span> <span class='fl'>20</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,20 +257,141 @@
       <td><p>Dataset containing at least one numeric column.</p></td>
     </tr>
     <tr>
-      <th>colors</th>
-      <td><p>A single color or a vector of colors.
-Colors should be given in order from low values to high values.
-Can use R's built-in colors or other color packages.</p></td>
+      <th>fill_color</th>
+      <td><p>A single color or a vector of fill_color for the fill of the data bars.
+fill_color should be given in order from low values to high values.
+Can use R's built-in fill_color or other color packages.
+Default is #1e90ff.</p></td>
+    </tr>
+    <tr>
+      <th>fill_color_ref</th>
+      <td><p>Optionally assign fill_color to from another column
+by providing the name of the column containing the fill colors in quotes.
+Only one color can be provided per row, and therefore will not work with fill_gradient.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>fill_opacity</th>
+      <td><p>A value between 0 and 1 that adjusts the opacity in fill_color.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.</p></td>
+    </tr>
+    <tr>
+      <th>fill_gradient</th>
+      <td><p>Logical: if two or more colors are provided in fill_color,
+the colors in the fill of the bars are converted to a left-to-right gradient.
+Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>background</th>
-      <td><p>Optionally assign a color to use as the background for cells.
-Default is set to white.</p></td>
+      <td><p>The color for the background of the data bars.
+Default is white.</p></td>
+    </tr>
+    <tr>
+      <th>max_value</th>
+      <td><p>A value to use as the maximum value for the width of the filled bars.
+The default maximum value is the maximum value in the column.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>min_value</th>
+      <td><p>A value to use as the minimum value for the width of the filled bars.
+Must be used in conjunction with max_value.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>align_bars</th>
+      <td><p>Display filled bars from left-to-right or right-to-left.
+Options are "left" or "right".
+Default is left.</p></td>
+    </tr>
+    <tr>
+      <th>text_position</th>
+      <td><p>Choose where to display the values.
+Values can be displayed within the filled bars ("inside-end" or "inside-base"),
+outside of the filled bars ("outside-end" or "outside-base"),
+within the center of the filled bars ("center"),
+or not displayed at all ("none").
+Default is outside-end.</p></td>
+    </tr>
+    <tr>
+      <th>text_color</th>
+      <td><p>Assigns text color to values.
+Default is black.</p></td>
+    </tr>
+    <tr>
+      <th>brighten_text</th>
+      <td><p>Logical: automatically assign color to text based on filled color
+when the text is positioned within the filled bars.
+Text within dark-colored filled bars will turn white, text within light-colored bars will be black.
+Default is TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>brighten_text_color</th>
+      <td><p>Assigns text color to values if values are within a dark-colored filled bar.
+Default is white.</p></td>
+    </tr>
+    <tr>
+      <th>bold_text</th>
+      <td><p>Logical: bold text.
+Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>number_fmt</th>
       <td><p>Optionally format numbers using formats from the scales package.
-Default is set to NULL.</p></td>
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>icon</th>
+      <td><p>An icon from the Font Awesome library (via shiny).
+If an icon is provided, it will be positioned so that it does not overlap the text for the data bars.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>icon_ref</th>
+      <td><p>Optionally assign icons from another column
+by providing the name of the column containing the icons in quotes.
+Only one icon can be provided per row.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>icon_size</th>
+      <td><p>A value representing the size of the icon in px.
+Default is 20.</p></td>
+    </tr>
+    <tr>
+      <th>icon_color</th>
+      <td><p>The color for the icon.
+If no color is provided, default is set to the color of the filled bars.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>icon_color_ref</th>
+      <td><p>Optionally assign color to the icons from another column
+by providing the name of the column containing the icon colors in quotes.
+Only one color can be provided per row.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>img</th>
+      <td><p>An image provided with a valid URL.</p></td>
+    </tr>
+    <tr>
+      <th>img_ref</th>
+      <td><p>Optionally assign images from another column
+by providing the name of the column containing the image URLs in quotes.
+Only one image can be provided per row.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>img_height</th>
+      <td><p>A value for the height of the image in px.
+Default is 20.</p></td>
+    </tr>
+    <tr>
+      <th>img_width</th>
+      <td><p>A value for the width of the image in px.
+Default is 20.</p></td>
     </tr>
     </table>
 
@@ -212,42 +401,37 @@ Default is set to NULL.</p></td>
     to a column of numeric values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://glin.github.io/reactable/'>reactable</a></span><span class='op'>)</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span><span class='op'>)</span><span class='op'>]</span>
+    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span><span class='op'>)</span><span class='op'>]</span>
 
-<span class='co'>## Horizontal bars with lengths relative to cell value</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-MPG.city <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
-name <span class='op'>=</span> <span class='st'>"MPG (city)"</span>,
-align <span class='op'>=</span> <span class='st'>"left"</span>,
-cell <span class='op'>=</span> <span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>data</span>, <span class='st'>"dodgerblue"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>## By default, data bars are aligned left and text_position are placed on the outside end</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
+cell <span class='op'>=</span> <span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## Add background color</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-MPG.city <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
-name <span class='op'>=</span> <span class='st'>"MPG (city)"</span>,
-align <span class='op'>=</span> <span class='st'>"left"</span>,
-cell <span class='op'>=</span> <span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>data</span>, <span class='st'>"dodgerblue"</span>, <span class='st'>"grey"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Conditionally color data bars based on their relative values</span>
-<span class='co'>## by supplying more than one color</span>
-<span class='co'>## and apply across all numeric columns using reactable::defaultColDef</span>
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>data</span>,
-pagination <span class='op'>=</span> <span class='cn'>FALSE</span>,
-defaultSortOrder <span class='op'>=</span> <span class='st'>"desc"</span>,
-defaultSorted <span class='op'>=</span> <span class='st'>"MPG.city"</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>
+<span class='co'>## Align the bars to the right</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
 cell <span class='op'>=</span> <span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>data</span>,
-colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"firebrick1"</span>,<span class='st'>"gold"</span>,<span class='st'>"limegreen"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+align <span class='op'>=</span> <span class='st'>"right"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## Use number_fmt to format numbers using the scales package</span>
-<span class='va'>car_prices</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"Price"</span><span class='op'>)</span><span class='op'>]</span>
+<span class='co'>## Move the text values inside the filled bars</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
+cell <span class='op'>=</span> <span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>data</span>,
+text_position <span class='op'>=</span> <span class='st'>"inside-end"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://glin.github.io/reactable/reference/reactable.html'>reactable</a></span><span class='op'>(</span><span class='va'>car_prices</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'><a href='https://glin.github.io/reactable/reference/colDef.html'>colDef</a></span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>car_prices</span>,
-number_fmt <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_dollar.html'>dollar_format</a></span><span class='op'>(</span>accuracy <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>## Apply multiple fill_color to the filled bars</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
+cell <span class='op'>=</span> <span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>data</span>,
+fill_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightblue"</span>,<span class='st'>"royalblue"</span>,<span class='st'>"navy"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## Apply a fill_gradient pattern to the filled bars</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
+cell <span class='op'>=</span> <span class='fu'>data_bars</span><span class='op'>(</span><span class='va'>data</span>,
+fill_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightblue"</span>,<span class='st'>"royalblue"</span>,<span class='st'>"navy"</span><span class='op'>)</span>,
+fill_gradient <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>
   </div>
