@@ -4,12 +4,12 @@ pkgdown_sha: ~
 articles:
   color_scales: color_scales.html
   color_tiles: color_tiles.html
-  data_bars: data_bars.html
+  data_bars_development: data_bars_development.html
   embed_img: embed_img.html
   highlight_min_max: highlight_min_max.html
   icon_assign: icon_assign.html
   icon_sets: icon_sets.html
   lollipop_chart: lollipop_chart.html
   nba_player_ratings: nba_player_ratings.html
-last_built: 2021-03-30T13:46Z
+last_built: 2021-04-09T20:51Z
 
