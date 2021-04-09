@@ -41,7 +41,7 @@ reactable(data,
 defaultColDef = colDef(
 align = "left",
 cell = data_bars(data,
-colors = c("#1efffd", "#1e20ff"),
-gradient = TRUE)))
+fill_color = c("#1efffd", "#1e20ff"),
+fill_gradient = TRUE)))
 
 }
