@@ -29,15 +29,15 @@
 #' defaultColDef = colDef(
 #' align = "left",
 #' cell = data_bars(data,
-#' colors = c("#1efffd", "#1e20ff"),
-#' gradient = TRUE)))
+#' fill_color = c("#1efffd", "#1e20ff"),
+#' fill_gradient = TRUE)))
 #'
 #' @export
 
 
 data_bars_gradient <- function(data, colors = c("#1efffd", "#1e20ff"), background = "white", number_fmt = NULL) {
 
-  .Deprecated("data_bars(gradient = TRUE)")
+  .Deprecated("data_bars(fill_gradient = TRUE)")
 
   if (length(colors) == 1) {
 
