@@ -56,6 +56,6 @@ columns = list(
   align = "center",
   minWidth = 400,
   cell = data_bars(data,
-  colors = c("#ff3030", "#ffffff", "#1e90ff")))))
+  fill_color = c("#ff3030", "#ffffff", "#1e90ff")))))
 
 }
