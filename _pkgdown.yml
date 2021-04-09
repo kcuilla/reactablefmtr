@@ -21,8 +21,6 @@ navbar:
         href: articles/color_scales.html
       - text: Color Tiles
         href: articles/color_tiles.html
-      - text: Data Bars (CRAN)
-        href: articles/data_bars.html
       - text: Data Bars (development)
         href: articles/data_bars_development.html
       - text: Embed Images
