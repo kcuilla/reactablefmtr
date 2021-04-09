@@ -113,7 +113,7 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars.html">Data Bars</a>
+      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -176,10 +176,39 @@
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h3>
+<div id="data_bars" class="section level4">
+<h4 class="hasAnchor">
+<a href="#data_bars" class="anchor"></a>data_bars()</h4>
 <ul>
-<li>Columns can be styled like lollipop charts with <code><a href="../reference/lollipop.html">lollipop()</a></code>
+<li>
+<code><a href="../reference/data_bars.html">data_bars()</a></code> can now handle columns with positive and negative values. <code><a href="../reference/data_bars_pos_neg.html">data_bars_pos_neg()</a></code> is being depreciated</li>
+<li>
+<code><a href="../reference/data_bars.html">data_bars()</a></code> can create color gradients when more than two colors are provided with <code>fill_gradient = TRUE</code>. <code><a href="../reference/data_bars_gradient.html">data_bars_gradient()</a></code> is being depreciated</li>
+<li>
+<code><a href="../reference/data_bars.html">data_bars()</a></code> can now be either right-aligned or left-aligned with the <code>align_bars</code> argument by specifying either “left” or “right”. By default, <code><a href="../reference/data_bars.html">data_bars()</a></code> are aligned left.</li>
+<li>The placement of the labels can now be adjusted within <code><a href="../reference/data_bars.html">data_bars()</a></code> with the <code>text_position</code> argument. Labels can be placed either outside the filled bars with “outside-end” or “outside-base”, inside the filled bars with “inside-end”, “inside-base”, or “center”, or labels can be hidden with “none”. By default, labels are placed on the “outside-end” of the filled bars</li>
+<li>The color of the labels can be changed by using the <code>text_color</code> argument. The default color is black</li>
+<li>Labels can be shown in bold text with the <code>bold_text</code> logical argument.</li>
+<li>If labels are placed inside the filled bars and the bars are filled with a dark color, the color of the labels will automatically change to white rather than the default black with the <code>brighten_text</code> logical argument. The color of <code>brighten_text_color</code> can be changed to any color</li>
+<li>The colors for the fill of the <code><a href="../reference/data_bars.html">data_bars()</a></code> can be provided from another column by naming the column within the <code>fill_color_ref</code> argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset</li>
+<li>The opacity of the fill color can be adjusted with <code>fill_opacity</code> by providing a value between 0 and 1</li>
+<li>The maximum width of the fill of <code><a href="../reference/data_bars.html">data_bars()</a></code> can be adjusted with the <code>max_value</code> argument. By default, the maximum width is the maximum value contained in the column. Ex. if showing percentages and the maximum value is 80%, by default, 80% will look 100% filled (since it’s 80% out of 80%). By changing <code>max_value = 1</code> (or <code>max_value = 100</code> depending on how your percentages are displayed), it will shrink the 80% to be relative to 100%. If a maximum value is provided, a minimum value can also be set with <code>min_value</code>
+</li>
+<li>Icons can now be added to the data bars with either <code>icon</code> or <code>icon_ref</code>
+</li>
+<li>By default, the color of the icon is inherited from the fill color of the data bars, but can be changed with <code>icon_color</code> or <code>icon_color_ref</code>
+</li>
+<li>Images can now be added to the data bars with either <code>img</code> or <code>img_ref</code>
 </li>
 </ul>
+</div>
+<div id="lollipop" class="section level4">
+<h4 class="hasAnchor">
+<a href="#lollipop" class="anchor"></a>lollipop()</h4>
+<ul>
+<li>Lollipop charts can be created by using <code><a href="../reference/lollipop.html">lollipop()</a></code> within the cell argument of <code><a href="https://glin.github.io/reactable/reference/colDef.html">reactable::colDef()</a></code>. The colors of both the lollipop bars and circles can be adjusted the <code>bar_color</code> and <code>circle_color</code> arguments.</li>
+</ul>
+</div>
 </div>
 </div>
     <div id="reactablefmtr-020" class="section level1">
