@@ -21,9 +21,9 @@ a function that applies positive and negative data bars
     to a column of numeric values.
 }
 \description{
-The `data_bars_pos_neg()` function conditionally adds a negative horizontal bar to each row of a column containing negative values, and a positive horizontal bar to each row containing positive values.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef.
+The `data_bars_pos_neg()` function is depreciated.
+    The new version of `data_bars()` can handle both positive and negative values now.
+    Please use `data_bars()` instead.
 }
 \examples{
 data <- data.frame(
@@ -42,7 +42,7 @@ columns = list(
    defaultSortOrder = "desc",
    align = "center",
    minWidth = 400,
-   cell = data_bars_pos_neg(data))))
+   cell = data_bars(data))))
 
 ## You can apply a relative color scale to the bars by assigning three or more colors
 reactable(data,
@@ -55,22 +55,7 @@ columns = list(
   defaultSortOrder = "desc",
   align = "center",
   minWidth = 400,
-  cell = data_bars_pos_neg(data,
+  cell = data_bars(data,
   colors = c("#ff3030", "#ffffff", "#1e90ff")))))
-
-## Use number_fmt to format numbers using the scales package
-reactable(data,
-bordered = TRUE,
-columns = list(
-  company = colDef(name = "Company",
-  minWidth = 100),
-  profit_chg = colDef(
-  name = "Change in Profit",
-  defaultSortOrder = "desc",
-  align = "center",
-  minWidth = 400,
-  cell = data_bars_pos_neg(data,
-  colors = c("#ff3030", "#ffffff", "#1e90ff"),
-  number_fmt = scales::percent))))
 
 }

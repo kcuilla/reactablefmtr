@@ -29,37 +29,19 @@ a function that applies data bars
     to a column of numeric values.
 }
 \description{
-The `data_bars_gradient()` function conditionally adds a left-to-right linear gradient to each row of a column.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef.
+The `data_bars_gradient()` function is depreciated.
+    The new version of `data_bars()` can convert colors into gradients with `gradient = TRUE`.
+    Please use `data_bars()` instead.
 }
 \examples{
-library(reactable)
 data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 
 ## By default, colors are provided
 reactable(data,
 defaultColDef = colDef(
 align = "left",
-cell = data_bars_gradient(data)))
-
-## Apply custom colors for gradient
-reactable(data,
-defaultColDef = colDef(
-align = "left",
-cell = data_bars_gradient(data, colors = c("white","grey","black"))))
-
-## Apply bacground color
-reactable(data,
-defaultColDef = colDef(
-align = "left",
-cell = data_bars_gradient(data, background = "black")))
-
-## Use number_fmt to format numbers using the scales package
-car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
-
-reactable(car_prices,
-defaultColDef = colDef(cell = data_bars_gradient(car_prices,
-number_fmt = scales::dollar_format(accuracy = 0.1))))
+cell = data_bars(data,
+colors = c("#1efffd", "#1e20ff"),
+gradient = TRUE)))
 
 }
