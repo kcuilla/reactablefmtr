@@ -52,7 +52,6 @@
 #'     Default is NULL.
 #'
 #' @param min_value A value to use as the minimum value for the width of the filled bars.
-#'     Must be used in conjunction with max_value.
 #'     Default is NULL.
 #'
 #' @param align_bars Display filled bars from left-to-right or right-to-left.
@@ -268,12 +267,12 @@ data_bars <- function(data,
 
     assign_color <- function(x) {
 
-        if (!is.na(x)) {
-          rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color))(x))
-          color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
-          color
-        } else
-          NULL
+      if (!is.na(x)) {
+        rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color))(x))
+        color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
+        color
+      } else
+        NULL
     }
 
     ### normalization for color palette
@@ -283,24 +282,24 @@ data_bars <- function(data,
     ### conditional fill color and font color
     if (is.character(fill_color_ref)) {
 
-    if (all(fill_color_ref %in% names(which(sapply(data, is.character))))) {
+      if (all(fill_color_ref %in% names(which(sapply(data, is.character))))) {
 
-      if (is.character(fill_color_ref)) { fill_color_ref <- which(names(data) %in% fill_color_ref) }
+        if (is.character(fill_color_ref)) { fill_color_ref <- which(names(data) %in% fill_color_ref) }
 
-      fill_color_pal <- data[[fill_color_ref]][index]
-      fill_color_pal <- grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity)
+        fill_color_pal <- data[[fill_color_ref]][index]
+        fill_color_pal <- grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity)
 
-      rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color_pal))(1))
+        rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color_pal))(1))
 
-      if (brighten_text == TRUE & text_position == "inside-end" | brighten_text == TRUE & text_position == "inside-base" | brighten_text == TRUE & text_position == "center") {
+        if (brighten_text == TRUE & text_position == "inside-end" | brighten_text == TRUE & text_position == "inside-base" | brighten_text == TRUE & text_position == "center") {
 
-      font_color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
+          font_color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
 
-      } else font_color <- text_color
+        } else font_color <- text_color
 
-    } else {
+      } else {
 
-      stop("Attempted to select non-existing column or non-character column with fill_color_ref")
+        stop("Attempted to select non-existing column or non-character column with fill_color_ref")
       }
 
     } else {
@@ -362,29 +361,29 @@ data_bars <- function(data,
 
         stop("Attempted to select non-existing column or non-character column with icon_ref")
 
-        }
+      }
 
-      } else if (!is.null(icon)) {
+    } else if (!is.null(icon)) {
 
-        ### icon_color
-        if (!is.null(icon_color)) {
-          colors <- icon_color
-        } else colors <- fill_color_pal
+      ### icon_color
+      if (!is.null(icon_color)) {
+        colors <- icon_color
+      } else colors <- fill_color_pal
 
-        ### icon_color_ref
-        if (is.character(icon_color_ref)) {
-          if (all(icon_color_ref %in% names(which(sapply(data, is.character))))) {
-            if (is.character(icon_color_ref)) { icon_color_ref <- which(names(data) %in% icon_color_ref) }
+      ### icon_color_ref
+      if (is.character(icon_color_ref)) {
+        if (all(icon_color_ref %in% names(which(sapply(data, is.character))))) {
+          if (is.character(icon_color_ref)) { icon_color_ref <- which(names(data) %in% icon_color_ref) }
 
-            colors <- data[[icon_color_ref]][index]
+          colors <- data[[icon_color_ref]][index]
 
-          } else { stop("Attempted to select non-existing column or non-character column with icon_color_ref") }
-        }
+        } else { stop("Attempted to select non-existing column or non-character column with icon_color_ref") }
+      }
 
-        icon_label <- htmltools::tagAppendAttributes(shiny::icon(icon),
-                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors))
+      icon_label <- htmltools::tagAppendAttributes(shiny::icon(icon),
+                                                   style = paste0("font-size:", icon_size, "px", "; color:", colors))
 
-      } else icon_label <- NULL
+    } else icon_label <- NULL
 
     ### img_ref
     if (is.character(img_ref)) {
@@ -415,20 +414,27 @@ data_bars <- function(data,
 
       img_label <- htmltools::img(src = img, height = img_height, width = img_width)
 
-       } else img_label <- NULL
+    } else img_label <- NULL
 
     ### width of data_bars
     width <- if (is.numeric(value) & is.null(max_value)) {
 
       paste0(abs(value) / max(abs(data[[name]]), na.rm = TRUE) * 100, "%")
 
-    } else if (is.numeric(value) & !is.null(max_value) & !is.null(min_value)) {
+      ### min_value provided
+    } else if (is.numeric(value) & is.null(max_value) & !is.null(min_value)) {
 
-      paste0((abs(value) - min_value) / max_value * 100, "%")
+      paste0((abs(value) - min_value) / (max(abs(data[[name]]), na.rm = TRUE) - min_value) * 100, "%")
 
+      ### max_value provided
     } else if (is.numeric(value) & !is.null(max_value) & is.null(min_value)) {
 
-      paste0(abs(value) / max_value * 100, "%")
+      paste0((abs(value) / max_value) * 100, "%")
+
+      ### min and max provided
+    } else if (is.numeric(value) & !is.null(max_value) & !is.null(min_value)) {
+
+      paste0((abs(value) - min_value) / (max_value - min_value) * 100, "%")
 
     } else if (!is.numeric(value)) {
 
@@ -588,8 +594,8 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         bar <- htmltools::div(style = list(display = "flex", alignItems = "center"),
-                                           htmltools::div(style = list(background = fill_color_pal, backgroundImage = gradient, width = width, height = "18.4px", transition = "width 1s", display = "flex", alignItems = "center", marginLeft = "7px", marginRight = "7px"), ""),
-                                           icon_label, img_label)
+                              htmltools::div(style = list(background = fill_color_pal, backgroundImage = gradient, width = width, height = "18.4px", transition = "width 1s", display = "flex", alignItems = "center", marginLeft = "7px", marginRight = "7px"), ""),
+                              icon_label, img_label)
         chart <- htmltools::div(style = list(flexGrow = 1, background = background), bar)
         bar_chart <- htmltools::div(style = list(display = "flex", alignItems = "center", color = font_color, fontWeight = bold_text, display = "flex", alignItems = "center"), text_label, chart)
         pos_chart <- htmltools::tagAppendChild(pos_chart, bar_chart)
@@ -641,425 +647,425 @@ data_bars <- function(data,
 
     } else {
 
-    ### data_bars for positive values only
-    bar_chart <-
-      function(text_label,
-               icon_label,
-               img_label,
-               width = "100%",
-               height = "18.4px",
-               fill = NULL,
-               background = NULL,
-               color = NULL,
-               fontWeight = NULL) {
+      ### data_bars for positive values only
+      bar_chart <-
+        function(text_label,
+                 icon_label,
+                 img_label,
+                 width = "100%",
+                 height = "18.4px",
+                 fill = NULL,
+                 background = NULL,
+                 color = NULL,
+                 fontWeight = NULL) {
 
-        if (align_bars == "right" & text_position == "outside-end") {
+          if (align_bars == "right" & text_position == "outside-end") {
 
-          chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center",
-              justifyContent = "flex-end",
-              color = font_color,
-              fontWeight = bold_text),
-              text_label,
+            chart <-
               htmltools::div(style = list(
-                textAlign = "left",
-                background = fill,
-                backgroundImage = gradient,
-                width = width,
-                height = height,
-                transition = "width 1s",
-                marginLeft = "7px",
                 display = "flex",
-                alignItems = "center"
-              ), icon_label, img_label))
-
-          back <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              background = background
-            ),
-            chart)
-
-          htmltools::div(back)
-
-        } else if (align_bars == "right" & text_position == "inside-end") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center",
-              justifyContent = "flex-end"),
-              icon_label,
-              img_label,
-              htmltools::div(style = list(
-                textAlign = "left",
-                background = fill,
-                backgroundImage = gradient,
+                alignItems = "center",
+                justifyContent = "flex-end",
                 color = font_color,
-                fontWeight = bold_text,
-                width = width,
-                height = height,
-                transition = "width 1s",
-                textOverflow = "ellipsis",
-                whiteSpace = "nowrap",
-                marginLeft = "7px"
-              ), text_label))
+                fontWeight = bold_text),
+                text_label,
+                htmltools::div(style = list(
+                  textAlign = "left",
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  marginLeft = "7px",
+                  display = "flex",
+                  alignItems = "center"
+                ), icon_label, img_label))
 
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              background = background
-            ),
-            fill_chart)
-
-          htmltools::div(back_chart)
-
-        } else if (align_bars == "right" & text_position == "inside-base") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center",
-              justifyContent = "flex-end"),
-              icon_label,
-              img_label,
+            back <-
               htmltools::div(style = list(
-                marginLeft = "7px",
-                textAlign = "right",
-                background = fill,
-                backgroundImage = gradient,
-                color = font_color,
-                fontWeight = bold_text,
-                width = width,
-                height = height,
-                transition = "width 1s",
-                textOverflow = "ellipsis",
-                whiteSpace = "nowrap"
-              ), text_label))
+                flexGrow = 1,
+                background = background
+              ),
+              chart)
 
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              marginLeft = "7px",
-              background = background
-            ),
-            fill_chart)
+            htmltools::div(back)
 
-          htmltools::div(back_chart)
+          } else if (align_bars == "right" & text_position == "inside-end") {
 
-        } else if (align_bars == "right" & text_position == "outside-base") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center",
-              justifyContent = "flex-end"),
-              "",
-              icon_label,
-              img_label,
+            fill_chart <-
               htmltools::div(style = list(
-                textAlign = "left",
-                background = fill,
-                backgroundImage = gradient,
-                color = font_color,
-                fontWeight = bold_text,
-                width = width,
-                height = height,
-                transition = "width 1s",
-                marginLeft = "7px",
                 display = "flex",
-                alignItems = "center"
-              )))
+                alignItems = "center",
+                justifyContent = "flex-end"),
+                icon_label,
+                img_label,
+                htmltools::div(style = list(
+                  textAlign = "left",
+                  background = fill,
+                  backgroundImage = gradient,
+                  color = font_color,
+                  fontWeight = bold_text,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  textOverflow = "ellipsis",
+                  whiteSpace = "nowrap",
+                  marginLeft = "7px"
+                ), text_label))
 
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              marginRight = "7px",
-              background = background
-            ),
-            fill_chart)
-
-          htmltools::div(style = list(display = "flex",
-                                      alignItems = "center",
-                                      color = font_color),
-                         back_chart,
-                         text_label)
-
-        } else if (align_bars == "right" & text_position == "center") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center",
-              justifyContent = "flex-end"),
-              icon_label,
-              img_label,
+            back_chart <-
               htmltools::div(style = list(
-                textAlign = "center",
-                background = fill,
-                backgroundImage = gradient,
-                color = font_color,
-                fontWeight = bold_text,
-                width = width,
-                height = height,
-                transition = "width 1s",
-                textOverflow = "ellipsis",
-                whiteSpace = "nowrap",
-                marginLeft = "7px"
-              ), text_label))
+                flexGrow = 1,
+                background = background
+              ),
+              fill_chart)
 
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              marginLeft = "7px",
-              background = background
-            ),
-            fill_chart)
+            htmltools::div(back_chart)
 
-          htmltools::div(back_chart)
+          } else if (align_bars == "right" & text_position == "inside-base") {
 
-        } else if (align_bars == "right" & text_position == "none") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center",
-              justifyContent = "flex-end"),
+            fill_chart <-
               htmltools::div(style = list(
-                marginLeft = "7px",
-                textAlign = "left",
-                background = fill,
-                backgroundImage = gradient,
-                width = width,
-                height = height,
-                transition = "width 1s",
                 display = "flex",
-                alignItems = "center"
-              ), icon_label, img_label))
+                alignItems = "center",
+                justifyContent = "flex-end"),
+                icon_label,
+                img_label,
+                htmltools::div(style = list(
+                  marginLeft = "7px",
+                  textAlign = "right",
+                  background = fill,
+                  backgroundImage = gradient,
+                  color = font_color,
+                  fontWeight = bold_text,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  textOverflow = "ellipsis",
+                  whiteSpace = "nowrap"
+                ), text_label))
 
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              marginLeft = "7px",
-              background = background
-            ),
-            fill_chart)
-
-          htmltools::div(style = list(display = "flex", alignItems = "center"),
-                         back_chart)
-
-        } else if (align_bars == "left" & text_position == "outside-end") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center",
-              color = font_color,
-              fontWeight = bold_text),
+            back_chart <-
               htmltools::div(style = list(
-                alignText = "right",
-                background = fill,
-                backgroundImage = gradient,
-                width = width,
-                height = height,
-                transition = "width 1s",
+                flexGrow = 1,
+                marginLeft = "7px",
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
+
+          } else if (align_bars == "right" & text_position == "outside-base") {
+
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                justifyContent = "flex-end"),
+                "",
+                icon_label,
+                img_label,
+                htmltools::div(style = list(
+                  textAlign = "left",
+                  background = fill,
+                  backgroundImage = gradient,
+                  color = font_color,
+                  fontWeight = bold_text,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  marginLeft = "7px",
+                  display = "flex",
+                  alignItems = "center"
+                )))
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
                 marginRight = "7px",
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(style = list(display = "flex",
+                                        alignItems = "center",
+                                        color = font_color),
+                           back_chart,
+                           text_label)
+
+          } else if (align_bars == "right" & text_position == "center") {
+
+            fill_chart <-
+              htmltools::div(style = list(
                 display = "flex",
                 alignItems = "center",
-                justifyContent = "flex-end"
-              ),
-              icon_label,
-              img_label),
-              text_label)
+                justifyContent = "flex-end"),
+                icon_label,
+                img_label,
+                htmltools::div(style = list(
+                  textAlign = "center",
+                  background = fill,
+                  backgroundImage = gradient,
+                  color = font_color,
+                  fontWeight = bold_text,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  textOverflow = "ellipsis",
+                  whiteSpace = "nowrap",
+                  marginLeft = "7px"
+                ), text_label))
 
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              background = background
-            ),
-            fill_chart)
-
-          htmltools::div(back_chart)
-
-        } else if (align_bars == "left" & text_position == "inside-end") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center"),
+            back_chart <-
               htmltools::div(style = list(
-                textAlign = "right",
-                background = fill,
-                backgroundImage = gradient,
-                color = font_color,
-                fontWeight = bold_text,
-                width = width,
-                height = height,
-                transition = "width 1s",
-                textOverflow = "ellipsis",
-                whiteSpace = "nowrap",
-                marginRight = "7px"
-              ), text_label),
-              icon_label,
-              img_label)
-
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              background = background
-            ),
-            fill_chart)
-
-          htmltools::div(back_chart)
-
-        } else if (align_bars == "left" & text_position == "inside-base") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center"),
-              htmltools::div(style = list(
-                textAlign = "left",
-                background = fill,
-                backgroundImage = gradient,
-                color = font_color,
-                fontWeight = bold_text,
-                width = width,
-                height = height,
-                transition = "width 1s",
-                textOverflow = "ellipsis",
-                whiteSpace = "nowrap",
-                marginRight = "7px"
-              ), text_label),
-              icon_label,
-              img_label)
-
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              background = background
-            ),
-            fill_chart)
-
-          htmltools::div(back_chart)
-
-        } else if (align_bars == "left" & text_position == "outside-base") {
-
-          bar <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center"),
-            htmltools::div(style = list(
-              background = fill,
-              backgroundImage = gradient,
-              color = font_color,
-              width = width,
-              height = height,
-              transition = "width 1s",
-              display = "flex",
-              alignItems = "center",
-              marginRight = "7px"
-            ), ""),
-            icon_label,
-            img_label)
-
-          chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              marginLeft = "7px",
-              background = background
-            ),
-            bar)
-
-          htmltools::div(style = list(display = "flex",
-                                      alignItems = "center",
-                                      color = font_color,
-                                      fontWeight = bold_text),
-                         text_label,
-                         chart)
-
-        } else if (align_bars == "left" & text_position == "center") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center"),
-              htmltools::div(style = list(
-                textAlign = "center",
-                background = fill,
-                backgroundImage = gradient,
-                color = font_color,
-                fontWeight = bold_text,
-                width = width,
-                height = height,
-                transition = "width 1s",
-                textOverflow = "ellipsis",
-                whiteSpace = "nowrap",
-                marginRight = "7px"
-              ), text_label),
-              icon_label,
-              img_label)
-
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              background = background
-            ),
-            fill_chart)
-
-          htmltools::div(back_chart)
-
-        } else if (align_bars == "left" & text_position == "none" | is.null(align_bars) & text_position == "none") {
-
-          fill_chart <-
-            htmltools::div(style = list(
-              display = "flex",
-              alignItems = "center"),
-              htmltools::div(style = list(
-                textAlign = "right",
-                background = fill,
-                backgroundImage = gradient,
-                width = width,
-                height = height,
-                transition = "width 1s",
+                flexGrow = 1,
                 marginLeft = "7px",
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
+
+          } else if (align_bars == "right" & text_position == "none") {
+
+            fill_chart <-
+              htmltools::div(style = list(
                 display = "flex",
                 alignItems = "center",
-                justifyContent = "flex-end"
+                justifyContent = "flex-end"),
+                htmltools::div(style = list(
+                  marginLeft = "7px",
+                  textAlign = "left",
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  display = "flex",
+                  alignItems = "center"
+                ), icon_label, img_label))
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                marginLeft = "7px",
+                background = background
               ),
-              icon_label,
-              img_label))
+              fill_chart)
 
-          back_chart <-
-            htmltools::div(style = list(
-              flexGrow = 1,
-              background = background
-            ),
-            fill_chart)
+            htmltools::div(style = list(display = "flex", alignItems = "center"),
+                           back_chart)
 
-          htmltools::div(back_chart)
+          } else if (align_bars == "left" & text_position == "outside-end") {
+
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                color = font_color,
+                fontWeight = bold_text),
+                htmltools::div(style = list(
+                  alignText = "right",
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  marginRight = "7px",
+                  display = "flex",
+                  alignItems = "center",
+                  justifyContent = "flex-end"
+                ),
+                icon_label,
+                img_label),
+                text_label)
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
+
+          } else if (align_bars == "left" & text_position == "inside-end") {
+
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center"),
+                htmltools::div(style = list(
+                  textAlign = "right",
+                  background = fill,
+                  backgroundImage = gradient,
+                  color = font_color,
+                  fontWeight = bold_text,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  textOverflow = "ellipsis",
+                  whiteSpace = "nowrap",
+                  marginRight = "7px"
+                ), text_label),
+                icon_label,
+                img_label)
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
+
+          } else if (align_bars == "left" & text_position == "inside-base") {
+
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center"),
+                htmltools::div(style = list(
+                  textAlign = "left",
+                  background = fill,
+                  backgroundImage = gradient,
+                  color = font_color,
+                  fontWeight = bold_text,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  textOverflow = "ellipsis",
+                  whiteSpace = "nowrap",
+                  marginRight = "7px"
+                ), text_label),
+                icon_label,
+                img_label)
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
+
+          } else if (align_bars == "left" & text_position == "outside-base") {
+
+            bar <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center"),
+                htmltools::div(style = list(
+                  background = fill,
+                  backgroundImage = gradient,
+                  color = font_color,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  display = "flex",
+                  alignItems = "center",
+                  marginRight = "7px"
+                ), ""),
+                icon_label,
+                img_label)
+
+            chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                marginLeft = "7px",
+                background = background
+              ),
+              bar)
+
+            htmltools::div(style = list(display = "flex",
+                                        alignItems = "center",
+                                        color = font_color,
+                                        fontWeight = bold_text),
+                           text_label,
+                           chart)
+
+          } else if (align_bars == "left" & text_position == "center") {
+
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center"),
+                htmltools::div(style = list(
+                  textAlign = "center",
+                  background = fill,
+                  backgroundImage = gradient,
+                  color = font_color,
+                  fontWeight = bold_text,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  textOverflow = "ellipsis",
+                  whiteSpace = "nowrap",
+                  marginRight = "7px"
+                ), text_label),
+                icon_label,
+                img_label)
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
+
+          } else if (align_bars == "left" & text_position == "none" | is.null(align_bars) & text_position == "none") {
+
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center"),
+                htmltools::div(style = list(
+                  textAlign = "right",
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = "width 1s",
+                  marginLeft = "7px",
+                  display = "flex",
+                  alignItems = "center",
+                  justifyContent = "flex-end"
+                ),
+                icon_label,
+                img_label))
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
+          }
         }
-      }
 
-    ### adjust spacing so numbers align properly in outside-base
-    if (text_position == "outside-base") {
+      ### adjust spacing so numbers align properly in outside-base
+      if (text_position == "outside-base") {
 
-      max_digits <- max(nchar(data[[name]]), na.rm = TRUE)+1
+        max_digits <- max(nchar(data[[name]]), na.rm = TRUE)+1
 
-      text_label <- stringr::str_pad(text_label, max_digits)
+        text_label <- stringr::str_pad(text_label, max_digits)
 
-    } else text_label <- text_label
+      } else text_label <- text_label
 
-    bar_chart(text_label,
-              icon_label,
-              img_label,
-              width = width,
-              fill = fill_color_pal,
-              background = background,
-              color = font_color,
-              fontWeight = bold_text)
+      bar_chart(text_label,
+                icon_label,
+                img_label,
+                width = width,
+                fill = fill_color_pal,
+                background = background,
+                color = font_color,
+                fontWeight = bold_text)
     }
   }
 }
