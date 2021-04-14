@@ -60,7 +60,6 @@ The default maximum value is the maximum value in the column.
 Default is NULL.}
 
 \item{min_value}{A value to use as the minimum value for the width of the filled bars.
-Must be used in conjunction with max_value.
 Default is NULL.}
 
 \item{align_bars}{Display filled bars from left-to-right or right-to-left.
