@@ -417,7 +417,7 @@ data_bars <- function(data,
     } else img_label <- NULL
 
     ### width of data_bars
-    width <- if (is.numeric(value) & is.null(max_value)) {
+    width <- if (is.numeric(value) & is.null(max_value) & is.null(min_value)) {
 
       paste0(abs(value) / max(abs(data[[name]]), na.rm = TRUE) * 100, "%")
 
