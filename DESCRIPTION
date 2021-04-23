@@ -22,8 +22,11 @@ Imports:
     dplyr,
     grDevices,
     htmltools,
+    htmlwidgets,
     shiny,
-    stringr
+    stringr,
+    tools,
+    webshot2
 Suggests:
     MASS,
     scales

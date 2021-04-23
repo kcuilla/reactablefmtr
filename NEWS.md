@@ -6,10 +6,11 @@
 
 * `data_bars()` can now handle columns with positive and negative values. `data_bars_pos_neg()` is being depreciated
 * `data_bars()` can create color gradients when more than two colors are provided with `fill_gradient = TRUE`. `data_bars_gradient()` is being depreciated
-* `data_bars()` can now be either right-aligned or left-aligned with the `align_bars` argument by specifying either "left" or "right". By default, `data_bars()` are aligned left.
+* The `colors` argument in `data_bars()` has been renamed to `fill_color`
+* `data_bars()` can now be either right-aligned or left-aligned with the `align_bars` argument by specifying either "left" or "right". By default, `data_bars()` are aligned left
 * The placement of the labels can now be adjusted within `data_bars()` with the `text_position` argument. Labels can be placed either outside the filled bars with "outside-end" or "outside-base", inside the filled bars with "inside-end", "inside-base", or "center", or labels can be hidden with "none". By default, labels are placed on the "outside-end" of the filled bars
 * The color of the labels can be changed by using the `text_color` argument. The default color is black
-* Labels can be shown in bold text with the `bold_text` logical argument.
+* Labels can be shown in bold text with the `bold_text` logical argument
 * If labels are placed inside the filled bars and the bars are filled with a dark color, the color of the labels will automatically change to white rather than the default black with the `brighten_text` logical argument. The color of `brighten_text_color` can be changed to any color
 * The colors for the fill of the `data_bars()` can be provided from another column by naming the column within the `fill_color_ref` argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
 * The opacity of the fill color can be adjusted with `fill_opacity` by providing a value between 0 and 1
@@ -20,7 +21,13 @@
 
 #### lollipop()
 
-* Lollipop charts can be created by using `lollipop()` within the cell argument of `reactable::colDef()`. The colors of both the lollipop bars and circles can be adjusted the `bar_color` and `circle_color` arguments.  
+* Lollipop charts can be created by using `lollipop()` within the cell argument of `reactable::colDef()`. The colors of both the lollipop bars and circles can be adjusted the `bar_color` and `circle_color` arguments
+
+### save_reactable()
+
+* Reactable tables can now be saved as static .png files or dynamic .html files using `save_reactable()`
+* If the reactable table was created in a .Rmd file and additional CSS styling are applied, reference the name of either the .Rmd file containing the reactable table or the .html file of the reactable table to save an image of the table
+
 
 # reactablefmtr 0.2.0
 
