@@ -156,7 +156,7 @@
 <p>Data bars are now animated!</p>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo_default.gif" alt="animated_data_bars"></p>
 <p>You may also notice that gradient colors can be applied to data bars as well, which is covered in the <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code> section below.</p>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/all_data_bars_demo2.gif" alt="animated_data_bars_demo"></p>
+<p><br></p>
 </div>
 <div id="color_scales" class="section level3">
 <h3 class="hasAnchor">
@@ -177,7 +177,7 @@ reactable(data,
           defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))</code></pre>
 <p><img src="reference/figures/README_color_scales_custom.PNG" align="center"></p>
 <p>Previously in {reactable}, using dark color palettes such as the “magma” color set from {viridis} was troublesome since you couldn’t see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:</p>
-<pre class="{r}"><code><a href="https://github.com/sjmgarnier/viridis">library(viridis)
+<pre class="{r}"><code><a href="https://sjmgarnier.github.io/viridis/">library(viridis)
 reactable(data,
           defaultColDef = colDef(style = color_scales(data,
                                                       colors = viridis::magma(5))))</a></code></pre>
@@ -204,7 +204,7 @@ reactable(car_prices,
                                                number_fmt = scales::comma))))</code></pre>
 <p><img src="reference/figures/README_color_tiles_number_fmt.PNG" align="center"></p>
 <p>Just like with <code><a href="reference/color_scales.html">color_scales()</a></code>, you are now free to use dark color palettes. Note: this option can be turned off by setting <code>bright_values = FALSE</code>:</p>
-<pre class="{r}"><code><a href="https://github.com/sjmgarnier/viridis">library(viridis)
+<pre class="{r}"><code><a href="https://sjmgarnier.github.io/viridis/">library(viridis)
 reactable(data,
           defaultColDef = colDef(style = color_tiles(data,
                                                      colors = viridis::magma(5))))</a></code></pre>
