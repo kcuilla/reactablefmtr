@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • reactablefmtr</title>
+<title>Save a reactable table as an image or .html file — save_reactable • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,13 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Save a reactable table as an image or .html file — save_reactable" />
+<meta property="og:description" content="The `save_reactable()` function converts either a reactable table, .html file, or .Rmd file to an image or .html file
+    and saves it in the user's working directory.
+    Table can be saved as either a .png file or .html file. Other file types are not currently supported.
+    If the reactable table is located within an .Rmd file and has additional CSS styles provided,
+    specify the name of the .Rmd file as the input.
+    Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input." />
 
 
 
@@ -68,7 +74,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -163,120 +169,61 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Save a reactable table as an image or .html file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/save_reactable.R'><code>R/save_reactable.R</code></a></small>
+    <div class="hidden name"><code>save_reactable.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>The `save_reactable()` function converts either a reactable table, .html file, or .Rmd file to an image or .html file
+    and saves it in the user's working directory.
+    Table can be saved as either a .png file or .html file. Other file types are not currently supported.
+    If the reactable table is located within an .Rmd file and has additional CSS styles provided,
+    specify the name of the .Rmd file as the input.
+    Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>save_reactable</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="color_scales.html">color_scales()</a></code> </p>
-        </td>
-        <td><p>Add color scales to rows in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="color_tiles.html">color_tiles()</a></code> </p>
-        </td>
-        <td><p>Add color tiles to rows in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="data_bars.html">data_bars()</a></code> </p>
-        </td>
-        <td><p>Add horizontal bars to rows in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="data_bars_gradient.html">data_bars_gradient()</a></code> </p>
-        </td>
-        <td><p>Add horizontal gradient bars to rows in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="data_bars_pos_neg.html">data_bars_pos_neg()</a></code> </p>
-        </td>
-        <td><p>Add horizontal bars to rows in a column containing positive and negative values</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="embed_img.html">embed_img()</a></code> </p>
-        </td>
-        <td><p>Embed image from web to rows in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="highlight_max.html">highlight_max()</a></code> </p>
-        </td>
-        <td><p>Highlights the maximum value in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="highlight_min.html">highlight_min()</a></code> </p>
-        </td>
-        <td><p>Highlights the minimum value in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="highlight_min_max.html">highlight_min_max()</a></code> </p>
-        </td>
-        <td><p>Highlights the minimum and maximum value in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="icon_assign.html">icon_assign()</a></code> </p>
-        </td>
-        <td><p>Assign icons to rows in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="icon_sets.html">icon_sets()</a></code> </p>
-        </td>
-        <td><p>Add colored icons to rows in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lollipop.html">lollipop()</a></code> </p>
-        </td>
-        <td><p>Add a horizontal lollipop to rows in a column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pos_neg_colors.html">pos_neg_colors()</a></code> </p>
-        </td>
-        <td><p>Assign colors to negative and positive values</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="save_reactable.html">save_reactable()</a></code> </p>
-        </td>
-        <td><p>Save a reactable table as an image or .html file</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>input</th>
+      <td><p>A reactable table, .html file, or .Rmd file</p></td>
+    </tr>
+    <tr>
+      <th>output</th>
+      <td><p>A .png or .html file name for the saved image</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a function that converts a reactable table, .html file, or .Rmd file to an .png file or .html file
+    and saves it in the user's working directory.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'>## Save reactable table as a png file:</span>
+<span class='va'>iris_table</span> <span class='op'>&lt;-</span> <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+<span class='fu'>save_reactable</span><span class='op'>(</span><span class='va'>iris_table</span>, <span class='st'>"iris_table.png"</span><span class='op'>)</span>
+
+<span class='co'>## Or save as an html file:</span>
+<span class='fu'>save_reactable</span><span class='op'>(</span><span class='va'>iris_table</span>, <span class='st'>"iris_table.html"</span><span class='op'>)</span>
+
+<span class='co'>## If the reactable table was built in R Markdown with CSS styles applied,</span>
+<span class='co'>## specify .Rmd file as input and save_reactable will run the file</span>
+<span class='co'>## and save the output as an image</span>
+<span class='fu'>save_reactable</span><span class='op'>(</span><span class='st'>"iris_table.Rmd"</span>, <span class='st'>"iris_table.png"</span><span class='op'>)</span>
+
+<span class='co'>## Alternatively, can do the same with an .html file</span>
+<span class='fu'>save_reactable</span><span class='op'>(</span><span class='st'>"iris_table.html"</span>, <span class='st'>"iris_table.png"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
