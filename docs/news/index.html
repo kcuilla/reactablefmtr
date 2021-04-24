@@ -184,11 +184,13 @@
 <code><a href="../reference/data_bars.html">data_bars()</a></code> can now handle columns with positive and negative values. <code><a href="../reference/data_bars_pos_neg.html">data_bars_pos_neg()</a></code> is being depreciated</li>
 <li>
 <code><a href="../reference/data_bars.html">data_bars()</a></code> can create color gradients when more than two colors are provided with <code>fill_gradient = TRUE</code>. <code><a href="../reference/data_bars_gradient.html">data_bars_gradient()</a></code> is being depreciated</li>
+<li>The <code>colors</code> argument in <code><a href="../reference/data_bars.html">data_bars()</a></code> has been renamed to <code>fill_color</code>
+</li>
 <li>
-<code><a href="../reference/data_bars.html">data_bars()</a></code> can now be either right-aligned or left-aligned with the <code>align_bars</code> argument by specifying either “left” or “right”. By default, <code><a href="../reference/data_bars.html">data_bars()</a></code> are aligned left.</li>
+<code><a href="../reference/data_bars.html">data_bars()</a></code> can now be either right-aligned or left-aligned with the <code>align_bars</code> argument by specifying either “left” or “right”. By default, <code><a href="../reference/data_bars.html">data_bars()</a></code> are aligned left</li>
 <li>The placement of the labels can now be adjusted within <code><a href="../reference/data_bars.html">data_bars()</a></code> with the <code>text_position</code> argument. Labels can be placed either outside the filled bars with “outside-end” or “outside-base”, inside the filled bars with “inside-end”, “inside-base”, or “center”, or labels can be hidden with “none”. By default, labels are placed on the “outside-end” of the filled bars</li>
 <li>The color of the labels can be changed by using the <code>text_color</code> argument. The default color is black</li>
-<li>Labels can be shown in bold text with the <code>bold_text</code> logical argument.</li>
+<li>Labels can be shown in bold text with the <code>bold_text</code> logical argument</li>
 <li>If labels are placed inside the filled bars and the bars are filled with a dark color, the color of the labels will automatically change to white rather than the default black with the <code>brighten_text</code> logical argument. The color of <code>brighten_text_color</code> can be changed to any color</li>
 <li>The colors for the fill of the <code><a href="../reference/data_bars.html">data_bars()</a></code> can be provided from another column by naming the column within the <code>fill_color_ref</code> argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset</li>
 <li>The opacity of the fill color can be adjusted with <code>fill_opacity</code> by providing a value between 0 and 1</li>
@@ -206,7 +208,16 @@
 <h4 class="hasAnchor">
 <a href="#lollipop" class="anchor"></a>lollipop()</h4>
 <ul>
-<li>Lollipop charts can be created by using <code><a href="../reference/lollipop.html">lollipop()</a></code> within the cell argument of <code><a href="https://glin.github.io/reactable/reference/colDef.html">reactable::colDef()</a></code>. The colors of both the lollipop bars and circles can be adjusted the <code>bar_color</code> and <code>circle_color</code> arguments.</li>
+<li>Lollipop charts can be created by using <code><a href="../reference/lollipop.html">lollipop()</a></code> within the cell argument of <code><a href="https://glin.github.io/reactable/reference/colDef.html">reactable::colDef()</a></code>. The colors of both the lollipop bars and circles can be adjusted the <code>bar_color</code> and <code>circle_color</code> arguments</li>
+</ul>
+</div>
+<div id="save_reactable" class="section level4">
+<h4 class="hasAnchor">
+<a href="#save_reactable" class="anchor"></a>save_reactable()</h4>
+<ul>
+<li>Reactable tables can now be saved as static .png files or dynamic .html files using <code><a href="../reference/save_reactable.html">save_reactable()</a></code>
+</li>
+<li>If the reactable table was created in a .Rmd file and additional CSS styling are applied, reference the name of either the .Rmd file containing the reactable table or the .html file of the reactable table to save an image of the table</li>
 </ul>
 </div>
 </div>
