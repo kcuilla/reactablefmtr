@@ -45,7 +45,7 @@
 #'     Default is FALSE.
 #'
 #' @param background The color for the background of the data bars.
-#'     Default is white.
+#'     Default is transparent.
 #'
 #' @param max_value A value to use as the maximum value for the width of the filled bars.
 #'     The default maximum value is the maximum value in the column.
@@ -169,7 +169,7 @@ data_bars <- function(data,
                       fill_color_ref = NULL,
                       fill_opacity = 1,
                       fill_gradient = FALSE,
-                      background = "white",
+                      background = "transparent",
                       max_value = NULL,
                       min_value = NULL,
                       align_bars = "left",
