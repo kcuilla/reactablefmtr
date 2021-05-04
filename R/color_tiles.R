@@ -3,7 +3,14 @@
 #' The `color_tiles()` function conditionally colors the background of each cell similarly to color_scales().
 #'     The difference is that color_tiles() uses round colored tiles around values instead of the entire background of the cell.
 #'     Another difference is color_tiles() allows number formatting with number_fmt whereas color_scales() does not.
-#'     The last difference is it needs to placed within the cell argument in reactable::colDef vs the style argument for color_scales().
+#'     The colors can be provided within a vector in `colors` or via another column in the dataset by referencing the column by name with `color_ref`.
+#'     The opacity of the colors provided can be adjusted by providing a value between 0 and 1 in `opacity`.
+#'     `text_color` can be used to change the color of the values.
+#'     If values are displayed within a dark-colored background, `brighten_text` will display the values in white text so they are more visible.
+#'     The color of `brighten_text_color` can be changed to a color other than white if desired.
+#'     If the user wants to assign colors row-wise instead of column-wise, set `span` equal to TRUE to apply across all columns.
+#'     Or can provide the names of the columns by either column name or column position number to apply to only a subset of the columns.
+#'     `color_tiles()` needs to placed within the cell argument in reactable::colDef.
 #'
 #' @param data Dataset containing at least one numeric column.
 #'
@@ -12,12 +19,30 @@
 #'     Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 #'     Can use R's built-in colors or other color packages.
 #'
+#' @param color_ref Optionally assign colors to from another column
+#'     by providing the name of the column containing the colors in quotes.
+#'     Only one color can be provided per row.
+#'     Default is NULL.
+#'
+#' @param opacity A value between 0 and 1 that adjusts the opacity in colors.
+#'     A value of 0 is fully transparent, a value of 1 is fully opaque.
+#'     Default is 1.
+#'
 #' @param number_fmt Optionally format numbers using formats from the scales package.
 #'     Default is set to NULL.
 #'
-#' @param bright_values Optionally display values as white.
-#'     Values with a dark-colored background will be shown in white.
-#'     Default is set to TRUE but can be turned off by setting to FALSE.
+#' @param text_color Assigns text color to values.
+#'     Default is black.
+#'
+#' @param brighten_text Logical: automatically assign color to text based on background color of cell.
+#'     Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.
+#'     Default is TRUE.
+#'
+#' @param brighten_text_color Assigns text color to values if values are within a dark-colored backgrounds.
+#'     Default is white.
+#'
+#' @param bold_text Logical: bold text.
+#'     Default is FALSE.
 #'
 #' @param span Optionally apply colors to values across multiple columns instead of by each column.
 #'     To apply across all columns set to TRUE.
@@ -72,7 +97,46 @@
 #' @export
 
 
-color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), number_fmt = NULL, bright_values = TRUE, span = FALSE) {
+color_tiles <- function(data,
+                        colors = c("#ff3030", "#ffffff", "#1e90ff"),
+                        color_ref = NULL,
+                        opacity = 1,
+                        number_fmt = NULL,
+                        text_color = "black",
+                        brighten_text = TRUE,
+                        brighten_text_color = "white",
+                        bold_text = FALSE,
+                        span = FALSE) {
+
+  if (!is.logical(bold_text)) {
+
+    stop("`bold_text` must be TRUE or FALSE")
+  }
+
+  if (!is.logical(brighten_text)) {
+
+    stop("`brighten_text` must be TRUE or FALSE")
+  }
+
+  if (!is.numeric(opacity)) {
+
+    stop("`opacity` must be numeric")
+  }
+
+  if (opacity < 0 | opacity > 1) {
+
+    stop("`opacity` must be a value between 0 and 1")
+  }
+
+  if (length(text_color) > 1) {
+
+    stop("multiple colors detected in `text_color`. only one color can be used.")
+  }
+
+  if (length(brighten_text_color) > 1) {
+
+    stop("multiple colors detected in `brighten_text_color` only one color can be used.")
+  }
 
   color_pal <- function(x) {
 
@@ -91,6 +155,12 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
     } else
       NULL
   }
+
+  if (bold_text == TRUE) {
+
+    bold_text <- "bold"
+
+  } else bold_text <- "normal"
 
   cell <- function(value, index, name) {
 
@@ -114,8 +184,31 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
 
       }
 
-      cell_color <- color_pal(normalized)
-      font_color <- assign_color(normalized)
+      ### conditional fill color and font color
+      if (is.character(color_ref)) {
+
+        if (all(color_ref %in% names(which(sapply(data, is.character))))) {
+
+          if (is.character(color_ref)) { color_ref <- which(names(data) %in% color_ref) }
+
+          cell_color <- data[[color_ref]][index]
+          cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
+
+          rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
+
+          font_color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
+
+        } else {
+
+          stop("Attempted to select non-existing column or non-character column with fill_color_ref")
+        }
+
+      } else {
+
+        cell_color <- color_pal(normalized)
+        font_color <- assign_color(normalized)
+
+      }
 
     } else if (is.numeric(span) | is.character(span)) {
 
@@ -135,13 +228,14 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
 
     }
 
-    if (bright_values == FALSE) {
+    if (brighten_text == FALSE) {
 
       htmltools::div(label,
                      style = list(background = cell_color,
                                   display = "flex",
                                   justifyContent = "center",
                                   borderRadius = "4px",
+                                  fontWeight = bold_text,
                                   height = "18px"))
 
     } else
@@ -152,7 +246,9 @@ color_tiles <- function(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), numbe
                                   display = "flex",
                                   justifyContent = "center",
                                   borderRadius = "4px",
+                                  fontWeight = bold_text,
                                   height = "18px"))
 
   }
 }
+
