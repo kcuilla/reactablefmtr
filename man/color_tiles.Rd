@@ -7,8 +7,13 @@
 color_tiles(
   data,
   colors = c("#ff3030", "#ffffff", "#1e90ff"),
+  color_ref = NULL,
+  opacity = 1,
   number_fmt = NULL,
-  bright_values = TRUE,
+  text_color = "black",
+  brighten_text = TRUE,
+  brighten_text_color = "white",
+  bold_text = FALSE,
   span = FALSE
 )
 }
@@ -20,12 +25,30 @@ Colors should be given in order from low values to high values.
 Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
 Can use R's built-in colors or other color packages.}
 
+\item{color_ref}{Optionally assign colors to from another column
+by providing the name of the column containing the colors in quotes.
+Only one color can be provided per row.
+Default is NULL.}
+
+\item{opacity}{A value between 0 and 1 that adjusts the opacity in colors.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.}
+
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is set to NULL.}
 
-\item{bright_values}{Optionally display values as white.
-Values with a dark-colored background will be shown in white.
-Default is set to TRUE but can be turned off by setting to FALSE.}
+\item{text_color}{Assigns text color to values.
+Default is black.}
+
+\item{brighten_text}{Logical: automatically assign color to text based on background color of cell.
+Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.
+Default is TRUE.}
+
+\item{brighten_text_color}{Assigns text color to values if values are within a dark-colored backgrounds.
+Default is white.}
+
+\item{bold_text}{Logical: bold text.
+Default is FALSE.}
 
 \item{span}{Optionally apply colors to values across multiple columns instead of by each column.
 To apply across all columns set to TRUE.
@@ -40,7 +63,14 @@ a function that applies conditional color tiles
 The `color_tiles()` function conditionally colors the background of each cell similarly to color_scales().
     The difference is that color_tiles() uses round colored tiles around values instead of the entire background of the cell.
     Another difference is color_tiles() allows number formatting with number_fmt whereas color_scales() does not.
-    The last difference is it needs to placed within the cell argument in reactable::colDef vs the style argument for color_scales().
+    The colors can be provided within a vector in `colors` or via another column in the dataset by referencing the column by name with `color_ref`.
+    The opacity of the colors provided can be adjusted by providing a value between 0 and 1 in `opacity`.
+    `text_color` can be used to change the color of the values.
+    If values are displayed within a dark-colored background, `brighten_text` will display the values in white text so they are more visible.
+    The color of `brighten_text_color` can be changed to a color other than white if desired.
+    If the user wants to assign colors row-wise instead of column-wise, set `span` equal to TRUE to apply across all columns.
+    Or can provide the names of the columns by either column name or column position number to apply to only a subset of the columns.
+    `color_tiles()` needs to placed within the cell argument in reactable::colDef.
 }
 \examples{
 data <- iris[10:29, ]
