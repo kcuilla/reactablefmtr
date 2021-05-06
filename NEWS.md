@@ -38,6 +38,13 @@
 * Reactable tables can now be saved as static .png files or dynamic .html files using `save_reactable()`
 * If the reactable table was created in a .Rmd file and additional CSS styling are applied, reference the name of either the .Rmd file containing the reactable table or the .html file of the reactable table to save an image of the table
 
+#### themes
+
+Added 24 new table themes, including:
+
+* Bootstrap-inspired themes: cerulean, cosmo, cyborg, darkly, flatly, journal, lux, minty, sandstone, slate, spacelab, and superhero
+* News/sports-inspired themes: espn, fivethirtyeight, nytimes, and pff
+* Other custom themes: clean, default, hoverdark, hoverlight, midnight, midnightblue, sunrise, and void
 
 # reactablefmtr 0.2.0
 
