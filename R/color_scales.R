@@ -186,6 +186,7 @@ color_scales <- function(data,
       } else {
 
       cell_color <- color_pal(normalized)
+      cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
       font_color <- assign_color(normalized)
 
       }
@@ -197,7 +198,7 @@ color_scales <- function(data,
         if (is.character(span)) { span <- which(names(data) %in% span) }
 
         normalized <- (value - min(dplyr::select(data, !!span), na.rm = TRUE)) / (max(dplyr::select(data, !!span), na.rm = TRUE) - min(dplyr::select(data, !!span), na.rm = TRUE))
-        cell_color <- if (name %in% colnames(data)[span]) { color_pal(normalized) }
+        cell_color <- if (name %in% colnames(data)[span]) { grDevices::adjustcolor(color_pal(normalized), alpha.f = opacity) }
         font_color <- if (name %in% colnames(data)[span]) { assign_color(normalized) }
 
       } else {
