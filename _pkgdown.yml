@@ -33,6 +33,8 @@ navbar:
         href: articles/icon_sets.html
       - text: Lollipop Chart
         href: articles/lollipop_chart.html
+      - text: Themes
+        href: articles/themes.html
     demos:
       text: Demos
       menu:
