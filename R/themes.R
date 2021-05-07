@@ -1984,13 +1984,14 @@ midnight <- function(font_family = "Tahoma",
     ),
     groupHeaderStyle = list(
       backgroundColor = "#000000",
+      fontFamily = header_font_family,
+      fonSize = header_font_size,
+      color = font_color,
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
         transitionTimingFunction = "ease-out",
-        color = font_color,
-        fontFamily = header_font_family,
-        fonSize = header_font_size
+        color = "#ffffff"
       )
     ),
     searchInputStyle = list(
@@ -2091,13 +2092,13 @@ midnightblue <- function(font_family = "Tahoma",
       borderWidth = "1px",
       backgroundColor = "#001021",
       borderColor = "#001021",
-      color = "lightgrey",
+      color = header_font_color,
       transitionDuration = "1s",
       transitionTimingFunction = "ease-out",
       "&:hover[aria-sort]" = list(color = "#ffffff"),
       "&[aria-sort='ascending']" = list(color = "#ffffff"),
       "&[aria-sort='descending']" = list(
-        color = header_font_color,
+        color = "#ffffff",
         borderBottomColor = "#ffffff",
         borderWidth = "1px"
       ),
@@ -2106,13 +2107,14 @@ midnightblue <- function(font_family = "Tahoma",
     ),
     groupHeaderStyle = list(
       backgroundColor = "#001021",
+      fontFamily = header_font_family,
+      fonSize = header_font_size,
+      color = font_color,
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
         transitionTimingFunction = "ease-out",
-        color = font_color,
-        fontFamily = header_font_family,
-        fonSize = header_font_size
+        color = "#ffffff"
       )
     ),
     searchInputStyle = list(
