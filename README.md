@@ -16,6 +16,7 @@ Simplify the styling, formatting, and customization of tables made with `{reacta
 - [Icon Assign](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html)
 - [Icon Sets](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html)
 - [Lollipop Charts](https://kcuilla.github.io/reactablefmtr/articles/lollipop_chart.html)
+- [Themes](https://kcuilla.github.io/reactablefmtr/articles/themes.html)
 
 ## Installation
 
