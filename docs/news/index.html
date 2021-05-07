@@ -130,6 +130,9 @@
     <li>
       <a href="../articles/lollipop_chart.html">Lollipop Chart</a>
     </li>
+    <li>
+      <a href="../articles/themes.html">Themes</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -176,6 +179,20 @@
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h3>
+<div id="color_scales--color_tiles" class="section level4">
+<h4 class="hasAnchor">
+<a href="#color_scales--color_tiles" class="anchor"></a>color_scales() &amp; color_tiles()</h4>
+<ul>
+<li>Colors can be provided from another column by naming the column within the <code>color_ref</code> argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset</li>
+<li>The opacity of the background colors can be adjusted with <code>opacity</code> by providing a value between 0 and 1</li>
+<li>The color of the values can be changed by using the <code>text_color</code> argument. The default color is black</li>
+<li>Values can be shown in bold text with the <code>bold_text</code> logical argument</li>
+<li>
+<code>brighten_values</code> has been renamed to <code>brighten_text</code>
+</li>
+<li>The color of the values in cells that have <code>brighten_values</code> applied can be changed with <code>brighten_text_color</code>. The default color is white</li>
+</ul>
+</div>
 <div id="data_bars" class="section level4">
 <h4 class="hasAnchor">
 <a href="#data_bars" class="anchor"></a>data_bars()</h4>
@@ -186,6 +203,7 @@
 <code><a href="../reference/data_bars.html">data_bars()</a></code> can create color gradients when more than two colors are provided with <code>fill_gradient = TRUE</code>. <code><a href="../reference/data_bars_gradient.html">data_bars_gradient()</a></code> is being depreciated</li>
 <li>The <code>colors</code> argument in <code><a href="../reference/data_bars.html">data_bars()</a></code> has been renamed to <code>fill_color</code>
 </li>
+<li>The default color of <code>background</code> has been changed from white to transparent</li>
 <li>
 <code><a href="../reference/data_bars.html">data_bars()</a></code> can now be either right-aligned or left-aligned with the <code>align_bars</code> argument by specifying either “left” or “right”. By default, <code><a href="../reference/data_bars.html">data_bars()</a></code> are aligned left</li>
 <li>The placement of the labels can now be adjusted within <code><a href="../reference/data_bars.html">data_bars()</a></code> with the <code>text_position</code> argument. Labels can be placed either outside the filled bars with “outside-end” or “outside-base”, inside the filled bars with “inside-end”, “inside-base”, or “center”, or labels can be hidden with “none”. By default, labels are placed on the “outside-end” of the filled bars</li>
@@ -218,6 +236,16 @@
 <li>Reactable tables can now be saved as static .png files or dynamic .html files using <code><a href="../reference/save_reactable.html">save_reactable()</a></code>
 </li>
 <li>If the reactable table was created in a .Rmd file and additional CSS styling are applied, reference the name of either the .Rmd file containing the reactable table or the .html file of the reactable table to save an image of the table</li>
+</ul>
+</div>
+<div id="themes" class="section level4">
+<h4 class="hasAnchor">
+<a href="#themes" class="anchor"></a>themes</h4>
+<p>Added 24 new table themes, including:</p>
+<ul>
+<li>Bootstrap-inspired themes: cerulean, cosmo, cyborg, darkly, flatly, journal, lux, minty, sandstone, slate, spacelab, and superhero</li>
+<li>News/sports-inspired themes: espn, fivethirtyeight, nytimes, and pff</li>
+<li>Other custom themes: clean, default, hoverdark, hoverlight, midnight, midnightblue, sunrise, and void</li>
 </ul>
 </div>
 </div>
