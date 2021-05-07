@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a horizontal lollipop to rows in a column — lollipop • reactablefmtr</title>
+<title>Theme nytimes — nytimes • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Add a horizontal lollipop to rows in a column — lollipop" />
-<meta property="og:description" content="The `lollipop()` function adds a lollipop (a circle on the end of a bar with a value inside) to each row of a column.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef." />
+<meta property="og:title" content="Theme nytimes — nytimes" />
+<meta property="og:description" content="The New York Times-inspired table theme" />
 
 
 
@@ -171,96 +169,79 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add a horizontal lollipop to rows in a column</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/lollipop.R'><code>R/lollipop.R</code></a></small>
-    <div class="hidden name"><code>lollipop.Rd</code></div>
+    <h1>Theme nytimes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/themes.R'><code>R/themes.R</code></a></small>
+    <div class="hidden name"><code>nytimes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The `lollipop()` function adds a lollipop (a circle on the end of a bar with a value inside) to each row of a column.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef.</p>
+    <p>The New York Times-inspired table theme</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lollipop</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  circle_color <span class='op'>=</span> <span class='st'>"#1e90ff"</span>,
-  bar_color <span class='op'>=</span> <span class='st'>"lightgrey"</span>,
-  number_fmt <span class='op'>=</span> <span class='cn'>NULL</span>,
-  bright_values <span class='op'>=</span> <span class='cn'>TRUE</span>
+    <pre class="usage"><span class='fu'>nytimes</span><span class='op'>(</span>
+  font_family <span class='op'>=</span> <span class='st'>"Helvetica"</span>,
+  font_size <span class='op'>=</span> <span class='fl'>13</span>,
+  font_color <span class='op'>=</span> <span class='st'>"#333333"</span>,
+  header_font_family <span class='op'>=</span> <span class='st'>"Helvetica"</span>,
+  header_font_size <span class='op'>=</span> <span class='fl'>11</span>,
+  header_font_color <span class='op'>=</span> <span class='st'>"#999999"</span>,
+  cell_padding <span class='op'>=</span> <span class='fl'>5</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>Dataset containing at least one numeric column.</p></td>
+      <th>font_family</th>
+      <td><p>Font family for the text within the table.
+Default is Helvetica.</p></td>
     </tr>
     <tr>
-      <th>circle_color</th>
-      <td><p>A single color or vector of colors.
-If more than one color is provided, the colors will be assigned from lowest value to highest value in the column.
-Default color is "#1e90ff".</p></td>
+      <th>font_size</th>
+      <td><p>Numeric value representing the size of the font within the table (in px).
+Default is 13.</p></td>
     </tr>
     <tr>
-      <th>bar_color</th>
-      <td><p>A single color or vector of colors.
-If more than one color is provided, the colors will create a left-to-right gradient.
-Default color is "lightgrey".</p></td>
+      <th>font_color</th>
+      <td><p>Color of the font for the text within the table and the group headers.
+Default is #333333.</p></td>
     </tr>
     <tr>
-      <th>number_fmt</th>
-      <td><p>Optionally format numbers using formats from the scales package.
-Default is set to NULL.</p></td>
+      <th>header_font_family</th>
+      <td><p>Font family for the header text.
+Default is Helvetica.</p></td>
     </tr>
     <tr>
-      <th>bright_values</th>
-      <td><p>Display values with a dark-colored background in white text.
-Default is set to TRUE but can be turned off by setting to FALSE.</p></td>
+      <th>header_font_size</th>
+      <td><p>Numeric value representing the size of the font within the table (in px).
+Default is 11.</p></td>
+    </tr>
+    <tr>
+      <th>header_font_color</th>
+      <td><p>Color of the font for the header text.
+Default is #999999.</p></td>
+    </tr>
+    <tr>
+      <th>cell_padding</th>
+      <td><p>Numeric value representing the padding size between cells (in px).
+Default is 5.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a function that applies a lollipop
-    to a column of numeric values.</p>
+    <p>an object of class theme that is applied to a reactable table.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span><span class='op'>)</span><span class='op'>]</span>
+    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>29</span>, <span class='op'>]</span>
 
-<span class='co'>## By default, colors for the lollipop bar and circle are provided</span>
-<span class='fu'>reactable</span><span class='op'>(</span>
-<span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
-cell <span class='op'>=</span> <span class='fu'>lollipop</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>## Standard nytimes theme</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+          theme <span class='op'>=</span> <span class='fu'>nytimes</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## Change the color of the bar with 'bar_color' and the circle with 'circle_color'</span>
-<span class='fu'>reactable</span><span class='op'>(</span>
-<span class='va'>data</span>,
-columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-MPG.city <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
- cell <span class='op'>=</span> <span class='fu'>lollipop</span><span class='op'>(</span><span class='va'>data</span>,
- bar_color <span class='op'>=</span> <span class='st'>"black"</span>,
- circle_color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>,
-MPG.highway <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
- cell <span class='op'>=</span> <span class='fu'>lollipop</span><span class='op'>(</span><span class='va'>data</span>,
- bar_color <span class='op'>=</span> <span class='st'>"orange"</span>,
- circle_color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Providing more than one color to 'bar_color' applies a color gradient</span>
-<span class='co'>## and providing more than one color to 'circle_color'</span>
-<span class='co'>## conditionally colors based on their relative values</span>
-<span class='fu'>reactable</span><span class='op'>(</span>
-<span class='va'>data</span>,
-columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-MPG.city <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
- cell <span class='op'>=</span> <span class='fu'>lollipop</span><span class='op'>(</span><span class='va'>data</span>,
- bar_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#440154FF"</span>,<span class='st'>"#31688EFF"</span>,<span class='st'>"#35B779FF"</span>,<span class='st'>"#FDE725FF"</span><span class='op'>)</span>,
- circle_color <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span>,
-MPG.highway <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>lollipop</span><span class='op'>(</span><span class='va'>data</span>,
- bar_color <span class='op'>=</span> <span class='st'>"black"</span>,
- circle_color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#440154FF"</span>,<span class='st'>"#31688EFF"</span>,<span class='st'>"#35B779FF"</span>,<span class='st'>"#FDE725FF"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>## Cerulean theme with additional options applied</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+          theme <span class='op'>=</span> <span class='fu'>nytimes</span><span class='op'>(</span>font_size <span class='op'>=</span> <span class='fl'>12</span>, font_color <span class='op'>=</span> <span class='st'>"grey"</span>, cell_padding <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>
   </div>
