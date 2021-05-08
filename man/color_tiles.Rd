@@ -11,6 +11,7 @@ color_tiles(
   opacity = 1,
   number_fmt = NULL,
   text_color = "black",
+  show_text = TRUE,
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
@@ -39,6 +40,9 @@ Default is set to NULL.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
+
+\item{show_text}{Logical: show text or hide text.
+Default is TRUE.}
 
 \item{brighten_text}{Logical: automatically assign color to text based on background color of cell.
 Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.

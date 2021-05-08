@@ -10,6 +10,7 @@ color_scales(
   color_ref = NULL,
   opacity = 1,
   text_color = "black",
+  show_text = TRUE,
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
@@ -35,6 +36,9 @@ Default is 1.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
+
+\item{show_text}{Logical: show text or hide text.
+Default is TRUE.}
 
 \item{brighten_text}{Logical: automatically assign color to text based on background color of cell.
 Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.
