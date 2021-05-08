@@ -10,6 +10,7 @@
 * Values can be shown in bold text with the `bold_text` logical argument
 * `brighten_values` has been renamed to `brighten_text`
 * The color of the values in cells that have `brighten_values` applied can be changed with `brighten_text_color`. The default color is white
+* Values can now be hidden by setting `show_text` to FALSE
 
 #### data_bars()
 
