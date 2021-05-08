@@ -76,16 +76,7 @@ reactable(data,
 ```
 <img src="man/figures/README_color_scales_example.PNG" align="center" />
 
-You can also apply `color_scales()` across all columns and use custom color palettes such as the "Spectral" color set from {RColorBrewer}:
-
-```{r}
-reactable(data,
-          defaultColDef = colDef(style = color_scales(data, 
-                                                      colors = brewer.pal(3, "Pastel1"))))
-```
-<img src="man/figures/README_color_scales_custom.PNG" align="center" />
-
-Previously in {reactable}, using dark color palettes such as the "magma" color set from {viridis} was troublesome since you couldn't see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:
+In {reactable}, using dark color palettes such as the "magma" color set from {viridis} is troublesome since you can't see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:
 
 ```{r}
 library(viridis)
@@ -238,22 +229,6 @@ reactable(data,
                           cell = data_bars_pos_neg(data))))
 ```
 <img src="man/figures/README_data_bars_pos_neg_default1.PNG" align="center" />
-
-If your column is displaying percentages rather than whole numbers, you can add the percent symbol by using the percent formatter from the scales package within `number_fmt`:
-
-```{r}
-data <- data %>% 
-  mutate('% Change' = round(runif(15, min = -0.7, max = 0.7), digits = 2)) %>% 
-  select(Make, '% Change')
-
-reactable(data, 
-          pagination = FALSE,
-          columns = list(
-          `% Change` = colDef(align = "center", # align column header
-                              cell = data_bars_pos_neg(data,
-                                                       number_fmt = scales::percent))))
-```
-<img src="man/figures/README_data_bars_pos_neg_percent.PNG" align="center" />
 
 You may also apply a color gradient to the data bars by assigning three or more colors:
 
