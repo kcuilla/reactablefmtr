@@ -29,6 +29,9 @@
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
+#' @param show_text Logical: show text or hide text.
+#'     Default is TRUE.
+#'
 #' @param brighten_text Logical: automatically assign color to text based on background color of cell.
 #'     Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.
 #'     Default is TRUE.
@@ -85,14 +88,15 @@
 #' @export
 
 color_scales <- function(data,
-                              colors = c("#ff3030", "#ffffff", "#1e90ff"),
-                              color_ref = NULL,
-                              opacity = 1,
-                              text_color = "black",
-                              brighten_text = TRUE,
-                              brighten_text_color = "white",
-                              bold_text = FALSE,
-                              span = FALSE) {
+                         colors = c("#ff3030", "#ffffff", "#1e90ff"),
+                         color_ref = NULL,
+                         opacity = 1,
+                         text_color = "black",
+                         show_text = TRUE,
+                         brighten_text = TRUE,
+                         brighten_text_color = "white",
+                         bold_text = FALSE,
+                         span = FALSE) {
 
   if (!is.logical(bold_text)) {
 
@@ -185,9 +189,9 @@ color_scales <- function(data,
 
       } else {
 
-      cell_color <- color_pal(normalized)
-      cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
-      font_color <- assign_color(normalized)
+        cell_color <- color_pal(normalized)
+        cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
+        font_color <- assign_color(normalized)
 
       }
 
@@ -209,15 +213,19 @@ color_scales <- function(data,
 
     }
 
-    if (brighten_text == FALSE) {
+    if (brighten_text == FALSE & show_text == TRUE) {
 
-      list(background = cell_color, fontWeight = bold_text)
+      list(background = cell_color, color = text_color, fontWeight = bold_text)
 
-    } else {
+    } else if (brighten_text == FALSE & show_text == FALSE) {
 
-      list(background = cell_color, color = font_color, fontWeight = bold_text)
+      list(background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0)
 
-    }
+    } else if (brighten_text == TRUE & show_text == FALSE) {
+
+      list(background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0)
+
+    } else list(background = cell_color, color = font_color, fontWeight = bold_text)
 
   }
 }

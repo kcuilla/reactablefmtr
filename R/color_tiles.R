@@ -34,6 +34,9 @@
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
+#' @param show_text Logical: show text or hide text.
+#'     Default is TRUE.
+#'
 #' @param brighten_text Logical: automatically assign color to text based on background color of cell.
 #'     Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.
 #'     Default is TRUE.
@@ -103,6 +106,7 @@ color_tiles <- function(data,
                         opacity = 1,
                         number_fmt = NULL,
                         text_color = "black",
+                        show_text = TRUE,
                         brighten_text = TRUE,
                         brighten_text_color = "white",
                         bold_text = FALSE,
@@ -150,7 +154,7 @@ color_tiles <- function(data,
 
     if (!is.na(x)) {
       rgb_sum <- rowSums(colorRamp(c(colors))(x))
-      color <- ifelse(rgb_sum >= 375, "black", "white")
+      color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
       color
     } else
       NULL
@@ -170,7 +174,11 @@ color_tiles <- function(data,
 
       label <- value
 
-    } else label <- number_fmt(value)
+    } else {
+
+      label <- number_fmt(value)
+
+    }
 
     if (is.logical(span)) {
 
@@ -229,17 +237,42 @@ color_tiles <- function(data,
 
     }
 
-    if (brighten_text == FALSE) {
+    if (brighten_text == FALSE & show_text == TRUE) {
 
       htmltools::div(label,
                      style = list(background = cell_color,
+                                  color = text_color,
                                   display = "flex",
                                   justifyContent = "center",
                                   borderRadius = "4px",
                                   fontWeight = bold_text,
                                   height = "18px"))
 
-    } else
+    } else if (brighten_text == FALSE & show_text == FALSE) {
+
+      htmltools::div(label,
+                     style = list(background = cell_color,
+                                  color = font_color,
+                                  display = "flex",
+                                  justifyContent = "center",
+                                  borderRadius = "4px",
+                                  fontWeight = bold_text,
+                                  fontSize = 0,
+                                  height = "18px"))
+
+    } else if (brighten_text == TRUE & show_text == FALSE) {
+
+      htmltools::div(label,
+                     style = list(background = cell_color,
+                                  color = font_color,
+                                  display = "flex",
+                                  justifyContent = "center",
+                                  borderRadius = "4px",
+                                  fontWeight = bold_text,
+                                  fontSize = 0,
+                                  height = "18px"))
+
+    } else {
 
       htmltools::div(label,
                      style = list(background = cell_color,
@@ -249,6 +282,7 @@ color_tiles <- function(data,
                                   borderRadius = "4px",
                                   fontWeight = bold_text,
                                   height = "18px"))
+    }
 
   }
 }
