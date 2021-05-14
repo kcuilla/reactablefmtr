@@ -14,6 +14,10 @@
 #' @param label Optionally assign a label to the image from another column.
 #'     Default is set to NULL or no label.
 #'
+#' @param label_position Position of label relative to image.
+#'     Options are "right", "left", "below", "above".
+#'     Default is right.
+#'
 #' @import reactable
 #'
 #' @return a function that renders an image
@@ -24,11 +28,14 @@
 #' library(dplyr)
 #' data <- iris %>%
 #'  mutate(
-#'    img = case_when(
-#'      Species == "setosa" ~ "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Kosaciec_szczecinkowaty_Iris_setosa.jpg/800px-Kosaciec_szczecinkowaty_Iris_setosa.jpg",
-#'      Species == "versicolor" ~ "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iris_versicolor_3.jpg/1920px-Iris_versicolor_3.jpg",
-#'      Species == "virginica" ~ "https://www.fs.fed.us/wildflowers/beauty/iris/Blue_Flag/images/iris_virginica/iris_virginica_virginica.jpg",
-#'      TRUE ~ "NA"))
+#'  img = case_when(
+#'  Species == "setosa" ~
+#'  "https://upload.wikimedia.org/wikipedia/commons/d/d9/Wild_iris_flower_iris_setosa.jpg",
+#'  Species == "versicolor" ~
+#'  "https://upload.wikimedia.org/wikipedia/commons/7/7a/Iris_versicolor.jpg",
+#'  Species == "virginica" ~
+#'  "https://upload.wikimedia.org/wikipedia/commons/9/9f/Iris_virginica.jpg",
+#'  TRUE ~ "NA"))
 #'
 #' ## Then use embed_img() to display images
 #' reactable(data,
@@ -49,7 +56,7 @@
 #' @export
 
 
-embed_img <- function(data, height = "24", width = "24", label = NULL) {
+embed_img <- function(data, height = "24", width = "24", label = NULL, label_position = "right") {
 
   image <- function(value, index, name) {
 
@@ -64,11 +71,37 @@ embed_img <- function(data, height = "24", width = "24", label = NULL) {
 
     image <- htmltools::img(src = value, align = "center", height = height, width = width)
 
-    if (!is.null(label)) {
+    if (!is.null(label) & label_position == "right") {
 
-      col_label <- sprintf("    %s", data[[index, label]])
+      col_label <- sprintf("     %s", data[[index, label]])
 
       htmltools::tagList(image, col_label)
+
+    } else if (!is.null(label) & label_position == "left") {
+
+      col_label <- sprintf("%s     ", data[[index, label]])
+
+      htmltools::tagList(col_label, image)
+
+    } else if (!is.null(label) & label_position == "below") {
+
+      col_label <- sprintf("%s", data[[index, label]])
+
+      htmltools::tagList(
+        htmltools::div(style = list(display = "flex", justifyContent = "center", alignItems = "center"),
+                      image),
+        htmltools::div(style = list(textAlign = "center"),
+                      col_label))
+
+    } else if (!is.null(label) & label_position == "above") {
+
+      col_label <- sprintf("%s", data[[index, label]])
+
+      htmltools::tagList(
+        htmltools::div(style = list(textAlign = "center"),
+                       col_label),
+        htmltools::div(style = list(display = "flex", justifyContent = "center", alignItems = "center"),
+                       image))
 
     } else htmltools::tagList(image)
   }
