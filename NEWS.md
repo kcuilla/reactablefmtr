@@ -17,6 +17,7 @@
 * `data_bars()` can now handle columns with positive and negative values. `data_bars_pos_neg()` is being depreciated
 * `data_bars()` can create color gradients when more than two colors are provided with `fill_gradient = TRUE`. `data_bars_gradient()` is being depreciated
 * The `colors` argument in `data_bars()` has been renamed to `fill_color`
+* The height of the bars can now be adjusted with `bar_height`
 * The default color of `background` has been changed from white to transparent
 * `data_bars()` can now be either right-aligned or left-aligned with the `align_bars` argument by specifying either "left" or "right". By default, `data_bars()` are aligned left
 * The placement of the labels can now be adjusted within `data_bars()` with the `text_position` argument. Labels can be placed either outside the filled bars with "outside-end" or "outside-base", inside the filled bars with "inside-end", "inside-base", or "center", or labels can be hidden with "none". By default, labels are placed on the "outside-end" of the filled bars
