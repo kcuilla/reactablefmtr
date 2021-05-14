@@ -31,6 +31,10 @@
 * By default, the color of the icon is inherited from the fill color of the data bars, but can be changed with `icon_color` or `icon_color_ref`
 * Images can now be added to the data bars with either `img` or `img_ref`
 
+#### embed_img()
+
+* Labels from another column can now be positioned above, below, or to the left of the embedded image. Previously, the labels could only positioned to the right of the image.
+
 #### lollipop()
 
 * Lollipop charts can be created by using `lollipop()` within the cell argument of `reactable::colDef()`. The colors of both the lollipop bars and circles can be adjusted the `bar_color` and `circle_color` arguments
