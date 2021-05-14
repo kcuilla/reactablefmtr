@@ -4,7 +4,13 @@
 \alias{embed_img}
 \title{Embed image from web to rows in a column}
 \usage{
-embed_img(data, height = "24", width = "24", label = NULL)
+embed_img(
+  data,
+  height = "24",
+  width = "24",
+  label = NULL,
+  label_position = "right"
+)
 }
 \arguments{
 \item{data}{Dataset containing URL's to images}
@@ -17,6 +23,10 @@ Default width is 24px.}
 
 \item{label}{Optionally assign a label to the image from another column.
 Default is set to NULL or no label.}
+
+\item{label_position}{Position of label relative to image.
+Options are "right", "left", "below", "above".
+Default is right.}
 }
 \value{
 a function that renders an image
@@ -31,11 +41,14 @@ The `embed_img()` function adds images obtained from the web to a column within 
 library(dplyr)
 data <- iris \%>\%
  mutate(
-   img = case_when(
-     Species == "setosa" ~ "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Kosaciec_szczecinkowaty_Iris_setosa.jpg/800px-Kosaciec_szczecinkowaty_Iris_setosa.jpg",
-     Species == "versicolor" ~ "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iris_versicolor_3.jpg/1920px-Iris_versicolor_3.jpg",
-     Species == "virginica" ~ "https://www.fs.fed.us/wildflowers/beauty/iris/Blue_Flag/images/iris_virginica/iris_virginica_virginica.jpg",
-     TRUE ~ "NA"))
+ img = case_when(
+ Species == "setosa" ~
+ "https://upload.wikimedia.org/wikipedia/commons/d/d9/Wild_iris_flower_iris_setosa.jpg",
+ Species == "versicolor" ~
+ "https://upload.wikimedia.org/wikipedia/commons/7/7a/Iris_versicolor.jpg",
+ Species == "virginica" ~
+ "https://upload.wikimedia.org/wikipedia/commons/9/9f/Iris_virginica.jpg",
+ TRUE ~ "NA"))
 
 ## Then use embed_img() to display images
 reactable(data,
