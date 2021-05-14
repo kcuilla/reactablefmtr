@@ -14,6 +14,7 @@ data_bars(
   max_value = NULL,
   min_value = NULL,
   align_bars = "left",
+  bar_height = 19,
   text_position = "outside-end",
   text_color = "black",
   brighten_text = TRUE,
@@ -65,6 +66,9 @@ Default is NULL.}
 \item{align_bars}{Display filled bars from left-to-right or right-to-left.
 Options are "left" or "right".
 Default is left.}
+
+\item{bar_height}{Numeric height of the data bars in px.
+Default is 19.}
 
 \item{text_position}{Choose where to display the values.
 Values can be displayed within the filled bars ("inside-end" or "inside-base"),
