@@ -1,4 +1,4 @@
-# reactablefmtr <img src="man/figures/reactablefmtr_hex_logo.png" align="right" width="300" height="350"/>
+# reactablefmtr <img src="man/figures/reactablefmtr_hex_logo.png" align="right" width="250" height="300"/>
 
 <!-- badges: start -->
 [![CRAN Status](https://www.r-pkg.org/badges/version/reactablefmtr?color=blue)](https://cran.r-project.org/package=reactablefmtr?color=blue)
