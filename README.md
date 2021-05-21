@@ -69,6 +69,24 @@ reactable(
 
 See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html) for additional examples.
 
+## Icon Assign
+
+Use `icon_assign()` to replace values with any icon from the Font Awesome library. Multiple customization options are available, such as bucketing and including the values next to the icons. See [tutorial](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html) for more options.
+
+```{r}
+reactable(
+  data,
+  defaultColDef = colDef(align = "left", maxWidth = 200),
+  columns = list(
+    Cylinders = colDef(cell = icon_assign(data)),
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5, show_values = "right")),
+    Price = colDef(cell = icon_assign(data, icon = "dollar-sign", fill_color = "red", empty_color = "white", buckets = 5, show_values = "right", number_fmt = scales::dollar))
+  )
+)
+```
+
+<img src="man/figures/5E26F646-AE47-4044-B01D-6BEBF28DD08B.jpeg" align="center" />
+
 ## Save Static or Interactive Tables
 
 {reactablefmtr} or {reactable} tables can be saved directly to a file as a static PNG image or interactive HTML file with `save_reactable()`.
