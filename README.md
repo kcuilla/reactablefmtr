@@ -39,19 +39,26 @@ Use `data_bars()` to assign a horizontal bars to each row. See the [tutorial](ht
 
 ## Color Scales
 
-Use `color_scales()` to assign conditional colors to cells based on their value. The color of the text in the cells automatically adjusts based on the shade of the cell color. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html) for customization options.
-
+Use `color_scales()` to assign conditional colors to cells based on their value. The color of the text in the cells automatically adjusts based on the shade of the cell color. 
 ```{r}
+library(palmerpenguins)
 library(viridis)
+
 reactable(
-  iris,
-  defaultColDef = colDef(
-    style = color_scales(iris, colors = viridis::magma(5))
+  palmerpenguins,
+  columns = list(
+    bill_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
+    bill_depth_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
+    flipper_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5)))
   )
 )
 ```
-<img src="man/figures/README_color_scales_bright_values.PNG" align="center" />
 
+<img src="man/figures/BB295375-698D-48C1-9275-AEEC3CB8443F.jpeg" align="center" />
+
+Colors are conditionally assigned to values within each column, but can be assigned to row-wise data instead. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html) for customization options.
+
+<img src="man/figures/1E065D82-9B6B-449B-B1E2-056A136C383C.png" align="center" />
 
 ## Color Tiles
 
