@@ -43,25 +43,31 @@ Use `color_scales()` to assign conditional colors to cells based on their value.
 
 ```{r}
 library(viridis)
-reactable(data,
-          defaultColDef = colDef(style = color_scales(data,
-                                                      colors = viridis::magma(5))))
+reactable(
+  iris,
+  defaultColDef = colDef(
+    style = color_scales(iris, colors = viridis::magma(5))
+  )
+)
 ```
 <img src="man/figures/README_color_scales_bright_values.PNG" align="center" />
 
 
 ## Color Tiles
 
-Another option of conditionally coloring cells based on their values is with `color_tiles()`: 
+A similar option to `color_scales()` is `color_tiles()`. Numbers can be formatted using any formatter from the {scales} package, just like how they are in {ggplot2}. 
 
 ```{r}
-library(viridis)
-reactable(data,
-          defaultColDef = colDef(style = color_tiles(data,
-                                                     colors = viridis::magma(5))))
+reactable(
+  iris,
+  defaultColDef = colDef(
+    cell = color_tiles(iris, colors = viridis::magma(5))
+  )
+)
 ```
 <img src="man/figures/README_color_tiles_bright_values.PNG" align="center" />
 
+See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html) for additional examples.
 
 ## Save Static or Interactive Tables
 
