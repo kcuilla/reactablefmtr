@@ -30,6 +30,13 @@ remotes::install_github("kcuilla/reactablefmtr")
 
 ## Examples
 
+## Data Bars
+
+Use `data_bars()` to assign a horizontal bars to each row. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/data_bars_development.html) for customization options. 
+
+![](man/figures/data_bars_animated_demo.gif)
+
+
 ## Color Scales
 
 By default, `color_scales()` assigns a three-color red-white-blue pattern based on the value of the cells in a column from low to high:
@@ -56,12 +63,6 @@ reactable(data,
                                                      colors = viridis::magma(5))))
 ```
 <img src="man/figures/README_color_tiles_bright_values.PNG" align="center" />
-
-## Data Bars
-
-Use `data_bars()` to assign a horizontal bars to each row. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/data_bars_development.html) for customization options. 
-
-![](man/figures/data_bars_animated_demo.gif)
 
 
 ## Save Static or Interactive Tables
