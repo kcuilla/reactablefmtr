@@ -17,6 +17,10 @@
 #' @param number_fmt Optionally format numbers using formats from the scales package.
 #'     Default is set to NULL.
 #'
+#' @param icon_position Position of icon relative to numbers.
+#'     Options are "left", "right", above", "below", or "over".
+#'     Default is right.
+#'
 #' @import reactable
 #'
 #' @return a function that applies an icon
@@ -48,19 +52,26 @@
 #' defaultColDef = colDef(cell = icon_sets(car_prices,
 #' number_fmt = scales::dollar)))
 #'
+#'## Position icons relative to the numbers. Options are to the left, right, above, below, or over.
+#' reactable(car_prices,
+#' defaultColDef = colDef(cell = icon_sets(car_prices,
+#' icon_position = "above")))
+#'
 #' @export
 
 
-icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("red","orange","green"), number_fmt = NULL) {
+icon_sets <- function(data,
+                      icons = c("circle"),
+                      colors = c("red","orange","green"),
+                      number_fmt = NULL,
+                      icon_position = "right") {
 
-  if (length(icons) != 3) {
 
-    stop("must provide three icons Ex. icons = c('arrow-down','minus','arrow-up')")
-  }
+  '%notin%' <- Negate('%in%')
 
-  if (length(colors) != 3) {
+  if (icon_position %notin% c("left", "right", "above", "below", "over") == TRUE) {
 
-    stop("must provide three colors. Ex. colors = c('red','grey','blue')")
+    stop("icon_position must be either 'left', 'right', 'above', 'below', or 'over'")
   }
 
   cell <- function(value, index, name) {
@@ -73,33 +84,52 @@ icon_sets <- function(data, icons = c("circle","circle","circle"), colors = c("r
 
     } else label <- number_fmt(value)
 
-    normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+    icon_buckets <- dplyr::ntile(data[[name]], n = length(icons))
 
-    if (normalized >= 0.66667) {
+    icon_assign <- icon_buckets[index]
 
-      htmltools::tagList(
+    color_buckets <- dplyr::ntile(data[[name]], n = length(colors))
+
+    color_assign <- color_buckets[index]
+
+    if (!is.null(label) & icon_position == "right") {
+
+    htmltools::tagList(
         label,
         htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
-            htmltools::tagAppendAttributes(shiny::icon(icons[[3]]),
-                                style = paste("color:", colors[[3]])))
-      )
+                       htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                      style = paste("color:", colors[[color_assign]]))))
 
-    } else if (normalized <= 0.66666 & normalized >= 0.33333) {
+    } else if (!is.null(label) & icon_position == "left") {
+
+    htmltools::tagList(
+      htmltools::div(style = list(display = "inline-block", marginRight = "8px"),
+                     htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                    style = paste("color:", colors[[color_assign]]))),
+      label)
+
+    } else if (!is.null(label) & icon_position == "below") {
 
       htmltools::tagList(
-        label,
-        htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
-            htmltools::tagAppendAttributes(shiny::icon(icons[[2]]),
-                                style = paste("color:", colors[[2]])))
-      )
+        htmltools::div(label),
+        htmltools::div(style = list(display = "inline-block"),
+                       htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                      style = paste("color:", colors[[color_assign]]))))
 
-    } else {
+    } else if (!is.null(label) & icon_position == "above") {
+
       htmltools::tagList(
-        label,
-        htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
-            htmltools::tagAppendAttributes(shiny::icon(icons[[1]]),
-                                style = paste("color:", colors[[1]])))
-      )
+        htmltools::div(style = list(display = "inline-block"),
+                       htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                      style = paste("color:", colors[[color_assign]]))),
+        htmltools::div(label))
+
+    } else if (!is.null(label) & icon_position == "over") {
+
+      htmltools::div(style = list(display = "inline-block"),
+                      htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                    style = paste("color:", colors[[color_assign]])))
     }
   }
 }
+

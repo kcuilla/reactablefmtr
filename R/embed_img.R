@@ -15,7 +15,7 @@
 #'     Default is set to NULL or no label.
 #'
 #' @param label_position Position of label relative to image.
-#'     Options are "right", "left", "below", "above".
+#'     Options are "right", "left", "below", or "above".
 #'     Default is right.
 #'
 #' @import reactable
@@ -57,6 +57,13 @@
 
 
 embed_img <- function(data, height = "24", width = "24", label = NULL, label_position = "right") {
+
+  '%notin%' <- Negate('%in%')
+
+  if (label_position %notin% c("left", "right", "above", "below") == TRUE) {
+
+    stop("label_position must be either 'left', 'right', 'above', 'below'")
+  }
 
   image <- function(value, index, name) {
 

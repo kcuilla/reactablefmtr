@@ -78,8 +78,8 @@ icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_col
   icons <- function(empty = FALSE) {
 
     htmltools::tagAppendAttributes(shiny::icon(icon),
-                        style = paste("color:", if (empty) empty_color else fill_color),
-                        "aria-hidden" = "true"
+                                   style = paste("color:", if (empty) empty_color else fill_color),
+                                   "aria-hidden" = "true"
     )
   }
 
@@ -154,4 +154,3 @@ icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_col
 
   }
 }
-
