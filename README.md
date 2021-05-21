@@ -40,6 +40,7 @@ Use `data_bars()` to assign a horizontal bars to each row. See the [tutorial](ht
 ## Color Scales
 
 Use `color_scales()` to assign conditional colors to cells based on their value. The color of the text in the cells automatically adjusts based on the shade of the cell color. 
+
 ```{r}
 library(palmerpenguins)
 library(viridis)
@@ -58,7 +59,21 @@ reactable(
 
 Colors are conditionally assigned to values within each column, but can be assigned to row-wise data instead. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html) for customization options.
 
-<img src="man/figures/1E065D82-9B6B-449B-B1E2-056A136C383C.png" align="center" />
+```{r}
+dimnames <- list(start(nottem)[1]:end(nottem)[1], month.abb)
+temps <- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
+temps <- as_tibble(temps, rownames = "Year")
+
+reactable(
+  temps,
+  defaultColDef = colDef(
+    style = color_scales(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    minWidth = 50
+  )
+)
+```
+
+<img src="man/figures/EE85DA35-1A23-4A86-86F5-8C934CC75980.jpeg" align="center" />
 
 ## Color Tiles
 
