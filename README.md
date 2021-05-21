@@ -101,6 +101,8 @@ data %>%
 )
 ```
 
+<img src="man/figures/43042890-A054-49D2-B066-8E329BE90ACA.jpeg" align="center" />
+
 ## Save Static or Interactive Tables
 
 {reactablefmtr} or {reactable} tables can be saved directly to a file as a static PNG image or interactive HTML file with `save_reactable()`.
