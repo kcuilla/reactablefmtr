@@ -7,10 +7,10 @@
 
 The {reactablefmtr} package simplifies and enhances the styling and formatting of tables built with the {reactable} **R** package. The {reactablefmtr} package provides many conditional formatters that are highly customizable and easy to use.
 
-* **Conditionally format tables** with [color scales](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html), [color tiles](https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html), [data bars](https://kcuilla.github.io/reactablefmtr/articles/data_bars_development.html). Assign icons to values from [Font Awesome](https://fontawesome.com/icons?d=gallery&p=2) with [icon assign](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html) and [icon sets](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html).
-* **Customized table themes** with a growing list of [themes](https://kcuilla.github.io/reactablefmtr/articles/themes.html) that can easily be applied to any {reactablefmtr} or {reactable} table.
-* **Embed images** directly from the web into your table with [`embed_img()`](https://kcuilla.github.io/reactablefmtr/articles/embed_img.html).
-* **Save tables** as static PNG files or as interactive HTML files with `save_reactable()`.
+* **Conditionally format tables** with [color scales](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html), [color tiles](https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html), and [data bars](https://kcuilla.github.io/reactablefmtr/articles/data_bars_development.html). Assign icons from [Font Awesome](https://fontawesome.com/icons?d=gallery&p=2) with [icon assign](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html) and [icon sets](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html).
+* **Custom table themes** with a growing list of [themes](https://kcuilla.github.io/reactablefmtr/articles/themes.html) that can easily be applied to any {reactablefmtr} or {reactable} table.
+* **Embed images** directly from the web into your [table](https://kcuilla.github.io/reactablefmtr/articles/embed_img.html).
+* **Save tables** as static PNG files or as interactive HTML files.
 
 The {reactablefmtr} package was built using a combination of **R**, **CSS**, and **HTML** in order to allow any level of **R** user to build highly customizable and stylish tables without having to learn additional programming languages.
 
@@ -39,9 +39,7 @@ Use `data_bars()` to assign a horizontal bars to each row. See the [tutorial](ht
 
 ## Color Scales
 
-By default, `color_scales()` assigns a three-color red-white-blue pattern based on the value of the cells in a column from low to high:
-
-In {reactable}, using dark color palettes such as the "magma" color set from {viridis} is troublesome since you can't see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:
+Use `color_scales()` to assign conditional colors to cells based on their value. The color of the text in the cells automatically adjusts based on the shade of the cell color. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html) for customization options.
 
 ```{r}
 library(viridis)
