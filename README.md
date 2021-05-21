@@ -87,6 +87,20 @@ reactable(
 
 <img src="man/figures/5E26F646-AE47-4044-B01D-6BEBF28DD08B.jpeg" align="center" />
 
+## Custom Themes
+
+In {reactablefmtr}, there are 24+ custom table themes, including bootstrap themes, news/sports site-inspired themes, and more. The themes can be applied easily to tables by simply referencing the theme name. Additional customization options, such as changing the font size, font color, etc. are also [available](https://kcuilla.github.io/reactablefmtr/articles/themes.html).
+
+```{r}
+data %>%
+  reactable(.,
+    theme = slate(),
+    defaultColDef = colDef(
+      cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
 ## Save Static or Interactive Tables
 
 {reactablefmtr} or {reactable} tables can be saved directly to a file as a static PNG image or interactive HTML file with `save_reactable()`.
