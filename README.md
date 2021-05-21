@@ -14,6 +14,8 @@ The {reactablefmtr} package simplifies and enhances the styling and formatting o
 
 The {reactablefmtr} package was built using a combination of **R**, **CSS**, and **HTML** in order to allow any level of **R** user to build highly customizable and stylish tables without having to learn additional programming languages.
 
+For more examples, check out the [vignettes](https://kcuilla.github.io/reactablefmtr/articles/). To stay up to date with the latest upgrades to the development version, be sure to follow the [news](https://kcuilla.github.io/reactablefmtr/news/index.html) section.
+
 ## Installation
 
 The {reactablefmtr} package is available from CRAN and can be installed with:
