@@ -89,7 +89,7 @@ reactable(
   )
 )
 ```
-<img src="man/figures/README_color_tiles_bright_values.PNG" align="center" width = "90%" height = "90%"/>
+<img src="man/figures/README_color_tiles_bright_values.PNG" align="center" width = "80%" height = "80%"/>
 
 ## Icon Assign
 
