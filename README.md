@@ -44,14 +44,18 @@ Use `data_bars()` to assign horizontal bars to each row. There are many ways to 
 
 ### Color Scales
 
-Use `color_scales()` to assign conditional colors to cells based on their value. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).
+Use `color_scales()` to assign conditional colors to cells based on their values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).
 
 ```{r}
 library(palmerpenguins)
+library(dplyr)
 library(viridis)
+  
+data <- palmerpenguins %>%
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm)
 
 reactable(
-  palmerpenguins,
+  data,
   columns = list(
     bill_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
     bill_depth_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
@@ -99,9 +103,11 @@ reactable(
   
 ### Icon Assign
 
-Use `icon_assign()` to assign icons to values from the [Font Awesome](https://fontawesome.com/icons?d=gallery&p=2) library. Multiple customization options are available, such as bucketing values and show/hide values next to the icons. See [tutorial](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html) for more options.
+Use `icon_assign()` to assign icons to values from the [Font Awesome](https://fontawesome.com/icons?d=gallery&p=2) library. Multiple customization options are available, such as bucketing values and the option to show/hide values next to the icons. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html) for more options.
 
 ```{r}
+data <- MASS::Cars93[1:20, c("Make", "Cylinders", "MPG.city", "Price")]
+
 reactable(
   data,
   defaultColDef = colDef(align = "left", maxWidth = 200),
@@ -121,6 +127,8 @@ reactable(
 Within {reactablefmtr}, there are 24+ custom table themes. The themes include [bootstrap](https://bootswatch.com/) themes, themes inspired by news/sports sites such as The New York Times, FiveThirtyEight, and ESPN, and other themes made specifically for {reactablefmtr}. The themes can be applied easily to tables by simply referencing the theme name. Additional customization options, such as changing the font size, font color, etc. are also [available](https://kcuilla.github.io/reactablefmtr/articles/themes.html).
 
 ```{r}
+data <- MASS::Cars93[1:20, c("Model", "MPG.city", "MPG.highway")]
+        
 data %>%
   reactable(.,
     theme = slate(),
@@ -160,6 +168,6 @@ save_reactable("table_name.Rmd", "table.png")
 
 A huge thank you to Greg Lin for creating the amazing {reactable} [package]((https://glin.github.io/reactable/index.html))! Without Greg, {reactablefmtr} simply would not exist! 
 
-Also thank you to June Chao for contributing the option to choose columns within the span option in `color_scales()` and `color_tiles()`!
+Also thank you to June Chao for contributing to the span option in `color_scales()` and `color_tiles()`!
 
 
