@@ -109,6 +109,7 @@ Use `icon_sets()` to conditionally assign icons to values from the [Font Awesome
 mtcars[1:10,c(1,2,4)] %>% 
 reactable(., 
           theme = lux(),
+          defaultColDef = colDef(maxWidth = 150),
           columns = list(
             mpg = colDef(cell = icon_sets(., icons = "gas-pump", colors = c("red","blue","green"))),
             cyl = colDef(cell = icon_sets(., icons = "car-side", colors = c("red","blue","green"))),
@@ -117,7 +118,7 @@ reactable(.,
 )
 ```
 
-<img src="man/figures/README_icon_sets_cars.PNG" align="center" width = "90%" height = "90%"/>
+<img src="man/figures/README_icon_cars.png" align="center" width = "90%" height = "90%"/>
   
  
 ### Icon Assign
