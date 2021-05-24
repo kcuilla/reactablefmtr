@@ -118,7 +118,7 @@ reactable(.,
 )
 ```
 
-<img src="man/figures/README_icon_cars.png" align="center" width = "90%" height = "90%"/>
+<img src="man/figures/README_icon_sets_cars.png" align="center" width = "90%" height = "90%"/>
   
  
 ### Icon Assign
