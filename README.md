@@ -44,7 +44,7 @@ Use `data_bars()` to assign horizontal bars to each row. There are many ways to 
 
 ### Color Scales
 
-Use `color_scales()` to assign conditional colors to cells based on their values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).
+Use `color_scales()` to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).
 
 ```{r}
 library(palmerpenguins)
@@ -100,7 +100,26 @@ reactable(
 ```
 <img src="man/figures/README_color_tiles_bright_values.PNG" align="center" width = "80%" height = "80%"/>
 
+
+### Icon Sets
+
+Use `icon_sets()` to conditionally assign icons to values from the [Font Awesome](https://fontawesome.com/icons?d=gallery&p=2) library based on their relative values. Any number of icons and/or colors can be applied to values within each column. Customization options such as number formatting and positioning of icons are also available. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html) for more options.
+
+```{r}
+mtcars[1:10,c(1,2,4)] %>% 
+reactable(., 
+          theme = lux(),
+          columns = list(
+            mpg = colDef(cell = icon_sets(., icons = "gas-pump", colors = c("red","blue","green"))),
+            cyl = colDef(cell = icon_sets(., icons = "car-side", colors = c("red","blue","green"))),
+            hp = colDef(cell = icon_sets(., icons = "horse-head", colors = c("red","blue","green")))
+          )
+)
+```
+
+<img src="man/figures/README_icon_sets_cars.PNG" align="center" width = "90%" height = "90%"/>
   
+ 
 ### Icon Assign
 
 Use `icon_assign()` to assign icons to values from the [Font Awesome](https://fontawesome.com/icons?d=gallery&p=2) library. Multiple customization options are available, such as bucketing values and the option to show/hide values next to the icons. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html) for more options.
@@ -121,7 +140,7 @@ reactable(
 
 <img src="man/figures/5E26F646-AE47-4044-B01D-6BEBF28DD08B.jpeg" align="center" width = "90%" height = "90%"/>
 
-  
+
 ## Custom Themes
 
 Within {reactablefmtr}, there are 24+ custom table themes. The themes include [bootstrap](https://bootswatch.com/) themes, themes inspired by news/sports sites such as The New York Times, FiveThirtyEight, and ESPN, as well as other custom themes that can only be found within {reactablefmtr}. The themes can be applied easily to tables by simply referencing the theme name. Additional customization options, such as changing the font size, font color, etc. are also [available](https://kcuilla.github.io/reactablefmtr/articles/themes.html).
