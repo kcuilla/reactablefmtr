@@ -108,7 +108,7 @@ Use `icon_sets()` to conditionally assign icons to values from the [Font Awesome
 ```{r}
 mtcars[1:10,c(1,2,4)] %>% 
 reactable(., 
-          theme = lux(),
+          theme = flatly(),
           defaultColDef = colDef(maxWidth = 150),
           columns = list(
             mpg = colDef(cell = icon_sets(., icons = "gas-pump", colors = c("red","blue","green"))),
@@ -163,7 +163,7 @@ data %>%
   
 ## Save Static or Interactive Tables
 
-{reactablefmtr} or {reactable} tables can be saved directly to a file as a static PNG image or interactive HTML file with `save_reactable()`.
+{reactablefmtr} or {reactable} tables can be saved directly to a file as a static PNG image or as an interactive HTML file with `save_reactable()`.
 
 Save as a PNG file:
 
