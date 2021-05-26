@@ -163,7 +163,7 @@ data %>%
 
 ## Add a Title, Subtitle, and Source
 
-Titles and subtitles can be easily placed above any {reactablefmtr} or {reactable} table with `add_title()` and `add_subtitle()`. Also have the option to include a source below a table with `add_source()`. Additional customization options such as changing the font size, font family, font style, and font color are available within each formatter.
+Titles and subtitles can be easily placed above any {reactablefmtr} or {reactable} table with `add_title()` and `add_subtitle()`. Also have the option to include a source below a table with `add_source()`. Additional customization options such as changing the alignment, font size, font family, font style, and font color are available within each formatter.
 
 ```{r}
 reactable(iris[10:29, ]) %>%
