@@ -27,6 +27,10 @@
 #' iris_table <- reactable(data)
 #' save_reactable(iris_table, "iris_table.png")
 #'
+#' ## Also works with a pipe
+#' iris_table %>%
+#' save_reactable("iris_table.png")
+#'
 #' ## Or save as an html file:
 #' save_reactable(iris_table, "iris_table.html")
 #'
