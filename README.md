@@ -160,7 +160,21 @@ data %>%
 
 <img src="man/figures/43042890-A054-49D2-B066-8E329BE90ACA.jpeg" align="center" width = "90%" height = "90%"/>
 
-  
+
+## Add a Title, Subtitle, and Source
+
+Titles and subtitles can be easily placed above any {reactablefmtr} or {reactable} table with `add_title()` and `add_subtitle()`. Also have the option to include a source below a table with `add_source()`. Additional customization options such as changing the font size, font family, font style, and font color are available within each formatter.
+
+```{r}
+reactable(iris[10:29, ]) %>%
+  add_title("This is a title") %>% 
+  add_subtitle("This is a subtitle") %>% 
+  add_source("This is a source")
+```
+
+<img src="man/figures/README_add_title.png" align="center" width = "90%" height = "90%"/>
+
+
 ## Save Static or Interactive Tables
 
 {reactablefmtr} or {reactable} tables can be saved directly to a file as a static PNG image or as an interactive HTML file with `save_reactable()`.
@@ -181,6 +195,13 @@ If custom CSS styling is applied to the table within an R Markdown document:
 
 ```{r}
 save_reactable("table_name.Rmd", "table.png")
+```
+
+If you prefer to use a pipe:
+
+```{r}
+table_name %>%
+save_reactable("table.png")
 ```
 
 
