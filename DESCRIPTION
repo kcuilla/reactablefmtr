@@ -1,7 +1,7 @@
 Package: reactablefmtr
 Type: Package
 Title: Simplify Formatting of Tables Made with 'Reactable'
-Version: 0.3.0
+Version: 0.2.0
 Authors@R: c(
     person("Kyle", "Cuilla", role = c("aut", "cre", "cph"), email = "kyle.cuilla@gmail.com"),
     person("Greg", "Lin", role = c("ctb")),
@@ -14,7 +14,6 @@ URL: https://kcuilla.github.io/reactablefmtr/, https://github.com/kcuilla/reacta
 BugReports: https://github.com/kcuilla/reactablefmtr/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Depends: 
     R (>= 3.5.0),
     reactable (>= 0.2.0)

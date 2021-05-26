@@ -1,16 +1,6 @@
-# reactablefmtr 0.3.0 (development version)
+# reactablefmtr 1.0.0 (development version)
 
 ### New Features
-
-#### color_scales() & color_tiles()
-
-* Colors can be provided from another column by naming the column within the `color_ref` argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
-* The opacity of the background colors can be adjusted with `opacity` by providing a value between 0 and 1
-* The color of the values can be changed by using the `text_color` argument. The default color is black
-* Values can be shown in bold text with the `bold_text` logical argument
-* `brighten_values` has been renamed to `brighten_text`
-* The color of the values in cells that have `brighten_values` applied can be changed with `brighten_text_color`. The default color is white
-* Values can now be hidden by setting `show_text` to FALSE
 
 #### data_bars()
 
@@ -31,6 +21,16 @@
 * By default, the color of the icon is inherited from the fill color of the data bars, but can be changed with `icon_color` or `icon_color_ref`
 * Images can now be added to the data bars with either `img` or `img_ref`
 
+#### color_scales() & color_tiles()
+
+* Colors can be provided from another column by naming the column within the `color_ref` argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
+* The opacity of the background colors can be adjusted with `opacity` by providing a value between 0 and 1
+* The color of the values can be changed by using the `text_color` argument. The default color is black
+* Values can be shown in bold text with the `bold_text` logical argument
+* `brighten_values` has been renamed to `brighten_text`
+* The color of the values in cells that have `brighten_values` applied can be changed with `brighten_text_color`. The default color is white
+* Values can now be hidden by setting `show_text` to FALSE
+
 #### embed_img()
 
 * Labels from another column can now be positioned above, below, or to the left of the embedded image. Previously, the labels could only positioned to the right of the image.
@@ -49,6 +49,12 @@
 * Reactable tables can now be saved as static .png files or dynamic .html files using `save_reactable()`
 * If the reactable table was created in a .Rmd file and additional CSS styling are applied, reference the name of either the .Rmd file containing the reactable table or the .html file of the reactable table to save an image of the table
 
+#### add_title(), add_subtitle(), add_source()
+
+* You can now easily add a title and/or a subtitle above any reactable table with `add_title()` and `add_subtitle()`
+* You can also add a source below a reactable table with `add_source()`
+* Additional customization options such as adjusting the font size, font color, and font family are also available  
+
 #### themes
 
 Added 24 new table themes, including:
@@ -56,6 +62,12 @@ Added 24 new table themes, including:
 * Bootstrap-inspired themes: cerulean, cosmo, cyborg, darkly, flatly, journal, lux, minty, sandstone, slate, spacelab, and superhero
 * News/sports-inspired themes: espn, fivethirtyeight, nytimes, and pff
 * Other custom themes: clean, default, hoverdark, hoverlight, midnight, midnightblue, sunrise, and void
+
+#### Breaking Changes
+
+* The `colors` argument in `data_bars()` has been renamed to `fill_color`
+* The `brighten_values` argument in `color_scales()` and `color_tiles()` has been renamed to `brighten_text`
+
 
 # reactablefmtr 0.2.0
 
