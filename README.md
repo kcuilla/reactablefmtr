@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![CRAN Status](https://www.r-pkg.org/badges/version/reactablefmtr?color=blue)](https://cran.r-project.org/package=reactablefmtr?color=blue)
-[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/last-month/reactablefmtr?color=brightgreen)](https://cranlogs.r-pkg.org/badges/last-month/reactablefmtr?color=brightgreen)
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/reactablefmtr?color=brightgreen)](https://cranlogs.r-pkg.org/badges/grand-total/reactablefmtr?color=brightgreen)
 <!-- badges: end -->
 
 The {reactablefmtr} package simplifies and enhances the styling and formatting of tables built with the {reactable} **R** package. The {reactablefmtr} package provides many conditional formatters that are highly customizable and easy to use.
