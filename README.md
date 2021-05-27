@@ -57,9 +57,9 @@ data <- palmerpenguins %>%
 reactable(
   data,
   columns = list(
-    bill_length_mm = colDef(style = color_scales(data)),
-    bill_depth_mm = colDef(style = color_scales(data)),
-    flipper_length_mm = colDef(style = color_scales(data))
+    bill_length_mm = colDef(style = color_scales(data, colors = viridis::mako(4))),
+    bill_depth_mm = colDef(style = color_scales(data, colors = viridis::mako(4))),
+    flipper_length_mm = colDef(style = color_scales(data, colors = viridis::mako(4)))
   )
 )
 ```
