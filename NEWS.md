@@ -40,10 +40,6 @@
 * Can now use any number of icons and colors to assign to data. Previously only three icons and colors could be used.
 * Icons can be positioned to the right, left, above, below, or over the values. Previously icons could only be positioned to the right of the values.
 
-#### lollipop()
-
-* Lollipop charts can be created by using `lollipop()` within the cell argument of `reactable::colDef()`. The colors of both the lollipop bars and circles can be adjusted the `bar_color` and `circle_color` arguments
-
 #### save_reactable()
 
 * Reactable tables can now be saved as static .png files or dynamic .html files using `save_reactable()`
