@@ -44,7 +44,7 @@ Use `data_bars()` to assign horizontal bars to each row. There are many ways to 
 
 ### Color Scales
 
-Use `color_scales()` to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).
+Use `color_scales()` to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of both dark-colored and light-colored palettes.
 
 ```{r}
 library(palmerpenguins)
@@ -57,14 +57,14 @@ data <- palmerpenguins %>%
 reactable(
   data,
   columns = list(
-    bill_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
-    bill_depth_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
-    flipper_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5)))
+    bill_length_mm = colDef(style = color_scales(data)),
+    bill_depth_mm = colDef(style = color_scales(data)),
+    flipper_length_mm = colDef(style = color_scales(data))
   )
 )
 ```
 
-<img src="man/figures/BB295375-698D-48C1-9275-AEEC3CB8443F.jpeg" align="center" width = "90%" height = "90%" />
+<img src="man/figures/color_scales_mako.png" align="center" width = "90%" height = "90%" />
 
 
 By default, colors are conditionally assigned to values within each column, but can also be assigned to row-wise data as shown below. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html) for more examples.
