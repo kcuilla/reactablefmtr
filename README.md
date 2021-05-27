@@ -98,7 +98,7 @@ reactable(
   )
 )
 ```
-<img src="man/figures/README_color_tiles_bright_values.PNG" align="center"/>
+<img src="man/figures/color_tiles_viridis2.png" align="center" width="90%" />
 
 
 ### Icon Sets
