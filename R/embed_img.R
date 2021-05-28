@@ -1,4 +1,4 @@
-#' Embed image from web to rows in a column
+#' Embed image from web to cells in a column
 #'
 #' The `embed_img()` function adds images obtained from the web to a column within reactable.
 #'     It should be placed within the cell argument in reactable::colDef.

@@ -1,4 +1,4 @@
-#' Add horizontal bars to rows in a column
+#' Add horizontal bars to cells in a column
 #'
 #' The `data_bars()` function adds a horizontal bar to each row of a column.
 #'     The length of the bars are relative to the value of the row in relation to other values within the same column.
@@ -91,7 +91,7 @@
 #'
 #' @param icon_ref Optionally assign icons from another column
 #'     by providing the name of the column containing the icons in quotes.
-#'     Only one icon can be provided per row.
+#'     Only one icon can be provided per cell.
 #'     Default is NULL.
 #'
 #' @param icon_size A value representing the size of the icon in px.
@@ -103,14 +103,14 @@
 #'
 #' @param icon_color_ref Optionally assign color to the icons from another column
 #'     by providing the name of the column containing the icon colors in quotes.
-#'     Only one color can be provided per row.
+#'     Only one color can be provided per cell.
 #'     Default is NULL.
 #'
 #' @param img An image provided with a valid URL.
 #'
 #' @param img_ref Optionally assign images from another column
 #'     by providing the name of the column containing the image URLs in quotes.
-#'     Only one image can be provided per row.
+#'     Only one image can be provided per cell.
 #'     Default is NULL.
 #'
 #' @param img_height A value for the height of the image in px.

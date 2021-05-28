@@ -1,4 +1,4 @@
-#' Add color tiles to rows in a column
+#' Add color tiles to cells in a column
 #'
 #' The `color_tiles()` function conditionally colors the background of each cell similarly to color_scales().
 #'     The difference is that color_tiles() uses round colored tiles around values instead of the entire background of the cell.

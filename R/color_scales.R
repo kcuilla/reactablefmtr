@@ -1,4 +1,4 @@
-#' Add color scales to rows in a column
+#' Add color scales to cells in a column
 #'
 #' The `color_scales()` function conditionally colors each cell of a column depending on their value in relation to other values in that particular column.
 #'     The colors can be provided within a vector in `colors` or via another column in the dataset by referencing the column by name with `color_ref`.

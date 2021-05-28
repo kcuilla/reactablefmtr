@@ -1,8 +1,9 @@
-#' Assign icons to rows in a column
+#' Assign icons to cells in a column
 #'
-#' The `icon_assign()` function assigns icons from the Font Awesome library (via shiny) to each row of a numeric column depending on the value in each row.
-#'     By default, the number of icons assigned will be equal to the value in that row. If the value is less than the max, it will receive empty icons.
-#'     Both the icon shape and color of the filled and empty icons can be modified through the parameters.
+#' The `icon_assign()` function assigns icons from the Font Awesome library (via shiny) to each cell of a numeric column depending on the value in each row.
+#'     By default, the number of icons assigned will be equal to the value in that cell. If the value is less than the max, it will receive empty icons.
+#'     Both the icon shape, size, and color of the filled and empty icons can be modified through the parameters.
+#'     Values can optionally be shown with the icons if desired.
 #'     It should be placed within the cell argument in reactable::colDef.
 #'
 #' @param data Dataset containing at least one numeric column.
@@ -16,6 +17,17 @@
 #' @param empty_color A single color for the empty icons.
 #'     Default color is lightgrey.
 #'
+#' @param fill_opacity A value between 0 and 1 that adjusts the opacity in fill_color.
+#'     A value of 0 is fully transparent, a value of 1 is fully opaque.
+#'     Default is 1.
+#'
+#' @param empty_opacity A value between 0 and 1 that adjusts the opacity in empty_color.
+#'     A value of 0 is fully transparent, a value of 1 is fully opaque.
+#'     Default is 1.
+#'
+#' @param icon_size A value representing the size of the icon in px.
+#'     Default is 16.
+#'
 #' @param buckets Optionally divide values in a column into buckets by providing a numeric value.
 #'     Icons are then assigned by rank from lowest to highest.
 #'     Default is set to NULL.
@@ -28,8 +40,8 @@
 #'     Default value is set to 1.
 #'
 #' @param show_values Optionally display values next to icons.
-#'     Icons can be displayed to the left of the icons with "left" or to the right with "right".
-#'     Default is set to FALSE or no values.
+#'     Options are "left", "right", above", "below", or "none".
+#'     Default is none.
 #'
 #' @import reactable
 #'
@@ -73,12 +85,54 @@
 #' @export
 
 
-icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_color = "lightgrey", buckets = NULL, number_fmt = NULL, seq_by = 1, show_values = FALSE) {
+icon_assign <- function(data,
+                        icon = "circle",
+                        fill_color = "#1e90ff",
+                        empty_color = "lightgrey",
+                        fill_opacity = 1,
+                        empty_opacity = 1,
+                        icon_size = 16,
+                        buckets = NULL,
+                        number_fmt = NULL,
+                        seq_by = 1,
+                        show_values = "none") {
+
+
+  '%notin%' <- Negate('%in%')
+
+  if (show_values %notin% c("left", "right", "above", "below", "none") == TRUE) {
+
+    stop("show_values must be either 'left', 'right', 'above', 'below', or 'none'")
+  }
+
+  if (!is.numeric(fill_opacity)) {
+
+    stop("`fill_opacity` must be numeric")
+  }
+
+  if (fill_opacity < 0 | fill_opacity > 1) {
+
+    stop("`fill_opacity` must be a value between 0 and 1")
+  }
+
+  if (!is.numeric(empty_opacity)) {
+
+    stop("`empty_opacity` must be numeric")
+  }
+
+  if (empty_opacity < 0 | empty_opacity > 1) {
+
+    stop("`empty_opacity` must be a value between 0 and 1")
+  }
+
+
+  fill_color <- grDevices::adjustcolor(fill_color, alpha.f = fill_opacity)
+  empty_color <- grDevices::adjustcolor(empty_color, alpha.f = empty_opacity)
 
   icons <- function(empty = FALSE) {
 
     htmltools::tagAppendAttributes(shiny::icon(icon),
-                                   style = paste("color:", if (empty) empty_color else fill_color),
+                                   style = paste0("font-size:", icon_size, "px", "; color:", if (empty) empty_color else fill_color),
                                    "aria-hidden" = "true"
     )
   }
@@ -139,6 +193,54 @@ icon_assign <- function(data, icon = "circle", fill_color = "#1e90ff", empty_col
       label <- stringr::str_pad(value, max_digits)
 
       htmltools::div(paste0(label, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+
+    } else if (show_values == "above" & is.null(number_fmt)) {
+
+      max_digits <- max(nchar(data[[name]]))+1
+
+      label <- stringr::str_pad(value, max_digits)
+
+      htmltools::tagList(
+      htmltools::div(label),
+      htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq)
+      )
+
+    } else if (show_values == "above" & !is.null(number_fmt)) {
+
+      label <- number_fmt(value)
+
+      max_digits <- max(nchar(data[[name]]))+1
+
+      label <- stringr::str_pad(value, max_digits)
+
+      htmltools::tagList(
+        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq),
+        htmltools::div(label)
+      )
+
+    } else if (show_values == "below" & is.null(number_fmt)) {
+
+      max_digits <- max(nchar(data[[name]]))+1
+
+      label <- stringr::str_pad(value, max_digits)
+
+      htmltools::tagList(
+        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq),
+        htmltools::div(label)
+      )
+
+    } else if (show_values == "below" & !is.null(number_fmt)) {
+
+      label <- number_fmt(value)
+
+      max_digits <- max(nchar(data[[name]]))+1
+
+      label <- stringr::str_pad(value, max_digits)
+
+      htmltools::tagList(
+        htmltools::div(label),
+        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq)
+      )
 
     } else if (show_values == "left" & !is.null(number_fmt)) {
 

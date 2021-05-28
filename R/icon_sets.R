@@ -1,6 +1,12 @@
-#' Add colored icons to rows in a column
+#' Add colored icons to cells in a column
 #'
-#' The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each row of a column and assigns a color depending on their value in relation to other values in that particular column.
+#' The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each cell of a column
+#'     and assigns a color depending on their value in relation to other values in that particular column.
+#'     Any number of icons and any number of colors can be used.
+#'     The number of icons and colors determines how the values are shown from low values to high values.
+#'     The icons can be positioned over, above, below, or to the right or left of the values.
+#'     The size of the icon can be adjusted.
+#'     Icons and icon colors can be provided via another reference column in the dataset which is useful when assigning icons/colors to particular occurences.
 #'     It should be placed within the cell argument in reactable::colDef.
 #'
 #' @param data Dataset containing at least one numeric column.
@@ -14,12 +20,29 @@
 #'     Default colors provided are c('red','orange','green').
 #'     Can use R's built-in colors or other color packages.
 #'
-#' @param number_fmt Optionally format numbers using formats from the scales package.
-#'     Default is set to NULL.
+#' @param opacity A value between 0 and 1 that adjusts the opacity in colors.
+#'     A value of 0 is fully transparent, a value of 1 is fully opaque.
+#'     Default is 1.
 #'
 #' @param icon_position Position of icon relative to numbers.
 #'     Options are "left", "right", above", "below", or "over".
 #'     Default is right.
+#'
+#' @param icon_ref Optionally assign icons from another column
+#'     by providing the name of the column containing the icons in quotes.
+#'     Only one icon can be provided per cell.
+#'     Default is NULL.
+#'
+#' @param icon_size A value representing the size of the icon in px.
+#'     Default is 16.
+#'
+#' @param icon_color_ref Optionally assign color to the icons from another column
+#'     by providing the name of the column containing the icon colors in quotes.
+#'     Only one color can be provided per cell.
+#'     Default is NULL.
+#'
+#' @param number_fmt Optionally format numbers using formats from the scales package.
+#'     Default is set to NULL.
 #'
 #' @import reactable
 #'
@@ -63,8 +86,12 @@
 icon_sets <- function(data,
                       icons = c("circle"),
                       colors = c("red","orange","green"),
-                      number_fmt = NULL,
-                      icon_position = "right") {
+                      opacity = 1,
+                      icon_position = "right",
+                      icon_ref = NULL,
+                      icon_size = 16,
+                      icon_color_ref = NULL,
+                      number_fmt = NULL) {
 
 
   '%notin%' <- Negate('%in%')
@@ -72,6 +99,16 @@ icon_sets <- function(data,
   if (icon_position %notin% c("left", "right", "above", "below", "over") == TRUE) {
 
     stop("icon_position must be either 'left', 'right', 'above', 'below', or 'over'")
+  }
+
+  if (!is.numeric(opacity)) {
+
+    stop("`opacity` must be numeric")
+  }
+
+  if (opacity < 0 | opacity > 1) {
+
+    stop("`opacity` must be a value between 0 and 1")
   }
 
   cell <- function(value, index, name) {
@@ -92,44 +129,164 @@ icon_sets <- function(data,
 
     color_assign <- color_buckets[index]
 
-    if (!is.null(label) & icon_position == "right") {
+    ### icon_ref
+    if (is.character(icon_ref)) {
 
-    htmltools::tagList(
-        label,
-        htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
-                       htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                      style = paste("color:", colors[[color_assign]]))))
+      if (all(icon_ref %in% names(which(sapply(data, is.character))))) {
 
-    } else if (!is.null(label) & icon_position == "left") {
+        if (is.character(icon_ref)) { icon_ref <- which(names(data) %in% icon_ref) }
 
-    htmltools::tagList(
-      htmltools::div(style = list(display = "inline-block", marginRight = "8px"),
-                     htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                    style = paste("color:", colors[[color_assign]]))),
-      label)
+        icons <- data[[icon_ref]][index]
 
-    } else if (!is.null(label) & icon_position == "below") {
+        ### icon_color_ref
+        if (is.character(icon_color_ref)) {
+          if (all(icon_color_ref %in% names(which(sapply(data, is.character))))) {
 
-      htmltools::tagList(
-        htmltools::div(label),
+            if (is.character(icon_color_ref)) { icon_color_ref <- which(names(data) %in% icon_color_ref) }
+
+            colors <- data[[icon_color_ref]][index]
+
+          } else { stop("Attempted to select non-existing column or non-character column with icon_color_ref") }
+        }
+
+        colors <- grDevices::adjustcolor(colors, alpha.f = opacity)
+
+        if (is.null(icon_ref) & is.null(icon_color_ref)) {
+
+          icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]]))
+
+        } else if (!is.null(icon_ref) & is.null(icon_color_ref)) {
+
+          icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
+                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]]))
+
+        } else if (is.null(icon_ref) & !is.null(icon_color_ref)) {
+
+          icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors))
+
+        } else if (!is.null(icon_ref) & !is.null(icon_color_ref)) {
+
+          icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
+                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors))
+
+        }
+
+        ### icon_position
+        if (icon_position == "right") {
+
+          htmltools::tagList(
+            label,
+            htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
+                           icon_label))
+
+        } else if (icon_position == "left") {
+
+          htmltools::tagList(
+            htmltools::div(style = list(display = "inline-block", marginRight = "8px"),
+                           icon_label),
+            label)
+
+        } else if (icon_position == "below") {
+
+          htmltools::tagList(
+            htmltools::div(label),
+            htmltools::div(style = list(display = "inline-block"),
+                           icon_label))
+
+        } else if (icon_position == "above") {
+
+          htmltools::tagList(
+            htmltools::div(style = list(display = "inline-block"),
+                           icon_label),
+            htmltools::div(label))
+
+        } else if (!is.null(label) & icon_position == "over") {
+
+          htmltools::div(style = list(display = "inline-block"),
+                         icon_label)
+        }
+
+      } else {
+
+        stop("Attempted to select non-existing column or non-character column with icon_ref")
+
+      }
+
+    } else if (!is.null(icons)) {
+
+      ### icon_color_ref
+      if (is.character(icon_color_ref)) {
+        if (all(icon_color_ref %in% names(which(sapply(data, is.character))))) {
+          if (is.character(icon_color_ref)) { icon_color_ref <- which(names(data) %in% icon_color_ref) }
+
+          colors <- data[[icon_color_ref]][index]
+
+        } else { stop("Attempted to select non-existing column or non-character column with icon_color_ref") }
+      }
+
+      colors <- grDevices::adjustcolor(colors, alpha.f = opacity)
+
+
+      if (is.null(icon_ref) & is.null(icon_color_ref)) {
+
+        icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]]))
+
+      } else if (!is.null(icon_ref) & is.null(icon_color_ref)) {
+
+        icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]]))
+
+      } else if (is.null(icon_ref) & !is.null(icon_color_ref)) {
+
+        icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors))
+
+      } else if (!is.null(icon_ref) & !is.null(icon_color_ref)) {
+
+        icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors))
+
+      }
+
+      ### icon_position
+      if (icon_position == "right") {
+
+        htmltools::tagList(
+          label,
+          htmltools::div(style = list(display = "inline-block", marginLeft = "8px"),
+                         icon_label))
+
+      } else if (icon_position == "left") {
+
+        htmltools::tagList(
+          htmltools::div(style = list(display = "inline-block", marginRight = "8px"),
+                         icon_label),
+          label)
+
+      } else if (icon_position == "below") {
+
+        htmltools::tagList(
+          htmltools::div(label),
+          htmltools::div(style = list(display = "inline-block"),
+                         icon_label))
+
+      } else if (icon_position == "above") {
+
+        htmltools::tagList(
+          htmltools::div(style = list(display = "inline-block"),
+                         icon_label),
+          htmltools::div(label))
+
+      } else if (!is.null(label) & icon_position == "over") {
+
         htmltools::div(style = list(display = "inline-block"),
-                       htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                      style = paste("color:", colors[[color_assign]]))))
+                       icon_label)
+      }
 
-    } else if (!is.null(label) & icon_position == "above") {
+    } else icon_label <- NULL
 
-      htmltools::tagList(
-        htmltools::div(style = list(display = "inline-block"),
-                       htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                      style = paste("color:", colors[[color_assign]]))),
-        htmltools::div(label))
-
-    } else if (!is.null(label) & icon_position == "over") {
-
-      htmltools::div(style = list(display = "inline-block"),
-                      htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                    style = paste("color:", colors[[color_assign]])))
-    }
   }
 }
-
