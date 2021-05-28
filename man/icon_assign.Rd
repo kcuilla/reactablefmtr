@@ -2,17 +2,20 @@
 % Please edit documentation in R/icon_assign.R
 \name{icon_assign}
 \alias{icon_assign}
-\title{Assign icons to rows in a column}
+\title{Assign icons to cells in a column}
 \usage{
 icon_assign(
   data,
   icon = "circle",
   fill_color = "#1e90ff",
   empty_color = "lightgrey",
+  fill_opacity = 1,
+  empty_opacity = 1,
+  icon_size = 16,
   buckets = NULL,
   number_fmt = NULL,
   seq_by = 1,
-  show_values = FALSE
+  show_values = "none"
 )
 }
 \arguments{
@@ -27,6 +30,17 @@ Default color is #1e90ff.}
 \item{empty_color}{A single color for the empty icons.
 Default color is lightgrey.}
 
+\item{fill_opacity}{A value between 0 and 1 that adjusts the opacity in fill_color.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.}
+
+\item{empty_opacity}{A value between 0 and 1 that adjusts the opacity in empty_color.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.}
+
+\item{icon_size}{A value representing the size of the icon in px.
+Default is 16.}
+
 \item{buckets}{Optionally divide values in a column into buckets by providing a numeric value.
 Icons are then assigned by rank from lowest to highest.
 Default is set to NULL.}
@@ -39,17 +53,18 @@ Ex. instead of displaying 100 icons for the number 100, can set seq_by = 10 to s
 Default value is set to 1.}
 
 \item{show_values}{Optionally display values next to icons.
-Icons can be displayed to the left of the icons with "left" or to the right with "right".
-Default is set to FALSE or no values.}
+Options are "left", "right", above", "below", or "none".
+Default is none.}
 }
 \value{
 a function that applies colored icons
     to a column of numeric values.
 }
 \description{
-The `icon_assign()` function assigns icons from the Font Awesome library (via shiny) to each row of a numeric column depending on the value in each row.
-    By default, the number of icons assigned will be equal to the value in that row. If the value is less than the max, it will receive empty icons.
-    Both the icon shape and color of the filled and empty icons can be modified through the parameters.
+The `icon_assign()` function assigns icons from the Font Awesome library (via shiny) to each cell of a numeric column depending on the value in each row.
+    By default, the number of icons assigned will be equal to the value in that cell. If the value is less than the max, it will receive empty icons.
+    Both the icon shape, size, and color of the filled and empty icons can be modified through the parameters.
+    Values can optionally be shown with the icons if desired.
     It should be placed within the cell argument in reactable::colDef.
 }
 \examples{

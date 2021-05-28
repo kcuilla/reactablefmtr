@@ -2,12 +2,17 @@
 % Please edit documentation in R/icon_sets.R
 \name{icon_sets}
 \alias{icon_sets}
-\title{Add colored icons to rows in a column}
+\title{Add colored icons to cells in a column}
 \usage{
 icon_sets(
   data,
-  icons = c("circle", "circle", "circle"),
+  icons = c("circle"),
   colors = c("red", "orange", "green"),
+  opacity = 1,
+  icon_position = "right",
+  icon_ref = NULL,
+  icon_size = 16,
+  icon_color_ref = NULL,
   number_fmt = NULL
 )
 }
@@ -23,6 +28,27 @@ Colors should be given in order from low values to high values.
 Default colors provided are c('red','orange','green').
 Can use R's built-in colors or other color packages.}
 
+\item{opacity}{A value between 0 and 1 that adjusts the opacity in colors.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.}
+
+\item{icon_position}{Position of icon relative to numbers.
+Options are "left", "right", above", "below", or "over".
+Default is right.}
+
+\item{icon_ref}{Optionally assign icons from another column
+by providing the name of the column containing the icons in quotes.
+Only one icon can be provided per cell.
+Default is NULL.}
+
+\item{icon_size}{A value representing the size of the icon in px.
+Default is 16.}
+
+\item{icon_color_ref}{Optionally assign color to the icons from another column
+by providing the name of the column containing the icon colors in quotes.
+Only one color can be provided per cell.
+Default is NULL.}
+
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is set to NULL.}
 }
@@ -31,7 +57,13 @@ a function that applies an icon
     to a column of numeric values.
 }
 \description{
-The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each row of a column and assigns a color depending on their value in relation to other values in that particular column.
+The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each cell of a column
+    and assigns a color depending on their value in relation to other values in that particular column.
+    Any number of icons and any number of colors can be used.
+    The number of icons and colors determines how the values are shown from low values to high values.
+    The icons can be positioned over, above, below, or to the right or left of the values.
+    The size of the icon can be adjusted.
+    Icons and icon colors can be provided via another reference column in the dataset which is useful when assigning icons/colors to particular occurences.
     It should be placed within the cell argument in reactable::colDef.
 }
 \examples{
@@ -59,5 +91,10 @@ car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
 reactable(car_prices,
 defaultColDef = colDef(cell = icon_sets(car_prices,
 number_fmt = scales::dollar)))
+
+## Position icons relative to the numbers. Options are to the left, right, above, below, or over.
+reactable(car_prices,
+defaultColDef = colDef(cell = icon_sets(car_prices,
+icon_position = "above")))
 
 }

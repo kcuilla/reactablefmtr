@@ -2,7 +2,7 @@
 % Please edit documentation in R/embed_img.R
 \name{embed_img}
 \alias{embed_img}
-\title{Embed image from web to rows in a column}
+\title{Embed image from web to cells in a column}
 \usage{
 embed_img(
   data,
@@ -25,7 +25,7 @@ Default width is 24px.}
 Default is set to NULL or no label.}
 
 \item{label_position}{Position of label relative to image.
-Options are "right", "left", "below", "above".
+Options are "right", "left", "below", or "above".
 Default is right.}
 }
 \value{

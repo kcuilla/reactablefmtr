@@ -2,7 +2,7 @@
 % Please edit documentation in R/color_tiles.R
 \name{color_tiles}
 \alias{color_tiles}
-\title{Add color tiles to rows in a column}
+\title{Add color tiles to cells in a column}
 \usage{
 color_tiles(
   data,

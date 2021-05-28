@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_bars.R
 \name{data_bars}
 \alias{data_bars}
-\title{Add horizontal bars to rows in a column}
+\title{Add horizontal bars to cells in a column}
 \usage{
 data_bars(
   data,
@@ -100,7 +100,7 @@ Default is NULL.}
 
 \item{icon_ref}{Optionally assign icons from another column
 by providing the name of the column containing the icons in quotes.
-Only one icon can be provided per row.
+Only one icon can be provided per cell.
 Default is NULL.}
 
 \item{icon_size}{A value representing the size of the icon in px.
@@ -112,14 +112,14 @@ Default is NULL.}
 
 \item{icon_color_ref}{Optionally assign color to the icons from another column
 by providing the name of the column containing the icon colors in quotes.
-Only one color can be provided per row.
+Only one color can be provided per cell.
 Default is NULL.}
 
 \item{img}{An image provided with a valid URL.}
 
 \item{img_ref}{Optionally assign images from another column
 by providing the name of the column containing the image URLs in quotes.
-Only one image can be provided per row.
+Only one image can be provided per cell.
 Default is NULL.}
 
 \item{img_height}{A value for the height of the image in px.

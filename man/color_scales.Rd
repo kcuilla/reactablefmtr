@@ -2,7 +2,7 @@
 % Please edit documentation in R/color_scales.R
 \name{color_scales}
 \alias{color_scales}
-\title{Add color scales to rows in a column}
+\title{Add color scales to cells in a column}
 \usage{
 color_scales(
   data,
