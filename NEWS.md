@@ -14,8 +14,8 @@
 * The color of the labels can be changed by using the `text_color` argument. The default color is black
 * Labels can be shown in bold text with the `bold_text` logical argument
 * If labels are placed inside the filled bars and the bars are filled with a dark color, the color of the labels will automatically change to white rather than the default black with the `brighten_text` logical argument. The color of `brighten_text_color` can be changed to any color
-* The colors for the fill of the `data_bars()` can be provided from another column by naming the column within the `fill_color_ref` argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
-* The opacity of the fill color can be adjusted with `fill_opacity` by providing a value between 0 and 1
+* The colors for the fill of the `data_bars()` can be provided from another column by referencing the name of the column containing the colors within `fill_color_ref`. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
+* The opacity of the fill color can be adjusted with `fill_opacity` by providing a value between 0 and 1 (from transparent to opaque)
 * The maximum width of the fill of `data_bars()` can be adjusted with the `max_value` argument. By default, the maximum width is the maximum value contained in the column. Ex. if showing percentages and the maximum value is 80%, by default, 80% will look 100% filled (since it's 80% out of 80%). By changing `max_value = 1` (or `max_value = 100` depending on how your percentages are displayed), it will shrink the 80% to be relative to 100%. If a maximum value is provided, a minimum value can also be set with `min_value`
 * Icons can now be added to the data bars with either `icon` or `icon_ref`
 * By default, the color of the icon is inherited from the fill color of the data bars, but can be changed with `icon_color` or `icon_color_ref`
@@ -23,7 +23,7 @@
 
 #### color_scales() & color_tiles()
 
-* Colors can be provided from another column by naming the column within the `color_ref` argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
+* Colors can be provided from another column by referencing the name of the column containing the colors within `color_ref`. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
 * The opacity of the background colors can be adjusted with `opacity` by providing a value between 0 and 1
 * The color of the values can be changed by using the `text_color` argument. The default color is black
 * Values can be shown in bold text with the `bold_text` logical argument
@@ -33,12 +33,22 @@
 
 #### embed_img()
 
-* Labels from another column can now be positioned above, below, or to the left of the embedded image. Previously, the labels could only positioned to the right of the image.
+* Labels from another column can now be positioned above, below, or to the left of the embedded image. Previously, the labels could only positioned to the right of the image
+
+#### icon_assign()
+
+* The size of the icons can now be adjusted using `icon_size`
+* The opacity of `fill_color` and `empty_color` can be adjusted with `fill_opacity` and `empty_opacity` respectively, by providing a value between 0 and 1 (from transparent to opaque)
+* In addition to optionally showing values to the left or right of the icons, values can now also be placed above or below the icons in `show_values`
 
 #### icon_sets()
 
 * Can now use any number of icons and colors to assign to data. Previously only three icons and colors could be used.
-* Icons can be positioned to the right, left, above, below, or over the values. Previously icons could only be positioned to the right of the values.
+* Icons can be positioned to the right, left, above, below, or over the values with `icon_position`. Previously icons could only be positioned to the right of the values
+* The size of the icons can now be adjusted using `icon_size`
+* The opacity of the icon colors can be adjusted with `opacity` by providing a value between 0 and 1 (from transparent to opaque)
+* Icons can be provided from another column by referencing the name of the column containing the icons within `icon_ref`
+* Icon colors can be provided from another column by referencing the name of the column containing the colors within `icon_color_ref`
 
 #### save_reactable()
 
