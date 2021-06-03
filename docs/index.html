@@ -12,8 +12,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="reactablefmtr package">
-<meta property="og:description" content="Streamlines the process of applying formats and styles to tables using reactable.
-    Style your reactable table with conditional formatting, color scales, data bars, and icons. ">
+<meta property="og:description" content="Enhance the styling of interactive reactable tables with easy-to-use
+    and highly-customizable functions. Apply conditional formatting to cells with
+    data bars, color scales, and icon sets. Utilize custom table themes inspired by
+    popular websites and bootstrap themes. Increase the portability and reproducibility
+    of reactable tables by embedding images from the web directly into cells.
+    Save the final table output as a static image or interactive file.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -85,9 +89,6 @@
       <a href="articles/icon_sets.html">Icon Sets</a>
     </li>
     <li>
-      <a href="articles/lollipop_chart.html">Lollipop Chart</a>
-    </li>
-    <li>
       <a href="articles/themes.html">Themes</a>
     </li>
   </ul>
@@ -124,195 +125,166 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="reactablefmtr-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#reactablefmtr-" class="anchor"></a>reactablefmtr <img src="reference/figures/reactablefmtr_hex_logo.png" align="right">
-</h1></div>
+
+<div id="reactablefmtr" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reactablefmtr" class="anchor"></a>reactablefmtr <a href="https://kcuilla.github.io/reactablefmtr/index.html"><img src="reference/figures/reactablefmtr_hex_logo.png" align="right" width="175" height="210"></a>
+</h2>
 <!-- badges: start -->
-<!-- badges: end -->
-<p>Simplify the styling, formatting, and customization of tables made with <a href="https://glin.github.io/reactable/">reactable</a>.</p>
+
+<p>The {reactablefmtr} package simplifies and enhances the styling and formatting of tables built with the {reactable} <strong>R</strong> package. The {reactablefmtr} package provides many conditional formatters that are highly customizable and easy to use.</p>
+<ul>
+<li><p><strong>Conditionally format tables</strong> with <a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">color scales</a>, <a href="https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html">color tiles</a>, and <a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars_development.html">data bars</a>. Assign icons from <a href="https://fontawesome.com/icons?d=gallery&amp;p=2">Font Awesome</a> with <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html">icon assign</a> and <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html">icon sets</a>.</p></li>
+<li><p><strong>Custom table themes</strong> that can <a href="https://kcuilla.github.io/reactablefmtr/articles/themes.html">easily</a> be applied to any {reactablefmtr} or {reactable} table.</p></li>
+<li><p><strong>Embed images</strong> directly from the web into your <a href="https://kcuilla.github.io/reactablefmtr/articles/embed_img.html">table</a>.</p></li>
+<li><p><strong>Save tables</strong> as static PNG files or as interactive HTML files.</p></li>
+</ul>
+<p>The {reactablefmtr} package was built using a combination of <strong>R</strong>, <strong>CSS</strong>, and <strong>HTML</strong> in order to allow any level of <strong>R</strong> user to build highly customizable and stylish tables without having to learn additional programming languages.</p>
+<p>For more examples, check out the <a href="https://kcuilla.github.io/reactablefmtr/articles/">vignettes</a>. To stay up to date with the latest upgrades to the development version, be sure to follow the package <a href="https://kcuilla.github.io/reactablefmtr/news/index.html">news</a>.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> package is available from CRAN:</p>
+<p>The {reactablefmtr} package is available from CRAN and can be installed with:</p>
 <pre class="{r}"><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("reactablefmtr")</a></code></pre>
-<p>Or you can install the development version from GitHub with:</p>
+<p>Or install the development version of {reactablefmtr} with:</p>
 <pre class="{r}"><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("kcuilla/reactablefmtr")</a></code></pre>
 </div>
-<div id="background" class="section level2">
+<div id="examples" class="section level2">
 <h2 class="hasAnchor">
-<a href="#background" class="anchor"></a>Background</h2>
-<p><a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> is an extension of the <a href="https://glin.github.io/reactable/">reactable</a> package created by Greg Lin. Before you use <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a>, you need to first have an understanding of how to use <a href="https://glin.github.io/reactable/">reactable</a>. Greg Lin put together a great overview <a href="https://glin.github.io/reactable/index.html">here</a> that I recommend checking out. It has many examples and tutorials that are necessary to learn <a href="https://glin.github.io/reactable/">reactable</a>.</p>
-<p>A challenge of creating tables with <a href="https://glin.github.io/reactable/">reactable</a> is that some of the code required to style and format the tables is a bit lengthy and can be difficult to understand for someone who is a novice R user. The <a href="https://kcuilla.github.io/reactablefmtr/">reactablefmtr</a> aims to firstly simplify the customization and formatting process that can be used by any R user regardless of their experience, and secondly, reduce the amount of time and effort required to build a table with {reactable}.</p>
-<div id="acknowledgments" class="section level3">
+<a href="#examples" class="anchor"></a>Examples</h2>
+<div id="data-bars" class="section level3">
 <h3 class="hasAnchor">
-<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h3>
-<p>A huge thank you to Greg Lin for creating the amazing {reactable} package! Without Greg, {reactablefmtr} simply would not exist.</p>
+<a href="#data-bars" class="anchor"></a>Data Bars</h3>
+<p>Use <code><a href="reference/data_bars.html">data_bars()</a></code> to assign horizontal bars to each row. There are many ways to <a href="https://kcuilla.github.io/reactablefmtr/reference/data_bars.html">customize</a> the look of <code><a href="reference/data_bars.html">data_bars()</a></code>, including the alignment of the bars, the posiiton of the text labels, and the option to add icons and images to the bars. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars_development.html">tutorial</a> for customization examples.</p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo.gif" align="center"></p>
+</div>
+<div id="color-scales" class="section level3">
+<h3 class="hasAnchor">
+<a href="#color-scales" class="anchor"></a>Color Scales</h3>
+<p>Use <code><a href="reference/color_scales.html">color_scales()</a></code> to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).</p>
+<pre class="{r}"><code><a href="https://rdrr.io/r/base/library.html">library(palmerpenguins)
+library(dplyr)
+library(viridis)
+  
+data &lt;- palmerpenguins %&gt;%
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm)
+
+reactable(
+  data,
+  columns = list(
+    bill_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
+    bill_depth_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
+    flipper_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5)))
+  )
+)</a></code></pre>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/color_scales_mako.png" align="center"></p>
+<p>By default, colors are conditionally assigned to values within each column, but can also be assigned to row-wise data as shown below. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">tutorial</a> for more examples.</p>
+<pre class="{r}"><code>dimnames &lt;- list(start(nottem)[1]:end(nottem)[1], month.abb)
+temps &lt;- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
+temps &lt;- as_tibble(temps, rownames = "Year")
+
+reactable(
+  temps,
+  defaultColDef = colDef(
+    style = color_scales(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    minWidth = 50
+  )
+)</code></pre>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/C6731D97-6D37-4CD2-A93D-374352961F4A.png" align="center"></p>
+</div>
+<div id="color-tiles" class="section level3">
+<h3 class="hasAnchor">
+<a href="#color-tiles" class="anchor"></a>Color Tiles</h3>
+<p>A similar formatter to <code><a href="reference/color_scales.html">color_scales()</a></code> is <code><a href="reference/color_tiles.html">color_tiles()</a></code>. Numbers can be formatted using any formatter from the {scales} package, just like how they are in {ggplot2}. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html">tutorial</a> for customization options.</p>
+<pre class="{r}"><code>reactable(
+  iris,
+  defaultColDef = colDef(
+    cell = color_tiles(iris, colors = viridis::magma(5))
+  )
+)</code></pre>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/color_tiles_viridis3.png" align="center" width="90%" height="90%"></p>
+</div>
+<div id="icon-sets" class="section level3">
+<h3 class="hasAnchor">
+<a href="#icon-sets" class="anchor"></a>Icon Sets</h3>
+<p>Use <code><a href="reference/icon_sets.html">icon_sets()</a></code> to conditionally assign icons to values from the <a href="https://fontawesome.com/icons?d=gallery&amp;p=2">Font Awesome</a> library based on their relative values. Any number of icons and/or colors can be applied to values within each column. Customization options such as number formatting and positioning of icons are also available. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html">tutorial</a> for more options.</p>
+<pre class="{r}"><code>mtcars[1:10,c(1,2,4)] %&gt;% 
+reactable(., 
+          theme = flatly(),
+          defaultColDef = colDef(maxWidth = 150),
+          columns = list(
+            mpg = colDef(cell = icon_sets(., icons = "gas-pump", colors = c("red","blue","green"))),
+            cyl = colDef(cell = icon_sets(., icons = "car-side", colors = c("red","blue","green"))),
+            hp = colDef(cell = icon_sets(., icons = "horse-head", colors = c("red","blue","green")))
+          )
+)</code></pre>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/README_icon_sets_cars.png" align="center"></p>
+</div>
+<div id="icon-assign" class="section level3">
+<h3 class="hasAnchor">
+<a href="#icon-assign" class="anchor"></a>Icon Assign</h3>
+<p>Use <code><a href="reference/icon_assign.html">icon_assign()</a></code> to assign icons to values from the <a href="https://fontawesome.com/icons?d=gallery&amp;p=2">Font Awesome</a> library. Multiple customization options are available, such as bucketing values and the option to show/hide values next to the icons. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html">tutorial</a> for more options.</p>
+<pre class="{r}"><code>data &lt;- MASS::Cars93[1:20, c("Make", "Cylinders", "MPG.city", "Price")]
+
+reactable(
+  data,
+  defaultColDef = colDef(align = "left", maxWidth = 200),
+  columns = list(
+    Cylinders = colDef(cell = icon_assign(data)),
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5, show_values = "right")),
+    Price = colDef(cell = icon_assign(data, icon = "dollar-sign", fill_color = "red", empty_color = "white", buckets = 5, show_values = "right", number_fmt = scales::dollar))
+  )
+)</code></pre>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/5E26F646-AE47-4044-B01D-6BEBF28DD08B.jpeg" align="center"></p>
 </div>
 </div>
-<div id="showcase" class="section level2">
+<div id="custom-themes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#showcase" class="anchor"></a>Showcase</h2>
-<div id="animated-data-bars" class="section level3">
-<h3 class="hasAnchor">
-<a href="#animated-data-bars" class="anchor"></a>Animated Data Bars</h3>
-<p>Data bars are now animated!</p>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo_default.gif" alt="animated_data_bars"></p>
-<p>You may also notice that gradient colors can be applied to data bars as well, which is covered in the <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code> section below.</p>
-<p><br></p>
+<a href="#custom-themes" class="anchor"></a>Custom Themes</h2>
+<p>Within {reactablefmtr}, there are 24+ custom table themes. The themes include <a href="https://bootswatch.com/">bootstrap</a> themes, themes inspired by news/sports sites such as The New York Times, FiveThirtyEight, and ESPN, as well as other custom themes that can only be found within {reactablefmtr}. The themes can be applied easily to tables by simply referencing the theme name. Additional customization options, such as changing the font size, font color, etc. are also <a href="https://kcuilla.github.io/reactablefmtr/articles/themes.html">available</a>.</p>
+<pre class="{r}"><code>data &lt;- MASS::Cars93[1:20, c("Model", "MPG.city", "MPG.highway")]
+        
+data %&gt;%
+  reactable(.,
+    theme = slate(),
+    defaultColDef = colDef(
+      cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)</code></pre>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/43042890-A054-49D2-B066-8E329BE90ACA.jpeg" align="center"></p>
 </div>
-<div id="color_scales" class="section level3">
-<h3 class="hasAnchor">
-<a href="#color_scales" class="anchor"></a>color_scales()</h3>
-<p>By default, <code><a href="reference/color_scales.html">color_scales()</a></code> assigns a three-color red-white-blue pattern based on the value of the cells in a column from low to high:</p>
-<pre class="{r}"><code>data &lt;- iris[10:29, ]
-
-reactable(data,
-          columns = list(Petal.Length = colDef(style = color_scales(data))))</code></pre>
-<p><img src="reference/figures/README_color_scales_default.PNG" align="center"></p>
-<p>You can change the color scheme to any number of colors you’d like by specifying the colors in a vector and <code><a href="reference/color_scales.html">color_scales()</a></code> will assign the colors from low to high in the order you provide:</p>
-<pre class="{r}"><code>reactable(data,
-          columns = list(
-          Petal.Length = colDef(style = color_scales(data, c("purple", "pink", "white", "green")))))</code></pre>
-<p><img src="reference/figures/README_color_scales_example.PNG" align="center"></p>
-<p>You can also apply <code><a href="reference/color_scales.html">color_scales()</a></code> across all columns and use custom color palettes such as the “Spectral” color set from {RColorBrewer}:</p>
-<pre class="{r}"><code>reactable(data,
-          defaultColDef = colDef(style = color_scales(data, brewer.pal(3, "Pastel1"))))</code></pre>
-<p><img src="reference/figures/README_color_scales_custom.PNG" align="center"></p>
-<p>Previously in {reactable}, using dark color palettes such as the “magma” color set from {viridis} was troublesome since you couldn’t see the values in the cells with dark backgrounds. Now, with {reactablefmtr}, the colors of the values automatically are changed to white if the colors are dark:</p>
-<pre class="{r}"><code><a href="https://sjmgarnier.github.io/viridis/">library(viridis)
-reactable(data,
-          defaultColDef = colDef(style = color_scales(data,
-                                                      colors = viridis::magma(5))))</a></code></pre>
-<p><img src="reference/figures/README_color_scales_bright_values.PNG" align="center"></p>
-<p><br></p>
+<div id="add-a-title-subtitle-and-source" class="section level2">
+<h2 class="hasAnchor">
+<a href="#add-a-title-subtitle-and-source" class="anchor"></a>Add a Title, Subtitle, and Source</h2>
+<p>Titles and subtitles can be easily placed above any {reactablefmtr} or {reactable} table with <code><a href="reference/add_title.html">add_title()</a></code> and <code><a href="reference/add_subtitle.html">add_subtitle()</a></code>. Also have the option to include a source below a table with <code><a href="reference/add_source.html">add_source()</a></code>. Additional customization options such as changing the alignment, font size, font family, font style, and font color are available within each formatter.</p>
+<pre class="{r}"><code>reactable(iris[10:29, ]) %&gt;%
+  add_title("This is a title") %&gt;% 
+  add_subtitle("This is a subtitle") %&gt;% 
+  add_source("This is a source")</code></pre>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/README_add_title.png" align="center"></p>
 </div>
-<div id="color_tiles" class="section level3">
-<h3 class="hasAnchor">
-<a href="#color_tiles" class="anchor"></a>color_tiles()</h3>
-<p>Another option of conditionally coloring cells based on their values is with <code><a href="reference/color_tiles.html">color_tiles()</a></code>:</p>
-<pre class="{r}"><code>reactable(data,
-          defaultColDef = colDef(cell = color_tiles(data)))</code></pre>
-<p><img src="reference/figures/README_color_tiles.PNG" align="center"></p>
-<p>Note that <code><a href="reference/color_tiles.html">color_tiles()</a></code> needs to be placed within the <code>cell</code> argument, whereas <code><a href="reference/color_scales.html">color_scales()</a></code> is placed within <code>style</code>. A benefit of using <code><a href="reference/color_tiles.html">color_tiles()</a></code> over <code><a href="reference/color_scales.html">color_scales()</a></code> is that you have the option to format the values using formatters from the <a href="https://www.tidyverse.org/blog/2018/08/scales-1-0-0/">scales</a> package similar to how you would in ggplot2:</p>
-<pre class="{r}"><code>car_prices &lt;- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
-
-reactable(car_prices,
-          columns = list(
-            Price = colDef(align = "center",
-                           cell = color_tiles(car_prices,
-                                              number_fmt = scales::dollar)),
-            Weight = colDef(align = "center",
-                            cell = color_tiles(car_prices,
-                                               number_fmt = scales::comma))))</code></pre>
-<p><img src="reference/figures/README_color_tiles_number_fmt.PNG" align="center"></p>
-<p>Just like with <code><a href="reference/color_scales.html">color_scales()</a></code>, you are now free to use dark color palettes. Note: this option can be turned off by setting <code>bright_values = FALSE</code>:</p>
-<pre class="{r}"><code><a href="https://sjmgarnier.github.io/viridis/">library(viridis)
-reactable(data,
-          defaultColDef = colDef(style = color_tiles(data,
-                                                     colors = viridis::magma(5))))</a></code></pre>
-<p><img src="reference/figures/README_color_tiles_bright_values.PNG" align="center"></p>
-<p><br></p>
+<div id="save-static-or-interactive-tables" class="section level2">
+<h2 class="hasAnchor">
+<a href="#save-static-or-interactive-tables" class="anchor"></a>Save Static or Interactive Tables</h2>
+<p>{reactablefmtr} or {reactable} tables can be saved directly to a file as a static PNG image or as an interactive HTML file with <code><a href="reference/save_reactable.html">save_reactable()</a></code>.</p>
+<p>Save as a PNG file:</p>
+<pre class="{r}"><code><a href="reference/save_reactable.html">save_reactable(table_name, "table.png")</a></code></pre>
+<p>Save as an HTML file:</p>
+<pre class="{r}"><code><a href="reference/save_reactable.html">save_reactable(table_name, "table.html")</a></code></pre>
+<p>If custom CSS styling is applied to the table within an R Markdown document:</p>
+<pre class="{r}"><code><a href="reference/save_reactable.html">save_reactable("table_name.Rmd", "table.png")</a></code></pre>
+<p>If you prefer to use a pipe:</p>
+<pre class="{r}"><code>table_name %&gt;%
+save_reactable("table.png")</code></pre>
 </div>
-<div id="data_bars" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data_bars" class="anchor"></a>data_bars()</h3>
-<p>By default, <code><a href="reference/data_bars.html">data_bars()</a></code> assigns a horizontal bar to each row relative to it’s value compared to other values in a particular column:</p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
-
-reactable(data,
-          columns = list(
-          MPG.city = colDef(align = "left", # align column header
-                            cell = data_bars(data))))</code></pre>
-<p><img src="reference/figures/README_data_bars_default.PNG" align="center"></p>
-<p>You can change both the color of the data bars and the background:</p>
-<pre class="{r}"><code>reactable(data,
-          columns = list(
-          MPG.city = colDef(align = "left", # align column header
-                            cell = data_bars(data, "forestgreen", "lightgrey"))))</code></pre>
-<p><img src="reference/figures/README_data_bars_background.PNG" align="center"></p>
-<p>Just like with <code><a href="reference/color_scales.html">color_scales()</a></code>, you can apply a gradient of colors to your data bars if you assign more than one color in a vector:</p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[1:15, c("Make", "MPG.city", "MPG.highway")]
-
-reactable(data,
-  pagination = FALSE, # display all rows on one page
-  defaultSortOrder = "desc", # sort by descending order
-  defaultSorted = "MPG.city", # sort by MPG.city
-  defaultColDef = colDef(cell = data_bars(data, c("firebrick1", "gold", "limegreen"))))</code></pre>
-<p><img src="reference/figures/README_data_bars_conditional.PNG" align="center"></p>
-<p>You can also now format numbers with the scales package the same way that you would format numbers in the <code><a href="reference/color_tiles.html">color_tiles()</a></code> example above. The <code>number_fmt</code> option is available for <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code> and <code><a href="reference/data_bars_pos_neg.html">data_bars_pos_neg()</a></code> as well.</p>
-<pre class="{r}"><code>car_prices &lt;- MASS::Cars93[20:49, c("Make", "Price", "Weight")]
-
-reactable(car_prices,
-          columns = list(
-            Price = colDef(align = "center",
-                           cell = data_bars(car_prices,
-                                            number_fmt = scales::dollar_format(accuracy = 1))),
-            Weight = colDef(align = "center",
-                            cell = data_bars(car_prices,
-                                             number_fmt = scales::comma))))</code></pre>
-<p><img src="reference/figures/README_data_bar_number_fmt.PNG" align="center"></p>
-<p><br></p>
+<div id="acknowledgments-contributions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#acknowledgments-contributions" class="anchor"></a>Acknowledgments &amp; Contributions</h2>
+<p>A huge thank you to Greg Lin for creating the amazing {reactable} <a href="(https://glin.github.io/reactable/index.html)">package</a>! Without Greg, {reactablefmtr} simply would not exist!</p>
+<p>Also thank you to June Chao for contributing to the span option in <code><a href="reference/color_scales.html">color_scales()</a></code> and <code><a href="reference/color_tiles.html">color_tiles()</a></code>!</p>
 </div>
-<div id="data_bars_gradient" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data_bars_gradient" class="anchor"></a>data_bars_gradient()</h3>
-<p>If you would like to customize your <code><a href="reference/data_bars.html">data_bars()</a></code> a step further and apply a linear color gradient, you can now use <code><a href="reference/data_bars_gradient.html">data_bars_gradient()</a></code>:</p>
-<pre class="{r}"><code>data &lt;- sample_n(penguins,50) %&gt;% # sample 50 rows
-  filter(!is.na(bill_length_mm)) %&gt;% # remove NA's
-  select(species, island, body_mass_g)
 
-reactable(data,
-          columns = list(
-            body_mass_g = colDef(cell = data_bars_gradient(data))))</code></pre>
-<p><img src="reference/figures/README_data_bars_gradient.PNG" align="center"></p>
-<p>You can add as many colors as you would like to make the gradient:</p>
-<pre class="{r}"><code>reactable(data,
-          columns = list(
-            body_mass_g = colDef(cell = data_bars_gradient(data, colors = c("red", "orange", "yellow", "green", "blue", "indigo", "violet"))))</code></pre>
-<p><img src="reference/figures/README_data_bars_gradient_rainbow.PNG" align="center"></p>
-<p><br></p>
-</div>
-<div id="data_bars_pos_neg" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data_bars_pos_neg" class="anchor"></a>data_bars_pos_neg()</h3>
-<p>If your column contains negative values but you would like to show data bars for the values, you can use <code><a href="reference/data_bars_pos_neg.html">data_bars_pos_neg()</a></code>:</p>
-<pre class="{r}"><code>data &lt;- data %&gt;% 
-  mutate(Change = round(runif(15, min = -7, max = 5))) %&gt;% 
-  select(Make, Change)
-
-reactable(data, 
-          pagination = FALSE,
-          columns = list(
-          Change = colDef(align = "center", # align column header
-                          cell = data_bars_pos_neg(data))))</code></pre>
-<p><img src="reference/figures/README_data_bars_pos_neg_default1.PNG" align="center"></p>
-<p>If your column is displaying percentages rather than whole numbers, you can add the percent symbol by using the percent formatter from the scales package within <code>number_fmt</code>:</p>
-<pre class="{r}"><code>data &lt;- data %&gt;% 
-  mutate('% Change' = round(runif(15, min = -0.7, max = 0.7), digits = 2)) %&gt;% 
-  select(Make, '% Change')
-
-reactable(data, 
-          pagination = FALSE,
-          columns = list(
-          `% Change` = colDef(align = "center", # align column header
-                              cell = data_bars_pos_neg(data,
-                                                       number_fmt = scales::percent))))</code></pre>
-<p><img src="reference/figures/README_data_bars_pos_neg_percent.PNG" align="center"></p>
-<p>You may also apply a color gradient to the data bars by assigning three or more colors:</p>
-<pre class="{r}"><code>reactable(data, 
-          pagination = FALSE,
-          columns = list(
-          `% Change` = colDef(align = "center",
-                              cell = data_bars_pos_neg(data, 
-                                                       colors = c("#ff3030", "#ffffff", "#1e90ff"), 
-                                                       number_fmt = scales::percent))))
-</code></pre>
-<p><img src="reference/figures/README_data_bars_pos_neg_gradient.PNG" align="center"></p>
-<p><br></p>
-</div>
-</div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -343,7 +315,14 @@ reactable(data,
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=reactablefmtr?color=blue"><img src="https://www.r-pkg.org/badges/version/reactablefmtr?color=blue" alt="CRAN Status"></a></li>
+<li><a href="https://cranlogs.r-pkg.org/badges/grand-total/reactablefmtr?color=brightgreen"><img src="https://cranlogs.r-pkg.org/badges/grand-total/reactablefmtr?color=brightgreen" alt="CRAN Downloads"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
