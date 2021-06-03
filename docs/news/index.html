@@ -128,9 +128,6 @@
       <a href="../articles/icon_sets.html">Icon Sets</a>
     </li>
     <li>
-      <a href="../articles/lollipop_chart.html">Lollipop Chart</a>
-    </li>
-    <li>
       <a href="../articles/themes.html">Themes</a>
     </li>
   </ul>
@@ -172,27 +169,13 @@
       <small>Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="reactablefmtr-030-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="0.3.0">
-<a href="#reactablefmtr-030-development-version" class="anchor"></a>reactablefmtr 0.3.0 (development version)<small> Unreleased </small>
+    <div id="reactablefmtr-1-0-0-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#reactablefmtr-1-0-0-development-version" class="anchor"></a>reactablefmtr 1.0.0 (development version)<small> Unreleased </small>
 </h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h3>
-<div id="color_scales--color_tiles" class="section level4">
-<h4 class="hasAnchor">
-<a href="#color_scales--color_tiles" class="anchor"></a>color_scales() &amp; color_tiles()</h4>
-<ul>
-<li>Colors can be provided from another column by naming the column within the <code>color_ref</code> argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset</li>
-<li>The opacity of the background colors can be adjusted with <code>opacity</code> by providing a value between 0 and 1</li>
-<li>The color of the values can be changed by using the <code>text_color</code> argument. The default color is black</li>
-<li>Values can be shown in bold text with the <code>bold_text</code> logical argument</li>
-<li>
-<code>brighten_values</code> has been renamed to <code>brighten_text</code>
-</li>
-<li>The color of the values in cells that have <code>brighten_values</code> applied can be changed with <code>brighten_text_color</code>. The default color is white</li>
-</ul>
-</div>
 <div id="data_bars" class="section level4">
 <h4 class="hasAnchor">
 <a href="#data_bars" class="anchor"></a>data_bars()</h4>
@@ -203,6 +186,8 @@
 <code><a href="../reference/data_bars.html">data_bars()</a></code> can create color gradients when more than two colors are provided with <code>fill_gradient = TRUE</code>. <code><a href="../reference/data_bars_gradient.html">data_bars_gradient()</a></code> is being depreciated</li>
 <li>The <code>colors</code> argument in <code><a href="../reference/data_bars.html">data_bars()</a></code> has been renamed to <code>fill_color</code>
 </li>
+<li>The height of the bars can now be adjusted with <code>bar_height</code>
+</li>
 <li>The default color of <code>background</code> has been changed from white to transparent</li>
 <li>
 <code><a href="../reference/data_bars.html">data_bars()</a></code> can now be either right-aligned or left-aligned with the <code>align_bars</code> argument by specifying either “left” or “right”. By default, <code><a href="../reference/data_bars.html">data_bars()</a></code> are aligned left</li>
@@ -210,8 +195,8 @@
 <li>The color of the labels can be changed by using the <code>text_color</code> argument. The default color is black</li>
 <li>Labels can be shown in bold text with the <code>bold_text</code> logical argument</li>
 <li>If labels are placed inside the filled bars and the bars are filled with a dark color, the color of the labels will automatically change to white rather than the default black with the <code>brighten_text</code> logical argument. The color of <code>brighten_text_color</code> can be changed to any color</li>
-<li>The colors for the fill of the <code><a href="../reference/data_bars.html">data_bars()</a></code> can be provided from another column by naming the column within the <code>fill_color_ref</code> argument. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset</li>
-<li>The opacity of the fill color can be adjusted with <code>fill_opacity</code> by providing a value between 0 and 1</li>
+<li>The colors for the fill of the <code><a href="../reference/data_bars.html">data_bars()</a></code> can be provided from another column by referencing the name of the column containing the colors within <code>fill_color_ref</code>. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset</li>
+<li>The opacity of the fill color can be adjusted with <code>fill_opacity</code> by providing a value between 0 and 1 (from transparent to opaque)</li>
 <li>The maximum width of the fill of <code><a href="../reference/data_bars.html">data_bars()</a></code> can be adjusted with the <code>max_value</code> argument. By default, the maximum width is the maximum value contained in the column. Ex. if showing percentages and the maximum value is 80%, by default, 80% will look 100% filled (since it’s 80% out of 80%). By changing <code>max_value = 1</code> (or <code>max_value = 100</code> depending on how your percentages are displayed), it will shrink the 80% to be relative to 100%. If a maximum value is provided, a minimum value can also be set with <code>min_value</code>
 </li>
 <li>Icons can now be added to the data bars with either <code>icon</code> or <code>icon_ref</code>
@@ -222,11 +207,52 @@
 </li>
 </ul>
 </div>
-<div id="lollipop" class="section level4">
+<div id="color_scales-color_tiles" class="section level4">
 <h4 class="hasAnchor">
-<a href="#lollipop" class="anchor"></a>lollipop()</h4>
+<a href="#color_scales-color_tiles" class="anchor"></a>color_scales() &amp; color_tiles()</h4>
 <ul>
-<li>Lollipop charts can be created by using <code><a href="../reference/lollipop.html">lollipop()</a></code> within the cell argument of <code><a href="https://glin.github.io/reactable/reference/colDef.html">reactable::colDef()</a></code>. The colors of both the lollipop bars and circles can be adjusted the <code>bar_color</code> and <code>circle_color</code> arguments</li>
+<li>Colors can be provided from another column by referencing the name of the column containing the colors within <code>color_ref</code>. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset</li>
+<li>The opacity of the background colors can be adjusted with <code>opacity</code> by providing a value between 0 and 1</li>
+<li>The color of the values can be changed by using the <code>text_color</code> argument. The default color is black</li>
+<li>Values can be shown in bold text with the <code>bold_text</code> logical argument</li>
+<li>
+<code>brighten_values</code> has been renamed to <code>brighten_text</code>
+</li>
+<li>The color of the values in cells that have <code>brighten_values</code> applied can be changed with <code>brighten_text_color</code>. The default color is white</li>
+<li>Values can now be hidden by setting <code>show_text</code> to FALSE</li>
+</ul>
+</div>
+<div id="embed_img" class="section level4">
+<h4 class="hasAnchor">
+<a href="#embed_img" class="anchor"></a>embed_img()</h4>
+<ul>
+<li>Labels from another column can now be positioned above, below, or to the left of the embedded image. Previously, the labels could only positioned to the right of the image</li>
+</ul>
+</div>
+<div id="icon_assign" class="section level4">
+<h4 class="hasAnchor">
+<a href="#icon_assign" class="anchor"></a>icon_assign()</h4>
+<ul>
+<li>The size of the icons can now be adjusted using <code>icon_size</code>
+</li>
+<li>The opacity of <code>fill_color</code> and <code>empty_color</code> can be adjusted with <code>fill_opacity</code> and <code>empty_opacity</code> respectively, by providing a value between 0 and 1 (from transparent to opaque)</li>
+<li>In addition to optionally showing values to the left or right of the icons, values can now also be placed above or below the icons in <code>show_values</code>
+</li>
+</ul>
+</div>
+<div id="icon_sets" class="section level4">
+<h4 class="hasAnchor">
+<a href="#icon_sets" class="anchor"></a>icon_sets()</h4>
+<ul>
+<li>Can now use any number of icons and colors to assign to data. Previously only three icons and colors could be used.</li>
+<li>Icons can be positioned to the right, left, above, below, or over the values with <code>icon_position</code>. Previously icons could only be positioned to the right of the values</li>
+<li>The size of the icons can now be adjusted using <code>icon_size</code>
+</li>
+<li>The opacity of the icon colors can be adjusted with <code>opacity</code> by providing a value between 0 and 1 (from transparent to opaque)</li>
+<li>Icons can be provided from another column by referencing the name of the column containing the icons within <code>icon_ref</code>
+</li>
+<li>Icon colors can be provided from another column by referencing the name of the column containing the colors within <code>icon_color_ref</code>
+</li>
 </ul>
 </div>
 <div id="save_reactable" class="section level4">
@@ -236,6 +262,17 @@
 <li>Reactable tables can now be saved as static .png files or dynamic .html files using <code><a href="../reference/save_reactable.html">save_reactable()</a></code>
 </li>
 <li>If the reactable table was created in a .Rmd file and additional CSS styling are applied, reference the name of either the .Rmd file containing the reactable table or the .html file of the reactable table to save an image of the table</li>
+</ul>
+</div>
+<div id="add_title-add_subtitle-add_source" class="section level4">
+<h4 class="hasAnchor">
+<a href="#add_title-add_subtitle-add_source" class="anchor"></a>add_title(), add_subtitle(), add_source()</h4>
+<ul>
+<li>You can now easily add a title and/or a subtitle above any reactable table with <code><a href="../reference/add_title.html">add_title()</a></code> and <code><a href="../reference/add_subtitle.html">add_subtitle()</a></code>
+</li>
+<li>You can also add a source below a reactable table with <code><a href="../reference/add_source.html">add_source()</a></code>
+</li>
+<li>Additional customization options such as adjusting the font size, font color, and font family are also available</li>
 </ul>
 </div>
 <div id="themes" class="section level4">
@@ -248,11 +285,21 @@
 <li>Other custom themes: clean, default, hoverdark, hoverlight, midnight, midnightblue, sunrise, and void</li>
 </ul>
 </div>
+<div id="breaking-changes" class="section level4">
+<h4 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h4>
+<ul>
+<li>The <code>colors</code> argument in <code><a href="../reference/data_bars.html">data_bars()</a></code> has been renamed to <code>fill_color</code>
+</li>
+<li>The <code>brighten_values</code> argument in <code><a href="../reference/color_scales.html">color_scales()</a></code> and <code><a href="../reference/color_tiles.html">color_tiles()</a></code> has been renamed to <code>brighten_text</code>
+</li>
+</ul>
 </div>
 </div>
-    <div id="reactablefmtr-020" class="section level1">
+</div>
+    <div id="reactablefmtr-0-2-0" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
-<a href="#reactablefmtr-020" class="anchor"></a>reactablefmtr 0.2.0<small> 2021-03-18 </small>
+<a href="#reactablefmtr-0-2-0" class="anchor"></a>reactablefmtr 0.2.0<small> 2021-03-18 </small>
 </h1>
 <div id="new-features-1" class="section level3">
 <h3 class="hasAnchor">
@@ -288,9 +335,9 @@
 </ul>
 </div>
 </div>
-    <div id="reactablefmtr-010" class="section level1">
+    <div id="reactablefmtr-0-1-0" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
-<a href="#reactablefmtr-010" class="anchor"></a>reactablefmtr 0.1.0<small> 2021-02-19 </small>
+<a href="#reactablefmtr-0-1-0" class="anchor"></a>reactablefmtr 0.1.0<small> 2021-02-19 </small>
 </h1>
 <ul>
 <li>Initial release to CRAN</li>
