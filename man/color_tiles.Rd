@@ -6,7 +6,7 @@
 \usage{
 color_tiles(
   data,
-  colors = c("#ff3030", "#ffffff", "#1e90ff"),
+  colors = c("#67a9cf", "#f8fcf8", "#ef8a62"),
   color_ref = NULL,
   opacity = 1,
   number_fmt = NULL,
@@ -23,7 +23,7 @@ color_tiles(
 
 \item{colors}{A vector of colors to color the cells.
 Colors should be given in order from low values to high values.
-Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
+Default colors provided are blue-white-orange: c("#67a9cf", "#f8fcf8", "#ef8a62").
 Can use R's built-in colors or other color packages.}
 
 \item{color_ref}{Optionally assign colors to from another column
@@ -79,7 +79,7 @@ The `color_tiles()` function conditionally colors the background of each cell si
 \examples{
 data <- iris[10:29, ]
 
-## By default, the colors_tiles() function uses a red-white-blue three-color pattern
+## By default, the colors_tiles() function uses a blue-white-orange three-color pattern
 reactable(data,
  columns = list(
  Petal.Length = colDef(cell = color_tiles(data))))
