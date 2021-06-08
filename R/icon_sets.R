@@ -17,7 +17,7 @@
 #'
 #' @param colors A vector of three colors to color the icons.
 #'     Colors should be given in order from low values to high values.
-#'     Default colors provided are c('red','orange','green').
+#'     Default colors provided are blue-grey-orange: c("#67a9cf","#808080","#ef8a62").
 #'     Can use R's built-in colors or other color packages.
 #'
 #' @param opacity A value between 0 and 1 that adjusts the opacity in colors.
@@ -52,9 +52,9 @@
 #' @examples
 #' data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 #'
-#' ## By default, icon_sets() assigns red circles to the lowest-third values,
-#' ## orange circles to the middle-third values,
-#' ## and green to the top-third values
+#' ## By default, icon_sets() assigns blue circles to the lowest-third values,
+#' ## grey circles to the middle-third values,
+#' ## and orange to the top-third values
 #' reactable(data,
 #' defaultColDef = colDef(cell = icon_sets(data)))
 #'
@@ -85,7 +85,7 @@
 
 icon_sets <- function(data,
                       icons = c("circle"),
-                      colors = c("red","orange","green"),
+                      colors = c("#67a9cf", "#808080", "#ef8a62"),
                       opacity = 1,
                       icon_position = "right",
                       icon_ref = NULL,
