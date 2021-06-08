@@ -113,7 +113,7 @@ icon_sets <- function(data,
 
   cell <- function(value, index, name) {
 
-    if (!is.numeric(value) | is.na(value)) return(value)
+    if (is.null(icon_ref) & (!is.numeric(value) | is.na(value))) return(value)
 
     if (is.null(number_fmt)) {
 
