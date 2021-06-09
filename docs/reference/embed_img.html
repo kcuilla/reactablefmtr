@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Embed image from web to rows in a column — embed_img • reactablefmtr</title>
+<title>Embed image from web to cells in a column — embed_img • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Embed image from web to rows in a column — embed_img" />
+<meta property="og:title" content="Embed image from web to cells in a column — embed_img" />
 <meta property="og:description" content="The `embed_img()` function adds images obtained from the web to a column within reactable.
     It should be placed within the cell argument in reactable::colDef." />
 
@@ -115,7 +115,7 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
+      <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -128,9 +128,6 @@
     </li>
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
-    </li>
-    <li>
-      <a href="../articles/lollipop_chart.html">Lollipop Chart</a>
     </li>
     <li>
       <a href="../articles/themes.html">Themes</a>
@@ -170,7 +167,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Embed image from web to rows in a column</h1>
+    <h1>Embed image from web to cells in a column</h1>
     <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/embed_img.R'><code>R/embed_img.R</code></a></small>
     <div class="hidden name"><code>embed_img.Rd</code></div>
     </div>
@@ -180,7 +177,13 @@
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>embed_img</span><span class='op'>(</span><span class='va'>data</span>, height <span class='op'>=</span> <span class='st'>"24"</span>, width <span class='op'>=</span> <span class='st'>"24"</span>, label <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>embed_img</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  height <span class='op'>=</span> <span class='fl'>24</span>,
+  width <span class='op'>=</span> <span class='fl'>24</span>,
+  label <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label_position <span class='op'>=</span> <span class='st'>"right"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,6 +206,12 @@ Default width is 24px.</p></td>
       <th>label</th>
       <td><p>Optionally assign a label to the image from another column.
 Default is set to NULL or no label.</p></td>
+    </tr>
+    <tr>
+      <th>label_position</th>
+      <td><p>Position of label relative to image.
+Options are "right", "left", "below", or "above".
+Default is right.</p></td>
     </tr>
     </table>
 
@@ -239,7 +248,7 @@ columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/ba
 <span class='co'>## but you can adjust the size using height and width:</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
- img <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>embed_img</span><span class='op'>(</span>height <span class='op'>=</span> <span class='st'>"50"</span>, width <span class='op'>=</span> <span class='st'>"45"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+ img <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>embed_img</span><span class='op'>(</span>height <span class='op'>=</span> <span class='fl'>50</span>, width <span class='op'>=</span> <span class='fl'>45</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Optionally assign a label to the image from another column</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,

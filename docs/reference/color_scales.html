@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add color scales to rows in a column — color_scales • reactablefmtr</title>
+<title>Add color scales to cells in a column — color_scales • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Add color scales to rows in a column — color_scales" />
+<meta property="og:title" content="Add color scales to cells in a column — color_scales" />
 <meta property="og:description" content="The `color_scales()` function conditionally colors each cell of a column depending on their value in relation to other values in that particular column.
     The colors can be provided within a vector in `colors` or via another column in the dataset by referencing the column by name with `color_ref`.
     The opacity of the colors provided can be adjusted by providing a value between 0 and 1 in `opacity`.
@@ -122,7 +122,7 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
+      <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -135,9 +135,6 @@
     </li>
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
-    </li>
-    <li>
-      <a href="../articles/lollipop_chart.html">Lollipop Chart</a>
     </li>
     <li>
       <a href="../articles/themes.html">Themes</a>
@@ -177,7 +174,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add color scales to rows in a column</h1>
+    <h1>Add color scales to cells in a column</h1>
     <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/color_scales.R'><code>R/color_scales.R</code></a></small>
     <div class="hidden name"><code>color_scales.Rd</code></div>
     </div>
@@ -196,10 +193,11 @@
 
     <pre class="usage"><span class='fu'>color_scales</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#ff3030"</span>, <span class='st'>"#ffffff"</span>, <span class='st'>"#1e90ff"</span><span class='op'>)</span>,
+  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#67a9cf"</span>, <span class='st'>"#f8fcf8"</span>, <span class='st'>"#ef8a62"</span><span class='op'>)</span>,
   color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   opacity <span class='op'>=</span> <span class='fl'>1</span>,
   text_color <span class='op'>=</span> <span class='st'>"black"</span>,
+  show_text <span class='op'>=</span> <span class='cn'>TRUE</span>,
   brighten_text <span class='op'>=</span> <span class='cn'>TRUE</span>,
   brighten_text_color <span class='op'>=</span> <span class='st'>"white"</span>,
   bold_text <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -217,7 +215,7 @@
       <th>colors</th>
       <td><p>A vector of colors to color the cells.
 Colors should be given in order from low values to high values.
-Default colors provided are red-white-blue: c("#ff3030", "#ffffff", "#1e90ff").
+Default colors provided are blue-white-orange: c("#67a9cf", "#f8fcf8", "#ef8a62").
 Can use R's built-in colors or other color packages.</p></td>
     </tr>
     <tr>
@@ -237,6 +235,11 @@ Default is 1.</p></td>
       <th>text_color</th>
       <td><p>Assigns text color to values.
 Default is black.</p></td>
+    </tr>
+    <tr>
+      <th>show_text</th>
+      <td><p>Logical: show text or hide text.
+Default is TRUE.</p></td>
     </tr>
     <tr>
       <th>brighten_text</th>
@@ -271,7 +274,7 @@ Default is set to FALSE.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>29</span>, <span class='op'>]</span>
 
-<span class='co'>## By default, the colors_scales() function uses a red-white-blue three-color pattern</span>
+<span class='co'>## By default, the colors_scales() function uses a blue-white-orange three-color pattern</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
  columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
  Petal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>style <span class='op'>=</span> <span class='fu'>color_scales</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>

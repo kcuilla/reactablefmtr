@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add colored icons to rows in a column — icon_sets • reactablefmtr</title>
+<title>Add colored icons to cells in a column — icon_sets • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,14 @@
 
 
 
-<meta property="og:title" content="Add colored icons to rows in a column — icon_sets" />
-<meta property="og:description" content="The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each row of a column and assigns a color depending on their value in relation to other values in that particular column.
+<meta property="og:title" content="Add colored icons to cells in a column — icon_sets" />
+<meta property="og:description" content="The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each cell of a column
+    and assigns a color depending on their value in relation to other values in that particular column.
+    Any number of icons and any number of colors can be used.
+    The number of icons and colors determines how the values are shown from low values to high values.
+    The icons can be positioned over, above, below, or to the right or left of the values.
+    The size of the icon can be adjusted.
+    Icons and icon colors can be provided via another reference column in the dataset which is useful when assigning icons/colors to particular occurences.
     It should be placed within the cell argument in reactable::colDef." />
 
 
@@ -115,7 +121,7 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
+      <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -128,9 +134,6 @@
     </li>
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
-    </li>
-    <li>
-      <a href="../articles/lollipop_chart.html">Lollipop Chart</a>
     </li>
     <li>
       <a href="../articles/themes.html">Themes</a>
@@ -170,20 +173,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add colored icons to rows in a column</h1>
+    <h1>Add colored icons to cells in a column</h1>
     <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/icon_sets.R'><code>R/icon_sets.R</code></a></small>
     <div class="hidden name"><code>icon_sets.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each row of a column and assigns a color depending on their value in relation to other values in that particular column.
+    <p>The `icon_sets()` function conditionally adds an icon from the Font Awesome library (via shiny) to each cell of a column
+    and assigns a color depending on their value in relation to other values in that particular column.
+    Any number of icons and any number of colors can be used.
+    The number of icons and colors determines how the values are shown from low values to high values.
+    The icons can be positioned over, above, below, or to the right or left of the values.
+    The size of the icon can be adjusted.
+    Icons and icon colors can be provided via another reference column in the dataset which is useful when assigning icons/colors to particular occurences.
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
     <pre class="usage"><span class='fu'>icon_sets</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  icons <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circle"</span>, <span class='st'>"circle"</span>, <span class='st'>"circle"</span><span class='op'>)</span>,
-  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"orange"</span>, <span class='st'>"green"</span><span class='op'>)</span>,
+  icons <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circle"</span><span class='op'>)</span>,
+  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#67a9cf"</span>, <span class='st'>"#808080"</span>, <span class='st'>"#ef8a62"</span><span class='op'>)</span>,
+  opacity <span class='op'>=</span> <span class='fl'>1</span>,
+  icon_position <span class='op'>=</span> <span class='st'>"right"</span>,
+  icon_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
+  icon_size <span class='op'>=</span> <span class='fl'>16</span>,
+  icon_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   number_fmt <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
@@ -204,8 +218,39 @@ Default icons are circles.</p></td>
       <th>colors</th>
       <td><p>A vector of three colors to color the icons.
 Colors should be given in order from low values to high values.
-Default colors provided are c('red','orange','green').
+Default colors provided are blue-grey-orange: c("#67a9cf","#808080","#ef8a62").
 Can use R's built-in colors or other color packages.</p></td>
+    </tr>
+    <tr>
+      <th>opacity</th>
+      <td><p>A value between 0 and 1 that adjusts the opacity in colors.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.</p></td>
+    </tr>
+    <tr>
+      <th>icon_position</th>
+      <td><p>Position of icon relative to numbers.
+Options are "left", "right", above", "below", or "over".
+Default is right.</p></td>
+    </tr>
+    <tr>
+      <th>icon_ref</th>
+      <td><p>Optionally assign icons from another column
+by providing the name of the column containing the icons in quotes.
+Only one icon can be provided per cell.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>icon_size</th>
+      <td><p>A value representing the size of the icon in px.
+Default is 16.</p></td>
+    </tr>
+    <tr>
+      <th>icon_color_ref</th>
+      <td><p>Optionally assign color to the icons from another column
+by providing the name of the column containing the icon colors in quotes.
+Only one color can be provided per cell.
+Default is NULL.</p></td>
     </tr>
     <tr>
       <th>number_fmt</th>
@@ -222,9 +267,9 @@ Default is set to NULL.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"MPG.city"</span>, <span class='st'>"MPG.highway"</span><span class='op'>)</span><span class='op'>]</span>
 
-<span class='co'>## By default, icon_sets() assigns red circles to the lowest-third values,</span>
-<span class='co'>## orange circles to the middle-third values,</span>
-<span class='co'>## and green to the top-third values</span>
+<span class='co'>## By default, icon_sets() assigns blue circles to the lowest-third values,</span>
+<span class='co'>## grey circles to the middle-third values,</span>
+<span class='co'>## and orange to the top-third values</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_sets</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
@@ -244,6 +289,11 @@ icons <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>car_prices</span>,
 defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_sets</span><span class='op'>(</span><span class='va'>car_prices</span>,
 number_fmt <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org/reference/label_dollar.html'>dollar</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## Position icons relative to the numbers. Options are to the left, right, above, below, or over.</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>car_prices</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_sets</span><span class='op'>(</span><span class='va'>car_prices</span>,
+icon_position <span class='op'>=</span> <span class='st'>"above"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>
   </div>

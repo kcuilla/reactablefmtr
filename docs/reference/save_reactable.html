@@ -119,7 +119,7 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
+      <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -132,9 +132,6 @@
     </li>
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
-    </li>
-    <li>
-      <a href="../articles/lollipop_chart.html">Lollipop Chart</a>
     </li>
     <li>
       <a href="../articles/themes.html">Themes</a>
@@ -213,6 +210,10 @@
 <span class='co'>## Save reactable table as a png file:</span>
 <span class='va'>iris_table</span> <span class='op'>&lt;-</span> <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
 <span class='fu'>save_reactable</span><span class='op'>(</span><span class='va'>iris_table</span>, <span class='st'>"iris_table.png"</span><span class='op'>)</span>
+
+<span class='co'>## Also works with a pipe</span>
+<span class='va'>iris_table</span> <span class='op'>%&gt;%</span>
+<span class='fu'>save_reactable</span><span class='op'>(</span><span class='st'>"iris_table.png"</span><span class='op'>)</span>
 
 <span class='co'>## Or save as an html file:</span>
 <span class='fu'>save_reactable</span><span class='op'>(</span><span class='va'>iris_table</span>, <span class='st'>"iris_table.html"</span><span class='op'>)</span>

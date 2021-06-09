@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Assign icons to rows in a column — icon_assign • reactablefmtr</title>
+<title>Assign icons to cells in a column — icon_assign • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,11 @@
 
 
 
-<meta property="og:title" content="Assign icons to rows in a column — icon_assign" />
-<meta property="og:description" content="The `icon_assign()` function assigns icons from the Font Awesome library (via shiny) to each row of a numeric column depending on the value in each row.
-    By default, the number of icons assigned will be equal to the value in that row. If the value is less than the max, it will receive empty icons.
-    Both the icon shape and color of the filled and empty icons can be modified through the parameters.
+<meta property="og:title" content="Assign icons to cells in a column — icon_assign" />
+<meta property="og:description" content="The `icon_assign()` function assigns icons from the Font Awesome library (via shiny) to each cell of a numeric column depending on the value in each row.
+    By default, the number of icons assigned will be equal to the value in that cell. If the value is less than the max, it will receive empty icons.
+    Both the icon shape, size, and color of the filled and empty icons can be modified through the parameters.
+    Values can optionally be shown with the icons if desired.
     It should be placed within the cell argument in reactable::colDef." />
 
 
@@ -117,7 +118,7 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
+      <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -130,9 +131,6 @@
     </li>
     <li>
       <a href="../articles/icon_sets.html">Icon Sets</a>
-    </li>
-    <li>
-      <a href="../articles/lollipop_chart.html">Lollipop Chart</a>
     </li>
     <li>
       <a href="../articles/themes.html">Themes</a>
@@ -172,15 +170,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Assign icons to rows in a column</h1>
+    <h1>Assign icons to cells in a column</h1>
     <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/icon_assign.R'><code>R/icon_assign.R</code></a></small>
     <div class="hidden name"><code>icon_assign.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The `icon_assign()` function assigns icons from the Font Awesome library (via shiny) to each row of a numeric column depending on the value in each row.
-    By default, the number of icons assigned will be equal to the value in that row. If the value is less than the max, it will receive empty icons.
-    Both the icon shape and color of the filled and empty icons can be modified through the parameters.
+    <p>The `icon_assign()` function assigns icons from the Font Awesome library (via shiny) to each cell of a numeric column depending on the value in each row.
+    By default, the number of icons assigned will be equal to the value in that cell. If the value is less than the max, it will receive empty icons.
+    Both the icon shape, size, and color of the filled and empty icons can be modified through the parameters.
+    Values can optionally be shown with the icons if desired.
     It should be placed within the cell argument in reactable::colDef.</p>
     </div>
 
@@ -189,10 +188,13 @@
   icon <span class='op'>=</span> <span class='st'>"circle"</span>,
   fill_color <span class='op'>=</span> <span class='st'>"#1e90ff"</span>,
   empty_color <span class='op'>=</span> <span class='st'>"lightgrey"</span>,
+  fill_opacity <span class='op'>=</span> <span class='fl'>1</span>,
+  empty_opacity <span class='op'>=</span> <span class='fl'>1</span>,
+  icon_size <span class='op'>=</span> <span class='fl'>16</span>,
   buckets <span class='op'>=</span> <span class='cn'>NULL</span>,
   number_fmt <span class='op'>=</span> <span class='cn'>NULL</span>,
   seq_by <span class='op'>=</span> <span class='fl'>1</span>,
-  show_values <span class='op'>=</span> <span class='cn'>FALSE</span>
+  show_values <span class='op'>=</span> <span class='st'>"none"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -218,6 +220,23 @@ Default color is #1e90ff.</p></td>
 Default color is lightgrey.</p></td>
     </tr>
     <tr>
+      <th>fill_opacity</th>
+      <td><p>A value between 0 and 1 that adjusts the opacity in fill_color.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.</p></td>
+    </tr>
+    <tr>
+      <th>empty_opacity</th>
+      <td><p>A value between 0 and 1 that adjusts the opacity in empty_color.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.</p></td>
+    </tr>
+    <tr>
+      <th>icon_size</th>
+      <td><p>A value representing the size of the icon in px.
+Default is 16.</p></td>
+    </tr>
+    <tr>
       <th>buckets</th>
       <td><p>Optionally divide values in a column into buckets by providing a numeric value.
 Icons are then assigned by rank from lowest to highest.
@@ -237,8 +256,8 @@ Default value is set to 1.</p></td>
     <tr>
       <th>show_values</th>
       <td><p>Optionally display values next to icons.
-Icons can be displayed to the left of the icons with "left" or to the right with "right".
-Default is set to FALSE or no values.</p></td>
+Options are "left", "right", above", "below", or "none".
+Default is none.</p></td>
     </tr>
     </table>
 

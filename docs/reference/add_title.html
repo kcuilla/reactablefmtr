@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Theme nytimes — nytimes • reactablefmtr</title>
+<title>Add a title above a reactable table — add_title • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Theme nytimes — nytimes" />
-<meta property="og:description" content="The New York Times-inspired table theme" />
+<meta property="og:title" content="Add a title above a reactable table — add_title" />
+<meta property="og:description" content="Use `add_title()` to place a title above a reactable or reactablefmtr table.
+     The title can be aligned to the left, right, or center with the align option.
+     The text properties of the title, such as the font size, font family, and font style can be customized.
+     The background color of the title can also be adjusted as well as the margin around the title." />
 
 
 
@@ -166,80 +169,110 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Theme nytimes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/themes.R'><code>R/themes.R</code></a></small>
-    <div class="hidden name"><code>nytimes.Rd</code></div>
+    <h1>Add a title above a reactable table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/table_elements.R'><code>R/table_elements.R</code></a></small>
+    <div class="hidden name"><code>add_title.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The New York Times-inspired table theme</p>
+    <p>Use `add_title()` to place a title above a reactable or reactablefmtr table.
+     The title can be aligned to the left, right, or center with the align option.
+     The text properties of the title, such as the font size, font family, and font style can be customized.
+     The background color of the title can also be adjusted as well as the margin around the title.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nytimes</span><span class='op'>(</span>
-  font_family <span class='op'>=</span> <span class='st'>"Helvetica"</span>,
-  font_size <span class='op'>=</span> <span class='fl'>13</span>,
-  font_color <span class='op'>=</span> <span class='st'>"#333333"</span>,
-  header_font_family <span class='op'>=</span> <span class='st'>"Helvetica"</span>,
-  header_font_size <span class='op'>=</span> <span class='fl'>11</span>,
-  header_font_color <span class='op'>=</span> <span class='st'>"#999999"</span>,
-  cell_padding <span class='op'>=</span> <span class='fl'>5</span>
+    <pre class="usage"><span class='fu'>add_title</span><span class='op'>(</span>
+  table <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title <span class='op'>=</span> <span class='cn'>NULL</span>,
+  align <span class='op'>=</span> <span class='st'>"left"</span>,
+  font_color <span class='op'>=</span> <span class='st'>"#000"</span>,
+  font_family <span class='op'>=</span> <span class='st'>"-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif"</span>,
+  font_size <span class='op'>=</span> <span class='fl'>32</span>,
+  font_style <span class='op'>=</span> <span class='st'>"normal"</span>,
+  font_weight <span class='op'>=</span> <span class='st'>"bold"</span>,
+  text_decoration <span class='op'>=</span> <span class='cn'>NULL</span>,
+  background_color <span class='op'>=</span> <span class='st'>"#FFFFFF"</span>,
+  margin <span class='op'>=</span> <span class='fl'>2</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>font_family</th>
-      <td><p>Font family for the text within the table.
-Default is Helvetica.</p></td>
+      <th>table</th>
+      <td><p>A reactable table.</p></td>
     </tr>
     <tr>
-      <th>font_size</th>
-      <td><p>Numeric value representing the size of the font within the table (in px).
-Default is 13.</p></td>
+      <th>title</th>
+      <td><p>A string to be displayed as the title.</p></td>
+    </tr>
+    <tr>
+      <th>align</th>
+      <td><p>The alignment of the table.
+Options are "left", "right", "center".
+Default is "left".</p></td>
     </tr>
     <tr>
       <th>font_color</th>
-      <td><p>Color of the font for the text within the table and the group headers.
-Default is #333333.</p></td>
+      <td><p>Color of the title text.
+Default is #000.</p></td>
     </tr>
     <tr>
-      <th>header_font_family</th>
-      <td><p>Font family for the header text.
-Default is Helvetica.</p></td>
+      <th>font_family</th>
+      <td><p>Font family of the title.
+Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.</p></td>
     </tr>
     <tr>
-      <th>header_font_size</th>
-      <td><p>Numeric value representing the size of the font within the table (in px).
-Default is 11.</p></td>
+      <th>font_size</th>
+      <td><p>Numeric value representing the size of the font of the title (in px).
+Default is 32.</p></td>
     </tr>
     <tr>
-      <th>header_font_color</th>
-      <td><p>Color of the font for the header text.
-Default is #999999.</p></td>
+      <th>font_style</th>
+      <td><p>Style of the title font.
+Options are "normal" or "italic".
+Default is "normal".</p></td>
     </tr>
     <tr>
-      <th>cell_padding</th>
-      <td><p>Numeric value representing the padding size between cells (in px).
-Default is 5.</p></td>
+      <th>font_weight</th>
+      <td><p>The font weight of the title.
+Options are "bold" or "normal".
+Default is "bold".</p></td>
+    </tr>
+    <tr>
+      <th>text_decoration</th>
+      <td><p>Optionally add an underline, overline, or line-through title.
+Options are "underline", "overline", "underline overline", or "line-through".
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>background_color</th>
+      <td><p>Color of the title background.
+Default is #FFFFFF.</p></td>
+    </tr>
+    <tr>
+      <th>margin</th>
+      <td><p>Numeric value representing the four-sided margin around the title (in px).
+Default is 2.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>an object of class theme that is applied to a reactable table.</p>
+    <p>a function that adds a title above a reactable table.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>29</span>, <span class='op'>]</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'>## Create the reactable table and then pipe in the title</span>
+<span class='va'>table</span> <span class='op'>&lt;-</span> <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>iris</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>29</span>, <span class='op'>]</span><span class='op'>)</span>
 
-<span class='co'>## Standard nytimes theme</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
-          theme <span class='op'>=</span> <span class='fu'>nytimes</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>table</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>add_title</span><span class='op'>(</span><span class='st'>"This is a title"</span><span class='op'>)</span>
 
-<span class='co'>## Cerulean theme with additional options applied</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
-          theme <span class='op'>=</span> <span class='fu'>nytimes</span><span class='op'>(</span>font_size <span class='op'>=</span> <span class='fl'>12</span>, font_color <span class='op'>=</span> <span class='st'>"grey"</span>, cell_padding <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-
+<span class='co'>## Use options to adjust the style and position of the title</span>
+<span class='va'>table</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>add_title</span><span class='op'>(</span><span class='st'>"This is a title"</span>, align <span class='op'>=</span> <span class='st'>"center"</span>, font_color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
