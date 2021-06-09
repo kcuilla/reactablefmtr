@@ -74,7 +74,7 @@
       <a href="articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="articles/data_bars_development.html">Data Bars (development)</a>
+      <a href="articles/data_bars.html">Data Bars</a>
     </li>
     <li>
       <a href="articles/embed_img.html">Embed Images</a>
@@ -126,15 +126,15 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="reactablefmtr" class="section level2">
+<div id="reactablefmtr-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#reactablefmtr" class="anchor"></a>reactablefmtr <a href="https://kcuilla.github.io/reactablefmtr/index.html"><img src="reference/figures/reactablefmtr_hex_logo.png" align="right" width="175" height="210"></a>
+<a href="#reactablefmtr-" class="anchor"></a>reactablefmtr <a href="https://kcuilla.github.io/reactablefmtr/index.html"><img src="reference/figures/reactablefmtr_hex_logo.png" align="right" width="175" height="210"></a>
 </h2>
 <!-- badges: start -->
 
 <p>The {reactablefmtr} package simplifies and enhances the styling and formatting of tables built with the {reactable} <strong>R</strong> package. The {reactablefmtr} package provides many conditional formatters that are highly customizable and easy to use.</p>
 <ul>
-<li><p><strong>Conditionally format tables</strong> with <a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">color scales</a>, <a href="https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html">color tiles</a>, and <a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars_development.html">data bars</a>. Assign icons from <a href="https://fontawesome.com/icons?d=gallery&amp;p=2">Font Awesome</a> with <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html">icon assign</a> and <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html">icon sets</a>.</p></li>
+<li><p><strong>Conditionally format tables</strong> with <a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">color scales</a>, <a href="https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html">color tiles</a>, and <a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars.html">data bars</a>. Assign icons from <a href="https://fontawesome.com/icons?d=gallery&amp;p=2">Font Awesome</a> with <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html">icon assign</a> and <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html">icon sets</a>.</p></li>
 <li><p><strong>Custom table themes</strong> that can <a href="https://kcuilla.github.io/reactablefmtr/articles/themes.html">easily</a> be applied to any {reactablefmtr} or {reactable} table.</p></li>
 <li><p><strong>Embed images</strong> directly from the web into your <a href="https://kcuilla.github.io/reactablefmtr/articles/embed_img.html">table</a>.</p></li>
 <li><p><strong>Save tables</strong> as static PNG files or as interactive HTML files.</p></li>
@@ -156,14 +156,14 @@
 <div id="data-bars" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-bars" class="anchor"></a>Data Bars</h3>
-<p>Use <code><a href="reference/data_bars.html">data_bars()</a></code> to assign horizontal bars to each row. There are many ways to <a href="https://kcuilla.github.io/reactablefmtr/reference/data_bars.html">customize</a> the look of <code><a href="reference/data_bars.html">data_bars()</a></code>, including the alignment of the bars, the posiiton of the text labels, and the option to add icons and images to the bars. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars_development.html">tutorial</a> for customization examples.</p>
+<p>Use <code><a href="reference/data_bars.html">data_bars()</a></code> to assign horizontal bars to each row. There are many ways to <a href="https://kcuilla.github.io/reactablefmtr/reference/data_bars.html">customize</a> the look of <code><a href="reference/data_bars.html">data_bars()</a></code>, including the alignment of the bars, the posiiton of the text labels, and the option to add icons and images to the bars. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars.html">tutorial</a> for customization examples.</p>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo.gif" align="center"></p>
 </div>
 <div id="color-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#color-scales" class="anchor"></a>Color Scales</h3>
 <p>Use <code><a href="reference/color_scales.html">color_scales()</a></code> to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).</p>
-<pre class="{r}"><code><a href="https://rdrr.io/r/base/library.html">library(palmerpenguins)
+<pre class="{r}"><code><a href="https://allisonhorst.github.io/palmerpenguins/">library(palmerpenguins)
 library(dplyr)
 library(viridis)
   
@@ -200,10 +200,10 @@ reactable(
 <pre class="{r}"><code>reactable(
   iris,
   defaultColDef = colDef(
-    cell = color_tiles(iris, colors = viridis::magma(5))
+    cell = color_tiles(iris, colors = viridis::magma(10), number_fmt = scales::number_format(accuracy = 0.1, suffix = " cm"))
   )
 )</code></pre>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/color_tiles_viridis3.png" align="center" width="90%" height="90%"></p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/color_tiles_example_iris.png" align="center"></p>
 </div>
 <div id="icon-sets" class="section level3">
 <h3 class="hasAnchor">
@@ -278,10 +278,10 @@ data %&gt;%
 <pre class="{r}"><code>table_name %&gt;%
 save_reactable("table.png")</code></pre>
 </div>
-<div id="acknowledgments-contributions" class="section level2">
+<div id="acknowledgments--contributions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#acknowledgments-contributions" class="anchor"></a>Acknowledgments &amp; Contributions</h2>
-<p>A huge thank you to Greg Lin for creating the amazing {reactable} <a href="(https://glin.github.io/reactable/index.html)">package</a>! Without Greg, {reactablefmtr} simply would not exist!</p>
+<a href="#acknowledgments--contributions" class="anchor"></a>Acknowledgments &amp; Contributions</h2>
+<p>A huge thank you to Greg Lin for creating the amazing {reactable} <a href="https://glin.github.io/reactable/index.html">package</a>! Without Greg, {reactablefmtr} simply would not exist!</p>
 <p>Also thank you to June Chao for contributing to the span option in <code><a href="reference/color_scales.html">color_scales()</a></code> and <code><a href="reference/color_tiles.html">color_tiles()</a></code>!</p>
 </div>
 
