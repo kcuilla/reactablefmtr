@@ -154,13 +154,17 @@ color_scales <- function(data,
 
   style <- function(value, index, name) {
 
-    if (!is.numeric(value)) return(value)
+    if (is.null(color_ref) & !is.numeric(value)) return(value)
 
     if (is.logical(span)) {
 
       if (span) {
 
         normalized <- (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
+
+      } else if (!is.null(color_ref)) {
+
+        normalized <- dplyr::ntile(data[[name]], n = length(colors))
 
       } else {
 
