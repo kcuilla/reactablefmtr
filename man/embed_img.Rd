@@ -6,8 +6,8 @@
 \usage{
 embed_img(
   data,
-  height = "24",
-  width = "24",
+  height = 24,
+  width = 24,
   label = NULL,
   label_position = "right"
 )
@@ -59,7 +59,7 @@ columns = list(
 ## but you can adjust the size using height and width:
 reactable(data,
 columns = list(
- img = colDef(cell = embed_img(height = "50", width = "45"))))
+ img = colDef(cell = embed_img(height = 50, width = 45))))
 
 ## Optionally assign a label to the image from another column
 reactable(data,
