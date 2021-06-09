@@ -51,29 +51,9 @@ minutes_filter <- filter_slider(
 ### load font from google fonts
 htmltools::tags$link(href = "https://fonts.googleapis.com/css?family=Chivo:400,600,700&display=swap", rel = "stylesheet")
 
-### match 538's table theme
-theme_538 <- function() {
-  reactable::reactableTheme(
-    searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
-    style = list(
-      fontFamily = "Chivo"
-    ),
-    headerStyle = list(
-      "&:hover[aria-sort]" = list(
-        background = "hsl(0, 0%, 80%)"),
-      "&[aria-sort='ascending'], &[aria-sort='descending']" = list(
-        background = "#555",
-        color = "#FFF"
-      ),
-      borderColor = "#333"
-    ),
-    borderColor = "#CDCDCD"
-  )
-}
-
 nba_table <-  reactable(
   crosstalk_data,
-  theme = theme_538,
+  theme = fivethirtyeight(),
   ### add column group header
   columnGroups = list(
     colGroup(name = "OVERALL RAPTOR", columns = c("OFF","DEF","TOT"))
@@ -93,7 +73,7 @@ nba_table <-  reactable(
       name = "TEAM",
       maxWidth = 70,
       align = "center",
-      cell = embed_img(height = "25", width = "40")
+      cell = embed_img(height = 25, width = 40)
     ),
     ### add icons using icon_assign()
     MIN = colDef(
@@ -102,7 +82,7 @@ nba_table <-  reactable(
       cell = icon_assign(
         data,
         icon = "stopwatch",
-        fill_color = "#555",
+        fill_color = "#555555",
         buckets = 5
       ),
       style = list(borderRight = "1px dashed rgba(0, 0, 0, 0.3)")
@@ -132,9 +112,9 @@ nba_table <-  reactable(
     WAR = colDef(
       maxWidth = 280,
       align = "center",
-      cell = data_bars_pos_neg(
+      cell = data_bars(
         data,
-        colors = c("#fd84a9", "#fee6ed", "#d9f2f4", "#42c2ca"),
+        fill_color = c("#fd84a9", "#fee6ed", "#d9f2f4", "#42c2ca"),
         number_fmt = scales::number_format(accuracy = 0.1)
       ),
       style = list(borderLeft = "1px dashed rgba(0, 0, 0, 0.3)")
@@ -166,7 +146,8 @@ Cleaned Data: [`RAPTOR_by_team_19-20.csv`](https://github.com/kcuilla/reactablef
 - `embed_img()` is used to display team logos in the TEAM column. Logo URL's were imported to the cleaned dataset from [{teamcolors}](https://github.com/beanumber/teamcolors)
 - `icon_assign()` is used to bucket the number of minutes played into five groups and display as stopwatch icons in the MIN column
 - `color_scales()` is used to conditionally color the cells in the three columns under OVERALL RAPTOR
-- `data_bars_pos_neg()` is used to display the data bars in the WAR column
+- `data_bars()` is used to display the data bars in the WAR column
+- `fivethirtyeight()` theme is used for the table theme
 
 ### Code
 

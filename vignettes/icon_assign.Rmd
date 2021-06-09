@@ -16,69 +16,59 @@ library(dplyr)
 
 With `{reactablefmtr}`, you can easily replace values in a table with icons from [Font Awesome](https://fontawesome.com/icons?d=gallery).
 
-To show how to do this, let's first start by loading an example dataset below:
-
-```{r}
-data <- MASS::Cars93[1:20, c("Make", "Cylinders", "MPG.city", "Price")]
-
-reactable(data,
-          defaultColDef = colDef(align = "left", # align column headers to left
-                                 maxWidth = 200)) # set column width
-```
-
-<br>
-
-With `icon_assign()`, we can replace the values in the Cylinders column with icons. By default, the values are assigned a blue circular icon for each cylinder in the car. The grey or empty icons show how the value compares to the maximum number of cylinders in the table.
+Using `icon_assign()`, we can replace the values in the Cylinders column with icons. By default, the values are assigned a blue circular icon for each cylinder in the car. The grey or empty icons show how the value compares to the maximum number of cylinders in the table.
 
 Note that `icon_assign()` only works with numeric columns. The Cylinders column was a factor column in the original dataset, so we first needed to convert it to a numeric column before using `icon_assign()`. 
 
 ```{r}
+data <- MASS::Cars93[1:20, c("Make", "Cylinders", "MPG.city", "Price")]
+
 ### convert column to numeric
 data$Cylinders <- as.numeric(as.character(data$Cylinders))
 
-reactable(data, 
-          defaultColDef = colDef(align = "left", 
-                                 maxWidth = 200), 
-          columns = list(
-            Cylinders = colDef(cell = icon_assign(data))))
+reactable(
+  data, 
+  defaultColDef = colDef(align = "left", maxWidth = 200), 
+  columns = list(Cylinders = colDef(cell = icon_assign(data))
+  )
+)
 ```
 
-<br>
+
 
 ## Change Icon and Color
 
 For the MPG.city column, let's say we wanted to use an icon other than a circle to represent each car's MPG. We can easily set the icon to the "envira" icon from the [Font Awesome](https://fontawesome.com/icons?d=gallery) library, and change the color to green. Now, when we sort the MPG.city column, we can easily see that the more "green leaves" that are present, the more eco-friendly the car is in terms of fuel efficiency.  
 
 ```{r}
-reactable(data,
-          defaultColDef = colDef(align = "left", # align column headers to left
-                                 maxWidth = 200), # adjust size of columns
-          columns = list(
-            Cylinders = colDef(cell = icon_assign(data)),
-            MPG.city = colDef(cell = icon_assign(data,
-                                                 icon = "envira",
-                                                 fill_color = "green"))))
+reactable(
+  data,
+  defaultColDef = colDef(align = "left", maxWidth = 200), 
+  columns = list(
+    Cylinders = colDef(cell = icon_assign(data)),
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green"))
+  )
+)
 ```
 
-<br>
+
 
 ## Bucketing
 
 If you think the MPG.city column is a little overcrowded with icons, an alternative option is to break the values up into buckets of your choice with the `buckets` option in `icon_assign()`. So, if we wanted to bucket and rank MPG.city into five groups, we could just add `buckets = 5` and get a column that is easier on the eyes: 
 
 ```{r}
-reactable(data,
-          defaultColDef = colDef(align = "left", # align column headers to left
-                                 maxWidth = 200), # adjust size of columns
-          columns = list(
-            Cylinders = colDef(cell = icon_assign(data)),
-            MPG.city = colDef(cell = icon_assign(data,
-                                                 icon = "envira",
-                                                 fill_color = "green",
-                                                 buckets = 5))))
+reactable(
+  data,
+  defaultColDef = colDef(align = "left", maxWidth = 200), 
+  columns = list(
+    Cylinders = colDef(cell = icon_assign(data)),
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5))
+  )
+)
 ```
 
-<br>
+
 
 ## Show Values
 
@@ -87,19 +77,17 @@ If we wanted to display the values alongside the icons, we can include them with
 Below is an example of how to add the values on the right-hand side of the icons in the MPG.city column:
 
 ```{r}
-reactable(data,
-          defaultColDef = colDef(align = "left", # align column headers to left
-                                 maxWidth = 200), # adjust size of columns
-          columns = list(
-            Cylinders = colDef(cell = icon_assign(data)),
-            MPG.city = colDef(cell = icon_assign(data,
-                                                 icon = "envira",
-                                                 fill_color = "green",
-                                                 buckets = 5,
-                                                 show_values = "right"))))
+reactable(
+  data,
+  defaultColDef = colDef(align = "left", maxWidth = 200), 
+  columns = list(
+    Cylinders = colDef(cell = icon_assign(data)),
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5, show_values = "right"))
+  )
+)
 ```
 
-<br>
+
 
 ## Format Numbers
 
@@ -108,23 +96,15 @@ Lastly, if we want to show values and our column contains formatted numbers such
 Below, we bucketed the Price column into 5 groups like we did with the MPG.city column but included the `number_fmt` option. Notice also how displaying the empty icons is optional. They can be hidden by setting `empty_color = "white"`.
 
 ```{r}
-reactable(data,
-          defaultColDef = colDef(align = "left", # align column headers to left
-                                 maxWidth = 200), # adjust size of columns
-          columns = list(
-            Cylinders = colDef(cell = icon_assign(data)),
-            MPG.city = colDef(cell = icon_assign(data,
-                                                 icon = "envira",
-                                                 fill_color = "green",
-                                                 buckets = 5,
-                                                 show_values = "right")),
-            Price = colDef(cell = icon_assign(data,
-                                                 icon = "dollar-sign",
-                                                 fill_color = "red",
-                                                 empty_color = "white",
-                                                 buckets = 5,
-                                                 show_values = "right",
-                                                 number_fmt = scales::dollar))))
+reactable(
+  data,
+  defaultColDef = colDef(align = "left", maxWidth = 200), 
+  columns = list(
+    Cylinders = colDef(cell = icon_assign(data)),
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5, show_values = "right")),
+    Price = colDef(cell = icon_assign(data, icon = "dollar-sign", fill_color = "red", empty_color = "white", buckets = 5, show_values = "right", number_fmt = scales::dollar))
+  )
+)
 ```
 
-<br>
+

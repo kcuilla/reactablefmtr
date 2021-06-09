@@ -13,8 +13,6 @@ library(dplyr)
 library(viridis)
 ```
 
-### This feature is currently available in the development version only. To download the development version from GitHub, run `remotes::install_github("kcuilla/reactablefmtr")`
-
 
 ## Bootsrap Themes
 
@@ -27,13 +25,11 @@ data <- MASS::Cars93[1:30, c("Model", "MPG.city", "MPG.highway")]
 
 data %>%
   reactable(.,
-            defaultColDef =
-              colDef(
-                cell =
-                  data_bars(.,
-                            fill_color = viridis::mako(5),
-                            text_position = "inside-end")
-              ))
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
 ```
 
 And here is the same table with the "slate" theme: 
@@ -41,14 +37,12 @@ And here is the same table with the "slate" theme:
 ```{r}
 data %>%
   reactable(.,
-            theme = slate(),
-            defaultColDef =
-              colDef(
-                cell =
-                  data_bars(.,
-                            fill_color = viridis::mako(5),
-                            text_position = "inside-end")
-              ))
+    theme = slate(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
 ```
 
 As you can see above, to apply a theme to a table, you just need to simply reference the theme name and included closed brackets at the end of the name. The reason why the closed brackets are necessary is because there are additional optional arguments that you can apply to the theme, such as the font family, size, and color. Below are the full options of optional arguments you can change to the theme:
@@ -64,48 +58,77 @@ As you can see above, to apply a theme to a table, you just need to simply refer
 ```{r}
 data %>%
   reactable(.,
-            theme = slate(font_family = "Courier New",
-                          font_size = 18,
-                          header_font_size = 20,
-                          header_font_color = "darkorange",
-                          cell_padding = 8),
-            defaultColDef =
-              colDef(
-                cell =
-                  data_bars(.,
-                            fill_color = viridis::mako(5),
-                            text_position = "inside-end")
-              ))
+    theme = slate(font_family = "Courier New", font_size = 18, header_font_size = 20, header_font_color = "darkorange", cell_padding = 8),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+Another popular bootstrap theme, "flatly":
+
+```{r}
+data %>%
+  reactable(.,
+    theme = flatly(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+The "cosmo" theme:
+
+```{r}
+data %>%
+  reactable(.,
+    theme = cosmo(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+The "journal" theme:
+
+```{r}
+data %>%
+  reactable(.,
+    theme = journal(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+
+The "cyborg" theme:
+
+```{r}
+data %>%
+  reactable(.,
+    theme = cyborg(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
 ```
 
 Additional boostrap-inspired themes include:
 
-* flatly (shown below)
 * cerulean
-* cosmo
-* cyborg
 * darkly
-* journal
 * lux
 * minty
 * sandstone
 * spacelab
 * superhero
 
-```{r}
-data %>%
-  reactable(.,
-            theme = flatly(),
-            defaultColDef =
-              colDef(
-                cell =
-                  data_bars(.,
-                            fill_color = viridis::mako(5),
-                            text_position = "inside-end")
-              ))
-```
-
-<br> 
 
 ## News/Sports Sites Themes
 
@@ -192,7 +215,7 @@ reactable(data,
       cell = icon_assign(
         data,
         icon = "stopwatch",
-        fill_color = "#555",
+        fill_color = "#555555",
         buckets = 5
       ),
       style = list(borderRight = "1px dashed rgba(0, 0, 0, 0.3)")
@@ -273,11 +296,11 @@ left_join(teams_colors_logos, by = c('Team' = 'team_abbr')) %>%
       team_logo_espn = colDef(name = "TEAM", maxWidth = 100,
           cell = embed_img(., label = "Team", height = 20, width = 20)),
       Off = colDef(align = "center", maxWidth = 130, cell = icon_sets(., 
-          colors = color_set, icon = c("square","square","square"))),
+          colors = color_set, icons = "square")),
       Pass = colDef(align = "center", maxWidth = 130, cell = icon_sets(., 
-          colors = color_set, icon = c("square","square","square"))),
+          colors = color_set, icons = "square")),
       Run = colDef(align = "center", maxWidth = 130, cell = icon_sets(., 
-          colors = color_set, icon = c("square","square","square"))
+          colors = color_set, icons = "square")
     )))
 ```
 
@@ -313,7 +336,7 @@ left_join(teams_colors_logos, by = c('Team' = 'team_abbr')) %>%
     ))
 ```
 
-<br>
+
 
 ## Other Custom Themes
 
@@ -337,6 +360,26 @@ iris %>%
                        fill_color = viridis::mako(5))),
     columns = list(Species = colDef(maxWidth = 100)))
 ```
+
+The "void" theme removes all elements of the styling elements of the table and only shows the table values:
+
+```{r}
+iris %>%
+  select(everything(), -c(Species)) %>%
+  head(30) %>%
+  reactable(.,
+    theme = void(),
+    highlight = TRUE,
+    defaultSorted = "Petal.Width",
+    defaultSortOrder = "desc",
+    defaultColDef = colDef(align = "center", 
+      cell = data_bars(.,
+                       background = "transparent",
+                       text_position = "inside-end",
+                       fill_color = viridis::mako(5))),
+    columns = list(Species = colDef(maxWidth = 100)))
+```
+
 
 The "hoverdark" theme appears as a standard-looking table, but when the user hovers over the data, it turns itself into a dark-themed table.  
 
@@ -366,4 +409,4 @@ Other additional custom themes include:
 * sunrise
 * void
 
-<br>
+

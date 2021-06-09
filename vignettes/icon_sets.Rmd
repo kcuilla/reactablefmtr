@@ -1,10 +1,10 @@
 ---
-title: "Conditional Formatting with Icon Sets"
+title: "Getting Started with Icon Sets"
 output: html_document 
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r, include=FALSE}
@@ -15,91 +15,231 @@ library(palmerpenguins)
 
 ## Example
 
-With `{reactablefmtr}`, you can now conditionally format values using icons from [Font Awesome](https://fontawesome.com/icons?d=gallery).
+With `icon_sets()`, you can conditionally format values using icons from [Font Awesome](https://fontawesome.com/icons?d=gallery).
+
+When `icon_sets()` is placed within the `cell` argument of `colDef`, circle icons are added to each of the values in the each column and are colored from blue, grey, to orange from smallest values to largest values.
+
 
 ```{r}
-data <- sample_n(penguins,50) %>% # sample 50 rows
-  filter(!is.na(bill_length_mm)) %>% # remove NA's
+data <- sample_n(penguins, 50) %>% 
+  filter(!is.na(bill_length_mm)) %>% 
   select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
 
-reactable(data)
+reactable(
+  data,
+  defaultColDef = colDef(
+    cell = icon_sets(data)
+  )
+)
 ```
 
-By including `icon_sets()` within the `cell` argument of `colDef`, circle icons are added to each of the values in the `bill_length_mm` column and are colored either red, orange, or green depending on their value in relation to all the other values in the column.
+
+## Using Icons from Font Awesome
+
+`icon_sets()` accepts any free icon available from the Font Awesome icon [gallery](https://fontawesome.com/icons?d=gallery). For example, since the data we're displaying is bill and flipper measurements of penguins, we may want to use ruler icons from Font Awesome to visually show this.
+
+We can also apply multiple icons to a column. For example, we can assign balance scale icons that lean to the left or right for the lightest and heaviest penguins:
+
 
 ```{r}
-reactable(data,
-          columns = list(
-            bill_length_mm = colDef(cell = icon_sets(data))))
+reactable(
+  data,
+  columns = list(
+    bill_length_mm = colDef(cell = icon_sets(data, icons = c("ruler"))),
+    bill_depth_mm = colDef(cell = icon_sets(data, icons = c("ruler-vertical"))),
+    flipper_length_mm = colDef(cell = icon_sets(data, icons = c("ruler-horizontal"))),
+    body_mass_g = colDef(cell = icon_sets(data, icons = c("balance-scale-left", "balance-scale", "balance-scale-right")))
+    )
+  )
 ```
 
-<br>
+## Icon Colors
 
-## Custom Color Palettes
+The number of colors used in `icon_sets()` determines how the values from low to high are assigned.
 
-If we want to change the color palette to something other than the default, we can do so using the `colors` argument:
+The default number of colors used in `icon_sets()` is three. Therefore, the data is split into three groups: low, medium, and high. 
+
+If only one color is provided, the values will all be assigned the same color. If two colors are provided, the first color will represent the lower 50% of the values and the second color will represent the upper 50% of the values. If four colors are provided, the first color will represent the lowest 25%, the next color will represent values between 25-50%, and so on.
+
+You can use as many colors as you would like and `icon_sets()` will automatically assign the colors from low to high.
 
 ```{r}
-reactable(data,
-          columns = list(
-            bill_length_mm = colDef(cell = icon_sets(data, colors = c("tomato", "grey", "dodgerblue")))))
+library(viridis)
+
+reactable(
+  data,
+  defaultColDef = colDef(
+    cell = icon_sets(data, colors = viridis::viridis(5))
+  )
+)
 ```
 
-Note that the order of the colors matters. The first color provided is assigned to the values that are in the lower-third tier, the next color to the middle tier, and the last color is assigned to the upper-third tier. 
-
-If assigning custom colors, three colors must be provided. If the number of colors is not three, it will throw an error message requesting three colors to be used.
-
-<br>
-
-## Custom Icons
-
-By default, the three icons displayed when using `icon_sets()` are all circles. However, we can change the icons to anything from the Font Awesome icon gallery using the `icons` argument below:
+The opacity of the colors can be controlled by assigning a value between 0 (fully transparent) and 1 (fully opaque).
 
 ```{r}
-reactable(data,
-          columns = list(
-            bill_length_mm = colDef(cell = icon_sets(data, 
-                                                     icons = c("balance-scale-left", "balance-scale", "balance-scale-right"),
-                                                     colors = c("tomato", "grey", "dodgerblue")))))
+library(viridis)
+
+reactable(
+  data,
+  defaultColDef = colDef(
+    cell = icon_sets(data, opacity = 0.5, colors = viridis::viridis(5))
+  )
+)
 ```
 
-Just like with the `colors` argument, the order of the icons we provide matters and goes in order from smallest values to largest values in the column.
 
-<br>
+## Icon Positioning
 
-## Adding Percentages to Values
+The icons can be positioned in five different ways relative to the values in the cells: left, right, above, below, or over (which hides the values).
 
-If we want to show a column that contains percentages, like the dataset below that is used within the `data_bars()` example...
+The default icon position is to the right of the values, but can easily be changed to any of the other available positions like so: 
 
 ```{r}
-cars_data <- MASS::Cars93[c("Make", "Price")]
-
-cars_data <- cars_data %>% mutate("Price vs Avg" = round(Price/mean(Price)-1,2))
-
-reactable(cars_data,
-          columns = list(
-            `Price vs Avg` = colDef(cell = icon_sets(cars_data, 
-                                                     icons = c("arrow-down", "minus", "arrow-up")))))
+reactable(
+  data,
+  defaultColDef = colDef(
+    align = "center", 
+    cell = icon_sets(data, icon_position = "left")
+  )
+)
 ```
 
-We can call the percent formatter from the scales package within `number_fmt` to format the numbers as percentages:
 
 ```{r}
-reactable(cars_data,
-          columns = list(
-            `Price vs Avg` = colDef(cell = icon_sets(cars_data, 
-                                                     icons = c("arrow-down", "minus", "arrow-up"),
-                                                     number_fmt = scales::percent))))
+reactable(
+  data,
+  defaultColDef = colDef(
+    align = "center", 
+    cell = icon_sets(data, icon_position = "above")
+  )
+)
 ```
 
-<br>
-
-## Apply to All Columns
-
-Lastly, if we want to apply `icon_sets()` to every numeric column, we can simply use `defaultColDef` as shown below:
 
 ```{r}
-reactable(data,
-          defaultColDef = colDef(cell = icon_sets(data)))
+reactable(
+  data,
+  defaultColDef = colDef(
+    align = "center", 
+    cell = icon_sets(data, icon_position = "below")
+  )
+)
+```
+
+
+```{r}
+reactable(
+  data,
+  defaultColDef = colDef(
+    align = "center", 
+    cell = icon_sets(data, icon_position = "over")
+  )
+)
+```
+
+
+## Adjusting the Size of the Icons
+
+The size of the icons can be adjusted by providing a numeric value within `icon_size`. The default icon size represented in px is 16.
+
+```{r}
+car_data <- MASS::Cars93 %>% 
+  filter(Type %in% c("Compact", "Sporty", "Van")) %>% 
+  select(c("Make", "Type", "MPG.city", "MPG.highway")) %>% 
+  head(10) 
+
+reactable(
+  car_data,
+  defaultColDef = colDef(
+    align = "center", 
+    cell = icon_sets(car_data, icon_size = 28, icons = "gas-pump", colors = c("red", "grey", "darkgreen"))
+  )
+)
+```
+
+
+## Assigning Icons from Another Column
+
+Icons can be conditionally assigned to text/values from another column using `icon_ref` within `icon_sets()`.
+
+One method of creating the column containing the icon references is by using `dplyr::case_when()` to assign icons within a created column. Once that column exists in the dataset, it simply can be referenced within `icon_ref` as shown below within the Type column. 
+
+```{r}
+car_types <- car_data %>% 
+  mutate(car_icons = dplyr::case_when(
+    Type == "Compact" ~ "car",
+    Type == "Sporty" ~ "flag-checkered",
+    Type == "Van" ~ "shuttle-van",
+    TRUE ~ "other"
+  ))
+
+car_types %>% 
+reactable(
+  .,
+  defaultSorted = "Type",
+  defaultColDef = colDef(
+    align = "center",
+    cell = icon_sets(., icon_size = 28, icons = "gas-pump", colors = c("red", "grey", "darkgreen"))
+  ),
+  columns = list(
+    car_icons = colDef(show = FALSE),
+    Type = colDef(
+      align = "right",
+      cell = icon_sets(., icon_ref = "car_icons", icon_size = 28, colors = "black")
+    )
+  )
+)
+```
+
+You also have the option of hiding the text next to the icons by including `icon_position = "over"`: 
+
+```{r}
+car_types %>% 
+reactable(
+  .,
+  defaultSorted = "Type",
+  defaultColDef = colDef(
+    align = "center",
+    cell = icon_sets(., icon_size = 28, icons = "gas-pump", colors = c("red", "grey", "darkgreen"))
+  ),
+  columns = list(
+    car_icons = colDef(show = FALSE),
+    Type = colDef(
+      cell = icon_sets(., icon_ref = "car_icons", icon_position = "over", icon_size = 28, colors = "black")
+    )
+  )
+)
+```
+
+
+## Assigning Icon Colors from Another Column
+
+Now that we have icons assigned to the type of vehicle, we can also assign colors from another column with `icon_color_ref` using the same approach as `icon_ref`, but instead of conditionally assigning icons, we assign colors:
+
+```{r}
+car_types <- car_types %>% 
+  mutate(car_colors = dplyr::case_when(
+    Type == "Compact" ~ "dodgerblue",
+    Type == "Sporty" ~ "black",
+    Type == "Van" ~ "gold",
+    TRUE ~ "other"
+  ))
+
+car_types %>% 
+reactable(
+  .,
+  defaultSorted = "Type",
+  defaultColDef = colDef(
+    align = "center",
+    cell = icon_sets(., icon_size = 28, icons = "gas-pump", colors = c("red", "grey", "darkgreen"))
+  ),
+  columns = list(
+    car_colors = colDef(show = FALSE),
+    car_icons = colDef(show = FALSE),
+    Type = colDef(
+      cell = icon_sets(., icon_color_ref = "car_colors", icon_ref = "car_icons", icon_position = "over", icon_size = 28, colors = "black")
+    )
+  )
+)
 ```
 
