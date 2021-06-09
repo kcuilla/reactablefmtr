@@ -113,7 +113,7 @@
       <a href="../articles/color_tiles.html">Color Tiles</a>
     </li>
     <li>
-      <a href="../articles/data_bars_development.html">Data Bars (development)</a>
+      <a href="../articles/data_bars.html">Data Bars</a>
     </li>
     <li>
       <a href="../articles/embed_img.html">Embed Images</a>
@@ -169,9 +169,9 @@
       <small>Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="reactablefmtr-1-0-0-development-version" class="section level1">
+    <div id="reactablefmtr-100-development-version" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0">
-<a href="#reactablefmtr-1-0-0-development-version" class="anchor"></a>reactablefmtr 1.0.0 (development version)<small> Unreleased </small>
+<a href="#reactablefmtr-100-development-version" class="anchor"></a>reactablefmtr 1.0.0 (development version)<small> Unreleased </small>
 </h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
@@ -207,11 +207,12 @@
 </li>
 </ul>
 </div>
-<div id="color_scales-color_tiles" class="section level4">
+<div id="color_scales--color_tiles" class="section level4">
 <h4 class="hasAnchor">
-<a href="#color_scales-color_tiles" class="anchor"></a>color_scales() &amp; color_tiles()</h4>
+<a href="#color_scales--color_tiles" class="anchor"></a>color_scales() &amp; color_tiles()</h4>
 <ul>
-<li>Colors can be provided from another column by referencing the name of the column containing the colors within <code>color_ref</code>. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset</li>
+<li>Colors can be provided from another column by referencing the name of the column containing the colors within <code>color_ref</code>. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset. If <code>color_ref</code> is used within <code>reactable::defaultColDef</code>, every column in the dataset, regardless of whether they are numeric or not, will receive the conditional colors.</li>
+<li>Default colors have been changed from red-white-blue to blue-white-orange</li>
 <li>The opacity of the background colors can be adjusted with <code>opacity</code> by providing a value between 0 and 1</li>
 <li>The color of the values can be changed by using the <code>text_color</code> argument. The default color is black</li>
 <li>Values can be shown in bold text with the <code>bold_text</code> logical argument</li>
@@ -248,6 +249,7 @@
 <li>Icons can be positioned to the right, left, above, below, or over the values with <code>icon_position</code>. Previously icons could only be positioned to the right of the values</li>
 <li>The size of the icons can now be adjusted using <code>icon_size</code>
 </li>
+<li>Default colors have been changed from red-white-blue to blue-grey-orange</li>
 <li>The opacity of the icon colors can be adjusted with <code>opacity</code> by providing a value between 0 and 1 (from transparent to opaque)</li>
 <li>Icons can be provided from another column by referencing the name of the column containing the icons within <code>icon_ref</code>
 </li>
@@ -297,9 +299,9 @@
 </div>
 </div>
 </div>
-    <div id="reactablefmtr-0-2-0" class="section level1">
+    <div id="reactablefmtr-020" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
-<a href="#reactablefmtr-0-2-0" class="anchor"></a>reactablefmtr 0.2.0<small> 2021-03-18 </small>
+<a href="#reactablefmtr-020" class="anchor"></a>reactablefmtr 0.2.0<small> 2021-03-18 </small>
 </h1>
 <div id="new-features-1" class="section level3">
 <h3 class="hasAnchor">
@@ -335,9 +337,9 @@
 </ul>
 </div>
 </div>
-    <div id="reactablefmtr-0-1-0" class="section level1">
+    <div id="reactablefmtr-010" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.0">
-<a href="#reactablefmtr-0-1-0" class="anchor"></a>reactablefmtr 0.1.0<small> 2021-02-19 </small>
+<a href="#reactablefmtr-010" class="anchor"></a>reactablefmtr 0.1.0<small> 2021-02-19 </small>
 </h1>
 <ul>
 <li>Initial release to CRAN</li>
