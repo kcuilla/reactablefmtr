@@ -94,11 +94,11 @@ A similar formatter to `color_scales()` is `color_tiles()`. Numbers can be forma
 reactable(
   iris,
   defaultColDef = colDef(
-    cell = color_tiles(iris, colors = viridis::magma(5))
+    cell = color_tiles(iris, colors = viridis::magma(10), number_fmt = scales::number_format(accuracy = 0.1, suffix = " cm"))
   )
 )
 ```
-<img src="man/figures/color_tiles_viridis3.png" align="center" width = "90%" height = "90%" />
+<img src="man/figures/color_tiles_example_iris.png" align="center" />
 
 
 ### Icon Sets
