@@ -23,7 +23,8 @@
 
 #### color_scales() & color_tiles()
 
-* Colors can be provided from another column by referencing the name of the column containing the colors within `color_ref`. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset
+* Colors can be provided from another column by referencing the name of the column containing the colors within `color_ref`. This is useful for assigning conditions or assigning colors to the bars for different groups within the dataset. If `color_ref` is used within `reactable::defaultColDef`, every column in the dataset, regardless of whether they are numeric or not, will receive the conditional colors. 
+* Default colors have been changed from red-white-blue to blue-white-orange
 * The opacity of the background colors can be adjusted with `opacity` by providing a value between 0 and 1
 * The color of the values can be changed by using the `text_color` argument. The default color is black
 * Values can be shown in bold text with the `bold_text` logical argument
@@ -46,6 +47,7 @@
 * Can now use any number of icons and colors to assign to data. Previously only three icons and colors could be used.
 * Icons can be positioned to the right, left, above, below, or over the values with `icon_position`. Previously icons could only be positioned to the right of the values
 * The size of the icons can now be adjusted using `icon_size`
+* Default colors have been changed from red-white-blue to blue-grey-orange
 * The opacity of the icon colors can be adjusted with `opacity` by providing a value between 0 and 1 (from transparent to opaque)
 * Icons can be provided from another column by referencing the name of the column containing the icons within `icon_ref`
 * Icon colors can be provided from another column by referencing the name of the column containing the colors within `icon_color_ref`
