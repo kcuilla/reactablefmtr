@@ -1,0 +1,263 @@
+---
+title: "Getting Started with Color Tiles"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r, include=FALSE}
+library(reactablefmtr)
+library(dplyr)
+library(tibble)
+```
+
+## Example
+
+With `{reactablefmtr}`, we can easily apply color tiles to columns within a table by using `color_tiles()` within `cell` of `reactable::colDef()`.
+
+By default a normalized orange-white-blue color scale is applied to each column.
+
+```{r}
+data <- MASS::Cars93 %>% 
+  filter(Type %in% c("Compact", "Sporty", "Van")) %>% 
+  select(c("Make", "Type", "Passengers", "Horsepower", "MPG.city", "MPG.highway")) %>% 
+  head(10)
+
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell = color_tiles(data)
+  )
+)
+```
+
+
+## Custom Color Palettes
+
+If we want to show a different color palette than the default, we can call them within the `colors` argument like so: 
+
+```{r}
+my_color_pal = c("purple", "lightgrey", "darkgreen")
+
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell = color_tiles(data, colors = my_color_pal)
+  )
+)
+```
+
+The opacity of the colors can be controlled by assigning a value between 0 (fully transparent) and 1 (fully opaque).
+
+```{r}
+my_color_pal = c("purple", "lightgrey", "darkgreen")
+
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell = color_tiles(data, colors = my_color_pal, opacity = 0.6)
+  )
+)
+```
+
+
+The order of the color palette matters. In the example above, the color purple is assigned to the lowest values, lightgrey is assigned to middle values, and green is assigned to highest values. 
+
+We may also use color palettes from other packages, such as the "Mako" color palette from the `{viridis}` package:
+
+```{r}
+library(viridis)
+
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell = color_tiles(data, colors = viridis::mako(5))
+  )
+)
+```
+
+
+## Adjusting the Text Color
+
+When using light and dark color palettes, the colors of the values automatically adjust to the background to display the values. This option is already turned on by default, but if you don't want to use this feature, you can turn it off by setting `brighten_text = FALSE`.
+
+The color of the `brighten_text` can also be changed from the default white color to any other color within `brighten_text_color`:
+
+```{r}
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell = color_tiles(data, colors = viridis::mako(5), brighten_text_color = "orange")
+  )
+)
+```
+
+For light-colored palettes, the text color can be changed with `text_color` and there is also an option to make the text bold by setting `bold_text = TRUE`:
+
+```{r}
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell = color_tiles(data, text_color = "darkgreen", bold_text = TRUE)
+  )
+)
+```
+
+
+Lastly, if you wanted to completely hide the text and just so the color tiles, you could do this by setting `show_text = FALSE`, which gives more of a heatmap feel to the table:
+
+```{r}
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell = color_tiles(data, show_text = FALSE)
+  )
+)
+```
+
+## Formatting Numbers
+
+Numbers can be formatted within the `number_fmt` argument in `color_tiles()`. One method of formatting the numbers is by utilizing the formatters from the `{scales}` package, and the numbers can be formatted in the same way as they are in `{ggplot2}`.
+
+```{r}
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  columns = list(
+    Passengers = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " ppl"))),
+    Horsepower = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " hp"))),
+    MPG.city = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " mpg"))),
+    MPG.highway = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " mpg")))
+  )
+)
+```
+
+
+## Assigning Colors from Another Column
+
+Colors can be conditionally assigned to values based on another column by using `color_ref`.
+
+In the example below, we assigned a blue color to Compact cars, a red color to Sporty cars, and a gold color to Vans using `dplyr::case_when()`.
+
+Then within `color_tiles()`, we reference the name of the conditional column we just created to apply the colors to the values in MPG.city and MPG.highway.
+
+```{r}
+car_data <- data %>% 
+  mutate(car_colors = dplyr::case_when(
+  Type == "Compact" ~ "dodgerblue",
+  Type == "Sporty" ~ "tomato",
+  Type == "Van" ~ "gold",
+  TRUE ~ "other"
+  ))
+
+reactable(
+  car_data,
+  defaultSorted = "Passengers",
+  columns = list(
+    Make = colDef(minWidth = 150),
+    car_colors = colDef(show = FALSE),
+    Passengers = colDef(cell = color_tiles(car_data, color_ref = "car_colors")),
+    Horsepower = colDef(cell = color_tiles(car_data, color_ref = "car_colors")),
+    MPG.city = colDef(cell = color_tiles(car_data, color_ref = "car_colors")),
+    MPG.highway = colDef(cell = color_tiles(car_data, color_ref = "car_colors"))
+  )
+)
+```
+
+We can further apply the conditional colors to the entire dataset by setting the style within `defaultColDef`:
+
+```{r}
+reactable(
+  car_data,
+  defaultSorted = "Passengers",
+    defaultColDef = colDef(
+    cell = color_tiles(car_data, color_ref = "car_colors")
+  ),
+  columns = list(
+    Make = colDef(minWidth = 150),
+    car_colors = colDef(show = FALSE)
+  )
+)
+```
+
+
+The same conditional coloring can be applied based on numeric conditions as well. For example, if we wanted to highlight which cars have an MPG.city value of 23 or greater, we could use the same method as above but apply the conditions based on the MPG.city column instead of the Type column.  
+
+
+```{r}
+car_data <- car_data %>% 
+  mutate(mpg_colors = dplyr::case_when(
+  MPG.city >= 23 ~ "darkgreen",
+  TRUE ~ "grey"
+  ))
+
+reactable(
+  car_data,
+  defaultSorted = "MPG.city",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell =color_tiles(car_data, color_ref = "mpg_colors")
+    ),
+  columns = list(
+    Make = colDef(minWidth = 150),
+    car_colors = colDef(show = FALSE),
+    mpg_colors = colDef(show = FALSE))
+)
+```
+
+
+
+## Row-wise Styling
+
+By default, `color_tiles()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month as shown below:
+
+<i>Note: the dataset for this example is sourced from the reactable [demo cookbook](https://glin.github.io/reactable/articles/cookbook/cookbook.html#conditional-formatting-1)</i>
+
+```{r}
+dimnames <- list(start(nottem)[1]:end(nottem)[1], month.abb)
+temps <- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
+temps <- as_tibble(temps, rownames = "Year")
+
+reactable(
+  temps,
+  defaultColDef = colDef(
+    cell =color_tiles(temps, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    minWidth = 50))
+```
+
+By including `span = TRUE` within our `color_tiles()` formatter, we can conditionally assign colors to the values based on their relation to other values within the entire dataset, instead of within each column. Now our table displaying temperatures is much easier to read when comparing temperatures across months:
+
+```{r}
+reactable(
+  temps,
+  defaultColDef = colDef(
+    cell =color_tiles(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    minWidth = 50))
+```
+
+
+If we only wanted to apply color tiles to some of the months, we can do so by referencing either the numeric positions of the columns or the column names within `span`:
+
+```{r}
+reactable(
+  temps,
+  defaultColDef = colDef(
+    cell =color_tiles(temps, span = 2:7, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    minWidth = 50))
+```

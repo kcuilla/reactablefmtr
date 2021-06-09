@@ -1,0 +1,412 @@
+---
+title: "Table Themes"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r, include=FALSE}
+library(reactablefmtr)
+library(dplyr)
+library(viridis)
+```
+
+
+## Bootsrap Themes
+
+Within the {reactablefmtr} package, there are twelve different bootstrap-inspired themes that you can use to apply to any {reactable} table. Many of the themes available are included within the {shinythemes} [package](https://rstudio.github.io/shinythemes/) and pair well with those themes in Shiny apps.
+
+For example, here is the standard reactable table with no theme applied: 
+
+```{r}
+data <- MASS::Cars93[1:30, c("Model", "MPG.city", "MPG.highway")]
+
+data %>%
+  reactable(.,
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+And here is the same table with the "slate" theme: 
+
+```{r}
+data %>%
+  reactable(.,
+    theme = slate(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+As you can see above, to apply a theme to a table, you just need to simply reference the theme name and included closed brackets at the end of the name. The reason why the closed brackets are necessary is because there are additional optional arguments that you can apply to the theme, such as the font family, size, and color. Below are the full options of optional arguments you can change to the theme:
+
+* font_family
+* font_size
+* font_color
+* header_font_family
+* header_font_size
+* header_font_color
+* cell_padding
+
+```{r}
+data %>%
+  reactable(.,
+    theme = slate(font_family = "Courier New", font_size = 18, header_font_size = 20, header_font_color = "darkorange", cell_padding = 8),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+Another popular bootstrap theme, "flatly":
+
+```{r}
+data %>%
+  reactable(.,
+    theme = flatly(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+The "cosmo" theme:
+
+```{r}
+data %>%
+  reactable(.,
+    theme = cosmo(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+The "journal" theme:
+
+```{r}
+data %>%
+  reactable(.,
+    theme = journal(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+
+The "cyborg" theme:
+
+```{r}
+data %>%
+  reactable(.,
+    theme = cyborg(),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+  )
+)
+```
+
+Additional boostrap-inspired themes include:
+
+* cerulean
+* darkly
+* lux
+* minty
+* sandstone
+* spacelab
+* superhero
+
+
+## News/Sports Sites Themes
+
+In addition to the bootstrap-styled themes, there are also a few themes available that were inspired by data tables displayed on popular news and sports sites. 
+
+### The New York Times Theme
+
+To show how the "nytimes" theme can be applied to a reacatble table, we are going to re-create the "Where the Outbreak is the Worst" table in the [Monitoring the Coronavirus Outbreak in Metro Areas Across the U.S.](https://www.nytimes.com/interactive/2020/04/23/upshot/five-ways-to-monitor-coronavirus-outbreak-us.html) N.Y. Times article.
+
+Note: The data below is only a small sample of the larger dataset and does not currently match the data displayed in the N.Y. Times article since that table is updated regularly.
+
+```{r}
+nytdata <- data.frame(
+  Rank = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20),
+  Area = c("Muskegon, Mich.", "Klamath Falls, Ore.", "Lewiston-Auburn, Me.", "Saginaw, Mich.", "Ionia, Mich.", "Flint, Mich.", "Fairbanks, Alaska", "Bay City, Mich.", "Grand Rapids, Mich.", "Pueblo, Colo.", "Midland, Mich.", "Detroit", "Owosso, Mich.", "Mount Pleasant, Mich.", "Adrian, Mich.", "Peoria, Ill.", "Battle Creek, Mich.", "Holland, Mich.", "Monroe, Mich.", "Kalamazoo-Portage, Mich."),
+  Population = c("173,566", "68,238", "108,277", "190,539", "64,697", "405,813", "96,849", "103,126", "1.1 mil.", "168,424", "83,156", "4.3 mil.", "68,122", "69,872", "98,451", "366,221", "134,159", "118,081", "150,500", "340,743"),
+  Cases = c("1,801", "608", "857", "1,453", "489", "3,050", "718", "759", "7,661", "1,173", "561", "28,522", "437", "448", "631", "2,280", "830", "716", "902", "2,013"),
+  Daily = c(74.1, 63.6, 56.5, 54.5, 54.0, 53.7, 53.0, 52.6, 50.9, 49.7, 48.2, 47.2, 45.8, 45.8, 45.8, 44.5, 44.2, 43.3, 42.8, 42.2))
+```
+
+In addition to applying the "nytimes" theme to the table, we can also utilize the `color_ref` argument within `color_scales()` to match how The N.Y. Times assigns colors to the "Daily Per 100K" column by creating a column with `case_when()` and then referencing that column name within `color_ref` in `color_scales()`: 
+
+```{r}
+nytdata %>%
+  mutate(
+    color_assign = case_when(
+      Daily >= 60 ~ "#0c2c84",
+      Daily >= 50 & Daily < 60 ~ "#225ea8",
+      Daily < 50 ~ "#1d91c0",
+      TRUE ~ "#ffffff"
+      )) %>%
+  reactable(.,
+    theme = nytimes(),
+    pagination = FALSE,
+    columns = list(
+      color_assign = colDef(show = FALSE),
+      Rank = colDef(name = "", maxWidth = 40, align = "left"),
+      Area = colDef(name = "Metro or Micro Area", maxWidth = 220,
+        footer = "Source: N.Y. Times",
+        footerStyle = list(color = "#999999")),
+      Population = colDef(align = "right", maxWidth = 150),
+      Cases = colDef(name = "Recent Cases", align = "right", maxWidth = 150),
+      Daily = colDef(name = "Daily Per 100K", maxWidth = 150,
+        style = color_scales(., color_ref = "color_assign")
+     )))
+```
+
+### FiveThirtyEight Theme
+
+For the "fivethirtyeight" theme, we are going to use the same dataset that is used within the [NBA Player Ratings Demo](https://kcuilla.github.io/reactablefmtr/articles/nba_player_ratings.html).
+
+Note: the data and inspiration for this table comes from 538's [NBA Raptor Ratings](https://projects.fivethirtyeight.com/nba-player-ratings/).
+
+```{r}
+### load data from 538
+data <- read.csv(file = "RAPTOR_by_team_19-20.csv")
+
+reactable(data,
+  theme = fivethirtyeight(),
+  ### add column group header
+  columnGroups = list(
+    colGroup(name = "OVERALL RAPTOR", columns = c("OFF","DEF","TOT"))
+    ),
+  showSortIcon = FALSE,
+  searchable = TRUE,
+  language = reactableLang(
+    searchPlaceholder = "SEARCH FOR A PLAYER..."),
+  columns = list(
+    TEAM_NAME = colDef(show = FALSE),
+    CONFERENCE = colDef(show = FALSE),
+    RANK = colDef(maxWidth = 55, name = ""),
+    PLAYER = colDef(maxWidth = 225),
+    ### add logos using embed_img()
+    TEAM_LOGO = colDef(
+      name = "TEAM",
+      maxWidth = 70,
+      align = "center",
+      cell = embed_img(height = "25", width = "40")
+    ),
+    ### add icons using icon_assign()
+    MIN = colDef(
+      maxWidth = 85,
+      align = "center",
+      cell = icon_assign(
+        data,
+        icon = "stopwatch",
+        fill_color = "#555555",
+        buckets = 5
+      ),
+      style = list(borderRight = "1px dashed rgba(0, 0, 0, 0.3)")
+    ),
+    ### add color scales using color_scales()
+    OFF = colDef(
+      maxWidth = 60,
+      cell = function(x)
+        sprintf("%+0.1f", x),
+      style = color_scales(data, colors = c("#fd84a9", "white", "#42c2ca"))
+    ),
+    ### add color scales using color_scales()
+    DEF = colDef(
+      maxWidth = 60,
+      cell = function(x)
+        sprintf("%+0.1f", x),
+      style = color_scales(data, colors = c("#fd84a9", "white", "#42c2ca"))
+    ),
+    ### add color scales using color_scales()
+    TOT = colDef(
+      maxWidth = 60,
+      cell = function(x)
+        sprintf("%+0.1f", x),
+      style = color_scales(data, colors = c("#fd84a9", "white", "#42c2ca"))
+    ),
+    ### add bars using data_bars_pos_neg()
+    WAR = colDef(
+      maxWidth = 280,
+      align = "center",
+      cell = data_bars(
+        data,
+        fill_color = c("#fd84a9", "#fee6ed", "#d9f2f4", "#42c2ca"),
+        number_fmt = scales::number_format(accuracy = 0.1)
+      ),
+      style = list(borderLeft = "1px dashed rgba(0, 0, 0, 0.3)")
+    )
+  )
+)
+```
+
+### Pro Football Focus Theme
+
+The "pff" theme inspired by [Pro Football Focus](https://www.pff.com/), a football analytics company. 
+
+Note: the dataset below is fake and does not come from Pro Football Focus.
+
+```{r}
+library(nflfastR)
+
+data <- data.frame(
+  Name = c("Aaron Rodgers", "Tom Brady", "Josh Allen", "Kirk Cousins", "Russell Wilson", "Kyler Murray", "Lamar Jackson", "Derek Carr", "Patrick Mahomes", "Justin Herbert"),
+  Team = c("GB", "TB", "BUF", "MIN", "SEA", "ARI", "BAL", "LV", "KC", "LAC"),
+  POS = c("QB", "QB", "QB", "QB", "QB", "QB", "QB", "QB", "QB", "QB"),
+  GP = c(16, 16, 15, 16, 16, 16, 14, 16, 12, 10),
+  Off = c(90.1, 89.9, 78.8, 85.1, 88.8, 83.4, 80.1, 71.9, 87.8, 80.4),
+  Pass = c(83.4, 80.1, 71.9, 87.8, 80.4, 90.1, 89.9, 78.8, 85.1, 88.8),
+  Run = c(90.1, 89.9, 78.8, 85.1, 88.8, 83.4, 80.1, 71.9, 87.8, 80.4))
+
+color_set <- c("#f7c844","#429460","#2e6d9e")
+
+data %>% 
+left_join(teams_colors_logos, by = c('Team' = 'team_abbr')) %>% 
+  select(Name, POS, GP, team_logo_espn, Team, Off, Pass, Run, team_logo_espn) %>% 
+  reactable(.,
+    pagination = FALSE,
+    highlight = TRUE,
+    striped = TRUE,
+    defaultSorted = "Off",
+    defaultSortOrder = "desc",
+    theme = pff(),
+    defaultColDef = colDef(align = "left"),
+    columns = list(
+      Team = colDef(show = FALSE),
+      team_color = colDef(show = FALSE),
+      Name = colDef(maxWidth = 280),
+      POS = colDef(maxWidth = 70),
+      GP = colDef(maxWidth = 70),
+      team_logo_espn = colDef(name = "TEAM", maxWidth = 100,
+          cell = embed_img(., label = "Team", height = 20, width = 20)),
+      Off = colDef(align = "center", maxWidth = 130, cell = icon_sets(., 
+          colors = color_set, icons = "square")),
+      Pass = colDef(align = "center", maxWidth = 130, cell = icon_sets(., 
+          colors = color_set, icons = "square")),
+      Run = colDef(align = "center", maxWidth = 130, cell = icon_sets(., 
+          colors = color_set, icons = "square")
+    )))
+```
+
+### ESPN Theme
+
+The "espn" theme inspired by [ESPN](https://www.espn.com/). 
+
+Note: this is the same fake dataset used in the "pff" theme above, but with `color_tiles()` applied to the table instead of `icon_sets()`.
+
+```{r}
+data %>% 
+left_join(teams_colors_logos, by = c('Team' = 'team_abbr')) %>% 
+  select(Name, POS, GP, team_logo_espn, Team, Off, Pass, Run, team_logo_espn) %>% 
+  reactable(.,
+    pagination = FALSE,
+    highlight = TRUE,
+    striped = TRUE,
+    defaultSorted = "Off",
+    defaultSortOrder = "desc",
+    theme = espn(),
+    defaultColDef = colDef(align = "left"),
+    columns = list(
+      Team = colDef(show = FALSE),
+      team_color = colDef(show = FALSE),
+      Name = colDef(maxWidth = 280),
+      POS = colDef(maxWidth = 70),
+      GP = colDef(maxWidth = 70),
+      team_logo_espn = colDef(name = "TEAM", maxWidth = 100,
+          cell = embed_img(., label = "Team", height = 20, width = 20)),
+      Off = colDef(align = "center", maxWidth = 130, cell = color_tiles(., colors = color_set)),
+      Pass = colDef(align = "center", maxWidth = 130, cell = color_tiles(., colors = color_set)),
+      Run = colDef(align = "center", maxWidth = 130, cell = color_tiles(., colors = color_set))
+    ))
+```
+
+
+
+## Other Custom Themes
+
+These are additional themes that were created specifically for the {reactablefmtr} package and were not inspired by bootstrap or other websites.
+
+Below is the "midnightblue" theme:
+
+```{r}
+iris %>%
+  select(Species, everything()) %>%
+  head(30) %>%
+  reactable(.,
+    theme = midnightblue(),
+    highlight = TRUE,
+    defaultSorted = "Petal.Width",
+    defaultSortOrder = "desc",
+    defaultColDef = colDef(align = "center", 
+      cell = data_bars(.,
+                       background = "transparent",
+                       text_position = "inside-end",
+                       fill_color = viridis::mako(5))),
+    columns = list(Species = colDef(maxWidth = 100)))
+```
+
+The "void" theme removes all elements of the styling elements of the table and only shows the table values:
+
+```{r}
+iris %>%
+  select(everything(), -c(Species)) %>%
+  head(30) %>%
+  reactable(.,
+    theme = void(),
+    highlight = TRUE,
+    defaultSorted = "Petal.Width",
+    defaultSortOrder = "desc",
+    defaultColDef = colDef(align = "center", 
+      cell = data_bars(.,
+                       background = "transparent",
+                       text_position = "inside-end",
+                       fill_color = viridis::mako(5))),
+    columns = list(Species = colDef(maxWidth = 100)))
+```
+
+
+The "hoverdark" theme appears as a standard-looking table, but when the user hovers over the data, it turns itself into a dark-themed table.  
+
+```{r}
+iris %>%
+  select(Species, everything()) %>%
+  head(30) %>%
+  reactable(.,
+    theme = hoverdark(),
+    highlight = TRUE,
+    defaultSorted = "Petal.Width",
+    defaultSortOrder = "desc",
+    defaultColDef = colDef(align = "center", 
+      cell = data_bars(.,
+                       background = "transparent",
+                       text_position = "inside-end",
+                       fill_color = viridis::mako(5))),
+    columns = list(Species = colDef(maxWidth = 100)))
+```
+
+Other additional custom themes include:
+
+* hoverlight (which does the opposite of the hoverdark theme)
+* clean
+* default
+* midnight
+* sunrise
+* void
+
+
