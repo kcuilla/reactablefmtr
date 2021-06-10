@@ -37,14 +37,15 @@ remotes::install_github("kcuilla/reactablefmtr")
 
 ### Data Bars
 
-Use `data_bars()` to assign horizontal bars to each row. There are many ways to [customize](https://kcuilla.github.io/reactablefmtr/reference/data_bars.html) the look of `data_bars()`, including the alignment of the bars, the posiiton of the text labels, and the option to add icons and images to the bars. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/data_bars.html) for customization examples. 
+Use `data_bars()` to assign horizontal bars to each row. There are many ways to [customize](https://kcuilla.github.io/reactablefmtr/reference/data_bars.html) the look of `data_bars()`, including the alignment of the bars, the position of the text labels, and the option to add icons and images to the bars. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/data_bars.html) for customization examples. 
 
-![](man/figures/data_bars_animated_demo.gif)
+
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo.gif" align="center" />
 
 
 ### Color Scales
 
-Use `color_scales()` to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of both dark-colored and light-colored palettes.
+Use `color_scales()` to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).
 
 ```{r}
 library(palmerpenguins)
@@ -57,14 +58,14 @@ data <- palmerpenguins %>%
 reactable(
   data,
   columns = list(
-    bill_length_mm = colDef(style = color_scales(data, colors = viridis::mako(4))),
-    bill_depth_mm = colDef(style = color_scales(data, colors = viridis::mako(4))),
-    flipper_length_mm = colDef(style = color_scales(data, colors = viridis::mako(4)))
+    bill_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
+    bill_depth_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
+    flipper_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5)))
   )
 )
 ```
 
-<img src="man/figures/color_scales_mako.png" align="center" width = "90%" height = "90%" />
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/color_scales_mako.png" align="center" />
 
 
 By default, colors are conditionally assigned to values within each column, but can also be assigned to row-wise data as shown below. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html) for more examples.
@@ -83,7 +84,7 @@ reactable(
 )
 ```
 
-<img src="man/figures/EE85DA35-1A23-4A86-86F5-8C934CC75980.jpeg" align="center" width = "90%" height = "90%" />
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/C6731D97-6D37-4CD2-A93D-374352961F4A.png" align="center"/>
 
   
 ### Color Tiles
@@ -98,7 +99,8 @@ reactable(
   )
 )
 ```
-<img src="man/figures/color_tiles_example_iris.png" align="center" />
+
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/color_tiles_example_iris.png" align="center" />
 
 
 ### Icon Sets
@@ -118,7 +120,7 @@ reactable(.,
 )
 ```
 
-<img src="man/figures/README_icon_sets_cars.png" align="center" width = "90%" height = "90%"/>
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/README_icon_sets_cars.png" align="center" />
   
  
 ### Icon Assign
@@ -139,7 +141,7 @@ reactable(
 )
 ```
 
-<img src="man/figures/5E26F646-AE47-4044-B01D-6BEBF28DD08B.jpeg" align="center" width = "90%" height = "90%"/>
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/5E26F646-AE47-4044-B01D-6BEBF28DD08B.jpeg" align="center" />
 
 
 ## Custom Themes
@@ -158,7 +160,7 @@ data %>%
 )
 ```
 
-<img src="man/figures/43042890-A054-49D2-B066-8E329BE90ACA.jpeg" align="center" width = "90%" height = "90%"/>
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/43042890-A054-49D2-B066-8E329BE90ACA.jpeg" align="center" />
 
 
 ## Add a Title, Subtitle, and Source
@@ -172,7 +174,7 @@ reactable(iris[10:29, ]) %>%
   add_source("This is a source")
 ```
 
-<img src="man/figures/README_add_title.png" align="center" width = "90%" height = "90%"/>
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/README_add_title.png" align="center" />
 
 
 ## Save Static or Interactive Tables
@@ -207,8 +209,7 @@ save_reactable("table.png")
 
 ## Acknowledgments & Contributions
 
-A huge thank you to Greg Lin for creating the amazing {reactable} [package]((https://glin.github.io/reactable/index.html))! Without Greg, {reactablefmtr} simply would not exist! 
+A huge thank you to Greg Lin for creating the amazing {reactable} [package](https://glin.github.io/reactable/index.html)! Without Greg, {reactablefmtr} simply would not exist! 
 
 Also thank you to June Chao for contributing to the span option in `color_scales()` and `color_tiles()`!
-
 
