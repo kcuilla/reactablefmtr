@@ -6,7 +6,7 @@
 #'     The number of icons and colors determines how the values are shown from low values to high values.
 #'     The icons can be positioned over, above, below, or to the right or left of the values.
 #'     The size of the icon can be adjusted.
-#'     Icons and icon colors can be provided via another reference column in the dataset which is useful when assigning icons/colors to particular occurences.
+#'     Icons and icon colors can be provided via another reference column in the dataset which is useful when assigning icons/colors to particular occurrences.
 #'     It should be placed within the cell argument in reactable::colDef.
 #'
 #' @param data Dataset containing at least one numeric column.
