@@ -14,8 +14,6 @@
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tools file_ext
 #' @importFrom tools file_path_sans_ext
-#' @importFrom webshot2 webshot
-#' @importFrom webshot2 rmdshot
 #' @import reactable
 #'
 #' @return a function that converts a reactable table, .html file, or .Rmd file to an .png file or .html file
@@ -78,6 +76,13 @@ save_reactable <- function(input, output) {
 
     htmlwidgets::saveWidget(widget = input, file = temp_html, selfcontained = TRUE)
 
+    if (!requireNamespace("webshot2", quietly = TRUE)) {
+
+      stop("The `webshot2` package is required `save_reactable`.",
+           call. = FALSE)
+
+    } else {
+
     webshot2::webshot(url = temp_html,
                       file = output,
                       zoom = 2,
@@ -87,9 +92,18 @@ save_reactable <- function(input, output) {
 
     message("image saved to ", getwd(), "/", output)
 
+    }
+
   } else if (tools::file_ext(input) == "Rmd") {
 
     message("Knitting R Markdown document...")
+
+    if (!requireNamespace("webshot2", quietly = TRUE)) {
+
+      stop("The `webshot2` package is required `save_reactable`.",
+           call. = FALSE)
+
+    } else {
 
     webshot2::rmdshot(doc = input,
                       file = output,
@@ -98,7 +112,16 @@ save_reactable <- function(input, output) {
 
     message("image saved to ", getwd(), "/", output)
 
+    }
+
   } else if (tools::file_ext(input) == "html" && tools::file_ext(output) == "png") {
+
+    if (!requireNamespace("webshot2", quietly = TRUE)) {
+
+      stop("The `webshot2` package is required `save_reactable`.",
+           call. = FALSE)
+
+    } else {
 
     webshot2::webshot(url = input,
                       file = output,
@@ -106,6 +129,8 @@ save_reactable <- function(input, output) {
                       delay = 1)
 
     message("image saved to ", getwd(), "/", output)
+
+    }
 
   } else stop("please make sure input is either a reactable table, .html file, or .Rmd file,
               and output is either a .png or .html file")
