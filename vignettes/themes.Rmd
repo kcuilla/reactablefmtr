@@ -14,7 +14,7 @@ library(viridis)
 ```
 
 
-## Bootsrap Themes
+## Bootstrap Themes
 
 Within the {reactablefmtr} package, there are twelve different bootstrap-inspired themes that you can use to apply to any {reactable} table. Many of the themes available are included within the {shinythemes} [package](https://rstudio.github.io/shinythemes/) and pair well with those themes in Shiny apps.
 
@@ -119,7 +119,7 @@ data %>%
 )
 ```
 
-Additional boostrap-inspired themes include:
+Additional bootstrap-inspired themes include:
 
 * cerulean
 * darkly

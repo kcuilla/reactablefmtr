@@ -185,7 +185,7 @@ reactable(
 
 ## Formatting Numbers
 
-To format the numbers within columns containing `color_scales()`, you can use any of the [formata](https://glin.github.io/reactable/articles/examples.html#column-formatting-1) within reactable's `colFormat()` argument:
+To format the numbers within columns containing `color_scales()`, you can use any of the [formats](https://glin.github.io/reactable/articles/examples.html#column-formatting-1) within reactable's `colFormat()` argument:
 
 ```{r}
 reactable(
