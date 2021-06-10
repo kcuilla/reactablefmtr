@@ -4,10 +4,14 @@
 \name{reactablefmtr-package}
 \alias{reactablefmtr}
 \alias{reactablefmtr-package}
-\title{reactablefmtr: Simplify Formatting of Tables Made with 'Reactable'}
+\title{reactablefmtr: Easily Customize Interactive Tables Made with Reactable}
 \description{
-Streamlines the process of applying formats and styles to tables using 'reactable'.
-    Style your 'reactable' table with conditional formatting, color scales, data bars, and icons.
+Enhance the styling of interactive reactable tables with easy-to-use
+    and highly-customizable functions. Apply conditional formatting to cells with
+    data bars, color scales, and icon sets. Utilize custom table themes inspired by
+    popular websites and bootstrap themes. Increase the portability and reproducibility
+    of reactable tables by embedding images from the web directly into cells.
+    Save the final table output as a static image or interactive file.
 }
 \seealso{
 Useful links:
