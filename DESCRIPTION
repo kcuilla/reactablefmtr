@@ -33,5 +33,6 @@ Suggests:
     MASS,
     scales,
     webshot2
+Additional_repositories: https://github.com/rstudio/webshot2
 RoxygenNote: 7.1.1
 Language: en-US
