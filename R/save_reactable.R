@@ -79,7 +79,7 @@ save_reactable <- function(input, output) {
 
     if (!requireNamespace("webshot2", quietly = TRUE)) {
 
-      stop("The `webshot2` package is required `save_reactable`.",
+      stop("The `webshot2` package is required to use `save_reactable()`.",
            call. = FALSE)
 
     } else {
@@ -101,7 +101,7 @@ save_reactable <- function(input, output) {
 
     if (!requireNamespace("webshot2", quietly = TRUE)) {
 
-      stop("The `webshot2` package is required `save_reactable`.",
+      stop("The `webshot2` package is required to use `save_reactable()`.",
            call. = FALSE)
 
     } else {
@@ -119,7 +119,7 @@ save_reactable <- function(input, output) {
 
     if (!requireNamespace("webshot2", quietly = TRUE)) {
 
-      stop("The `webshot2` package is required `save_reactable`.",
+      stop("The `webshot2` package is required to use `save_reactable()`.",
            call. = FALSE)
 
     } else {
