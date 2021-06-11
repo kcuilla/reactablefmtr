@@ -6,6 +6,7 @@
 #'     If the reactable table is located within an .Rmd file and has additional CSS styles provided,
 #'     specify the name of the .Rmd file as the input.
 #'     Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.
+#'     `save_reactable()` depends on the `{webshot2}` package which can be downloaded from https://github.com/rstudio/webshot2.
 #'
 #' @param input A reactable table, .html file, or .Rmd file
 #'
