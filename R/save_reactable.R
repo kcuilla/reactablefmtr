@@ -7,10 +7,14 @@
 #'     specify the name of the .Rmd file as the input.
 #'     Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.
 #'     `save_reactable()` depends on the `{webshot2}` package which can be downloaded from https://github.com/rstudio/webshot2.
+#'     Additional parameters available within webshot2::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
+#'     The zoom value within webshot::webshot has already been set to 2 which uses a higher pixel rate.
 #'
 #' @param input A reactable table, .html file, or .Rmd file
 #'
 #' @param output A .png or .html file name for the saved image
+#'
+#' @param zoom A number specifying the zoom
 #'
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tools file_ext
@@ -43,8 +47,9 @@
 #' }
 #' @export
 
-
-save_reactable <- function(input, output) {
+save_reactable <- function(input,
+                           output,
+                           ...) {
 
   if (typeof(input) != "character" && attr(input, "class")[1] != "reactable" || typeof(input) != "character" && is.null(attr(input, "class")[1])) {
 
@@ -85,9 +90,10 @@ save_reactable <- function(input, output) {
     } else {
 
     webshot2::webshot(url = temp_html,
-                      file = output,
-                      zoom = 2,
-                      delay = 1)
+                     file = output,
+                     zoom = 2,
+                     delay = 1,
+                     ...)
 
     invisible(file.remove(temp_html))
 
@@ -107,9 +113,10 @@ save_reactable <- function(input, output) {
     } else {
 
     webshot2::rmdshot(doc = input,
-                      file = output,
-                      zoom = 2,
-                      delay = 1)
+                     file = output,
+                     zoom = 2,
+                     delay = 1,
+                     ...)
 
     message("image saved to ", getwd(), "/", output)
 
@@ -125,9 +132,10 @@ save_reactable <- function(input, output) {
     } else {
 
     webshot2::webshot(url = input,
-                      file = output,
-                      zoom = 2,
-                      delay = 1)
+                     file = output,
+                     zoom = 2,
+                     delay = 1,
+                     ...)
 
     message("image saved to ", getwd(), "/", output)
 
@@ -137,3 +145,4 @@ save_reactable <- function(input, output) {
               and output is either a .png or .html file")
 
 }
+
