@@ -11,7 +11,8 @@ Enhance the styling of interactive reactable tables with easy-to-use
     data bars, color scales, and icon sets. Utilize custom table themes inspired by
     popular websites and bootstrap themes. Increase the portability and reproducibility
     of reactable tables by embedding images from the web directly into cells.
-    Save the final table output as a static image or interactive file.
+    Save the final table output as a static image or interactive file
+    (note this feature requires the {webshot2} package which can be downloaded from https://github.com/rstudio/webshot2).
 }
 \seealso{
 Useful links:

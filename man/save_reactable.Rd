@@ -4,12 +4,14 @@
 \alias{save_reactable}
 \title{Save a reactable table as an image or .html file}
 \usage{
-save_reactable(input, output)
+save_reactable(input, output, ...)
 }
 \arguments{
 \item{input}{A reactable table, .html file, or .Rmd file}
 
 \item{output}{A .png or .html file name for the saved image}
+
+\item{zoom}{A number specifying the zoom}
 }
 \value{
 a function that converts a reactable table, .html file, or .Rmd file to an .png file or .html file
@@ -22,6 +24,9 @@ The `save_reactable()` function converts either a reactable table, .html file, o
     If the reactable table is located within an .Rmd file and has additional CSS styles provided,
     specify the name of the .Rmd file as the input.
     Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.
+    `save_reactable()` depends on the `{webshot2}` package which can be downloaded from https://github.com/rstudio/webshot2.
+    Additional parameters available within webshot2::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
+    The zoom value within webshot::webshot has already been set to 2 which uses a higher pixel rate.
 }
 \examples{
 \dontrun{
