@@ -15,7 +15,7 @@ Description: Enhance the styling of interactive reactable tables with easy-to-us
     of reactable tables by embedding images from the web directly into cells.
     Save the final table output as a static image or interactive file
     (note this feature requires the 'webshot2' package which can 
-    be downloaded from https://github.com/rstudio/webshot2).
+    be downloaded from <https://github.com/rstudio/webshot2>).
 URL: https://kcuilla.github.io/reactablefmtr/, https://github.com/kcuilla/reactablefmtr
 BugReports: https://github.com/kcuilla/reactablefmtr/issues
 License: MIT + file LICENSE
