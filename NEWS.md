@@ -56,6 +56,7 @@
 
 * Reactable tables can now be saved as static .png files or dynamic .html files using `save_reactable()`
 * If the reactable table was created in a .Rmd file and additional CSS styling are applied, reference the name of either the .Rmd file containing the reactable table or the .html file of the reactable table to save an image of the table
+* Note: this feature requires the {webshot2} package which can be downloaded from https://github.com/rstudio/webshot2.
 
 #### add_title(), add_subtitle(), add_source()
 
