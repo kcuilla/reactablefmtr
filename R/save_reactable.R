@@ -8,13 +8,13 @@
 #'     Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.
 #'     `save_reactable()` depends on the `{webshot2}` package which can be downloaded from https://github.com/rstudio/webshot2.
 #'     Additional parameters available within webshot2::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
-#'     The zoom value within webshot::webshot has already been set to 2 which uses a higher pixel rate.
+#'     The zoom value within webshot2::webshot has already been set to 2 which uses a higher pixel rate.
 #'
 #' @param input A reactable table, .html file, or .Rmd file
 #'
 #' @param output A .png or .html file name for the saved image
 #'
-#' @param zoom A number specifying the zoom
+#' @param ... Optional additional parameters passed from webshot2::webshot
 #'
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tools file_ext
