@@ -45,7 +45,10 @@
     Table can be saved as either a .png file or .html file. Other file types are not currently supported.
     If the reactable table is located within an .Rmd file and has additional CSS styles provided,
     specify the name of the .Rmd file as the input.
-    Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input." />
+    Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.
+    `save_reactable()` depends on the `webshot2` package which can be downloaded from https://github.com/rstudio/webshot2.
+    Additional parameters available within webshot2::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
+    The zoom value within webshot2::webshot has already been set to 2 which uses a higher pixel rate." />
 
 
 
@@ -87,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reactablefmtr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -182,10 +185,13 @@
     Table can be saved as either a .png file or .html file. Other file types are not currently supported.
     If the reactable table is located within an .Rmd file and has additional CSS styles provided,
     specify the name of the .Rmd file as the input.
-    Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.</p>
+    Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.
+    `save_reactable()` depends on the `webshot2` package which can be downloaded from https://github.com/rstudio/webshot2.
+    Additional parameters available within webshot2::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
+    The zoom value within webshot2::webshot has already been set to 2 which uses a higher pixel rate.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>save_reactable</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>save_reactable</span><span class='op'>(</span><span class='va'>input</span>, <span class='va'>output</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,6 +203,10 @@
     <tr>
       <th>output</th>
       <td><p>A .png or .html file name for the saved image</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Optional additional parameters passed from webshot2::webshot</p></td>
     </tr>
     </table>
 
