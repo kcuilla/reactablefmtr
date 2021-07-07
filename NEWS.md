@@ -1,3 +1,21 @@
+# reactablefmtr 1.1.0 - development version
+
+### New Features
+
+#### animate
+
+* The animation of `data_bars()` can now be controlled with `animate`. The `animate` parameter has also been added to `color_scales()`, `color_tiles()`, `icon_sets()`, and `icon_assign()`. The duration and timing function of the animation can be changed within `animate` or the animation can be turned off by setting it to 'none'. For available timing functions, see [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+
+#### cell_style()
+
+* `cell_style()` can be used to customize the appearance of certain cells within a table. For example, if you wanted to display a particular value or set of values in a column as bold and in red text, you can do so by specifying either the row number or values themselves
+* Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, and the background color of the cell. Animation is also applied to `cell_style()` by default, but can be turned off by setting to 'none'.
+
+### Other
+
+* The default color of `fill_color` within `data_bars()` and `icon_assign()` has been changed to #67a9cf
+
+
 # reactablefmtr 1.0.0
 
 ### New Features
