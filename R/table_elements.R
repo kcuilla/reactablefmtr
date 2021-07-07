@@ -336,3 +336,150 @@ add_source <- function(table = NULL,
     )
   )
 }
+
+
+#' Add custom styles to cells
+#'
+#' Use `cell_style()` to customize the appearance of certain cells in a {reactable} or {reactablefmtr} table.
+#'      Assign custom styles by either row number(s) or by values within a particular column.
+#'      The font color, font size, font style, and font weight can all be modified.
+#'      Borders can also be placed around cells and customized by style, width, and color.
+#'      By default, animation is applied to the cells that are styled, but can be turned off by setting to 'none'.
+#'      Some options within `cell_style()` will work with other {reactablefmtr} formatters (such as data_bars() and color_tiles()),
+#'      but it is not fully supported and should be used separately, not together.
+#'      `cell_style()` needs to be placed within the style argument of reactable::colDef.
+#'
+#' @param data A dataset to be displayed within a {reactable} table.
+#'
+#' @param rows Numeric value representing the row number to apply the custom style.
+#'      Can provide a vector of rows if applying to more than one row.
+#'
+#' @param values A value, either numeric or character, that is present within a column.
+#'      Can provide a vector of values if applying to more than one value.
+#'
+#' @param font_color Color of the text.
+#'
+#' @param font_size Numeric value representing the size of the font of the text (in px).
+#'      Default is 16.
+#'
+#' @param font_style Style of the text font.
+#'      Options are "normal" or "italic".
+#'      Default is "normal".
+#'
+#' @param font_weight The font weight of the text
+#'      Options are "normal", "bold", "bolder", "lighter" or a value between 100 and 900.
+#'      Default is "normal".
+#'
+#' @param text_decoration Optionally add an underline, overline, or line-through to the text
+#'      Options are "underline", "overline", "underline overline", or "line-through".
+#'      Default is NULL.
+#'
+#' @param border_width The width of the border around the cell.
+#'      Options are "thin", "medium", "thick", or a numeric value such as "2px".
+#'      May be specified using one, two, three, or four values.
+#'      See [CSS border-width](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width) for more options.
+#'
+#' @param border_style The style of the border around the cell.
+#'      Options are "solid", "dashed", "dotted", "double", "groove", "ridge", "inset", "outset", "none", or "hidden".
+#'      May be specified using one, two, three, or four values.
+#'      See [CSS border-style](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style) for more options.
+#'
+#' @param border_color The color of the border around the cell.
+#'      May be specified using one, two, three, or four values.
+#'      See [CSS border-color](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color) for more options.
+#'
+#' @param background_color Color of the background of the cell.
+#'
+#' @param animation Control the duration and timing function of the animation
+#'     when sorting/updating values shown on a page.
+#'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+#'     for available timing functions and examples.
+#'     Animation can be turned off by setting to "none".
+#'     Default is "1s ease".
+#'
+#' @return a function that adds a custom style to a row or rows in a reactable table.
+#'
+#' @import reactable
+#'
+#' @examples
+#' \dontrun{
+#' ## Add a dotted blue border around the third row in Sepal.Length
+#' data <- iris[10:29, ]
+#' reactable(data,
+#'          columns = list(
+#'            Sepal.Length = colDef(
+#'              style = cell_style(data,
+#'                                 rows = 3,
+#'                                 border_width = "thick",
+#'                                 border_color = "blue",
+#'                                 border_style = "dotted"))))
+#'
+#' ## For all setosa species, highlight cell yellow and assign red font color
+#' data <- iris[10:100, ]
+#' reactable(data,
+#'          columns = list(
+#'          Species = colDef(
+#'              style = cell_style(data,
+#'                                 values = "setosa",
+#'                                 font_color = "red",
+#'                                 background_color = "yellow"))))
+#' }
+#' @export
+
+cell_style <- function(data,
+                       rows = NULL,
+                       values = NULL,
+                       font_color = NULL,
+                       font_size = NULL,
+                       font_style = "normal",
+                       font_weight = "normal",
+                       text_decoration = NULL,
+                       border_width = NULL,
+                       border_style = NULL,
+                       border_color = NULL,
+                       background_color = NULL,
+                       animation = "1s ease") {
+
+  '%notin%' <- Negate('%in%')
+
+  style <- function(value, index, name) {
+
+    if (!is.null(values) && values %in% data[[name]] == FALSE) {
+
+      stop("values do not exist in dataset")
+
+      if (!is.null(border_style) & grepl("solid | dashed | dotted | double | groove | ridge | inset | outset | none | hidden", border_style) == FALSE) {
+
+        stop("border_style type must be either solid, dashed, dotted, double, groove, ridge, inset, outside, none, or hidden.")
+      }
+
+      if (!is.null(font_weight) & !is.numeric(font_weight) & grepl("normal | bold | bolder | lighter", font_weight) == FALSE) {
+
+        stop("font_weight must either be a numeric value between 100 and 900 or one of normal, bold, bolder, or lighter.")
+      }
+
+      if (font_style %notin% c("normal", "italic") == TRUE) {
+
+        stop("font_style must be either 'normal' or 'italic'")
+      }
+
+      if (!is.null(text_decoration) && text_decoration %notin% c("underline", "overline", "underline overline", "line-through") == TRUE) {
+
+        stop("text_decoration must be either 'underline', 'overline', 'underline overline', or 'line-through'")
+      }
+
+    } else if (value %in% values | index %in% rows) {
+
+      list(transition = animation,
+           borderColor = border_color,
+           borderWidth = border_width,
+           borderStyle = border_style,
+           color = font_color,
+           background = background_color,
+           textDecoration = text_decoration,
+           fontStyle = font_style,
+           fontWeight = font_weight,
+           fontSize = font_size)
+    }
+  }
+}

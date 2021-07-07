@@ -43,6 +43,13 @@
 #'     Options are "left", "right", above", "below", or "none".
 #'     Default is none.
 #'
+#' @param animation Control the duration and timing function of the animation
+#'     when sorting/updating values shown on a page.
+#'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+#'     for available timing functions and examples.
+#'     Animation can be turned off by setting to "none".
+#'     Default is "1s ease".
+#'
 #' @import reactable
 #'
 #' @return a function that applies colored icons
@@ -87,7 +94,7 @@
 
 icon_assign <- function(data,
                         icon = "circle",
-                        fill_color = "#1e90ff",
+                        fill_color = "#67a9cf",
                         empty_color = "lightgrey",
                         fill_opacity = 1,
                         empty_opacity = 1,
@@ -95,7 +102,8 @@ icon_assign <- function(data,
                         buckets = NULL,
                         number_fmt = NULL,
                         seq_by = 1,
-                        show_values = "none") {
+                        show_values = "none",
+                        animation = "1s ease") {
 
 
   '%notin%' <- Negate('%in%')
@@ -132,7 +140,7 @@ icon_assign <- function(data,
   icons <- function(empty = FALSE) {
 
     htmltools::tagAppendAttributes(shiny::icon(icon),
-                                   style = paste0("font-size:", icon_size, "px", "; color:", if (empty) empty_color else fill_color),
+                                   style = paste0("font-size:", icon_size, "px", "; color:", if (empty) empty_color else fill_color, sprintf("; transition: %s", animation)),
                                    "aria-hidden" = "true"
     )
   }
@@ -201,8 +209,8 @@ icon_assign <- function(data,
       label <- stringr::str_pad(value, max_digits)
 
       htmltools::tagList(
-      htmltools::div(label),
-      htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq)
+        htmltools::div(label),
+        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq)
       )
 
     } else if (show_values == "above" & !is.null(number_fmt)) {

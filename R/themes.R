@@ -34,7 +34,7 @@
 #' reactable(data,
 #'           theme = default())
 #'
-#' ## Default theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = default(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -101,7 +101,7 @@ default <- function(font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Ar
 #' reactable(data,
 #'           theme = cerulean())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = cerulean(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -209,7 +209,7 @@ cerulean <- function(font_family = "Verdana",
 #' reactable(data,
 #'           theme = cosmo())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = cosmo(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -316,7 +316,7 @@ cosmo <- function(font_family = "Verdana",
 #' reactable(data,
 #'           theme = cyborg())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = cyborg(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -422,7 +422,7 @@ cyborg <- function(font_family = "Verdana",
 #' reactable(data,
 #'           theme = darkly())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = darkly(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -530,7 +530,7 @@ darkly <- function(font_family = "Georgia",
 #' reactable(data,
 #'           theme = flatly())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = flatly(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -637,7 +637,7 @@ flatly <- function(font_family = "Georgia",
 #' reactable(data,
 #'           theme = journal())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = journal(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -745,7 +745,7 @@ journal <- function(font_family = "Tahoma",
 #' reactable(data,
 #'           theme = lux())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = lux(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -855,7 +855,7 @@ lux <- function(font_family = "Tahoma",
 #' reactable(data,
 #'           theme = minty())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = minty(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -962,7 +962,7 @@ minty <- function(font_family = "Helvetica",
 #' reactable(data,
 #'           theme = sandstone())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = sandstone(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1073,7 +1073,7 @@ sandstone <- function(font_family = "Georgia",
 #' reactable(data,
 #'           theme = slate())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = slate(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1181,7 +1181,7 @@ slate <- function(font_family = "Arial",
 #' reactable(data,
 #'           theme = spacelab())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = spacelab(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1282,7 +1282,7 @@ spacelab <- function(font_family = "Georgia",
 #' reactable(data,
 #'           theme = superhero())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = superhero(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1378,7 +1378,7 @@ superhero <- function(font_family = "Georgia",
 #' reactable(data,
 #'           theme = espn())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = espn(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1472,7 +1472,7 @@ espn <- function(font_family = "Arial",
 #' reactable(data,
 #'           theme = fivethirtyeight())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = fivethirtyeight(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1575,7 +1575,7 @@ fivethirtyeight <- function(font_family = "Helvetica",
 #' reactable(data,
 #'           theme = nytimes())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = nytimes(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1668,7 +1668,7 @@ nytimes <- function(font_family = "Helvetica",
 #' reactable(data,
 #'           theme = pff())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = pff(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1756,6 +1756,93 @@ pff <- function(font_family = "Arial",
 }
 
 
+#' Theme sanfran
+#'
+#' San Francisco Chronicles-inspired table theme
+#'
+#' @param font_family Font family for the text within the table.
+#'      Default is Verdana.
+#'
+#' @param font_size Numeric value representing the size of the font within the table (in px).
+#'      Default is 14.
+#'
+#' @param font_color Color of the font for the text within the table.
+#'      Default is #222222.
+#'
+#' @param header_font_family Font family for the header text.
+#'      Default is Verdana.
+#'
+#' @param header_font_size Numeric value representing the size of the font within the table (in px).
+#'      Default is 15.
+#'
+#' @param header_font_color Color of the font for the header text.
+#'      Default is transparent
+#'
+#' @param cell_color Color of the background of the cells.
+#'      Default is #f5f5f5.
+#'
+#' @param cell_border_width Numeric value representing the border width of the cells.
+#'      Default is 6.
+#'
+#' @param cell_border_color Numeric value representing the border color of the cells.
+#'      Default is #ffffff.
+#'
+#' @param cell_padding Numeric value representing the padding size between cells (in px).
+#'      Default is 6.
+#'
+#' @param pagination_color Color of the pagination below the table.
+#'      Default is #222222.
+#'
+#' @return an object of class theme that is applied to a reactable table.
+#'
+#' @import reactable
+#'
+#' @examples
+#' data <- iris[10:29, ]
+#'
+#' ## Standard void theme
+#' reactable(data,
+#'           theme = sanfran())
+#'
+#' ## Additional options applied
+#' reactable(data,
+#'           theme = sanfran(font_size = 12, font_color = "grey"))
+#'
+#' @export
+
+sanfran <- function(font_family = "Verdana",
+                    font_size = 14,
+                    font_color = "#222222",
+                    header_font_family = "Verdana",
+                    header_font_size = 15,
+                    header_font_color = "#212121",
+                    cell_color = "#f5f5f5",
+                    cell_border_width = 6,
+                    cell_border_color = "#ffffff",
+                    cell_padding = 6,
+                    pagination_color = "#222222") {
+
+  reactableTheme(
+    color = font_color,
+    backgroundColor = "transparent",
+    borderColor = "#f5f5f5",
+    stripedColor = "lightgrey",
+    highlightColor = "lightgrey",
+    cellPadding = cell_padding,
+    cellStyle = list(background = cell_color,
+                     borderWidth = cell_border_width,
+                     borderColor = cell_border_color),
+    tableStyle = list(fontFamily = font_family,
+                      fontSize = font_size),
+    headerStyle = list(color = header_font_color,
+                       fontFamily = header_font_family,
+                       fontSize = header_font_size),
+    selectStyle = list(color = pagination_color),
+    paginationStyle = list(color = pagination_color)
+  )
+}
+
+
 #' Theme hoverdark
 #'
 #' Changes from light-themed to dark-themed on hover
@@ -1789,7 +1876,7 @@ pff <- function(font_family = "Arial",
 #' reactable(data,
 #'           theme = hoverdark())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = hoverdark(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1859,7 +1946,7 @@ hoverdark <- function(font_family = "Verdana",
 #' reactable(data,
 #'           theme = hoverlight())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = hoverlight(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -1933,7 +2020,7 @@ hoverlight <- function(font_family = "Verdana",
 #' reactable(data,
 #'           theme = midnight())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = midnight(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -2054,7 +2141,7 @@ midnight <- function(font_family = "Tahoma",
 #' reactable(data,
 #'           theme = midnightblue())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = midnightblue(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -2177,7 +2264,7 @@ midnightblue <- function(font_family = "Tahoma",
 #' reactable(data,
 #'           theme = sunrise())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = sunrise(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -2285,7 +2372,7 @@ sunrise <- function(font_family = "Tahoma",
 #' reactable(data,
 #'           theme = clean())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = clean(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -2345,6 +2432,18 @@ clean <- function(font_family = "Verdana",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param border_color Color of the borders between cells.
+#'      Default is transparent.
+#'
+#' @param border_width Numeric value representing the border width between cells (in px).
+#'      Default is 0.
+#'
+#' @param header_border_color Color of the bottom border of the header.
+#'      Default is transparent.
+#'
+#' @param header_border_width Numeric value representing the bottom border width of the header (in px).
+#'      Default is 0.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -2356,7 +2455,7 @@ clean <- function(font_family = "Verdana",
 #' reactable(data,
 #'           theme = void())
 #'
-#' ## Cerulean theme with additional options applied
+#' ## Additional options applied
 #' reactable(data,
 #'           theme = void(font_size = 12, font_color = "grey", cell_padding = 3))
 #'
@@ -2368,18 +2467,24 @@ void <- function(font_family = "Verdana",
                  header_font_family = "Verdana",
                  header_font_size = 15,
                  header_font_color = "transparent",
+                 border_color = "transparent",
+                 border_width = 0,
+                 header_border_color = "transparent",
+                 header_border_width = 0,
                  cell_padding = 6) {
 
   reactableTheme(
     color = font_color,
     backgroundColor = "transparent",
-    borderColor = "transparent",
     stripedColor = "lightgrey",
     highlightColor = "lightgrey",
     cellPadding = cell_padding,
+    cellStyle = list(borderColor = border_color,
+                     borderWidth = border_width),
     tableStyle = list(fontFamily = font_family,
                       fontSize = font_size),
     headerStyle = list(color = header_font_color,
+                       borderBottom = paste0("", header_border_width, "px solid ", header_border_color, ""),
                        fontFamily = header_font_family,
                        fontSize = header_font_size),
     selectStyle = list(color = "transparent"),

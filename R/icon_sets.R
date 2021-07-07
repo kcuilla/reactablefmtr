@@ -44,6 +44,13 @@
 #' @param number_fmt Optionally format numbers using formats from the scales package.
 #'     Default is set to NULL.
 #'
+#' @param animation Control the duration and timing function of the animation
+#'     when sorting/updating values shown on a page.
+#'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+#'     for available timing functions and examples.
+#'     Animation can be turned off by setting to "none".
+#'     Default is "1s ease".
+#'
 #' @import reactable
 #'
 #' @return a function that applies an icon
@@ -91,7 +98,8 @@ icon_sets <- function(data,
                       icon_ref = NULL,
                       icon_size = 16,
                       icon_color_ref = NULL,
-                      number_fmt = NULL) {
+                      number_fmt = NULL,
+                      animation = "1s ease") {
 
 
   '%notin%' <- Negate('%in%')
@@ -154,22 +162,22 @@ icon_sets <- function(data,
         if (is.null(icon_ref) & is.null(icon_color_ref)) {
 
           icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]]))
+                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]], sprintf("; transition: %s", animation)))
 
         } else if (!is.null(icon_ref) & is.null(icon_color_ref)) {
 
           icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
-                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]]))
+                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]], sprintf("; transition: %s", animation)))
 
         } else if (is.null(icon_ref) & !is.null(icon_color_ref)) {
 
           icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors))
+                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors, sprintf("; transition: %s", animation)))
 
         } else if (!is.null(icon_ref) & !is.null(icon_color_ref)) {
 
           icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
-                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors))
+                                                       style = paste0("font-size:", icon_size, "px", "; color:", colors, sprintf("; transition: %s", animation)))
 
         }
 
@@ -232,22 +240,22 @@ icon_sets <- function(data,
       if (is.null(icon_ref) & is.null(icon_color_ref)) {
 
         icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]]))
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]], sprintf("; transition: %s", animation)))
 
       } else if (!is.null(icon_ref) & is.null(icon_color_ref)) {
 
         icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
-                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]]))
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]], sprintf("; transition: %s", animation)))
 
       } else if (is.null(icon_ref) & !is.null(icon_color_ref)) {
 
         icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
-                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors))
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors, sprintf("; transition: %s", animation)))
 
       } else if (!is.null(icon_ref) & !is.null(icon_color_ref)) {
 
         icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
-                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors))
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors, sprintf("; transition: %s", animation)))
 
       }
 
