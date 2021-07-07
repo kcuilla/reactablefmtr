@@ -13,7 +13,8 @@ icon_sets(
   icon_ref = NULL,
   icon_size = 16,
   icon_color_ref = NULL,
-  number_fmt = NULL
+  number_fmt = NULL,
+  animation = "1s ease"
 )
 }
 \arguments{
@@ -51,6 +52,13 @@ Default is NULL.}
 
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is set to NULL.}
+
+\item{animation}{Control the duration and timing function of the animation
+when sorting/updating values shown on a page.
+See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+for available timing functions and examples.
+Animation can be turned off by setting to "none".
+Default is "1s ease".}
 }
 \value{
 a function that applies an icon

@@ -45,7 +45,7 @@ data <- iris[10:29, ]
 reactable(data,
           theme = hoverdark())
 
-## Cerulean theme with additional options applied
+## Additional options applied
 reactable(data,
           theme = hoverdark(font_size = 12, font_color = "grey", cell_padding = 3))
 

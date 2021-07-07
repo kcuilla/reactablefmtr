@@ -15,7 +15,8 @@ color_tiles(
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
-  span = FALSE
+  span = FALSE,
+  animation = "1s ease"
 )
 }
 \arguments{
@@ -58,6 +59,13 @@ Default is FALSE.}
 To apply across all columns set to TRUE.
 If applying to a set of columns, can provide either column names or column positions.
 Default is set to FALSE.}
+
+\item{animation}{Control the duration and timing function of the animation
+when sorting/updating values shown on a page.
+See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+for available timing functions and examples.
+Animation can be turned off by setting to "none".
+Default is "1s ease".}
 }
 \value{
 a function that applies conditional color tiles

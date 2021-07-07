@@ -6,7 +6,7 @@
 \usage{
 data_bars(
   data,
-  fill_color = "#1e90ff",
+  fill_color = "#67a9cf",
   fill_color_ref = NULL,
   fill_opacity = 1,
   fill_gradient = FALSE,
@@ -29,7 +29,8 @@ data_bars(
   img = NULL,
   img_ref = NULL,
   img_height = 20,
-  img_width = 20
+  img_width = 20,
+  animation = "1s ease"
 )
 }
 \arguments{
@@ -127,6 +128,13 @@ Default is 20.}
 
 \item{img_width}{A value for the width of the image in px.
 Default is 20.}
+
+\item{animation}{Control the duration and timing function of the animation
+when sorting/updating values shown on a page.
+See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+for available timing functions and examples.
+Animation can be turned off by setting to "none".
+Default is "1s ease".}
 }
 \value{
 a function that applies data bars

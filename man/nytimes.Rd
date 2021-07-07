@@ -49,7 +49,7 @@ data <- iris[10:29, ]
 reactable(data,
           theme = nytimes())
 
-## Cerulean theme with additional options applied
+## Additional options applied
 reactable(data,
           theme = nytimes(font_size = 12, font_color = "grey", cell_padding = 3))
 

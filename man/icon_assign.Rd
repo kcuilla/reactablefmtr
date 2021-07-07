@@ -7,7 +7,7 @@
 icon_assign(
   data,
   icon = "circle",
-  fill_color = "#1e90ff",
+  fill_color = "#67a9cf",
   empty_color = "lightgrey",
   fill_opacity = 1,
   empty_opacity = 1,
@@ -15,7 +15,8 @@ icon_assign(
   buckets = NULL,
   number_fmt = NULL,
   seq_by = 1,
-  show_values = "none"
+  show_values = "none",
+  animation = "1s ease"
 )
 }
 \arguments{
@@ -55,6 +56,13 @@ Default value is set to 1.}
 \item{show_values}{Optionally display values next to icons.
 Options are "left", "right", above", "below", or "none".
 Default is none.}
+
+\item{animation}{Control the duration and timing function of the animation
+when sorting/updating values shown on a page.
+See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+for available timing functions and examples.
+Animation can be turned off by setting to "none".
+Default is "1s ease".}
 }
 \value{
 a function that applies colored icons
