@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reactablefmtr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -169,13 +169,46 @@
       <small>Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="reactablefmtr-100" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#reactablefmtr-100" class="anchor"></a>reactablefmtr 1.0.0<small> 2021-06-16 </small>
+    <div id="reactablefmtr-110---development-version" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#reactablefmtr-110---development-version" class="anchor"></a>reactablefmtr 1.1.0 - development version<small> Unreleased </small>
 </h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h3>
+<div id="animate" class="section level4">
+<h4 class="hasAnchor">
+<a href="#animate" class="anchor"></a>animate</h4>
+<ul>
+<li>The animation of <code><a href="../reference/data_bars.html">data_bars()</a></code> can now be controlled with <code>animate</code>. The <code>animate</code> parameter has also been added to <code><a href="../reference/color_scales.html">color_scales()</a></code>, <code><a href="../reference/color_tiles.html">color_tiles()</a></code>, <code><a href="../reference/icon_sets.html">icon_sets()</a></code>, and <code><a href="../reference/icon_assign.html">icon_assign()</a></code>. The duration and timing function of the animation can be changed within <code>animate</code> or the animation can be turned off by setting it to ‘none’. For available timing functions, see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition">CSS Transitions</a>
+</li>
+</ul>
+</div>
+<div id="cell_style" class="section level4">
+<h4 class="hasAnchor">
+<a href="#cell_style" class="anchor"></a>cell_style()</h4>
+<ul>
+<li>
+<code><a href="../reference/cell_style.html">cell_style()</a></code> can be used to customize the appearance of certain cells within a table. For example, if you wanted to display a particular value or set of values in a column as bold and in red text, you can do so by specifying either the row number or values themselves</li>
+<li>Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, and the background color of the cell. Animation is also applied to <code><a href="../reference/cell_style.html">cell_style()</a></code> by default, but can be turned off by setting to ‘none’.</li>
+</ul>
+</div>
+</div>
+<div id="other" class="section level3">
+<h3 class="hasAnchor">
+<a href="#other" class="anchor"></a>Other</h3>
+<ul>
+<li>The default color of <code>fill_color</code> within <code><a href="../reference/data_bars.html">data_bars()</a></code> and <code><a href="../reference/icon_assign.html">icon_assign()</a></code> has been changed to <a href='https://github.com/kcuilla/reactablefmtr/issues/67'>#67</a>a9cf</li>
+</ul>
+</div>
+</div>
+    <div id="reactablefmtr-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#reactablefmtr-100" class="anchor"></a>reactablefmtr 1.0.0<small> 2021-06-16 </small>
+</h1>
+<div id="new-features-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New Features</h3>
 <div id="data_bars" class="section level4">
 <h4 class="hasAnchor">
 <a href="#data_bars" class="anchor"></a>data_bars()</h4>
@@ -304,9 +337,9 @@
 <h1 class="page-header" data-toc-text="0.2.0">
 <a href="#reactablefmtr-020" class="anchor"></a>reactablefmtr 0.2.0<small> 2021-03-18 </small>
 </h1>
-<div id="new-features-1" class="section level3">
+<div id="new-features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New Features</h3>
+<a href="#new-features-2" class="anchor"></a>New Features</h3>
 <ul>
 <li>Data bars can now accept gradient colors by using <code><a href="../reference/data_bars_gradient.html">data_bars_gradient()</a></code>
 </li>
@@ -330,9 +363,9 @@
 <li>An issue where aligning values while using <code><a href="../reference/data_bars.html">data_bars()</a></code> did not always align properly has been fixed</li>
 </ul>
 </div>
-<div id="other" class="section level3">
+<div id="other-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#other" class="anchor"></a>Other</h3>
+<a href="#other-1" class="anchor"></a>Other</h3>
 <ul>
 <li>Due to the addition of <code>number_fmt()</code> which allows for the use of formatters from the <code>scales</code> package, the <code>add_plus_sign()</code> formatter will be retired in the next CRAN release as well as the <code>commas</code> option in the <code><a href="../reference/data_bars.html">data_bars()</a></code> formatter, and the <code>percent</code> option in the <code><a href="../reference/data_bars_pos_neg.html">data_bars_pos_neg()</a></code> and <code><a href="../reference/icon_sets.html">icon_sets()</a></code> formatters</li>
 </ul>
