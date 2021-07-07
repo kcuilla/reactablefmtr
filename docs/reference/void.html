@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reactablefmtr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -182,6 +182,10 @@
   header_font_family <span class='op'>=</span> <span class='st'>"Verdana"</span>,
   header_font_size <span class='op'>=</span> <span class='fl'>15</span>,
   header_font_color <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  border_color <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  border_width <span class='op'>=</span> <span class='fl'>0</span>,
+  header_border_color <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  header_border_width <span class='op'>=</span> <span class='fl'>0</span>,
   cell_padding <span class='op'>=</span> <span class='fl'>6</span>
 <span class='op'>)</span></pre>
 
@@ -219,6 +223,26 @@ Default is 15.</p></td>
 Default is transparent</p></td>
     </tr>
     <tr>
+      <th>border_color</th>
+      <td><p>Color of the borders between cells.
+Default is transparent.</p></td>
+    </tr>
+    <tr>
+      <th>border_width</th>
+      <td><p>Numeric value representing the border width between cells (in px).
+Default is 0.</p></td>
+    </tr>
+    <tr>
+      <th>header_border_color</th>
+      <td><p>Color of the bottom border of the header.
+Default is transparent.</p></td>
+    </tr>
+    <tr>
+      <th>header_border_width</th>
+      <td><p>Numeric value representing the bottom border width of the header (in px).
+Default is 0.</p></td>
+    </tr>
+    <tr>
       <th>cell_padding</th>
       <td><p>Numeric value representing the padding size between cells (in px).
 Default is 6.</p></td>
@@ -236,7 +260,7 @@ Default is 6.</p></td>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
           theme <span class='op'>=</span> <span class='fu'>void</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## Cerulean theme with additional options applied</span>
+<span class='co'>## Additional options applied</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
           theme <span class='op'>=</span> <span class='fu'>void</span><span class='op'>(</span>font_size <span class='op'>=</span> <span class='fl'>12</span>, font_color <span class='op'>=</span> <span class='st'>"grey"</span>, cell_padding <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 

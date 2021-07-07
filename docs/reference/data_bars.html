@@ -104,7 +104,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">reactablefmtr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -221,7 +221,7 @@
 
     <pre class="usage"><span class='fu'>data_bars</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  fill_color <span class='op'>=</span> <span class='st'>"#1e90ff"</span>,
+  fill_color <span class='op'>=</span> <span class='st'>"#67a9cf"</span>,
   fill_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   fill_opacity <span class='op'>=</span> <span class='fl'>1</span>,
   fill_gradient <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -244,7 +244,8 @@
   img <span class='op'>=</span> <span class='cn'>NULL</span>,
   img_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   img_height <span class='op'>=</span> <span class='fl'>20</span>,
-  img_width <span class='op'>=</span> <span class='fl'>20</span>
+  img_width <span class='op'>=</span> <span class='fl'>20</span>,
+  animation <span class='op'>=</span> <span class='st'>"1s ease"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -394,6 +395,15 @@ Default is 20.</p></td>
       <th>img_width</th>
       <td><p>A value for the width of the image in px.
 Default is 20.</p></td>
+    </tr>
+    <tr>
+      <th>animation</th>
+      <td><p>Control the duration and timing function of the animation
+when sorting/updating values shown on a page.
+See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+for available timing functions and examples.
+Animation can be turned off by setting to "none".
+Default is "1s ease".</p></td>
     </tr>
     </table>
 
