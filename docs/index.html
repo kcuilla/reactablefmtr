@@ -130,7 +130,7 @@
 
 <div id="reactablefmtr-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#reactablefmtr-" class="anchor"></a>reactablefmtr <a href="https://kcuilla.github.io/reactablefmtr/index.html"><img src="reference/figures/reactablefmtr_hex_logo.png" align="right" width="175" height="210"></a>
+<a href="#reactablefmtr-" class="anchor"></a>reactablefmtr <a href="https://kcuilla.github.io/reactablefmtr/index.html"><img src="reference/figures/reactablefmtr_hex_logo.png" align="right" width="150" height="185"></a>
 </h2>
 <!-- badges: start -->
 
@@ -164,24 +164,7 @@
 <div id="color-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#color-scales" class="anchor"></a>Color Scales</h3>
-<p>Use <code><a href="reference/color_scales.html">color_scales()</a></code> to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes (such as viridis::magma shown below).</p>
-<pre class="{r}"><code><a href="https://allisonhorst.github.io/palmerpenguins/">library(palmerpenguins)
-library(dplyr)
-library(viridis)
-  
-data &lt;- palmerpenguins %&gt;%
-  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm)
-
-reactable(
-  data,
-  columns = list(
-    bill_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
-    bill_depth_mm = colDef(style = color_scales(data, colors = viridis::magma(5))),
-    flipper_length_mm = colDef(style = color_scales(data, colors = viridis::magma(5)))
-  )
-)</a></code></pre>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/color_scales_mako.png" align="center"></p>
-<p>By default, colors are conditionally assigned to values within each column, but can also be assigned to row-wise data as shown below. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">tutorial</a> for more examples.</p>
+<p>Use <code><a href="reference/color_scales.html">color_scales()</a></code> to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">tutorial</a> for more examples.</p>
 <pre class="{r}"><code>dimnames &lt;- list(start(nottem)[1]:end(nottem)[1], month.abb)
 temps &lt;- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
 temps &lt;- as_tibble(temps, rownames = "Year")
@@ -195,49 +178,16 @@ reactable(
 )</code></pre>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/C6731D97-6D37-4CD2-A93D-374352961F4A.png" align="center"></p>
 </div>
-<div id="color-tiles" class="section level3">
-<h3 class="hasAnchor">
-<a href="#color-tiles" class="anchor"></a>Color Tiles</h3>
-<p>A similar formatter to <code><a href="reference/color_scales.html">color_scales()</a></code> is <code><a href="reference/color_tiles.html">color_tiles()</a></code>. Numbers can be formatted using any formatter from the {scales} package, just like how they are in {ggplot2}. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html">tutorial</a> for customization options.</p>
-<pre class="{r}"><code>reactable(
-  iris,
-  defaultColDef = colDef(
-    cell = color_tiles(iris, colors = viridis::magma(10), number_fmt = scales::number_format(accuracy = 0.1, suffix = " cm"))
-  )
-)</code></pre>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/color_tiles_example_iris.png" align="center"></p>
-</div>
 <div id="icon-sets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icon-sets" class="anchor"></a>Icon Sets</h3>
 <p>Use <code><a href="reference/icon_sets.html">icon_sets()</a></code> to conditionally assign icons to values from the <a href="https://fontawesome.com/icons?d=gallery&amp;p=2">Font Awesome</a> library based on their relative values. Any number of icons and/or colors can be applied to values within each column. Customization options such as number formatting and positioning of icons are also available. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html">tutorial</a> for more options.</p>
-<pre class="{r}"><code>mtcars[1:10,c(1,2,4)] %&gt;% 
-reactable(., 
-          theme = flatly(),
-          defaultColDef = colDef(maxWidth = 150),
-          columns = list(
-            mpg = colDef(cell = icon_sets(., icons = "gas-pump", colors = c("red","blue","green"))),
-            cyl = colDef(cell = icon_sets(., icons = "car-side", colors = c("red","blue","green"))),
-            hp = colDef(cell = icon_sets(., icons = "horse-head", colors = c("red","blue","green")))
-          )
-)</code></pre>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/README_icon_sets_cars.png" align="center"></p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/MPGbyCarTypeICONS.png" algin="center"></p>
 </div>
 <div id="icon-assign" class="section level3">
 <h3 class="hasAnchor">
 <a href="#icon-assign" class="anchor"></a>Icon Assign</h3>
 <p>Use <code><a href="reference/icon_assign.html">icon_assign()</a></code> to assign icons to values from the <a href="https://fontawesome.com/icons?d=gallery&amp;p=2">Font Awesome</a> library. Multiple customization options are available, such as bucketing values and the option to show/hide values next to the icons. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html">tutorial</a> for more options.</p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[1:20, c("Make", "Cylinders", "MPG.city", "Price")]
-
-reactable(
-  data,
-  defaultColDef = colDef(align = "left", maxWidth = 200),
-  columns = list(
-    Cylinders = colDef(cell = icon_assign(data)),
-    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5, show_values = "right")),
-    Price = colDef(cell = icon_assign(data, icon = "dollar-sign", fill_color = "red", empty_color = "white", buckets = 5, show_values = "right", number_fmt = scales::dollar))
-  )
-)</code></pre>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/5E26F646-AE47-4044-B01D-6BEBF28DD08B.jpeg" align="center"></p>
 </div>
 </div>
@@ -265,6 +215,12 @@ data %&gt;%
   add_subtitle("This is a subtitle") %&gt;% 
   add_source("This is a source")</code></pre>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/README_add_title.png" align="center"></p>
+</div>
+<div id="create-data-visualizations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#create-data-visualizations" class="anchor"></a>Create Data Visualizations</h2>
+<p>Who says {reactablefmtr} can just be used to make tables? You can create data visualizations like the one shown below. <a href="https://github.com/kcuilla/Tidy-Tuesday/blob/main/2021_26/park_spending.R">Source code</a></p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/Tidy-Tuesday/main/2021_26/park_spending_per_resident.png" align="center"></p>
 </div>
 <div id="save-static-or-interactive-tables" class="section level2">
 <h2 class="hasAnchor">
