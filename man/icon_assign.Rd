@@ -11,6 +11,7 @@ icon_assign(
   empty_color = "lightgrey",
   fill_opacity = 1,
   empty_opacity = 1,
+  align_icons = "left",
   icon_size = 16,
   buckets = NULL,
   number_fmt = NULL,
@@ -38,6 +39,10 @@ Default is 1.}
 \item{empty_opacity}{A value between 0 and 1 that adjusts the opacity in empty_color.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
 Default is 1.}
+
+\item{align_icons}{Choose how to align the icons in a column.
+Options are left, right, or center.
+Default is left.}
 
 \item{icon_size}{A value representing the size of the icon in px.
 Default is 16.}
@@ -108,5 +113,11 @@ reactable(data,
 columns = list(
 Sepal.Length = colDef(cell = icon_assign(data,
 show_values = "right"))))
+
+## Change the alignment of the icons within a column.
+reactable(data,
+columns = list(
+Sepal.Length = colDef(cell = icon_assign(data,
+align_icons = "center"))))
 
 }
