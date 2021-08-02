@@ -46,7 +46,7 @@ reactable(
   defaultColDef = colDef(align = "left", maxWidth = 200), 
   columns = list(
     Cylinders = colDef(cell = icon_assign(data)),
-    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green"))
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "forestgreen"))
   )
 )
 ```
@@ -63,7 +63,7 @@ reactable(
   defaultColDef = colDef(align = "left", maxWidth = 200), 
   columns = list(
     Cylinders = colDef(cell = icon_assign(data)),
-    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5))
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "forestgreen", buckets = 5))
   )
 )
 ```
@@ -82,7 +82,7 @@ reactable(
   defaultColDef = colDef(align = "left", maxWidth = 200), 
   columns = list(
     Cylinders = colDef(cell = icon_assign(data)),
-    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5, show_values = "right"))
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "forestgreen", buckets = 5, show_values = "right"))
   )
 )
 ```
@@ -101,10 +101,26 @@ reactable(
   defaultColDef = colDef(align = "left", maxWidth = 200), 
   columns = list(
     Cylinders = colDef(cell = icon_assign(data)),
-    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "green", buckets = 5, show_values = "right")),
+    MPG.city = colDef(cell = icon_assign(data, icon = "envira", fill_color = "forestgreen", buckets = 5, show_values = "right")),
     Price = colDef(cell = icon_assign(data, icon = "dollar-sign", fill_color = "red", empty_color = "white", buckets = 5, show_values = "right", number_fmt = scales::dollar))
   )
 )
 ```
 
+
+## Aligning Icons
+
+Icons can be aligned within a column either to the left, right, or center with `align_icons`. 
+
+
+```{r}
+data <- MASS::Cars93[1:20, c("Make", "Passengers")]
+
+reactable(
+  data,
+  defaultColDef = colDef(maxWidth = 300, align = "center",
+                         cell = icon_assign(data, icon = "user", align_icons = "center")
+  )
+)
+```
 
