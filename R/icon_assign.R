@@ -25,6 +25,10 @@
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
 #'     Default is 1.
 #'
+#' @param align_icons Choose how to align the icons in a column.
+#'     Options are left, right, or center.
+#'     Default is left.
+#'
 #' @param icon_size A value representing the size of the icon in px.
 #'     Default is 16.
 #'
@@ -89,6 +93,12 @@
 #' Sepal.Length = colDef(cell = icon_assign(data,
 #' show_values = "right"))))
 #'
+#' ## Change the alignment of the icons within a column.
+#' reactable(data,
+#' columns = list(
+#' Sepal.Length = colDef(cell = icon_assign(data,
+#' align_icons = "center"))))
+#'
 #' @export
 
 
@@ -98,6 +108,7 @@ icon_assign <- function(data,
                         empty_color = "lightgrey",
                         fill_opacity = 1,
                         empty_opacity = 1,
+                        align_icons = "left",
                         icon_size = 16,
                         buckets = NULL,
                         number_fmt = NULL,
@@ -111,6 +122,11 @@ icon_assign <- function(data,
   if (show_values %notin% c("left", "right", "above", "below", "none") == TRUE) {
 
     stop("show_values must be either 'left', 'right', 'above', 'below', or 'none'")
+  }
+
+  if (align_icons %notin% c("left", "right", "center") == TRUE) {
+
+    stop("align_icons must be either 'left', 'right', or 'center'")
   }
 
   if (!is.numeric(fill_opacity)) {
@@ -186,13 +202,13 @@ icon_assign <- function(data,
 
     if (show_values == "right" & is.null(number_fmt)) {
 
-      htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left", paste0("  ", value))
+      htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons, paste0("  ", value))
 
     } else if (show_values == "right" & !is.null(number_fmt)) {
 
       label <- number_fmt(value)
 
-      htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left", paste0("  ", label))
+      htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons, paste0("  ", label))
 
     } else if (show_values == "left" & is.null(number_fmt)) {
 
@@ -200,7 +216,7 @@ icon_assign <- function(data,
 
       label <- stringr::str_pad(value, max_digits)
 
-      htmltools::div(paste0(label, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+      htmltools::div(paste0(label, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons)
 
     } else if (show_values == "above" & is.null(number_fmt)) {
 
@@ -209,8 +225,8 @@ icon_assign <- function(data,
       label <- stringr::str_pad(value, max_digits)
 
       htmltools::tagList(
-        htmltools::div(label),
-        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq)
+        htmltools::div(label, align = align_icons),
+        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons)
       )
 
     } else if (show_values == "above" & !is.null(number_fmt)) {
@@ -222,8 +238,8 @@ icon_assign <- function(data,
       label <- stringr::str_pad(value, max_digits)
 
       htmltools::tagList(
-        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq),
-        htmltools::div(label)
+        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons),
+        htmltools::div(label, align = align_icons)
       )
 
     } else if (show_values == "below" & is.null(number_fmt)) {
@@ -233,8 +249,8 @@ icon_assign <- function(data,
       label <- stringr::str_pad(value, max_digits)
 
       htmltools::tagList(
-        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq),
-        htmltools::div(label)
+        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons),
+        htmltools::div(label, align = align_icons)
       )
 
     } else if (show_values == "below" & !is.null(number_fmt)) {
@@ -246,8 +262,8 @@ icon_assign <- function(data,
       label <- stringr::str_pad(value, max_digits)
 
       htmltools::tagList(
-        htmltools::div(label),
-        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq)
+        htmltools::div(label, align = align_icons),
+        htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons)
       )
 
     } else if (show_values == "left" & !is.null(number_fmt)) {
@@ -258,9 +274,9 @@ icon_assign <- function(data,
 
       label <- stringr::str_pad(label, max_digits)
 
-      htmltools::div(paste0(label, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+      htmltools::div(paste0(label, "  "), title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons)
 
-    } else htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = "left")
+    } else htmltools::div(title = label, "aria-label" = label, role = "img", icon_seq, align = align_icons)
 
   }
 }
