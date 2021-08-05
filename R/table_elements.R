@@ -353,9 +353,11 @@ add_source <- function(table = NULL,
 #'
 #' @param rows Numeric value representing the row number to apply the custom style.
 #'      Can provide a vector of rows if applying to more than one row.
+#'      If no rows are provided, styles are applied to all rows/values.
 #'
 #' @param values A value, either numeric or character, that is present within a column.
 #'      Can provide a vector of values if applying to more than one value.
+#'      If no values are provided, styles are applied to all rows/values.
 #'
 #' @param font_color Color of the text.
 #'
@@ -480,6 +482,19 @@ cell_style <- function(data,
            fontStyle = font_style,
            fontWeight = font_weight,
            fontSize = font_size)
-    }
+
+    } else if (is.null(values) & is.null(rows)) {
+
+      list(transition = animation,
+           borderColor = border_color,
+           borderWidth = border_width,
+           borderStyle = border_style,
+           color = font_color,
+           background = background_color,
+           textDecoration = text_decoration,
+           fontStyle = font_style,
+           fontWeight = font_weight,
+           fontSize = font_size)
+      }
   }
 }
