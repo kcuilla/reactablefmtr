@@ -24,10 +24,12 @@ cell_style(
 \item{data}{A dataset to be displayed within a {reactable} table.}
 
 \item{rows}{Numeric value representing the row number to apply the custom style.
-Can provide a vector of rows if applying to more than one row.}
+Can provide a vector of rows if applying to more than one row.
+If no rows are provided, styles are applied to all rows/values.}
 
 \item{values}{A value, either numeric or character, that is present within a column.
-Can provide a vector of values if applying to more than one value.}
+Can provide a vector of values if applying to more than one value.
+If no values are provided, styles are applied to all rows/values.}
 
 \item{font_color}{Color of the text.}
 
