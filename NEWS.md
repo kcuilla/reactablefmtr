@@ -9,15 +9,24 @@
 #### cell_style()
 
 * `cell_style()` can be used to customize the appearance of certain cells within a table. For example, if you wanted to display a particular value or set of values in a column as bold and in red text, you can do so by specifying either the row number or values themselves
-* Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, and the background color of the cell. Animation is also applied to `cell_style()` by default, but can be turned off by setting to 'none'.
+* Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, the vertical and horizontal alignment within the cell, and the background color of the cell. Animation is also applied to `cell_style()` by default, but can be turned off by setting to 'none'
+
+#### color_scales()
+
+* The vertical and horizontal alignment within a cell can now be controlled with the `vertical_alignment` and `horizontal_alignment` options
+
+#### embed_img()
+
+* The horizontal alignment within a cell can now be controlled with the `horizontal_alignment` option 
 
 #### icon_assign()
 
-* The alignment of the icons within a column can now be changed to either left, right, or center with `align_icons`. Previously, icons could only be aligned to the left.
+* The alignment of the icons within a column can now be changed to either left, right, or center with `align_icons`. Previously, icons could only be aligned to the left
 
 ### Other
 
 * The default color of `fill_color` within `data_bars()` and `icon_assign()` has been changed to #67a9cf
+* The default position of `text_position` within  `data_bars()` has been changed from "outside-end" to "inside-end"
 
 
 # reactablefmtr 1.0.0
