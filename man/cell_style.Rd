@@ -12,6 +12,8 @@ cell_style(
   font_size = NULL,
   font_style = "normal",
   font_weight = "normal",
+  horizontal_align = "right",
+  vertical_align = "top",
   text_decoration = NULL,
   border_width = NULL,
   border_style = NULL,
@@ -43,6 +45,14 @@ Default is "normal".}
 \item{font_weight}{The font weight of the text
 Options are "normal", "bold", "bolder", "lighter" or a value between 100 and 900.
 Default is "normal".}
+
+\item{horizontal_align}{The horizontal alignment of the text within a cell.
+Options are "left", "right", or "center".
+Default is "right".}
+
+\item{vertical_align}{The vertical alignment of the text within a cell.
+Options are "top", "bottom", or "center".
+Default is "top".}
 
 \item{text_decoration}{Optionally add an underline, overline, or line-through to the text
 Options are "underline", "overline", "underline overline", or "line-through".

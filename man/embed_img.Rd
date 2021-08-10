@@ -8,6 +8,7 @@ embed_img(
   data,
   height = 24,
   width = 24,
+  horizontal_align = "center",
   label = NULL,
   label_position = "right"
 )
@@ -20,6 +21,10 @@ Default height is 24px.}
 
 \item{width}{A value given for the width of the image in px.
 Default width is 24px.}
+
+\item{horizontal_align}{The horizontal alignment of the image within a cell.
+Options are "left", "right", or "center".
+Default is "center".}
 
 \item{label}{Optionally assign a label to the image from another column.
 Default is set to NULL or no label.}

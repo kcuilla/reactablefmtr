@@ -15,7 +15,7 @@ data_bars(
   min_value = NULL,
   align_bars = "left",
   bar_height = 19,
-  text_position = "outside-end",
+  text_position = "inside-end",
   text_color = "black",
   brighten_text = TRUE,
   brighten_text_color = "white",
@@ -76,7 +76,7 @@ Values can be displayed within the filled bars ("inside-end" or "inside-base"),
 outside of the filled bars ("outside-end" or "outside-base"),
 within the center of the filled bars ("center"),
 or not displayed at all ("none").
-Default is outside-end.}
+Default is inside-end.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}

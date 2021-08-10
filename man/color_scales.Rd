@@ -14,6 +14,8 @@ color_scales(
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
+  horizontal_align = "right",
+  vertical_align = "top",
   span = FALSE,
   animation = "1s ease"
 )
@@ -50,6 +52,14 @@ Default is white.}
 
 \item{bold_text}{Logical: bold text.
 Default is FALSE.}
+
+\item{horizontal_align}{The horizontal alignment of the text within a cell.
+Options are "left", "right", or "center".
+Default is "right".}
+
+\item{vertical_align}{The vertical alignment of the text within a cell.
+Options are "top", "bottom", or "center".
+Default is "top".}
 
 \item{span}{Optionally apply colors to values across multiple columns instead of by each column.
 To apply across all columns set to TRUE.
