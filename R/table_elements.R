@@ -372,6 +372,14 @@ add_source <- function(table = NULL,
 #'      Options are "normal", "bold", "bolder", "lighter" or a value between 100 and 900.
 #'      Default is "normal".
 #'
+#' @param horizontal_align The horizontal alignment of the text within a cell.
+#'      Options are "left", "right", or "center".
+#'      Default is "right".
+#'
+#' @param vertical_align The vertical alignment of the text within a cell.
+#'      Options are "top", "bottom", or "center".
+#'      Default is "top".
+#'
 #' @param text_decoration Optionally add an underline, overline, or line-through to the text
 #'      Options are "underline", "overline", "underline overline", or "line-through".
 #'      Default is NULL.
@@ -435,6 +443,8 @@ cell_style <- function(data,
                        font_size = NULL,
                        font_style = "normal",
                        font_weight = "normal",
+                       horizontal_align = "right",
+                       vertical_align = "top",
                        text_decoration = NULL,
                        border_width = NULL,
                        border_style = NULL,
@@ -443,6 +453,38 @@ cell_style <- function(data,
                        animation = "1s ease") {
 
   '%notin%' <- Negate('%in%')
+
+  if (!is.null(horizontal_align) && horizontal_align %notin% c("left", "right", "center") == TRUE) {
+
+    stop("horizontal_align must be either 'left', 'right', or 'center'")
+  }
+
+  if (!is.null(vertical_align) && vertical_align %notin% c("top", "bottom", "center") == TRUE) {
+
+    stop("vertical_align must be either 'top', 'bottom', or 'center'")
+  }
+
+  # assign vertical align
+  if (vertical_align == "top") {
+
+    vertical_align_css <- "start"
+
+  } else if (vertical_align == "bottom") {
+
+    vertical_align_css <- "end"
+
+  } else vertical_align_css <- "center"
+
+  # assign horizontal align
+  if (horizontal_align == "left") {
+
+    horizontal_align_css <- "flex-start"
+
+  } else if (horizontal_align == "right") {
+
+    horizontal_align_css <- "flex-end"
+
+  } else horizontal_align_css <- "center"
 
   style <- function(value, index, name) {
 
@@ -481,6 +523,9 @@ cell_style <- function(data,
            textDecoration = text_decoration,
            fontStyle = font_style,
            fontWeight = font_weight,
+           display = "flex",
+           alignItems = vertical_align_css,
+           justifyContent = horizontal_align_css,
            fontSize = font_size)
 
     } else if (is.null(values) & is.null(rows)) {
@@ -494,6 +539,9 @@ cell_style <- function(data,
            textDecoration = text_decoration,
            fontStyle = font_style,
            fontWeight = font_weight,
+           display = "flex",
+           alignItems = vertical_align_css,
+           justifyContent = horizontal_align_css,
            fontSize = font_size)
       }
   }

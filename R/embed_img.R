@@ -11,6 +11,10 @@
 #' @param width A value given for the width of the image in px.
 #'     Default width is 24px.
 #'
+#' @param horizontal_align The horizontal alignment of the image within a cell.
+#'      Options are "left", "right", or "center".
+#'      Default is "center".
+#'
 #' @param label Optionally assign a label to the image from another column.
 #'     Default is set to NULL or no label.
 #'
@@ -56,7 +60,12 @@
 #' @export
 
 
-embed_img <- function(data, height = 24, width = 24, label = NULL, label_position = "right") {
+embed_img <- function(data,
+                      height = 24,
+                      width = 24,
+                      horizontal_align = "center",
+                      label = NULL,
+                      label_position = "right") {
 
   '%notin%' <- Negate('%in%')
 
@@ -64,6 +73,22 @@ embed_img <- function(data, height = 24, width = 24, label = NULL, label_positio
 
     stop("label_position must be either 'left', 'right', 'above', 'below'")
   }
+
+  if (!is.null(horizontal_align) && horizontal_align %notin% c("left", "right", "center") == TRUE) {
+
+    stop("horizontal_align must be either 'left', 'right', or 'center'")
+  }
+
+  # assign horizontal align
+  if (horizontal_align == "left") {
+
+    horizontal_align_css <- "flex-start"
+
+  } else if (horizontal_align == "right") {
+
+    horizontal_align_css <- "flex-end"
+
+  } else horizontal_align_css <- "center"
 
   image <- function(value, index, name) {
 
@@ -82,20 +107,22 @@ embed_img <- function(data, height = 24, width = 24, label = NULL, label_positio
 
       col_label <- sprintf("     %s", data[[index, label]])
 
-      htmltools::tagList(image, col_label)
+      htmltools::tagList(htmltools::div(style = list(display = "flex", justifyContent = horizontal_align_css),
+                                        image, col_label))
 
     } else if (!is.null(label) & label_position == "left") {
 
       col_label <- sprintf("%s     ", data[[index, label]])
 
-      htmltools::tagList(col_label, image)
+      htmltools::tagList(htmltools::div(style = list(display = "flex", justifyContent = horizontal_align_css),
+                                        col_label, image))
 
     } else if (!is.null(label) & label_position == "below") {
 
       col_label <- sprintf("%s", data[[index, label]])
 
       htmltools::tagList(
-        htmltools::div(style = list(display = "flex", justifyContent = "center", alignItems = "center"),
+        htmltools::div(style = list(display = "flex", justifyContent = horizontal_align_css),
                       image),
         htmltools::div(style = list(textAlign = "center"),
                       col_label))
@@ -107,10 +134,10 @@ embed_img <- function(data, height = 24, width = 24, label = NULL, label_positio
       htmltools::tagList(
         htmltools::div(style = list(textAlign = "center"),
                        col_label),
-        htmltools::div(style = list(display = "flex", justifyContent = "center", alignItems = "center"),
+        htmltools::div(style = list(display = "flex", justifyContent = horizontal_align_css),
                        image))
 
-    } else htmltools::tagList(image)
+    } else htmltools::tagList(htmltools::div(style = list(display = "flex", justifyContent = horizontal_align_css),
+                              image))
   }
 }
-
