@@ -190,22 +190,40 @@
 <ul>
 <li>
 <code><a href="../reference/cell_style.html">cell_style()</a></code> can be used to customize the appearance of certain cells within a table. For example, if you wanted to display a particular value or set of values in a column as bold and in red text, you can do so by specifying either the row number or values themselves</li>
-<li>Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, and the background color of the cell. Animation is also applied to <code><a href="../reference/cell_style.html">cell_style()</a></code> by default, but can be turned off by setting to ‘none’.</li>
+<li>Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, the vertical and horizontal alignment within the cell, and the background color of the cell. Animation is also applied to <code><a href="../reference/cell_style.html">cell_style()</a></code> by default, but can be turned off by setting to ‘none’</li>
+</ul>
+</div>
+<div id="color_scales" class="section level4">
+<h4 class="hasAnchor">
+<a href="#color_scales" class="anchor"></a>color_scales()</h4>
+<ul>
+<li>The vertical and horizontal alignment within a cell can now be controlled with the <code>vertical_alignment</code> and <code>horizontal_alignment</code> options</li>
+</ul>
+</div>
+<div id="embed_img" class="section level4">
+<h4 class="hasAnchor">
+<a href="#embed_img" class="anchor"></a>embed_img()</h4>
+<ul>
+<li>The horizontal alignment within a cell can now be controlled with the <code>horizontal_alignment</code> option</li>
 </ul>
 </div>
 <div id="icon_assign" class="section level4">
 <h4 class="hasAnchor">
 <a href="#icon_assign" class="anchor"></a>icon_assign()</h4>
 <ul>
-<li>The alignment of the icons within a column can now be changed to either left, right, or center with <code>align_icons</code>. Previously, icons could only be aligned to the left.</li>
+<li>The alignment of the icons within a column can now be changed to either left, right, or center with <code>align_icons</code>. Previously, icons could only be aligned to the left</li>
 </ul>
 </div>
 </div>
-<div id="other" class="section level3">
+<div id="other-modifications" class="section level3">
 <h3 class="hasAnchor">
-<a href="#other" class="anchor"></a>Other</h3>
+<a href="#other-modifications" class="anchor"></a>Other Modifications</h3>
 <ul>
 <li>The default color of <code>fill_color</code> within <code><a href="../reference/data_bars.html">data_bars()</a></code> and <code><a href="../reference/icon_assign.html">icon_assign()</a></code> has been changed to <a href='https://github.com/kcuilla/reactablefmtr/issues/67'>#67</a>a9cf</li>
+<li>The default position of <code>text_position</code> within <code><a href="../reference/data_bars.html">data_bars()</a></code> has been changed from “outside-end” to “inside-end”</li>
+<li>Text is now centered vertically within <code><a href="../reference/data_bars.html">data_bars()</a></code> by default</li>
+<li>The size of the text within <code><a href="../reference/data_bars.html">data_bars()</a></code> can now be changed with <code>text_size</code>
+</li>
 </ul>
 </div>
 </div>
@@ -263,9 +281,9 @@
 <li>Values can now be hidden by setting <code>show_text</code> to FALSE</li>
 </ul>
 </div>
-<div id="embed_img" class="section level4">
+<div id="embed_img-1" class="section level4">
 <h4 class="hasAnchor">
-<a href="#embed_img" class="anchor"></a>embed_img()</h4>
+<a href="#embed_img-1" class="anchor"></a>embed_img()</h4>
 <ul>
 <li>Labels from another column can now be positioned above, below, or to the left of the embedded image. Previously, the labels could only positioned to the right of the image</li>
 </ul>
@@ -370,9 +388,9 @@
 <li>An issue where aligning values while using <code><a href="../reference/data_bars.html">data_bars()</a></code> did not always align properly has been fixed</li>
 </ul>
 </div>
-<div id="other-1" class="section level3">
+<div id="other" class="section level3">
 <h3 class="hasAnchor">
-<a href="#other-1" class="anchor"></a>Other</h3>
+<a href="#other" class="anchor"></a>Other</h3>
 <ul>
 <li>Due to the addition of <code>number_fmt()</code> which allows for the use of formatters from the <code>scales</code> package, the <code>add_plus_sign()</code> formatter will be retired in the next CRAN release as well as the <code>commas</code> option in the <code><a href="../reference/data_bars.html">data_bars()</a></code> formatter, and the <code>percent</code> option in the <code><a href="../reference/data_bars_pos_neg.html">data_bars_pos_neg()</a></code> and <code><a href="../reference/icon_sets.html">icon_sets()</a></code> formatters</li>
 </ul>
