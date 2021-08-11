@@ -23,10 +23,11 @@
 
 * The alignment of the icons within a column can now be changed to either left, right, or center with `align_icons`. Previously, icons could only be aligned to the left
 
-### Other
+### Other Modifications
 
 * The default color of `fill_color` within `data_bars()` and `icon_assign()` has been changed to #67a9cf
 * The default position of `text_position` within  `data_bars()` has been changed from "outside-end" to "inside-end"
+* Text is now centered vertically within `data_bars()` by default
 
 
 # reactablefmtr 1.0.0
