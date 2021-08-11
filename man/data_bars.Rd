@@ -17,6 +17,7 @@ data_bars(
   bar_height = 19,
   text_position = "inside-end",
   text_color = "black",
+  text_size = 16,
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
@@ -80,6 +81,9 @@ Default is inside-end.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
+
+\item{text_size}{Numeric value representing the size of the text for the values (in px).
+Default is 16.}
 
 \item{brighten_text}{Logical: automatically assign color to text based on filled color
 when the text is positioned within the filled bars.
