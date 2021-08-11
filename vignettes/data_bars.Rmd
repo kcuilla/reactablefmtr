@@ -4,7 +4,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r, include=FALSE}
@@ -19,7 +19,7 @@ library(nflfastR)
 
 ## Position Text
 
-By default, the values are now positioned on the "outside-end" of the filled bars:
+By default, the values are now positioned on the "inside-end" of the filled bars:
 
 ```{r}
 data <- data.frame(
@@ -43,7 +43,7 @@ reactable(
 )
 ```
 
-However, you can change the location of the values with `text_position`. The available options are "outside-end" (default), "outside-base", "inside-end", "inside-base", "center", or "none". Below is an example of "outside-base" which is the way the old version of `data_bars()` displayed the values.
+However, you can change the location of the values with `text_position`. In addition to "inside-end", there is also "outside-base", "outside-end", "inside-base", "center", or "none". Below is an example of "outside-base" which is the way the old version of `data_bars()` displayed the values.
 
 ```{r}
 reactable(
@@ -67,14 +67,14 @@ reactable(
 )
 ```
 
-Values positioned inside the end of the filled bars with "inside-end":
+Values positioned outside the end of the filled bars with "outside-end":
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "inside-end", number_fmt = scales::percent)
+    cell = data_bars(data, fill_color = "lightblue", text_position = "outside-end", number_fmt = scales::percent)
   )
 )
 ```
@@ -126,7 +126,7 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), text_position = "inside-end", number_fmt = scales::percent)
+    cell = data_bars(data, fill_color = viridis(5), number_fmt = scales::percent)
   )
 )
 ```
@@ -140,7 +140,7 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), text_position = "inside-end", brighten_text_color = "gold", number_fmt = scales::percent)
+    cell = data_bars(data, fill_color = viridis(5), brighten_text_color = "gold", number_fmt = scales::percent)
   )
 )
 ```
@@ -169,10 +169,10 @@ reactable(
   pagination = FALSE,
   columns = list(
     Pct1 = colDef(
-      cell = data_bars(data, fill_color = "lightblue", align_bars = "right", text_position = "inside-end", number_fmt = scales::percent)
+      cell = data_bars(data, fill_color = "lightblue", align_bars = "right", number_fmt = scales::percent)
       ),
     Pct2 = colDef(
-      cell = data_bars(data, fill_color = "lightblue", align_bars = "left", text_position = "inside-end", number_fmt = scales::percent)
+      cell = data_bars(data, fill_color = "lightblue", align_bars = "left",  number_fmt = scales::percent)
       )
   )
 )
@@ -189,7 +189,7 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), background = "lightgrey", text_position = "inside-end", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(data, fill_color = viridis(5), background = "lightgrey", max_value = 1, number_fmt = scales::percent)
   )
 )
 ```
@@ -208,7 +208,7 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, bar_height = 35)
+    cell = data_bars(data, bar_height = 40, number_fmt = scales::percent)
   )
 )
 ```
@@ -220,7 +220,7 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, bar_height = 3)
+    cell = data_bars(data, bar_height = 3, number_fmt = scales::percent, text_position = "outside-end")
   )
 )
 ```
@@ -241,7 +241,7 @@ data %>%
 reactable(.,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(., fill_color_ref = "color_pal", text_position = "inside-end", background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(., fill_color_ref = "color_pal", background = "lightgrey", max_value = 1, number_fmt = scales::percent)
   ),
   columns = list(color_pal = colDef(show = FALSE) ## hide the color_pal column
   )
@@ -262,7 +262,7 @@ reactable(.,
   defaultSorted = "Pct1",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    cell = data_bars(., fill_color_ref = "color_pal", text_position = "inside-end", background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(., fill_color_ref = "color_pal", background = "lightgrey", max_value = 1, number_fmt = scales::percent)
   ),
   columns = list(color_pal = colDef(show = FALSE)
   )
@@ -280,7 +280,7 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = c("#1efffd", "#1e20ff"), fill_gradient = TRUE, background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(data, fill_color = c("#1efffd", "#1e20ff"), fill_gradient = TRUE, background = "lightgrey", text_color = "white", max_value = 1, number_fmt = scales::percent)
   )
 )
 ```
@@ -317,7 +317,7 @@ reactable(.,
 )
 ```
 
-The labels can be positioned in the same fashion that is used for the positive-valued data bars in the examples above:
+The labels can also be positioned in the same fashion that is used for the positive-valued data bars in the examples above:
 
 ```{r}
 data %>% 
@@ -329,7 +329,7 @@ reactable(.,
   defaultSortOrder = "asc",
   columns = list(
     Change = colDef(
-      cell = data_bars(., fill_color = c("lightblue","orange"), text_position = "inside-end", number_fmt = scales::percent))
+      cell = data_bars(., fill_color = c("lightblue","orange"), number_fmt = scales::percent, text_position = "outside-end"))
   )
 )
 ```
