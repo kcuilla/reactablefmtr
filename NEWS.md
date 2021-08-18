@@ -15,6 +15,12 @@
 
 * The vertical and horizontal alignment within a cell can now be controlled with the `vertical_alignment` and `horizontal_alignment` options
 
+#### data_bars()
+
+* Optionally force a range of values to display their text labels on the outside-end of the filled bars when the text_position is set to either "inside-end", "inside-base", or "center". This can be useful when the length of the filled data bars is too short to the text labels on the inside of the filled bars
+* Control the size of the text labels with `text_size`
+* Borders around the filled data bars can now be adjusted with the `border_style`, `border_width`, and `border_color` options
+
 #### embed_img()
 
 * The horizontal alignment within a cell can now be controlled with the `horizontal_alignment` option 
