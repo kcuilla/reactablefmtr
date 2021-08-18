@@ -17,104 +17,218 @@ library(nflfastR)
 ```
 
 
-## Position Text
+```{r, echo=FALSE}
+index <- data.frame(
+ `Argument` = c("data",
+               "fill_color",
+               "fill_color_ref",
+               "fill_opacity",
+               "fill_gradient",
+               "background",
+               "max_value",
+               "min_value",
+               "align_bars",
+               "bar_height",
+               "text_position",
+               "force_outside",
+               "text_color",
+               "text_size",
+               "brighten_text",
+               "brighten_text_color",
+               "bold_text",
+               "number_fmt",
+               "border_width",
+               "border_style",
+               "border_color",
+               "icon",
+               "icon_ref",
+               "icon_size",
+               "icon_color",
+               "icon_color_ref",
+               "img",
+               "img_ref",
+               "img_height",
+               "img_width",
+               "animation"),
+ `Description` = c("name of dataset",
+                   "a single color or a vector of fill_color for the fill of the data bars",
+                   "the name of a column containing color assignments for the filled bars",
+                   "a value between 0 and 1 that adjusts the opacity in fill_color",
+                   "convert the fill color to a gradient color scheme (more than one color must be provided in `fill_color`",
+                   "the color for the background of the data bars",
+                   "a value to use as the maximum value for the width of the filled bars",
+                   "a value to use as the minimum value for the width of the filled bars",
+                   "align filled bars from left-to-right or right-to-left",
+                   "numeric height of the data bars",
+                   "where to display the text labels in relation to the filled bars",
+                   "force a range of values to display their text labels on the outside-end of the filled bars",
+                   "the color of the text labels",
+                   "numeric value representing the size of the text labels for the values",
+                   "automatically assign color to text labels based on filled color when the text is placed inside the filled bars",
+                   "color of the text labels placed within a dark-colored filled bar",
+                   "display the text labels in bold",
+                   "format numbers using formats from the scales package",
+                   "the width of the border around the filled data bars",
+                   "the style of the border around the filled data bars",
+                   "the color of the border around the filled data bars",
+                   "assign an icon label from the Font Awesome library (via shiny)",
+                   "the name of a column containing icon assignments for the values",
+                   "a value representing the size of the icon",
+                   "the color for the icon",
+                   "the name of a column containing icon color assignments",
+                   "assign an image label via a valid URL",
+                   "the name of a column containing image assignments for the values",
+                   "a value for the height of the image",
+                   "a value for the width of the image",
+                   "control the duration and timing function of the animation when sorting/updating values shown on a page"
+                   )
+)
 
-By default, the values are now positioned on the "inside-end" of the filled bars:
+```
+
+## Index 
+
+```{r, echo=FALSE}
+reactable(index,
+          columns = list(
+            `Argument` = colDef(minWidth = 70),
+            `Description` = colDef(minWidth = 200)
+          ))
+```
+
+## Position Text Labels
+
+The position of where the text labels are displayed relative to the filled data bars can be controlled with `text_position`. The text labels can be positioned in multiple locations within and outside of the filled data bars, including: "inside-end", "outside-end", "inside-base", "outside-base", "center", or "none".
+
+### Default label position
+
+By default, the text labels are positioned on the "inside-end" of the filled bars:
 
 ```{r}
 data <- data.frame(
   Group = c("Red Group 1","Red Group 2","Red Group 3","Red Group 4","Red Group 5",
             "Blue Group 1","Blue Group 2","Blue Group 3","Blue Group 4","Blue Group 5",
             "Green Group 1","Green Group 2","Green Group 3","Green Group 4","Green Group 5"),
-  Pct1 = c(.27, .82, .44, .68, .78, 
-           .74, .66, .33, .23, .11, 
-           .50, .55, .40, .70, .60),
-  Pct2 = c(.33, .17, .87, .54, .37,
-           .84, .72, .61, .48, .77,
-           .21, .39, .60, .55, .81)
+  Value1 = c(27, 82, 44, 68, 78, 
+           74, 66, 33, 23, 11, 
+           50, 55, 40, 70, 60),
+  Value2 = c(33, 17, 87, 54, 37,
+           84, 72, 61, 48, 77,
+           21, 39, 60, 55, 81)
 )
 
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", number_fmt = scales::percent)
+    cell = data_bars(data)
   )
 )
 ```
 
-However, you can change the location of the values with `text_position`. In addition to "inside-end", there is also "outside-base", "outside-end", "inside-base", "center", or "none". Below is an example of "outside-base" which is the way the old version of `data_bars()` displayed the values.
+### Outside-end
+
+Change the position of the text labels from "inside-end" to "outside-end" within `text_position`:
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "outside-base", number_fmt = scales::percent)
+    cell = data_bars(data, text_position = "outside-end")
   )
 )
 ```
 
-Values positioned inside the base of the filled bars with "inside-base":
+### Inside-base
+
+Show text labels at the start or "base" of the filled data bars.
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "inside-base", number_fmt = scales::percent)
+    cell = data_bars(data, text_position = "inside-base")
   )
 )
 ```
 
-Values positioned outside the end of the filled bars with "outside-end":
+### Outside-base
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "outside-end", number_fmt = scales::percent)
+    cell = data_bars(data, text_position = "outside-base")
   )
 )
 ```
 
-Values positioned inside the center of the filled bars with "center":
+### Center
+
+Show text labels within the center of the filled bars:
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "center", number_fmt = scales::percent)
+    cell = data_bars(data, text_position = "center")
   )
 )
 ```
 
-Lastly, values can be hidden with "none":
+### Hide Text
+
+Hide text labels by setting `text_position` to "none":
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "none")
+    cell = data_bars(data, text_position = "none")
   )
 )
 ```
 
+### Combination
 
+Text labels that are placed anywhere within the data bars (inside-end, inside-base, or center), can be combined with outside-end text labels by specifying a range of values to show on the outside-end using `force_outside`. This can be useful when the length of the filled data bars is too short to the text labels on the inside of the filled bars:
 
-## Change Color of Text
+```{r}
+df <- data.frame(
+  Group = c("Red Group 1","Red Group 2","Red Group 3","Red Group 4","Red Group 5",
+            "Green Group 1","Green Group 2","Green Group 3","Green Group 4","Green Group 5"),
+  Value1 = c(1, 2, 4, 6, 60, 30, 5, 45, 75, 80),
+  Value2 = c(1, 3, 5, 15, 54, 37, 2, 39, 60, 81)
+)
 
-The default text color for the values is black, but it can be changed with `text_color`:
+reactable(
+  df,
+  defaultSortOrder = "desc",
+  defaultSorted = "Value1",
+  defaultColDef = colDef(
+    cell = data_bars(df, force_outside = c(0,10))
+  )
+)
+```
+
+## Text Label Options
+
+The appearance of the text labels can be altered with a number of different formatting options. 
+### Text color
+
+The default text color of the labels is black, but can be changed with `text_color`:
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_color = "red", number_fmt = scales::percent)
+    cell = data_bars(data, text_color = "gold")
   )
 )
 ```
@@ -126,12 +240,12 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), number_fmt = scales::percent)
+    cell = data_bars(data, fill_color = "#222222")
   )
 )
 ```
 
-Note: This feature can be turned off by setting `brighten_text` = FALSE. 
+<i>Note: This feature can be turned off by setting `brighten_text` = FALSE.</i>
 
 The color of the labels that appear within dark-filled bars can be changed with `brighten_text_color` if you prefer to use another color other than the default white:
 
@@ -140,95 +254,122 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), brighten_text_color = "gold", number_fmt = scales::percent)
+    cell = data_bars(data, fill_color = "#222222", brighten_text_color = "gold")
   )
 )
 ```
 
+### Size of text labels
 
-
-## Aligning Data Bars
-
-By default, the filled bars are aligned from left-to-right, but can be aligned from right-to-left by setting `align_bars = "right"`:
+The default size of the text labels is 16, but can be changed within `text_size`:
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", align_bars = "right", number_fmt = scales::percent)
+    cell = data_bars(data, text_size = 22)
   )
 )
 ```
 
-The same text positions outlined in the section above can be applied to right-aligned data bars. You can also mix and match alignments.
+### Bold text labels
 
-```{r}
-reactable(
-  data,
-  pagination = FALSE,
-  columns = list(
-    Pct1 = colDef(
-      cell = data_bars(data, fill_color = "lightblue", align_bars = "right", number_fmt = scales::percent)
-      ),
-    Pct2 = colDef(
-      cell = data_bars(data, fill_color = "lightblue", align_bars = "left",  number_fmt = scales::percent)
-      )
-  )
-)
-```
-
-
-
-## Set a Maximum Width
-
-By default, the width of the filled data bars is equal to the maximum value within that particular column. In most cases, this is what we want to display, but sometimes it's better to extend the range. For example, in the percentages below, if we want to extend the width to show the values out of 100%, we could do so by setting the `max_value` to 1:
+Make text labels stand out more by setting `bold_text` to TRUE:
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(data, bold_text = TRUE, text_size = 22)
   )
 )
 ```
 
-Now when you look at the 82% value above, there is 18% empty space filled by the background showing that the value is out of 100% and not 82%.
+### Formatting values
 
+Numbers can be formatted by calling formatters from the {scales} package, similar to how one would do within {ggplot2}:
 
-## Adjusting the Vertical Height of the Bars
+```{r}
+data_pct <- data %>% 
+  mutate(Percentage = Value1/100) %>% 
+  select(c(Group, Percentage))
 
-The default height of the data bars is set to 19px but can be adjusted within `bar_height`.
+reactable(
+  data_pct,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data_pct, number_fmt = scales::percent)
+  )
+)
+```
 
-To increase the height of the bars, provide a numeric value greater than 19:
+## Colors
+
+There are multiple options available to change the color of the data bars. 
+
+### Fill color
+
+The default fill color is #67a9cf, which is similar to light-blue, but can be changed to any color with `fill_color`:
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, bar_height = 40, number_fmt = scales::percent)
+    cell = data_bars(data, fill_color = c("#e69d25"))
   )
 )
 ```
 
-To decrease the height of the bars, provide a numeric value less than 19:
+### Conditional coloring
+
+If more than one color is provided within `fill_color`, the colors will be applied conditionally to the values within their respective columns from low values to high values:
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, bar_height = 3, number_fmt = scales::percent, text_position = "outside-end")
+    cell = data_bars(data, fill_color = c("#6f4683","#886593","#e23e64","#e69d25"))
+  )
+)
+```
+
+### Gradient colors
+
+If multiple colors are provided within `fill_color`, the colors can be converted from a conditional color scheme to a left-to-right gradient color scheme within each bar by setting `fill_gradient` to TRUE:
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data, fill_gradient = TRUE, fill_color = c("#6f4683","#886593","#e23e64","#e69d25"), brighten_text = FALSE)
+  )
+)
+```
+<i>Note: You may need to adjust the brighten text arguments by either turning it off like in the example above, or by changing the color within `brighten_text_color` in order for all of the text labels to be visible when using `fill_gradient`.</i>
+
+### Opacity
+
+The opacity of the filled data bar color can be adjusted by providing a value from 0 to 1 (0 being fully transparent and 1 being fully opaque) within `fill_opacity`:
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data, fill_opacity = 0.5, fill_gradient = TRUE, fill_color = c("#6f4683","#886593","#e23e64","#e69d25"), brighten_text = FALSE)
   )
 )
 ```
 
 
-## Color Reference
+### Assign colors to groups
 
-You can now conditionally assign colors to rows based on values within another column with the `fill_color_ref` argument. This allows you to assign colors to groups such as shown below:
+You can conditionally assign colors to groups of data with the `fill_color_ref` argument. For example, if we wanted to assign a red color to the Red group, a blue color to the Blue group, and a green color to the Green group, we could do so by first creating a conditional column containing the color assignments for each group and then referencing the name of that column within `fill_color_ref`:
 
 ```{r}
 data %>%
@@ -241,7 +382,7 @@ data %>%
 reactable(.,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(., fill_color_ref = "color_pal", background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(., fill_color_ref = "color_pal")
   ),
   columns = list(color_pal = colDef(show = FALSE) ## hide the color_pal column
   )
@@ -253,86 +394,135 @@ Or you can conditionally assign colors based on values:
 ```{r}
 data %>%
   mutate(color_pal = case_when(
-    Pct1 >= .7 ~ "#FF3B28",
+    Value1 >= 70 ~ "#FF3B28",
     TRUE ~ "darkgrey"
   )) %>%
-  select(-Pct2) %>% 
+  select(-Value2) %>% 
 reactable(.,
   pagination = FALSE,
-  defaultSorted = "Pct1",
+  defaultSorted = "Value1",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    cell = data_bars(., fill_color_ref = "color_pal", background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(., fill_color_ref = "color_pal")
   ),
   columns = list(color_pal = colDef(show = FALSE)
   )
 ) 
 ```
 
+### Background color
 
-
-## Gradient Colors
-
-`data_bars_gradient()` is now depreciated and has been replaced with the `gradient` argument within `data_bars()`. Set `fill_gradient = TRUE` to change any multi-color palette to a left-to-right gradient to be used as the fill for the bars:
+By default, the background color (the area between the value of the row and the maximum value in the column) is transparent. However, it can be changed to any color within the `background` argument:
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = c("#1efffd", "#1e20ff"), fill_gradient = TRUE, background = "lightgrey", text_color = "white", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(data, background = "lightgrey")
   )
 )
 ```
 
+### Colors for positive and negative values
 
-
-## Positive and Negative Values
-
-`data_bars_pos_neg()` is also now depreciated and has been replaced with the default setting of `data_bars()` which automatically detects if there are negative values within a column and adjusts the bars to go in opposite directions rather than one:
+If displaying a column containing both positive and negative values, the first color provided within `fill_color` will be used to fill the negative bars while the second color provided will be used to fill the positive bars:
 
 ```{r}
 data %>% 
-  mutate(Change = Pct1 - Pct2) %>% 
-reactable(., 
-  pagination = FALSE, 
-  defaultColDef = colDef(   
-    cell = data_bars(., fill_color = "grey", number_fmt = scales::percent)
-  )
-)
-```
-
-If two colors are provided, the first color will be applied to the negative-filled bars and the second color will be applied to the positive-filled bars
-
-```{r}
-data %>% 
-  mutate(Change = Pct1 - Pct2) %>% 
+  mutate(Change = Value1 - Value2) %>% 
   select(Group, Change) %>% 
 reactable(.,
-  pagination = FALSE,
-  columns = list(
-    Change = colDef(
-      cell = data_bars(., fill_color = c("lightblue","orange"), number_fmt = scales::percent))
-  )
-)
-```
-
-The labels can also be positioned in the same fashion that is used for the positive-valued data bars in the examples above:
-
-```{r}
-data %>% 
-  mutate(Change = Pct1 - Pct2) %>% 
-  select(Group, Change) %>% 
-reactable(.,
-  pagination = FALSE,
   defaultSorted = "Change",
-  defaultSortOrder = "asc",
+  pagination = FALSE,
   columns = list(
     Change = colDef(
-      cell = data_bars(., fill_color = c("lightblue","orange"), number_fmt = scales::percent, text_position = "outside-end"))
+      cell = data_bars(., fill_color = c("lightblue","orange")))
   )
 )
 ```
+
+If more than two colors are provided, the bars will be conditionally filled from low values to high values: 
+
+```{r}
+data %>% 
+  mutate(Change = Value1 - Value2) %>% 
+  select(Group, Change) %>% 
+reactable(.,
+  defaultSorted = "Change",
+  pagination = FALSE,
+  columns = list(
+    Change = colDef(
+      cell = data_bars(., fill_color = c("#6f4683","#886593","#e23e64","#e69d25")))
+  )
+)
+```
+
+
+## Direction of Data Bars
+
+By default, the filled bars are aligned from left-to-right, but can be aligned from right-to-left by setting `align_bars = "right"`:
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  columns = list(
+    Value1 = colDef(
+      cell = data_bars(data, align_bars = "right")
+      ),
+    Value2 = colDef(
+      cell = data_bars(data, align_bars = "left")
+      )
+  )
+)
+```
+
+## Height of Data Bars
+
+The default height of the data bars is set to 19px but can be adjusted within `bar_height`.
+
+To increase the height of the bars, provide a numeric value greater than 19:
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data, bar_height = 40)
+  )
+)
+```
+
+To decrease the height of the bars, provide a numeric value less than 19:
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data, bar_height = 3, text_position = "outside-end")
+  )
+)
+```
+
+
+
+## Maximum Bar Width
+
+By default, the width of the filled data bars is equal to the maximum value within that particular column. In most cases, this is what we want to display, but sometimes it's better to extend the range. For example, in the percentages below, if we want to extend the width to show the values out of 100%, we could do so by setting the `max_value` to 1:
+
+```{r}
+reactable(
+  data_pct,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data_pct, max_value = 1, fill_color = viridis(5), background = "lightgrey", number_fmt = scales::percent)
+  )
+)
+```
+
+Now when you look at the 82% value above, there is 18% empty space filled by the background showing that the value is out of 100% and not 82%.
 
 
 ## Add Icons to Bars
@@ -353,8 +543,9 @@ reactable(
   defaultSorted = "Values",
   defaultSortOrder = "desc",
   columns = list(
+    Primary = colDef(show = FALSE),
     Values = colDef(
-      cell = data_bars(data, fill_color = "black", fill_opacity = 0.8, text_position = "inside-end"))
+      cell = data_bars(data, icon_ref = "Company", fill_color = "black", fill_opacity = 0.8))
   )
 )
 ```
@@ -364,11 +555,12 @@ To add the logos of each company to the end of the data bars, use `icon_ref` to 
 ```{r}
 reactable(
   data,
-  defaultSorted = "Values",
+  defaultSorted = "Values",            
   defaultSortOrder = "desc",
   columns = list(
+    Primary = colDef(show = FALSE),
     Values = colDef(
-      cell = data_bars(data, icon_ref = "Company", fill_color = "black", fill_opacity = 0.8, text_position = "inside-end"))
+      cell = data_bars(data, icon_ref = "Company", fill_color = "black", fill_opacity = 0.8))
   )
 )
 ```
@@ -381,8 +573,9 @@ reactable(
   defaultSorted = "Values",
   defaultSortOrder = "desc",
   columns = list(
+    Primary = colDef(show = FALSE),
     Values = colDef(
-      cell = data_bars(data, icon_ref = "Company", icon_color_ref = "Primary", fill_color = "black", fill_opacity = 0.8, text_position = "inside-end"))
+      cell = data_bars(data, icon_ref = "Company", icon_color_ref = "Primary", fill_color = "black", fill_opacity = 0.8))
   )
 )
 ```
@@ -395,8 +588,9 @@ reactable(
   defaultSorted = "Values",
   defaultSortOrder = "desc",
   columns = list(
+    Primary = colDef(show = FALSE),
     Values = colDef(
-      cell = data_bars(data, icon_ref = "Company", fill_color_ref = "Primary", text_position = "inside-end"))
+      cell = data_bars(data, icon_ref = "Company", fill_color_ref = "Primary"))
   )
 )
 ```
@@ -409,11 +603,10 @@ reactable(
   defaultSorted = "Values",
   defaultSortOrder = "desc",
   columns = list(
+    Primary = colDef(show = FALSE),
     Values = colDef(
-      cell = data_bars(data, icon_ref = "Company", icon_size = 35, fill_color_ref = "Primary", text_position = "inside-end")
-    ),
-    Company = colDef(show = FALSE), 
-    Primary = colDef(show = FALSE)
+      cell = data_bars(data, icon_ref = "Company", icon_size = 35, fill_color_ref = "Primary")
+    )
   )
 ) 
 ```
@@ -470,10 +663,10 @@ reactable(
     team_color = colDef(show = FALSE), ## hide column containing team colors
     name = colDef(maxWidth = 120),
     cpoe = colDef(
-      cell = data_bars(qbs, fill_color_ref = "team_color", fill_opacity = 0.3, brighten_text = FALSE, text_position = "inside-end", number_fmt = scales::percent, img_ref = "team_logo_espn", img_height = 30, img_width = 30)
+      cell = data_bars(qbs, fill_color_ref = "team_color", fill_opacity = 0.3, brighten_text = FALSE, number_fmt = scales::percent, img_ref = "team_logo_espn", img_height = 30, img_width = 30)
     ),
     epa = colDef(
-      cell = data_bars(qbs, fill_color_ref = "team_color", fill_opacity = 0.3, brighten_text = FALSE, text_position = "inside-end", number_fmt = scales::number_format(accuracy = 0.01), img_ref = "team_logo_espn", img_height = 30, img_width = 30)
+      cell = data_bars(qbs, fill_color_ref = "team_color", fill_opacity = 0.3, brighten_text = FALSE, number_fmt = scales::number_format(accuracy = 0.01), img_ref = "team_logo_espn", img_height = 30, img_width = 30)
     )
   )
 )
