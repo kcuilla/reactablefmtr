@@ -155,7 +155,6 @@
 #'
 #' @return a function that applies data bars
 #'     to a column of numeric values.
-#'
 #' @importFrom grDevices rgb
 #' @importFrom grDevices colorRamp
 #' @import reactable
@@ -163,35 +162,37 @@
 #' @examples
 #' data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 #'
-#' ## By default, data bars are aligned left and text_position are placed on the outside end
+#' ## By default, data bars are aligned left and text_position are placed on the inside end
 #' reactable(data,
-#' defaultColDef = colDef(
-#' cell = data_bars(data)))
+#'           defaultColDef = colDef(
+#'             cell = data_bars(data)))
 #'
 #' ## Align the bars to the right
 #' reactable(data,
-#' defaultColDef = colDef(
-#' cell = data_bars(data,
-#' align = "right")))
+#'           defaultColDef = colDef(
+#'             cell = data_bars(data,
+#'                              align_bars = "right")))
 #'
-#' ## Move the text values inside the filled bars
+#' ## Move the text labels outside of the filled bars
 #' reactable(data,
-#' defaultColDef = colDef(
-#' cell = data_bars(data,
-#' text_position = "inside-end")))
+#'           defaultColDef = colDef(
+#'             cell = data_bars(data,
+#'                              text_position = "outside-end")))
 #'
 #' ## Apply multiple fill_color to the filled bars
 #' reactable(data,
-#' defaultColDef = colDef(
-#' cell = data_bars(data,
-#' fill_color = c("lightblue","royalblue","navy"))))
+#'           defaultColDef = colDef(
+#'             cell = data_bars(data,
+#'                              fill_color = c("lightblue","royalblue","navy"))))
 #'
 #' ## Apply a fill_gradient pattern to the filled bars
 #' reactable(data,
-#' defaultColDef = colDef(
-#' cell = data_bars(data,
-#' fill_color = c("lightblue","royalblue","navy"),
-#' fill_gradient = TRUE)))
+#'           defaultColDef = colDef(
+#'             cell = data_bars(data,
+#'                              fill_color = c("lightblue","royalblue","navy"),
+#'                              fill_gradient = TRUE,
+#'                              text_position = "outside-end")))
+#'
 #'
 #' @export
 
