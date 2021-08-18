@@ -16,12 +16,16 @@ data_bars(
   align_bars = "left",
   bar_height = 19,
   text_position = "inside-end",
+  force_outside = NULL,
   text_color = "black",
   text_size = 16,
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
   number_fmt = NULL,
+  border_width = NULL,
+  border_style = NULL,
+  border_color = NULL,
   icon = NULL,
   icon_ref = NULL,
   icon_size = 20,
@@ -72,34 +76,56 @@ Default is left.}
 \item{bar_height}{Numeric height of the data bars in px.
 Default is 19.}
 
-\item{text_position}{Choose where to display the values.
-Values can be displayed within the filled bars ("inside-end" or "inside-base"),
+\item{text_position}{Choose where to display the text labels relative to the filled data bars.
+Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
 outside of the filled bars ("outside-end" or "outside-base"),
 within the center of the filled bars ("center"),
 or not displayed at all ("none").
 Default is inside-end.}
 
-\item{text_color}{Assigns text color to values.
+\item{force_outside}{Optionally force a range of values to display their text labels on the outside-end of the filled bars
+when the text_position is set to either "inside-end", "inside-base", or "center".
+Must provide a start and a stop number for the range of values to be forced to outside-end. Ex. c(0, 100).
+Default is NULL.}
+
+\item{text_color}{The color of the text labels.
 Default is black.}
 
-\item{text_size}{Numeric value representing the size of the text for the values (in px).
+\item{text_size}{Numeric value representing the size of the text labels (in px).
 Default is 16.}
 
-\item{brighten_text}{Logical: automatically assign color to text based on filled color
-when the text is positioned within the filled bars.
+\item{brighten_text}{Logical: automatically assign color to text labels based on filled color
+when the text labels are positioned within the filled bars.
 Text within dark-colored filled bars will turn white, text within light-colored bars will be black.
 Default is TRUE.}
 
-\item{brighten_text_color}{Assigns text color to values if values are within a dark-colored filled bar.
+\item{brighten_text_color}{Assigns color to text labels if values are within a dark-colored filled bar.
 Default is white.}
 
-\item{bold_text}{Logical: bold text.
+\item{bold_text}{Logical: display the text labels in bold.
 Default is FALSE.}
 
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is NULL.}
 
-\item{icon}{An icon from the Font Awesome library (via shiny).
+\item{border_width}{The width of the border around the filled data bars
+Options are "thin", "medium", "thick", or a numeric value with the units included such as "2px" or "2mm".
+May be specified using one, two, three, or four values.
+See [CSS border-width](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width) for more options.
+Default is NULL.}
+
+\item{border_style}{The style of the border around the filled data bars
+Options are "solid", "dashed", "dotted", "double", "groove", "ridge", "inset", "outset", "none", or "hidden".
+May be specified using one, two, three, or four values.
+See [CSS border-style](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style) for more options.
+Default is NULL.}
+
+\item{border_color}{The color of the border around the filled data bars
+May be specified using one, two, three, or four values.
+See [CSS border-color](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color) for more options.
+Default is NULL.}
+
+\item{icon}{Assign an icon label from the Font Awesome library (via shiny).
 If an icon is provided, it will be positioned so that it does not overlap the text for the data bars.
 Default is NULL.}
 
@@ -120,7 +146,7 @@ by providing the name of the column containing the icon colors in quotes.
 Only one color can be provided per cell.
 Default is NULL.}
 
-\item{img}{An image provided with a valid URL.}
+\item{img}{Optionally assign an image label via a valid URL.}
 
 \item{img_ref}{Optionally assign images from another column
 by providing the name of the column containing the image URLs in quotes.
@@ -161,6 +187,8 @@ The `data_bars()` function adds a horizontal bar to each row of a column.
     If values are displayed inside the bars and a dark color palette is used to fill the bars,
     `brighten_text` will display the values in white text so the values are visible by default.
     The color of `brighten_text_color` can be changed to a color other than white if desired.
+    The border around the filled bars can be controlled via three different border options:
+    `border_style`, `border_width`, and `border_color`.
     An icon or image can be added to the data bars with `icon` or `img`.
     Alternatively, icons and images can be assigned from another column with `icon_ref` and `img_ref`, similar to `fill_color_ref`.
     The color of the icons can be assigned through either `icon_color` (a single color) or `icon_color_ref` (from another column).
