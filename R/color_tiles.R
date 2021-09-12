@@ -255,10 +255,11 @@ color_tiles <- function(data,
                      style = list(background = cell_color,
                                   color = text_color,
                                   display = "flex",
+                                  flexDirection = "column",
                                   justifyContent = "center",
-                                  borderRadius = "4px",
+                                  alignItems = "center",
+                                  borderRadius = "6px",
                                   fontWeight = bold_text,
-                                  height = "18px",
                                   transition = animation))
 
     } else if (brighten_text == FALSE & show_text == FALSE) {
@@ -267,11 +268,12 @@ color_tiles <- function(data,
                      style = list(background = cell_color,
                                   color = font_color,
                                   display = "flex",
+                                  flexDirection = "column",
                                   justifyContent = "center",
-                                  borderRadius = "4px",
+                                  alignItems = "center",
+                                  borderRadius = "6px",
                                   fontWeight = bold_text,
                                   fontSize = 0,
-                                  height = "18px",
                                   transition = animation))
 
     } else if (brighten_text == TRUE & show_text == FALSE) {
@@ -280,11 +282,12 @@ color_tiles <- function(data,
                      style = list(background = cell_color,
                                   color = font_color,
                                   display = "flex",
+                                  flexDirection = "column",
                                   justifyContent = "center",
-                                  borderRadius = "4px",
+                                  alignItems = "center",
+                                  borderRadius = "6px",
                                   fontWeight = bold_text,
                                   fontSize = 0,
-                                  height = "18px",
                                   transition = animation))
 
     } else {
@@ -293,10 +296,11 @@ color_tiles <- function(data,
                      style = list(background = cell_color,
                                   color = font_color,
                                   display = "flex",
+                                  flexDirection = "column",
                                   justifyContent = "center",
-                                  borderRadius = "4px",
+                                  alignItems = "center",
+                                  borderRadius = "6px",
                                   fontWeight = bold_text,
-                                  height = "18px",
                                   transition = animation))
     }
 
