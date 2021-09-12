@@ -162,7 +162,7 @@ color_tiles <- function(data,
 
     if (!is.na(x)) {
       rgb_sum <- rowSums(colorRamp(c(colors))(x))
-      color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
+      color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
       color
     } else
       NULL
@@ -216,7 +216,7 @@ color_tiles <- function(data,
 
           rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
 
-          font_color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
+          font_color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
 
         } else {
 
@@ -266,13 +266,10 @@ color_tiles <- function(data,
 
       htmltools::div(label,
                      style = list(background = cell_color,
-                                  color = font_color,
                                   display = "flex",
-                                  flexDirection = "column",
                                   justifyContent = "center",
-                                  alignItems = "center",
+                                  height = "18px",
                                   borderRadius = "6px",
-                                  fontWeight = bold_text,
                                   fontSize = 0,
                                   transition = animation))
 
@@ -280,13 +277,10 @@ color_tiles <- function(data,
 
       htmltools::div(label,
                      style = list(background = cell_color,
-                                  color = font_color,
                                   display = "flex",
-                                  flexDirection = "column",
                                   justifyContent = "center",
-                                  alignItems = "center",
+                                  height = "18px",
                                   borderRadius = "6px",
-                                  fontWeight = bold_text,
                                   fontSize = 0,
                                   transition = animation))
 
@@ -306,3 +300,10 @@ color_tiles <- function(data,
 
   }
 }
+
+data <- iris[10:29, ]
+
+## By default, the colors_tiles() function uses a blue-white-orange three-color pattern
+reactable(data,
+ columns = list(
+ Petal.Length = colDef(cell = color_tiles(data, show_text = FALSE))))
