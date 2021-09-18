@@ -546,3 +546,31 @@ cell_style <- function(data,
       }
   }
 }
+
+
+#' Apply HTML attributes to title, subtitle, and source text.
+#'
+#' Use `html()` to apply HTML attributes to text within `add_title()`, `add_subtitle()`, and `add_source()`.
+#'
+#' @param text,... The text provided within the title, subtitle or source with HTML attributes applied.
+#'
+#' @return an object of class HTML.
+#'
+#' @examples
+#' \dontrun{
+#' ## Change the title color to blue
+#' data <- iris[10:29, ]
+#' reactable(data) %>%
+#' add_title(html("Normal title. <span style='color:DodgerBlue;'>Blue title.</span>"))
+#'
+#' ## Add emojis to the source
+#' data <- iris[10:100, ]
+#' reactable(data) %>%
+#' add_source(html("<p>Made with &#128151; by: John Doe &#128512;</p>"))
+#' }
+#' @export
+
+html <- function(text, ...) {
+
+  htmltools::HTML(text, ...)
+}
