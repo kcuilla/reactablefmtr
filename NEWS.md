@@ -13,7 +13,7 @@
 
 #### color_scales()
 
-* The vertical and horizontal alignment within a cell can now be controlled with the `vertical_alignment` and `horizontal_alignment` options
+* The vertical and horizontal alignment within a cell can now be controlled with the `vertical_align` and `horizontal_align` options
 
 #### data_bars()
 
@@ -23,7 +23,11 @@
 
 #### embed_img()
 
-* The horizontal alignment within a cell can now be controlled with the `horizontal_alignment` option 
+* The horizontal alignment within a cell can now be controlled with the `horizontal_align` option 
+
+#### html()
+
+* Apply HTML attributes to to text within `add_title()`, `add_subtitle()`, and `add_source()` with the `html()` helper function
 
 #### icon_assign()
 
