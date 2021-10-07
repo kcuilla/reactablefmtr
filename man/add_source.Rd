@@ -15,7 +15,7 @@ add_source(
   font_weight = "normal",
   text_decoration = NULL,
   background_color = "#FFFFFF",
-  margin = 4
+  margin = NULL
 )
 }
 \arguments{
@@ -51,8 +51,8 @@ Default is NULL.}
 \item{background_color}{Color of the source background.
 Default is #FFFFFF.}
 
-\item{margin}{Numeric value representing the four-sided margin around the source (in px).
-Default is 4.}
+\item{margin}{Use margin() to set the margin around the text (top, right, bottom, left).
+Default is NULL.}
 }
 \value{
 a function that adds a source below a reactable table.

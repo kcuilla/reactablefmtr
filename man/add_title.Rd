@@ -15,7 +15,7 @@ add_title(
   font_weight = "bold",
   text_decoration = NULL,
   background_color = "#FFFFFF",
-  margin = 2
+  margin = NULL
 )
 }
 \arguments{
@@ -51,8 +51,8 @@ Default is NULL.}
 \item{background_color}{Color of the title background.
 Default is #FFFFFF.}
 
-\item{margin}{Numeric value representing the four-sided margin around the title (in px).
-Default is 2.}
+\item{margin}{Use margin() to set the margin around the text (top, right, bottom, left).
+Default is NULL.}
 }
 \value{
 a function that adds a title above a reactable table.
