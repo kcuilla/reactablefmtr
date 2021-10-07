@@ -192,7 +192,7 @@ color_scales <- function(data,
 
     if (!is.na(x)) {
       rgb_sum <- rowSums(colorRamp(c(colors))(x))
-      color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
+      color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
       color
     } else
       NULL
@@ -236,7 +236,7 @@ color_scales <- function(data,
 
           rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
 
-          font_color <- ifelse(rgb_sum >= 375, text_color, brighten_text_color)
+          font_color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
 
         } else {
 

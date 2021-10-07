@@ -37,8 +37,8 @@
 #' @param background_color Color of the title background.
 #'      Default is #FFFFFF.
 #'
-#' @param margin Numeric value representing the four-sided margin around the title (in px).
-#'      Default is 2.
+#' @param margin Use margin() to set the margin around the text (top, right, bottom, left).
+#'      Default is NULL.
 #'
 #' @return a function that adds a title above a reactable table.
 #'
@@ -68,7 +68,7 @@ add_title <- function(table = NULL,
                       font_weight = "bold",
                       text_decoration = NULL,
                       background_color = "#FFFFFF",
-                      margin = 2) {
+                      margin = NULL) {
 
   '%notin%' <- Negate('%in%')
 
@@ -92,6 +92,17 @@ add_title <- function(table = NULL,
     stop("text_decoration must be either 'underline', 'overline', 'underline overline', or 'line-through'")
   }
 
+  if (!is.null(margin) && length(margin)<4) {
+
+    stop("please provide margin dimensions within `margin()`. Ex. margin = margin(t=10)")
+  }
+
+  if (is.null(margin)) {
+
+    margin <- margin(t=0,r=0,b=0,l=0)
+
+  } else {margin <- margin}
+
   htmlwidgets::prependContent(
     table,
     htmltools::tags$h1(title,
@@ -103,7 +114,10 @@ add_title <- function(table = NULL,
                                       "font-style:", font_style, ";",
                                       "font-weight:", font_weight, ";",
                                       "text-decoration:", text_decoration, ";",
-                                      "margin:", margin, "px")
+                                      "margin-top:", margin[[1]], "px;",
+                                      "margin-right:", margin[[2]], "px;",
+                                      "margin-bottom:", margin[[3]], "px;",
+                                      "margin-left:", margin[[4]], "px")
     )
   )
 }
@@ -149,8 +163,8 @@ add_title <- function(table = NULL,
 #' @param background_color Color of the subtitle background.
 #'      Default is #FFFFFF.
 #'
-#' @param margin Numeric value representing the four-sided margin around the subtitle (in px).
-#'      Default is 2.
+#' @param margin Use margin() to set the margin around the text (top, right, bottom, left).
+#'      Default is NULL.
 #'
 #' @return a function that adds a subtitle above a reactable table.
 #'
@@ -185,7 +199,7 @@ add_subtitle <- function(table = NULL,
                          font_weight = "bold",
                          text_decoration = NULL,
                          background_color = "#FFFFFF",
-                         margin = 2) {
+                         margin = NULL) {
 
   '%notin%' <- Negate('%in%')
 
@@ -209,6 +223,18 @@ add_subtitle <- function(table = NULL,
     stop("text_decoration must be either 'underline', 'overline', 'underline overline', or 'line-through'")
   }
 
+  if (!is.null(margin) && length(margin)<4) {
+
+    stop("please provide margin dimensions within `margin()`. Ex. margin = margin(t=10)")
+  }
+
+  if (is.null(margin)) {
+
+    margin <- margin(t=0,r=0,b=0,l=0)
+
+  } else {margin <- margin}
+
+
   htmlwidgets::prependContent(
     table,
     htmltools::tags$h2(subtitle,
@@ -220,7 +246,10 @@ add_subtitle <- function(table = NULL,
                                       "font-style:", font_style, ";",
                                       "font-weight:", font_weight, ";",
                                       "text-decoration:", text_decoration, ";",
-                                      "margin:", margin, "px")
+                                      "margin-top:", margin[[1]], "px;",
+                                      "margin-right:", margin[[2]], "px;",
+                                      "margin-bottom:", margin[[3]], "px;",
+                                      "margin-left:", margin[[4]], "px")
     )
   )
 }
@@ -266,8 +295,8 @@ add_subtitle <- function(table = NULL,
 #' @param background_color Color of the source background.
 #'      Default is #FFFFFF.
 #'
-#' @param margin Numeric value representing the four-sided margin around the source (in px).
-#'      Default is 4.
+#' @param margin Use margin() to set the margin around the text (top, right, bottom, left).
+#'      Default is NULL.
 #'
 #' @return a function that adds a source below a reactable table.
 #'
@@ -297,7 +326,7 @@ add_source <- function(table = NULL,
                         font_weight = "normal",
                         text_decoration = NULL,
                         background_color = "#FFFFFF",
-                        margin = 4) {
+                        margin = NULL) {
 
   '%notin%' <- Negate('%in%')
 
@@ -321,6 +350,17 @@ add_source <- function(table = NULL,
     stop("text_decoration must be either 'underline', 'overline', 'underline overline', or 'line-through'")
   }
 
+  if (!is.null(margin) && length(margin)<4) {
+
+    stop("please provide margin dimensions within `margin()`. Ex. margin = margin(t=10)")
+  }
+
+  if (is.null(margin)) {
+
+    margin <- margin(t=0,r=0,b=0,l=0)
+
+  } else {margin <- margin}
+
   htmlwidgets::appendContent(
     table,
     htmltools::tags$p(source,
@@ -332,7 +372,10 @@ add_source <- function(table = NULL,
                                      "font-style:", font_style, ";",
                                      "font-weight:", font_weight, ";",
                                      "text-decoration:", text_decoration, ";",
-                                     "margin:", margin, "px")
+                                     "margin-top:", margin[[1]], "px;",
+                                     "margin-right:", margin[[2]], "px;",
+                                     "margin-bottom:", margin[[3]], "px;",
+                                     "margin-left:", margin[[4]], "px")
     )
   )
 }
@@ -573,4 +616,18 @@ cell_style <- function(data,
 html <- function(text, ...) {
 
   htmltools::HTML(text, ...)
+}
+
+
+#' Margin dimensions.
+#'
+#' @param t,r,b,l The dimensions of the top, right, bottom, and left margins.
+#'
+#' @return a function that provides margin dimensions.
+#'
+#' @export
+
+margin <- function(t = 0, r = 0, b = 0, l = 0) {
+  m <- c(t, r, b, l)
+  m
 }
