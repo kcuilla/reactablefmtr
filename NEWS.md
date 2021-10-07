@@ -39,6 +39,7 @@
 * The default position of `text_position` within  `data_bars()` has been changed from "outside-end" to "inside-end"
 * Text is now centered vertically within `data_bars()` by default
 * The size of the text within `data_bars()` can now be changed with `text_size`
+* The four-sided margin dimensions can now be assigned within `margin()` in `add_title()`, `add_subtitle()`, and `add_source()` 
 
 
 # reactablefmtr 1.0.0
