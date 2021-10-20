@@ -6,7 +6,7 @@
 \usage{
 data_bars(
   data,
-  fill_color = "#67a9cf",
+  fill_color = "#8ebfdb",
   fill_color_ref = NULL,
   fill_opacity = 1,
   fill_gradient = FALSE,
@@ -18,7 +18,7 @@ data_bars(
   text_position = "inside-end",
   force_outside = NULL,
   text_color = "black",
-  text_size = 16,
+  text_size = 13,
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
