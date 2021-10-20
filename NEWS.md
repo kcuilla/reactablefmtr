@@ -33,6 +33,11 @@
 
 * The alignment of the icons within a column can now be changed to either left, right, or center with `align_icons`. Previously, icons could only be aligned to the left
 
+#### pill_button()
+
+* `pill_button()` can be used to surround text or numeric values in a colored pill button. It is similar to `color_tiles()` but is more condensed and round and the width of the pill dynamically adjusts based on the size of the text/values
+* As with `color_tiles()`, `color_scales()`, and `data_bars()`, colors can be conditionally assigned from another column in the dataset and many of the other options available in `color_tiles()` are available in `pill_button()`
+
 ### Other Modifications
 
 * The default color of `fill_color` within `data_bars()` and `icon_assign()` has been changed to #67a9cf
