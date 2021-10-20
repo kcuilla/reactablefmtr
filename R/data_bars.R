@@ -198,7 +198,7 @@
 
 
 data_bars <- function(data,
-                      fill_color = "#67a9cf",
+                      fill_color = "#8ebfdb",
                       fill_color_ref = NULL,
                       fill_opacity = 1,
                       fill_gradient = FALSE,
@@ -210,7 +210,7 @@ data_bars <- function(data,
                       text_position = "inside-end",
                       force_outside = NULL,
                       text_color = "black",
-                      text_size = 16,
+                      text_size = 13,
                       brighten_text = TRUE,
                       brighten_text_color = "white",
                       bold_text = FALSE,
@@ -463,10 +463,6 @@ data_bars <- function(data,
 
     ### height of data_bars
     height <- bar_height
-
-    ### testing
-    num_width <- (abs(value) / max(abs(data[[name]]), na.rm = TRUE) * 100)
-    ###
 
     ### width of data_bars
     width <- if (is.numeric(value) & is.null(max_value) & is.null(min_value)) {
