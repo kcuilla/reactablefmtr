@@ -35,6 +35,7 @@ data_bars(
   img_ref = NULL,
   img_height = 20,
   img_width = 20,
+  box_shadow = FALSE,
   animation = "1s ease"
 )
 }
@@ -158,6 +159,9 @@ Default is 20.}
 
 \item{img_width}{A value for the width of the image in px.
 Default is 20.}
+
+\item{box_shadow}{Logical: add a box shadow to the bars.
+Default is FALSE.}
 
 \item{animation}{Control the duration and timing function of the animation
 when sorting/updating values shown on a page.

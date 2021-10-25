@@ -16,6 +16,7 @@ color_tiles(
   brighten_text_color = "white",
   bold_text = FALSE,
   span = FALSE,
+  box_shadow = FALSE,
   animation = "1s ease"
 )
 }
@@ -37,7 +38,7 @@ A value of 0 is fully transparent, a value of 1 is fully opaque.
 Default is 1.}
 
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
-Default is set to NULL.}
+Default is NULL.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
@@ -58,7 +59,10 @@ Default is FALSE.}
 \item{span}{Optionally apply colors to values across multiple columns instead of by each column.
 To apply across all columns set to TRUE.
 If applying to a set of columns, can provide either column names or column positions.
-Default is set to FALSE.}
+Default is FALSE.}
+
+\item{box_shadow}{Logical: add a box shadow to the tiles.
+Default is FALSE.}
 
 \item{animation}{Control the duration and timing function of the animation
 when sorting/updating values shown on a page.
