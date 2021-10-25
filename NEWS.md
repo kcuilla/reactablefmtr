@@ -2,6 +2,11 @@
 
 ### New Features
 
+#### sparklines
+
+* Interactive sparklines can now be added to reactable tables via `react_sparkline` and `react_sparkbar`
+* In order to use the sparklines, one must download the {dataui} package from GitHub (https://github.com/timelyportfolio/dataui)
+
 #### animate
 
 * The animation of `data_bars()` can now be controlled with `animate`. The `animate` parameter has also been added to `color_scales()`, `color_tiles()`, `icon_sets()`, and `icon_assign()`. The duration and timing function of the animation can be changed within `animate` or the animation can be turned off by setting it to 'none'. For available timing functions, see [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
@@ -15,11 +20,16 @@
 
 * The vertical and horizontal alignment within a cell can now be controlled with the `vertical_align` and `horizontal_align` options
 
+#### color_tiles()
+
+* Set `box_shadow` to TRUE to apply a box shadow to the tiles
+
 #### data_bars()
 
 * Optionally force a range of values to display their text labels on the outside-end of the filled bars when the text_position is set to either "inside-end", "inside-base", or "center". This can be useful when the length of the filled data bars is too short to the text labels on the inside of the filled bars
 * Control the size of the text labels with `text_size`
 * Borders around the filled data bars can now be adjusted with the `border_style`, `border_width`, and `border_color` options
+* Set `box_shadow` to TRUE to apply a box shadow to the bars
 
 #### embed_img()
 
@@ -33,10 +43,11 @@
 
 * The alignment of the icons within a column can now be changed to either left, right, or center with `align_icons`. Previously, icons could only be aligned to the left
 
-#### pill_button()
+#### pill_buttons()
 
-* `pill_button()` can be used to surround text or numeric values in a colored pill button. It is similar to `color_tiles()` but is more condensed and round and the width of the pill dynamically adjusts based on the size of the text/values
-* As with `color_tiles()`, `color_scales()`, and `data_bars()`, colors can be conditionally assigned from another column in the dataset and many of the other options available in `color_tiles()` are available in `pill_button()`
+* `pill_buttons()` can be used to surround text or numeric values in a colored pill button. It is similar to `color_tiles()` but is more condensed and round and the width of the pill dynamically adjusts based on the size of the text/values
+* As with `color_tiles()`, `color_scales()`, and `data_bars()`, colors can be conditionally assigned from another column in the dataset and many of the other options available in `color_tiles()` are available in `pill_buttons()`
+* Set `box_shadow` to TRUE to apply a box shadow to the buttons
 
 ### Other Modifications
 

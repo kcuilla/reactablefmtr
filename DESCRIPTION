@@ -5,7 +5,8 @@ Version: 1.1.0
 Authors@R: c(
     person("Kyle", "Cuilla", role = c("aut", "cre", "cph"), email = "kyle.cuilla@gmail.com"),
     person("Greg", "Lin", role = c("ctb")),
-    person("June", "Choe", role = c("ctb"))
+    person("June", "Choe", role = c("ctb")),
+    person("Kent", "Russell", role = c("ctb"))
     )
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
 Description: Enhance the styling of interactive reactable tables with easy-to-use
@@ -13,6 +14,8 @@ Description: Enhance the styling of interactive reactable tables with easy-to-us
     data bars, color scales, and icon sets. Utilize custom table themes inspired by
     popular websites and bootstrap themes. Increase the portability and reproducibility
     of reactable tables by embedding images from the web directly into cells.
+    Apply sparkline line & bar charts (note this feature requires the 'dataui' package
+    which can be downloaded from <https://github.com/timelyportfolio/dataui>).
     Save the final table output as a static image or interactive file
     (note this feature requires the 'webshot2' package which can 
     be downloaded from <https://github.com/rstudio/webshot2>).
@@ -32,6 +35,7 @@ Imports:
     stringr,
     tools
 Suggests:
+    dataui,
     MASS,
     scales,
     webshot2
