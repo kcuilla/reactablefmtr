@@ -19,6 +19,9 @@ react_sparkbar(
   statline_color = "#777777",
   statline_label_color = "#777777",
   statline_label_size = "0.9em",
+  bandline = NULL,
+  bandline_color = "#777777",
+  bandline_opacity = 0.5,
   tooltip = TRUE,
   labels = "none",
   label_color = "#777777",
@@ -78,6 +81,17 @@ Default is #777777.}
 \item{statline_label_size}{The size of the label to the right of the statline.
 Default is 0.9em.}
 
+\item{bandline}{Inserts a horizontal bandline to render ranges of interest.
+Options are 'innerquartiles' or 'range' (min to max).
+Default is NULL.}
+
+\item{bandline_color}{The color of the bandline.
+Default is #777777.}
+
+\item{bandline_opacity}{A value between 0 and 1 that adjusts the opacity.
+A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 0.5.}
+
 \item{tooltip}{Logical: turn the tooltip on or off.
 Default is TRUE.}
 
@@ -113,6 +127,7 @@ The `react_sparkbar()` function utilizes the {dataui} package <https://github.co
     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
     The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
+    A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
     By default, `react_sparkbar()` is interactive and data points will be shown when hovering over the sparkbars. This can be turned off by setting `tooltip` to FALSE.
     Also by default, there are no labels on the bars themselves. However, one could add labels to the first, last, min, max, or all values within `labels`.
     The label color and label size can also be adjusted with `label_color` and `label_size` respectively.
@@ -176,5 +191,18 @@ iris \%>\%
  decimals = 1,
  statline = "mean",
  statline_color = "red"))))
+
+## Combine multiple elements together
+iris \%>\%
+ group_by(Species) \%>\%
+ summarize(petal_width = list(Petal.Width)) \%>\%
+ reactable(.,
+ columns = list(petal_width = colDef(cell = react_sparkline(.,
+ height = 80,
+ decimals = 1,
+ statline = "mean",
+ statline_color = "red",
+ bandline = "innerquartiles",
+ bandline_color = "darkgreen"))))
 
 }
