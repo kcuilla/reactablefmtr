@@ -178,11 +178,11 @@ pill_buttons <- function(data,
 
     if (!is.null(number_fmt) && is.numeric(value)) {
 
-      value <- number_fmt(value)
+      label <- number_fmt(value)
 
     } else {
 
-      value <- value
+      label <- value
 
     }
 
@@ -251,7 +251,7 @@ pill_buttons <- function(data,
 
     if (brighten_text == FALSE & show_text == TRUE) {
 
-      htmltools::div(value,
+      htmltools::div(label,
                      style = list(background = cell_color,
                                   color = text_color,
                                   boxShadow = box_shadow,
@@ -263,7 +263,7 @@ pill_buttons <- function(data,
 
     } else if (brighten_text == FALSE & show_text == FALSE) {
 
-      htmltools::div(value,
+      htmltools::div(label,
                      style = list(background = cell_color,
                                   color = "transparent",
                                   boxShadow = box_shadow,
@@ -274,7 +274,7 @@ pill_buttons <- function(data,
 
     } else if (brighten_text == TRUE & show_text == FALSE) {
 
-      htmltools::div(value,
+      htmltools::div(label,
                      style = list(background = cell_color,
                                   color = "transparent",
                                   boxShadow = box_shadow,
@@ -285,7 +285,7 @@ pill_buttons <- function(data,
 
     } else {
 
-      htmltools::div(value,
+      htmltools::div(label,
                      style = list(background = cell_color,
                                   color = font_color,
                                   boxShadow = box_shadow,

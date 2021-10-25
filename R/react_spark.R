@@ -642,6 +642,7 @@ highlight_bars <- function(first = "transparent",
 #'     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
 #'     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
 #'     The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
+#'     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
 #'     By default, `react_sparkbar()` is interactive and data points will be shown when hovering over the sparkbars. This can be turned off by setting `tooltip` to FALSE.
 #'     Also by default, there are no labels on the bars themselves. However, one could add labels to the first, last, min, max, or all values within `labels`.
 #'     The label color and label size can also be adjusted with `label_color` and `label_size` respectively.
@@ -697,6 +698,17 @@ highlight_bars <- function(first = "transparent",
 #'
 #' @param statline_label_size The size of the label to the right of the statline.
 #'     Default is 0.9em.
+#'
+#' @param bandline Inserts a horizontal bandline to render ranges of interest.
+#'     Options are 'innerquartiles' or 'range' (min to max).
+#'     Default is NULL.
+#'
+#' @param bandline_color The color of the bandline.
+#'     Default is #777777.
+#'
+#' @param bandline_opacity A value between 0 and 1 that adjusts the opacity.
+#'     A value of 0 is fully transparent, a value of 1 is fully opaque.
+#'     Default is 0.5.
 #'
 #' @param tooltip Logical: turn the tooltip on or off.
 #'     Default is TRUE.
@@ -784,6 +796,19 @@ highlight_bars <- function(first = "transparent",
 #'  statline = "mean",
 #'  statline_color = "red"))))
 #'
+#' ## Combine multiple elements together
+#'iris %>%
+#'  group_by(Species) %>%
+#'  summarize(petal_width = list(Petal.Width)) %>%
+#'  reactable(.,
+#'  columns = list(petal_width = colDef(cell = react_sparkline(.,
+#'  height = 80,
+#'  decimals = 1,
+#'  statline = "mean",
+#'  statline_color = "red",
+#'  bandline = "innerquartiles",
+#'  bandline_color = "darkgreen"))))
+#'
 #' @export
 
 react_sparkbar <- function(data,
@@ -800,6 +825,9 @@ react_sparkbar <- function(data,
                            statline_color = "#777777",
                            statline_label_color = "#777777",
                            statline_label_size = "0.9em",
+                           bandline = NULL,
+                           bandline_color = "#777777",
+                           bandline_opacity = 0.5,
                            tooltip = TRUE,
                            labels = "none",
                            label_color = "#777777",
@@ -830,6 +858,11 @@ react_sparkbar <- function(data,
       stop("`labels` must be either first, last, min, max, all, or none")
     }
 
+    if (!is.null(bandline) && !any(bandline %in% c("innerquartiles","range"))) {
+
+      stop("`bandline` must be either innerquartiles or range")
+    }
+
     if (!is.null(statline) && !any(statline %in% c("mean","median","min","max"))) {
 
       stop("`statline` must be either mean, median, min, or max")
@@ -858,6 +891,52 @@ react_sparkbar <- function(data,
       statline <- dataui::dui_sparkhorizontalrefline(
         stroke = "transparent")
 
+    }
+
+      if (!is.null(bandline) && bandline == "innerquartiles") {
+
+      bandline_pattern <- dataui::dui_sparkpatternlines(
+        id = "pattern",
+        height = 4,
+        width = 4,
+        stroke = bandline_color,
+        strokeWidth = 1,
+        orientation= list("diagonal")
+      )
+
+      bandline <- dataui::dui_sparkbandline(
+        band = "innerquartiles",
+        fill = "url(#pattern)",
+        fillOpacity = bandline_opacity
+      )
+
+    } else if (!is.null(bandline) && bandline == "range") {
+
+      bandline_pattern <- dataui::dui_sparkpatternlines(
+        id = "pattern",
+        height = 4,
+        width = 4,
+        stroke = bandline_color,
+        strokeWidth = 1,
+        orientation= list("diagonal")
+      )
+
+      bandline <- dataui::dui_sparkbandline(
+        band = list(from = list(y=min(value)), to = list(y=max(value))),
+        fill = "url(#pattern)",
+        fillOpacity = bandline_opacity
+      )
+
+    } else {
+
+      bandline_pattern <- dataui::dui_sparkpatternlines(
+        id = "NA",
+        stroke = "transparent"
+      )
+
+      bandline <- dataui::dui_sparkbandline(
+        fill = "transparent"
+      )
     }
 
     if (any(labels %in% "none") && is.null(margin)) {
@@ -1048,6 +1127,8 @@ react_sparkbar <- function(data,
           labelPosition = "top",
           labelOffset = 6.5
         ),
+        bandline_pattern,
+        bandline,
         statline,
         refline
       )
