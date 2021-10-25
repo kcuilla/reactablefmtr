@@ -29,7 +29,7 @@
 #'     Default is 1.
 #'
 #' @param number_fmt Optionally format numbers using formats from the scales package.
-#'     Default is set to NULL.
+#'     Default is NULL.
 #'
 #' @param text_color Assigns text color to values.
 #'     Default is black.
@@ -50,7 +50,10 @@
 #' @param span Optionally apply colors to values across multiple columns instead of by each column.
 #'     To apply across all columns set to TRUE.
 #'     If applying to a set of columns, can provide either column names or column positions.
-#'     Default is set to FALSE.
+#'     Default is FALSE.
+#'
+#' @param box_shadow Logical: add a box shadow to the tiles.
+#'     Default is FALSE.
 #'
 #' @param animation Control the duration and timing function of the animation
 #'     when sorting/updating values shown on a page.
@@ -118,6 +121,7 @@ color_tiles <- function(data,
                         brighten_text_color = "white",
                         bold_text = FALSE,
                         span = FALSE,
+                        box_shadow = FALSE,
                         animation = "1s ease") {
 
   if (!is.logical(bold_text)) {
@@ -128,6 +132,11 @@ color_tiles <- function(data,
   if (!is.logical(brighten_text)) {
 
     stop("`brighten_text` must be TRUE or FALSE")
+  }
+
+  if (!is.logical(box_shadow)) {
+
+    stop("`box_shadow` must be TRUE or FALSE")
   }
 
   if (!is.numeric(opacity)) {
@@ -173,6 +182,12 @@ color_tiles <- function(data,
     bold_text <- "bold"
 
   } else bold_text <- "normal"
+
+  if (box_shadow == TRUE) {
+
+    box_shadow <- "0 6px 6px -4px #888888"
+
+  } else box_shadow <- NULL
 
   cell <- function(value, index, name) {
 
@@ -260,6 +275,7 @@ color_tiles <- function(data,
                                   alignItems = "center",
                                   borderRadius = "6px",
                                   fontWeight = bold_text,
+                                  boxShadow = box_shadow,
                                   transition = animation))
 
     } else if (brighten_text == FALSE & show_text == FALSE) {
@@ -271,6 +287,7 @@ color_tiles <- function(data,
                                   height = "18px",
                                   borderRadius = "6px",
                                   fontSize = 0,
+                                  boxShadow = box_shadow,
                                   transition = animation))
 
     } else if (brighten_text == TRUE & show_text == FALSE) {
@@ -282,6 +299,7 @@ color_tiles <- function(data,
                                   height = "18px",
                                   borderRadius = "6px",
                                   fontSize = 0,
+                                  boxShadow = box_shadow,
                                   transition = animation))
 
     } else {
@@ -294,16 +312,10 @@ color_tiles <- function(data,
                                   justifyContent = "center",
                                   alignItems = "center",
                                   borderRadius = "6px",
+                                  boxShadow = box_shadow,
                                   fontWeight = bold_text,
                                   transition = animation))
     }
 
   }
 }
-
-data <- iris[10:29, ]
-
-## By default, the colors_tiles() function uses a blue-white-orange three-color pattern
-reactable(data,
- columns = list(
- Petal.Length = colDef(cell = color_tiles(data, show_text = FALSE))))
