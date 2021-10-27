@@ -261,30 +261,30 @@ react_sparkline <- function(data,
                             height = 22,
                             margin = NULL,
                             show_line = TRUE,
-                            line_color = "#777777",
+                            line_color = "slategray",
                             line_color_ref = NULL,
-                            line_width = 2,
+                            line_width = 1,
                             line_curve = "cardinal",
                             highlight_points = NULL,
-                            point_size = 1.3,
+                            point_size = 1.1,
+                            labels = "none",
+                            label_color = "slategray",
+                            label_size = "0.75em",
+                            decimals = 0,
+                            min_value = NULL,
+                            max_value = NULL,
                             show_area = FALSE,
                             area_color = NULL,
                             area_color_ref = NULL,
-                            area_opacity = 0.3,
+                            area_opacity = 0.1,
                             statline = NULL,
-                            statline_color = "#777777",
-                            statline_label_color = "#777777",
-                            statline_label_size = "0.9em",
+                            statline_color = "red",
+                            statline_label_color = "red",
+                            statline_label_size = "0.75em",
                             bandline = NULL,
-                            bandline_color = "#777777",
-                            bandline_opacity = 0.5,
-                            tooltip = TRUE,
-                            labels = "none",
-                            label_color = "#777777",
-                            label_size = "0.8em",
-                            decimals = 0,
-                            max_value = NULL,
-                            min_value = NULL) {
+                            bandline_color = "red",
+                            bandline_opacity = 0.2,
+                            tooltip = TRUE) {
 
   cell <- function(value, index, name) {
 
@@ -323,12 +323,6 @@ react_sparkline <- function(data,
       stop("`show_area` must either be TRUE or FALSE.")
     }
 
-    if (show_area == FALSE) {
-
-      fill_area <- NULL
-
-    } else {fill_area <- TRUE}
-
     if (!is.null(labels) && !any(labels %in% c("none","first","last","min","max","all"))) {
 
       stop("`labels` must be either first, last, min, max, all, or none")
@@ -352,15 +346,57 @@ react_sparkline <- function(data,
     ### find last index
     last_index <- lapply(data[[name]], function(x) length(x)-1)
 
+    ### create a statline with a bold label to the right
+    if (!is.null(statline) && statline %in% c("mean","median","min","max")) {
+
+      statline <- dataui::dui_sparkhorizontalrefline(
+        stroke = statline_color,
+        strokeDasharray = "2, 2",
+        strokeWidth = 1,
+        strokeOpacity = 0.75,
+        reference = statline,
+        renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
+          "(d) => React.createElement('tspan', {fill: '",statline_label_color,"', fontWeight: 'bold', fontSize: '",statline_label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
+        labelPosition = "right",
+        labelOffset = 5)
+
+        ### assign margins based on labeling
+        if (any(labels %in% "none") && is.null(margin)) {
+
+          margin <- margin(t=4,r=28,b=3,l=5)
+
+        ### if labels are first/last but not min, max, or all
+        } else if (any(labels %in% c("first","last")) && (!any(stringr::str_detect(labels, "min")) && !any(stringr::str_detect(labels, "max")) && !any(stringr::str_detect(labels, "all"))) && is.null(margin)) {
+
+          margin <- margin(t=5,r=28,b=3,l=24)
+
+        ### this applies to min, max, and/or all labels
+        } else if (is.null(margin)) {
+
+          margin <- margin(t=12,r=28,b=10,l=8)
+
+          ### the default height needs to be increased to show all labels
+          if (height == 22) {
+            height <- 28
+          } else { height <- height }
+        }
+
+    } else {
+
+      statline <- dataui::dui_sparkhorizontalrefline(
+        stroke = "transparent")
+
+    }
+
     ### assign margins based on labeling
     if (any(labels %in% "none") && is.null(margin)) {
 
-      margin <- margin(t=3,r=13,b=3,l=13)
+      margin <- margin(t=2,r=5,b=2,l=5)
 
     ### if labels are first/last but not min, max, or all
     } else if (any(labels %in% c("first","last")) && (!any(stringr::str_detect(labels, "min")) && !any(stringr::str_detect(labels, "max")) && !any(stringr::str_detect(labels, "all"))) && is.null(margin)) {
 
-      margin <- margin(t=5,r=22,b=3,l=22)
+      margin <- margin(t=5,r=24,b=3,l=24)
 
     ### this applies to min, max, and/or all labels
     } else if (is.null(margin)) {
@@ -391,28 +427,6 @@ react_sparkline <- function(data,
 
       label_position <- "auto"
       label_offset <- 7
-    }
-
-    ### create a statline with a bold label to the right
-    if (!is.null(statline) && statline %in% c("mean","median","min","max")) {
-
-      statline <- dataui::dui_sparkhorizontalrefline(
-        stroke = statline_color,
-        strokeDasharray = "3,3",
-        strokeWidth = 1.5,
-        reference = statline,
-        renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
-          "(d) => React.createElement('tspan', {fill: '",statline_label_color,"', fontWeight: 'bold', fontSize: '",statline_label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
-        labelPosition = "right",
-        labelOffset = 6)
-
-      margin <- margin(t=5,r=30,b=3,l=13)
-
-    } else {
-
-      statline <- dataui::dui_sparkhorizontalrefline(
-        stroke = "transparent")
-
     }
 
     if (!is.null(bandline) && bandline == "innerquartiles") {
@@ -461,12 +475,6 @@ react_sparkline <- function(data,
       )
     }
 
-    if (is.null(area_color)) {
-
-      area_color <- line_color
-
-    } else { area_color <- area_color }
-
     ### conditional line color
     if (!is.null(line_color_ref) && is.character(line_color_ref)) {
 
@@ -487,6 +495,12 @@ react_sparkline <- function(data,
 
       line_color <- line_color
     }
+
+    if (is.null(area_color)) {
+
+      area_color <- line_color
+
+    } else { area_color <- area_color }
 
     ### conditional area color
     if (!is.null(area_color_ref) && is.character(area_color_ref)) {
@@ -525,7 +539,7 @@ react_sparkline <- function(data,
             var datum = _ref.datum;
             return React.createElement(
                   'tspan',
-                  {style: {fontSize: '0.8em'}},
+                  {style: {fontSize: '0.7em', color: '",line_color,"'}},
                   datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
                 )
           }
@@ -793,48 +807,45 @@ highlight_bars <- function(first = "transparent",
 #'  columns = list(petal_width = colDef(cell = react_sparkbar(.,
 #'  height = 80,
 #'  decimals = 1,
-#'  statline = "mean",
-#'  statline_color = "red"))))
+#'  statline = "mean"))))
 #'
 #' ## Combine multiple elements together
 #'iris %>%
 #'  group_by(Species) %>%
 #'  summarize(petal_width = list(Petal.Width)) %>%
 #'  reactable(.,
-#'  columns = list(petal_width = colDef(cell = react_sparkline(.,
+#'  columns = list(petal_width = colDef(cell = react_sparkbar(.,
 #'  height = 80,
 #'  decimals = 1,
 #'  statline = "mean",
-#'  statline_color = "red",
-#'  bandline = "innerquartiles",
-#'  bandline_color = "darkgreen"))))
+#'  bandline = "innerquartiles"))))
 #'
 #' @export
 
 react_sparkbar <- function(data,
                            height = 22,
                            margin = NULL,
+                           fill_color = "slategray",
+                           fill_color_ref = NULL,
+                           fill_opacity = 1,
                            line_color = "transparent",
                            line_color_ref = NULL,
                            line_width = 1,
-                           fill_color = "#777777",
-                           fill_color_ref = NULL,
-                           fill_opacity = 0.8,
                            highlight_bars = NULL,
-                           statline = NULL,
-                           statline_color = "#777777",
-                           statline_label_color = "#777777",
-                           statline_label_size = "0.9em",
-                           bandline = NULL,
-                           bandline_color = "#777777",
-                           bandline_opacity = 0.5,
-                           tooltip = TRUE,
                            labels = "none",
-                           label_color = "#777777",
-                           label_size = "0.8em",
+                           label_color = "slategray",
+                           label_size = "0.75em",
                            decimals = 0,
                            max_value = NULL,
-                           min_value = NULL) {
+                           min_value = NULL,
+                           statline = NULL,
+                           statline_color = "red",
+                           statline_label_color = "red",
+                           statline_label_size = "0.75em",
+                           bandline = NULL,
+                           bandline_color = "red",
+                           bandline_opacity = 0.2,
+                           tooltip = TRUE) {
 
   cell <- function(value, index, name) {
 
@@ -874,17 +885,21 @@ react_sparkbar <- function(data,
         stroke = statline_color,
         strokeDasharray = "3,3",
         strokeWidth = 1.5,
+        strokeOpacity = 0.75,
         reference = statline,
         renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
           "(d) => React.createElement('tspan', {fill: '",statline_label_color,"', fontWeight: 'bold', fontSize: '",statline_label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
         labelPosition = "right",
-        labelOffset = 11)
+        labelOffset = 10)
 
       if (any(labels %in% "none") && is.null(margin)) {
 
-        margin <- margin(t=3,r=30,b=0,l=13)
+        margin <- margin(t=4,r=28,b=3,l=13)
 
-      } else { margin <- margin(t=12,r=30,b=0,l=13) }
+      } else if (is.null(margin)) {
+
+        margin <- margin(t=12,r=26,b=3,l=26)
+      }
 
     } else {
 
@@ -989,40 +1004,6 @@ react_sparkbar <- function(data,
       fill_color <- fill_color
     }
 
-    if (tooltip == FALSE) {
-
-      tooltip <- NULL
-      refline <- dataui::dui_tooltip(components = list(
-        dataui::dui_sparkverticalrefline(
-          stroke = "transparent"
-        )
-      ))
-
-    } else {
-
-      tooltip <- htmlwidgets::JS(htmltools::HTML(paste0("
-          function (_ref) {
-            var datum = _ref.datum;
-            return React.createElement(
-                  'tspan',
-                  {style: {fontSize: '0.9em'}},
-                  datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
-                )
-          }
-      ")))
-
-      refline <- dataui::dui_tooltip(
-        components = list(
-          dataui::dui_sparkverticalrefline(
-            strokeDasharray = "3,3",
-            stroke = fill_color,
-            strokeWidth = 1.5,
-            strokeLinecap = "square"
-          )
-        )
-      )
-    }
-
     if (!is.null(highlight_bars)) {
 
       if (is.null(highlight_bars)) {
@@ -1098,6 +1079,40 @@ react_sparkbar <- function(data,
       }
 
     } else { fill_condition <- fill_color }
+
+    if (tooltip == FALSE) {
+
+      tooltip <- NULL
+      refline <- dataui::dui_tooltip(components = list(
+        dataui::dui_sparkverticalrefline(
+          stroke = "transparent"
+        )
+      ))
+
+    } else {
+
+      tooltip <- htmlwidgets::JS(htmltools::HTML(paste0("
+          function (_ref) {
+            var datum = _ref.datum;
+            return React.createElement(
+                  'tspan',
+                  {style: {fontSize: '0.75em', color: '",fill_color,"'}},
+                  datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
+                )
+          }
+      ")))
+
+      refline <- dataui::dui_tooltip(
+        components = list(
+          dataui::dui_sparkverticalrefline(
+            strokeDasharray = "3, 3",
+            stroke = fill_color,
+            strokeWidth = 1.5,
+            strokeLinecap = "square"
+          )
+        )
+      )
+    }
 
     dataui::dui_sparkline(
       data = value,
