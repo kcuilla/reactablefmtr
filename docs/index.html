@@ -17,6 +17,8 @@
     data bars, color scales, and icon sets. Utilize custom table themes inspired by
     popular websites and bootstrap themes. Increase the portability and reproducibility
     of reactable tables by embedding images from the web directly into cells.
+    Apply sparkline line &amp; bar charts (note this feature requires the dataui package
+    which can be downloaded from &lt;https://github.com/timelyportfolio/dataui&gt;).
     Save the final table output as a static image or interactive file
     (note this feature requires the webshot2 package which can 
     be downloaded from &lt;https://github.com/rstudio/webshot2&gt;).">
@@ -160,6 +162,12 @@
 <a href="#data-bars" class="anchor"></a>Data Bars</h3>
 <p>Use <code><a href="reference/data_bars.html">data_bars()</a></code> to assign horizontal bars to each row. There are many ways to <a href="https://kcuilla.github.io/reactablefmtr/reference/data_bars.html">customize</a> the look of <code><a href="reference/data_bars.html">data_bars()</a></code>, including the alignment of the bars, the position of the text labels, and the option to add icons and images to the bars. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/data_bars.html">tutorial</a> for customization examples.</p>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo.gif" align="center"></p>
+</div>
+<div id="sparklines" class="section level3">
+<h3 class="hasAnchor">
+<a href="#sparklines" class="anchor"></a>Sparklines</h3>
+<p>Use <code><a href="reference/react_sparkline.html">react_sparkline()</a></code> to create sparklines or <code><a href="reference/react_sparkbar.html">react_sparkbar()</a></code> to create sparkline bar charts. The sparklines are highly customizable and interactive. As you hover over each data point, the value will appear. The sparklines are imported from the <a href="https://timelyportfolio.github.io/dataui/index.html">{dataui}</a> package, so this package will need to be downloaded from GitHub in order to use this feature.</p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/sparkline_line_ex1.png" algin="center"><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/sparkbar_ex1.png" algin="center"></p>
 </div>
 <div id="color-scales" class="section level3">
 <h3 class="hasAnchor">
