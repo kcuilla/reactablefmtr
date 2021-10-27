@@ -192,6 +192,8 @@ We may also apply the labels directly to the sparkline by specifying which value
 ```{r}
 reactable(df,
           columns = list(
+            species = colDef(width = 150),
+            sex = colDef(width = 150),
             cols = colDef(show = FALSE),
             flipper_length_mm = colDef(cell = react_sparkline(
               df,
@@ -341,6 +343,7 @@ reactable(df,
           columns = list(
             species = colDef(width = 150),
             sex = colDef(width = 150),
+            cols = colDef(show = FALSE),
             flipper_length_mm = colDef(cell = react_sparkbar(df))
           ))
 ```
