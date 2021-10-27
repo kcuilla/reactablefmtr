@@ -42,6 +42,12 @@ Use `data_bars()` to assign horizontal bars to each row. There are many ways to 
 
 <img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/data_bars_animated_demo.gif" align="center" />
 
+### Sparklines
+
+Use `react_sparkline()` to create sparklines or `react_sparkbar()` to create sparkline bar charts. The sparklines are highly customizable and interactive. As you hover over each data point, the value will appear. The sparklines are imported from the [{dataui}](https://timelyportfolio.github.io/dataui/index.html) package, so this package will need to be downloaded from GitHub in order to use this feature.
+  
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/sparkline_line_ex1.png" algin="center"/>
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/sparkbar_ex1.png" algin="center"/>
 
 ### Color Scales
 
