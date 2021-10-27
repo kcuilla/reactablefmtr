@@ -9,30 +9,30 @@ react_sparkline(
   height = 22,
   margin = NULL,
   show_line = TRUE,
-  line_color = "#777777",
+  line_color = "slategray",
   line_color_ref = NULL,
-  line_width = 2,
+  line_width = 1,
   line_curve = "cardinal",
   highlight_points = NULL,
-  point_size = 1.3,
+  point_size = 1.1,
+  labels = "none",
+  label_color = "slategray",
+  label_size = "0.75em",
+  decimals = 0,
+  min_value = NULL,
+  max_value = NULL,
   show_area = FALSE,
   area_color = NULL,
   area_color_ref = NULL,
-  area_opacity = 0.3,
+  area_opacity = 0.1,
   statline = NULL,
-  statline_color = "#777777",
-  statline_label_color = "#777777",
-  statline_label_size = "0.9em",
+  statline_color = "red",
+  statline_label_color = "red",
+  statline_label_size = "0.75em",
   bandline = NULL,
-  bandline_color = "#777777",
-  bandline_opacity = 0.5,
-  tooltip = TRUE,
-  labels = "none",
-  label_color = "#777777",
-  label_size = "0.8em",
-  decimals = 0,
-  max_value = NULL,
-  min_value = NULL
+  bandline_color = "red",
+  bandline_opacity = 0.2,
+  tooltip = TRUE
 )
 }
 \arguments{
@@ -69,6 +69,25 @@ By default, transparent colors are assigned to each point.}
 \item{point_size}{Numerical: the size of the points.
 Must first assigned colors to point(s) using `highlight_points`.
 Default is 1.3.}
+
+\item{labels}{Show labels for points of interest.
+Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
+Default is 'none'.}
+
+\item{label_color}{The color of the labels.
+Default is #777777.}
+
+\item{label_size}{The size of the labels.
+Default is 0.8em.}
+
+\item{decimals}{Numeric: The number of decimals displayed in the labels and tooltip.
+Default is 0.}
+
+\item{min_value}{Numeric: the minimum value of the sparkline range.
+Default is NULL (automatically the minimum value of each sparkline series).}
+
+\item{max_value}{Numeric: the maximum value of the sparkline range.
+Default is NULL (automatically the maximum value of each sparkline series).}
 
 \item{show_area}{Logical: show or hide area beneath line.
 Default is FALSE.}
@@ -114,25 +133,6 @@ Default is 0.5.}
 
 \item{tooltip}{Logical: turn the tooltip on or off.
 Default is TRUE.}
-
-\item{labels}{Show labels for points of interest.
-Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
-Default is 'none'.}
-
-\item{label_color}{The color of the labels.
-Default is #777777.}
-
-\item{label_size}{The size of the labels.
-Default is 0.8em.}
-
-\item{decimals}{Numeric: The number of decimals displayed in the labels and tooltip.
-Default is 0.}
-
-\item{max_value}{Numeric: the maximum value of the sparkline range.
-Default is NULL (automatically the maximum value of each sparkline series).}
-
-\item{min_value}{Numeric: the minimum value of the sparkline range.
-Default is NULL (automatically the minimum value of each sparkline series).}
 }
 \value{
 a function that applies conditional colors

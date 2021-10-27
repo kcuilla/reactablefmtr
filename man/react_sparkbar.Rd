@@ -8,27 +8,27 @@ react_sparkbar(
   data,
   height = 22,
   margin = NULL,
+  fill_color = "slategray",
+  fill_color_ref = NULL,
+  fill_opacity = 1,
   line_color = "transparent",
   line_color_ref = NULL,
   line_width = 1,
-  fill_color = "#777777",
-  fill_color_ref = NULL,
-  fill_opacity = 0.8,
   highlight_bars = NULL,
-  statline = NULL,
-  statline_color = "#777777",
-  statline_label_color = "#777777",
-  statline_label_size = "0.9em",
-  bandline = NULL,
-  bandline_color = "#777777",
-  bandline_opacity = 0.5,
-  tooltip = TRUE,
   labels = "none",
-  label_color = "#777777",
-  label_size = "0.8em",
+  label_color = "slategray",
+  label_size = "0.75em",
   decimals = 0,
   max_value = NULL,
-  min_value = NULL
+  min_value = NULL,
+  statline = NULL,
+  statline_color = "red",
+  statline_label_color = "red",
+  statline_label_size = "0.75em",
+  bandline = NULL,
+  bandline_color = "red",
+  bandline_opacity = 0.2,
+  tooltip = TRUE
 )
 }
 \arguments{
@@ -39,17 +39,6 @@ Default is 50.}
 
 \item{margin}{The four-sided margin around the sparkbar
 Use margin() to assign the top, right, bottom, and left margins.}
-
-\item{line_color}{The color of the line.
-Default is #777777.}
-
-\item{line_color_ref}{Optionally assign line colors from another column
-by providing the name of the column containing the colors in quotes.
-Only one color can be provided per row.
-Default is NULL.}
-
-\item{line_width}{Numeric width of the line.
-Default is 2.}
 
 \item{fill_color}{The color of the bar fill.
 Default is #777777.}
@@ -63,9 +52,39 @@ Default is NULL.}
 A value of 0 is fully transparent, a value of 1 is fully opaque.
 Default is 0.8.}
 
+\item{line_color}{The color of the line.
+Default is #777777.}
+
+\item{line_color_ref}{Optionally assign line colors from another column
+by providing the name of the column containing the colors in quotes.
+Only one color can be provided per row.
+Default is NULL.}
+
+\item{line_width}{Numeric width of the line.
+Default is 2.}
+
 \item{highlight_bars}{Use `highlight_bars()` to assign colors to particular bars.
 Colors can be assigned to all, min, max, first, or last bars.
 By default, transparent colors are assigned to each bars.}
+
+\item{labels}{Show labels for points of interest.
+Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
+Default is 'none'.}
+
+\item{label_color}{The color of the labels.
+Default is #777777.}
+
+\item{label_size}{The size of the labels.
+Default is 0.8em.}
+
+\item{decimals}{Numeric: The number of decimals displayed in the labels and tooltip.
+Default is 0.}
+
+\item{max_value}{Numeric: the maximum value of the sparkline range.
+Default is NULL (automatically the maximum value of each sparkline series).}
+
+\item{min_value}{Numeric: the minimum value of the sparkline range.
+Default is NULL (automatically the minimum value of each sparkline series).}
 
 \item{statline}{Inserts a horizontal dotted line representing a statistic,
 and places the value of that statistic to the right of the line.
@@ -94,25 +113,6 @@ Default is 0.5.}
 
 \item{tooltip}{Logical: turn the tooltip on or off.
 Default is TRUE.}
-
-\item{labels}{Show labels for points of interest.
-Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
-Default is 'none'.}
-
-\item{label_color}{The color of the labels.
-Default is #777777.}
-
-\item{label_size}{The size of the labels.
-Default is 0.8em.}
-
-\item{decimals}{Numeric: The number of decimals displayed in the labels and tooltip.
-Default is 0.}
-
-\item{max_value}{Numeric: the maximum value of the sparkline range.
-Default is NULL (automatically the maximum value of each sparkline series).}
-
-\item{min_value}{Numeric: the minimum value of the sparkline range.
-Default is NULL (automatically the minimum value of each sparkline series).}
 }
 \value{
 a function that applies conditional colors
@@ -189,20 +189,17 @@ iris \%>\%
  columns = list(petal_width = colDef(cell = react_sparkbar(.,
  height = 80,
  decimals = 1,
- statline = "mean",
- statline_color = "red"))))
+ statline = "mean"))))
 
 ## Combine multiple elements together
 iris \%>\%
  group_by(Species) \%>\%
  summarize(petal_width = list(Petal.Width)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkline(.,
+ columns = list(petal_width = colDef(cell = react_sparkbar(.,
  height = 80,
  decimals = 1,
  statline = "mean",
- statline_color = "red",
- bandline = "innerquartiles",
- bandline_color = "darkgreen"))))
+ bandline = "innerquartiles"))))
 
 }
