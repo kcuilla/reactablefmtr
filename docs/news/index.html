@@ -176,6 +176,15 @@
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h3>
+<div id="sparklines" class="section level4">
+<h4 class="hasAnchor">
+<a href="#sparklines" class="anchor"></a>sparklines</h4>
+<ul>
+<li>Interactive sparklines can now be added to reactable tables via <code>react_sparkline</code> and <code>react_sparkbar</code>
+</li>
+<li>In order to use the sparklines, one must download the {dataui} package from GitHub (<a href="https://github.com/timelyportfolio/dataui" class="uri">https://github.com/timelyportfolio/dataui</a>)</li>
+</ul>
+</div>
 <div id="animate" class="section level4">
 <h4 class="hasAnchor">
 <a href="#animate" class="anchor"></a>animate</h4>
@@ -197,7 +206,14 @@
 <h4 class="hasAnchor">
 <a href="#color_scales" class="anchor"></a>color_scales()</h4>
 <ul>
-<li>The vertical and horizontal alignment within a cell can now be controlled with the <code>vertical_alignment</code> and <code>horizontal_alignment</code> options</li>
+<li>The vertical and horizontal alignment within a cell can now be controlled with the <code>vertical_align</code> and <code>horizontal_align</code> options</li>
+</ul>
+</div>
+<div id="color_tiles" class="section level4">
+<h4 class="hasAnchor">
+<a href="#color_tiles" class="anchor"></a>color_tiles()</h4>
+<ul>
+<li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the tiles</li>
 </ul>
 </div>
 <div id="data_bars" class="section level4">
@@ -208,13 +224,21 @@
 <li>Control the size of the text labels with <code>text_size</code>
 </li>
 <li>Borders around the filled data bars can now be adjusted with the <code>border_style</code>, <code>border_width</code>, and <code>border_color</code> options</li>
+<li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the bars</li>
 </ul>
 </div>
 <div id="embed_img" class="section level4">
 <h4 class="hasAnchor">
 <a href="#embed_img" class="anchor"></a>embed_img()</h4>
 <ul>
-<li>The horizontal alignment within a cell can now be controlled with the <code>horizontal_alignment</code> option</li>
+<li>The horizontal alignment within a cell can now be controlled with the <code>horizontal_align</code> option</li>
+</ul>
+</div>
+<div id="html" class="section level4">
+<h4 class="hasAnchor">
+<a href="#html" class="anchor"></a>html()</h4>
+<ul>
+<li>Apply HTML attributes to to text within <code><a href="../reference/add_title.html">add_title()</a></code>, <code><a href="../reference/add_subtitle.html">add_subtitle()</a></code>, and <code><a href="../reference/add_source.html">add_source()</a></code> with the <code><a href="../reference/html.html">html()</a></code> helper function</li>
 </ul>
 </div>
 <div id="icon_assign" class="section level4">
@@ -222,6 +246,17 @@
 <a href="#icon_assign" class="anchor"></a>icon_assign()</h4>
 <ul>
 <li>The alignment of the icons within a column can now be changed to either left, right, or center with <code>align_icons</code>. Previously, icons could only be aligned to the left</li>
+</ul>
+</div>
+<div id="pill_buttons" class="section level4">
+<h4 class="hasAnchor">
+<a href="#pill_buttons" class="anchor"></a>pill_buttons()</h4>
+<ul>
+<li>
+<code><a href="../reference/pill_buttons.html">pill_buttons()</a></code> can be used to surround text or numeric values in a colored pill button. It is similar to <code><a href="../reference/color_tiles.html">color_tiles()</a></code> but is more condensed and round and the width of the pill dynamically adjusts based on the size of the text/values</li>
+<li>As with <code><a href="../reference/color_tiles.html">color_tiles()</a></code>, <code><a href="../reference/color_scales.html">color_scales()</a></code>, and <code><a href="../reference/data_bars.html">data_bars()</a></code>, colors can be conditionally assigned from another column in the dataset and many of the other options available in <code><a href="../reference/color_tiles.html">color_tiles()</a></code> are available in <code><a href="../reference/pill_buttons.html">pill_buttons()</a></code>
+</li>
+<li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the buttons</li>
 </ul>
 </div>
 </div>
@@ -233,6 +268,8 @@
 <li>The default position of <code>text_position</code> within <code><a href="../reference/data_bars.html">data_bars()</a></code> has been changed from “outside-end” to “inside-end”</li>
 <li>Text is now centered vertically within <code><a href="../reference/data_bars.html">data_bars()</a></code> by default</li>
 <li>The size of the text within <code><a href="../reference/data_bars.html">data_bars()</a></code> can now be changed with <code>text_size</code>
+</li>
+<li>The four-sided margin dimensions can now be assigned within <code><a href="../reference/margin.html">margin()</a></code> in <code><a href="../reference/add_title.html">add_title()</a></code>, <code><a href="../reference/add_subtitle.html">add_subtitle()</a></code>, and <code><a href="../reference/add_source.html">add_source()</a></code>
 </li>
 </ul>
 </div>
