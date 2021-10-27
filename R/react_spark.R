@@ -71,7 +71,6 @@ highlight_points <- function(all = "transparent",
 #'     Must first assigned colors to point(s) using `highlight_points`.
 #'     Default is 1.3.
 #'
-#'
 #' @param show_area Logical: show or hide area beneath line.
 #'     Default is FALSE.
 #'
@@ -539,7 +538,7 @@ react_sparkline <- function(data,
             var datum = _ref.datum;
             return React.createElement(
                   'tspan',
-                  {style: {fontSize: '0.7em', color: '",line_color,"'}},
+                  {style: {fontSize: '0.8em', color: '",line_color,"'}},
                   datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
                 )
           }
@@ -1091,12 +1090,16 @@ react_sparkbar <- function(data,
 
     } else {
 
+      if (fill_color == "transparent" | fill_color == "white") {
+        text_color <- line_color
+      } else { text_color <- fill_color }
+
       tooltip <- htmlwidgets::JS(htmltools::HTML(paste0("
           function (_ref) {
             var datum = _ref.datum;
             return React.createElement(
                   'tspan',
-                  {style: {fontSize: '0.75em', color: '",fill_color,"'}},
+                  {style: {fontSize: '0.8em', color: '",text_color,"'}},
                   datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
                 )
           }
