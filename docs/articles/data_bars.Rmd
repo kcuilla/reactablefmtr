@@ -179,6 +179,20 @@ reactable(
 ```
 
 
+## Adding a Box Shadow
+
+Box shadows can be added to the bars to create a "3-D" effect via `box_shadow`.
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data, box_shadow = TRUE, number_fmt = scales::percent)
+  )
+)
+```
+
 
 ## Set a Maximum Width
 
