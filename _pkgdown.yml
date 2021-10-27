@@ -31,6 +31,8 @@ navbar:
         href: articles/icon_assign.html
       - text: Icon Sets
         href: articles/icon_sets.html
+      - text: Sparklines
+        href: articles/sparklines.html
       - text: Themes
         href: articles/themes.html
     demos:
