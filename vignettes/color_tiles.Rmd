@@ -148,6 +148,22 @@ reactable(
 )
 ```
 
+## Adding a Box Shadow
+
+Box shadows can be added to the tiles to create a "3-D" effect via `box_shadow`.
+
+```{r}
+reactable(
+  data,
+  defaultSorted = "Passengers",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    cell = color_tiles(data,
+                       box_shadow = TRUE)
+  )
+)
+```
+
 
 ## Assigning Colors from Another Column
 
