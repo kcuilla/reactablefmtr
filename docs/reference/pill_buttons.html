@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add color tiles to cells in a column — color_tiles • reactablefmtr</title>
+<title>Surround text or numeric values in a colored pill button — pill_buttons • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,18 +39,18 @@
 
 
 
-<meta property="og:title" content="Add color tiles to cells in a column — color_tiles" />
-<meta property="og:description" content="The `color_tiles()` function conditionally colors the background of each cell similarly to color_scales().
-    The difference is that color_tiles() uses round colored tiles around values instead of the entire background of the cell.
-    Another difference is color_tiles() allows number formatting with number_fmt whereas color_scales() does not.
-    The colors can be provided within a vector in `colors` or via another column in the dataset by referencing the column by name with `color_ref`.
-    The opacity of the colors provided can be adjusted by providing a value between 0 and 1 in `opacity`.
-    `text_color` can be used to change the color of the values.
-    If values are displayed within a dark-colored background, `brighten_text` will display the values in white text so they are more visible.
+<meta property="og:title" content="Surround text or numeric values in a colored pill button — pill_buttons" />
+<meta property="og:description" content="The `pill_buttons()` function surrounds text or numeric values in a column in a colored pill button.
+    If `pill_buttons()` is applied to a column containing text, the color of the pill button can be provided via a single color can be provided within `color`
+    or via another column in the dataset by referencing the column name with `color_ref` (conditionally applying colors to text).
+    If `pill_buttons` is applied to a numeric column, either a single color or a vector of colors can be provided within `color`
+    or the colors can also be assigned via `color_ref`.
+    The opacity of the color(s) provided can be adjusted by providing a value between 0 and 1 in `opacity`.
+    The color of the text/values can be changed using `text_color`.
+    If text/values are displayed within a dark-colored background, `brighten_text` will display the text/values in white so they are more visible.
     The color of `brighten_text_color` can be changed to a color other than white if desired.
-    If the user wants to assign colors row-wise instead of column-wise, set `span` equal to TRUE to apply across all columns.
-    Or can provide the names of the columns by either column name or column position number to apply to only a subset of the columns.
-    `color_tiles()` needs to placed within the cell argument in reactable::colDef." />
+    The horizontal alignment of `pill_buttons()` can be controled using reactable::colDef(align = &quot;center&quot;).
+    `pill_buttons()` needs to placed within the cell argument in reactable::colDef." />
 
 
 
@@ -176,28 +176,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add color tiles to cells in a column</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/color_tiles.R'><code>R/color_tiles.R</code></a></small>
-    <div class="hidden name"><code>color_tiles.Rd</code></div>
+    <h1>Surround text or numeric values in a colored pill button</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/pill_buttons.R'><code>R/pill_buttons.R</code></a></small>
+    <div class="hidden name"><code>pill_buttons.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The `color_tiles()` function conditionally colors the background of each cell similarly to color_scales().
-    The difference is that color_tiles() uses round colored tiles around values instead of the entire background of the cell.
-    Another difference is color_tiles() allows number formatting with number_fmt whereas color_scales() does not.
-    The colors can be provided within a vector in `colors` or via another column in the dataset by referencing the column by name with `color_ref`.
-    The opacity of the colors provided can be adjusted by providing a value between 0 and 1 in `opacity`.
-    `text_color` can be used to change the color of the values.
-    If values are displayed within a dark-colored background, `brighten_text` will display the values in white text so they are more visible.
+    <p>The `pill_buttons()` function surrounds text or numeric values in a column in a colored pill button.
+    If `pill_buttons()` is applied to a column containing text, the color of the pill button can be provided via a single color can be provided within `color`
+    or via another column in the dataset by referencing the column name with `color_ref` (conditionally applying colors to text).
+    If `pill_buttons` is applied to a numeric column, either a single color or a vector of colors can be provided within `color`
+    or the colors can also be assigned via `color_ref`.
+    The opacity of the color(s) provided can be adjusted by providing a value between 0 and 1 in `opacity`.
+    The color of the text/values can be changed using `text_color`.
+    If text/values are displayed within a dark-colored background, `brighten_text` will display the text/values in white so they are more visible.
     The color of `brighten_text_color` can be changed to a color other than white if desired.
-    If the user wants to assign colors row-wise instead of column-wise, set `span` equal to TRUE to apply across all columns.
-    Or can provide the names of the columns by either column name or column position number to apply to only a subset of the columns.
-    `color_tiles()` needs to placed within the cell argument in reactable::colDef.</p>
+    The horizontal alignment of `pill_buttons()` can be controled using reactable::colDef(align = "center").
+    `pill_buttons()` needs to placed within the cell argument in reactable::colDef.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>color_tiles</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>pill_buttons</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#67a9cf"</span>, <span class='st'>"#f8fcf8"</span>, <span class='st'>"#ef8a62"</span><span class='op'>)</span>,
+  colors <span class='op'>=</span> <span class='st'>"#67a9cf"</span>,
   color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   opacity <span class='op'>=</span> <span class='fl'>1</span>,
   number_fmt <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -206,7 +206,6 @@
   brighten_text <span class='op'>=</span> <span class='cn'>TRUE</span>,
   brighten_text_color <span class='op'>=</span> <span class='st'>"white"</span>,
   bold_text <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  span <span class='op'>=</span> <span class='cn'>FALSE</span>,
   box_shadow <span class='op'>=</span> <span class='cn'>FALSE</span>,
   animation <span class='op'>=</span> <span class='st'>"1s ease"</span>
 <span class='op'>)</span></pre>
@@ -216,13 +215,17 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Dataset containing at least one numeric column.</p></td>
+      <td><p>Dataset containing either a text or numeric column.</p></td>
     </tr>
     <tr>
       <th>colors</th>
-      <td><p>A vector of colors to color the cells.
-Colors should be given in order from low values to high values.
-Default colors provided are blue-white-orange: c("#67a9cf", "#f8fcf8", "#ef8a62").
+      <td><p>The background color of the pill button.
+Only a single color can be provided for columns containing text.
+Multiple colors can be provided for columns containing values and
+should be given in order from low values to high values.
+If multiple colors are provided for columns containing text,
+the first color in the vector will be assigned to the text.
+The default color provided is "#67a9cf".
 Can use R's built-in colors or other color packages.</p></td>
     </tr>
     <tr>
@@ -234,7 +237,7 @@ Default is NULL.</p></td>
     </tr>
     <tr>
       <th>opacity</th>
-      <td><p>A value between 0 and 1 that adjusts the opacity in colors.
+      <td><p>A value between 0 and 1 that adjusts the opacity in color(s).
 A value of 0 is fully transparent, a value of 1 is fully opaque.
 Default is 1.</p></td>
     </tr>
@@ -255,13 +258,13 @@ Default is TRUE.</p></td>
     </tr>
     <tr>
       <th>brighten_text</th>
-      <td><p>Logical: automatically assign color to text based on background color of cell.
+      <td><p>Logical: automatically assign color to text based on background color of the pill button.
 Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.
 Default is TRUE.</p></td>
     </tr>
     <tr>
       <th>brighten_text_color</th>
-      <td><p>Assigns text color to values if values are within a dark-colored backgrounds.
+      <td><p>Assigns text color to values if values are within a dark-colored pill button backgrounds.
 Default is white.</p></td>
     </tr>
     <tr>
@@ -270,15 +273,8 @@ Default is white.</p></td>
 Default is FALSE.</p></td>
     </tr>
     <tr>
-      <th>span</th>
-      <td><p>Optionally apply colors to values across multiple columns instead of by each column.
-To apply across all columns set to TRUE.
-If applying to a set of columns, can provide either column names or column positions.
-Default is FALSE.</p></td>
-    </tr>
-    <tr>
       <th>box_shadow</th>
-      <td><p>Logical: add a box shadow to the tiles.
+      <td><p>Logical: add a box shadow to the buttons.
 Default is FALSE.</p></td>
     </tr>
     <tr>
@@ -294,46 +290,53 @@ Default is "1s ease".</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a function that applies conditional color tiles
-    to a column of numeric values.</p>
+    <p>a function that surrounds text/values in a column
+    with a colored pill button.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>29</span>, <span class='op'>]</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>45</span><span class='op'>:</span><span class='fl'>54</span>, <span class='op'>]</span>
 
-<span class='co'>## By default, the colors_tiles() function uses a blue-white-orange three-color pattern</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
- columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
- Petal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>## Surround text with pill buttons:</span>
+<span class='fu'>reactable</span><span class='op'>(</span>
+<span class='va'>data</span>,
+columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+Species <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>pill_buttons</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## If only two colors are desired,</span>
-<span class='co'>## you can specify them with colors = 'c(color1, color2)';</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
- columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
- Petal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>data</span>,
- colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"green"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>## Conditionally apply colors from another column:</span>
+<span class='va'>data</span> <span class='op'>%&gt;%</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>color_assign <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+<span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span> <span class='op'>~</span> <span class='st'>"red"</span>,
+<span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"versicolor"</span> <span class='op'>~</span> <span class='st'>"forestgreen"</span>,
+<span class='cn'>TRUE</span> <span class='op'>~</span> <span class='st'>"grey"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>.</span>,
+columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+Species <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>pill_buttons</span><span class='op'>(</span><span class='va'>.</span>, color_ref <span class='op'>=</span> <span class='st'>"color_assign"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## Use span to apply colors to values in relation to the entire dataset</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>data</span>, span <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>## Surround numeric values with pill buttons:</span>
+<span class='fu'>reactable</span><span class='op'>(</span>
+<span class='va'>data</span>,
+columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+Petal.Width <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>pill_buttons</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## Use number_fmt to format numbers using the scales package</span>
-<span class='va'>car_prices</span> <span class='op'>&lt;-</span> <span class='fu'>MASS</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/MASS/man/Cars93.html'>Cars93</a></span><span class='op'>[</span><span class='fl'>20</span><span class='op'>:</span><span class='fl'>49</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Make"</span>, <span class='st'>"Price"</span><span class='op'>)</span><span class='op'>]</span>
+<span class='co'>## Apply multiple colors to numeric values:</span>
+<span class='fu'>reactable</span><span class='op'>(</span>
+<span class='va'>data</span>,
+columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+Petal.Width <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
+cell <span class='op'>=</span> <span class='fu'>pill_buttons</span><span class='op'>(</span><span class='va'>data</span>,
+                    colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightpink"</span>,<span class='st'>"white"</span>,<span class='st'>"lightgreen"</span><span class='op'>)</span>,
+                    opacity <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>car_prices</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>car_prices</span>,
-number_fmt <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='va'><a href='https://scales.r-lib.org/reference/label_dollar.html'>dollar</a></span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Use span to apply colors to values in relation to the entire dataset</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>data</span>, span <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Span can take column names</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>data</span>, span <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Sepal.Length"</span>, <span class='st'>"Sepal.Width"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Or it can also take column positions instead</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
-defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>color_tiles</span><span class='op'>(</span><span class='va'>data</span>, span <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>## Apply a box shadow to the buttons to give a 3-D effect:</span>
+<span class='fu'>reactable</span><span class='op'>(</span>
+<span class='va'>data</span>,
+columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+Petal.Width <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
+cell <span class='op'>=</span> <span class='fu'>pill_buttons</span><span class='op'>(</span><span class='va'>data</span>,
+                    box_shadow <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                    colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightpink"</span>,<span class='st'>"white"</span>,<span class='st'>"lightgreen"</span><span class='op'>)</span>,
+                    opacity <span class='op'>=</span> <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 </div></pre>
   </div>
