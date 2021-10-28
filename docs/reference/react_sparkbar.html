@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a sparkline bar chart to a list of values in a reactable table. — react_sparkbar • reactablefmtr</title>
+<title>Add a sparkline bar chart to rows of a reactable table — react_sparkbar • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,14 @@
 
 
 
-<meta property="og:title" content="Add a sparkline bar chart to a list of values in a reactable table. — react_sparkbar" />
+<meta property="og:title" content="Add a sparkline bar chart to rows of a reactable table — react_sparkbar" />
 <meta property="og:description" content="The `react_sparkbar()` function utilizes the dataui package &amp;lt;https://github.com/timelyportfolio/dataui&amp;gt; to create an interactive sparkline bar chart.
     The data provided must be in a list format.
     The vertical height of the sparkbar can be adjusted with `height`. By default, the height is matched to the height of a cell in a reactable table. However, the height can be increased to better see the patterns in the data.
     The four-sided margin around the sparkbar can be controlled with `margin()`. When labels are added to the sparkbars, the margin will auto-adjust (in most instances) to be able to display those labels.
     If the labels contain large values or values with many digits, the left and right margins may need to be increased slightly for the full numbers to be visible.
     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
+    The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
     The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
@@ -183,7 +184,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add a sparkline bar chart to a list of values in a reactable table.</h1>
+    <h1>Add a sparkline bar chart to rows of a reactable table</h1>
     <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/react_spark.R'><code>R/react_spark.R</code></a></small>
     <div class="hidden name"><code>react_sparkbar.Rd</code></div>
     </div>
@@ -195,6 +196,7 @@
     The four-sided margin around the sparkbar can be controlled with `margin()`. When labels are added to the sparkbars, the margin will auto-adjust (in most instances) to be able to display those labels.
     If the labels contain large values or values with many digits, the left and right margins may need to be increased slightly for the full numbers to be visible.
     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
+    The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
     The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
@@ -213,12 +215,12 @@
   fill_color <span class='op'>=</span> <span class='st'>"slategray"</span>,
   fill_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   fill_opacity <span class='op'>=</span> <span class='fl'>1</span>,
-  line_color <span class='op'>=</span> <span class='st'>"transparent"</span>,
-  line_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
-  line_width <span class='op'>=</span> <span class='fl'>1</span>,
+  outline_color <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  outline_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
+  outline_width <span class='op'>=</span> <span class='fl'>1</span>,
   highlight_bars <span class='op'>=</span> <span class='cn'>NULL</span>,
   labels <span class='op'>=</span> <span class='st'>"none"</span>,
-  label_color <span class='op'>=</span> <span class='st'>"slategray"</span>,
+  label_color <span class='op'>=</span> <span class='st'>"black"</span>,
   label_size <span class='op'>=</span> <span class='st'>"0.75em"</span>,
   decimals <span class='op'>=</span> <span class='fl'>0</span>,
   max_value <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -242,18 +244,18 @@
     </tr>
     <tr>
       <th>height</th>
-      <td><p>Numerica: the height of the sparkbar
-Default is 50.</p></td>
+      <td><p>Height of the sparkbar.
+Default is 22.</p></td>
     </tr>
     <tr>
       <th>margin</th>
-      <td><p>The four-sided margin around the sparkbar
+      <td><p>The four-sided margin around the sparkbar.
 Use margin() to assign the top, right, bottom, and left margins.</p></td>
     </tr>
     <tr>
       <th>fill_color</th>
       <td><p>The color of the bar fill.
-Default is #777777.</p></td>
+Default is slategray.</p></td>
     </tr>
     <tr>
       <th>fill_color_ref</th>
@@ -266,24 +268,24 @@ Default is NULL.</p></td>
       <th>fill_opacity</th>
       <td><p>A value between 0 and 1 that adjusts the opacity.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
-Default is 0.8.</p></td>
+Default is 1.</p></td>
     </tr>
     <tr>
-      <th>line_color</th>
-      <td><p>The color of the line.
-Default is #777777.</p></td>
+      <th>outline_color</th>
+      <td><p>The color of the outline around the filled bars.
+Default is transparent.</p></td>
     </tr>
     <tr>
-      <th>line_color_ref</th>
-      <td><p>Optionally assign line colors from another column
+      <th>outline_color_ref</th>
+      <td><p>Optionally assign outline colors from another column
 by providing the name of the column containing the colors in quotes.
 Only one color can be provided per row.
 Default is NULL.</p></td>
     </tr>
     <tr>
-      <th>line_width</th>
-      <td><p>Numeric width of the line.
-Default is 2.</p></td>
+      <th>outline_width</th>
+      <td><p>Width of the outline around the filled bars.
+Default is 1.</p></td>
     </tr>
     <tr>
       <th>highlight_bars</th>
@@ -300,12 +302,12 @@ Default is 'none'.</p></td>
     <tr>
       <th>label_color</th>
       <td><p>The color of the labels.
-Default is #777777.</p></td>
+Default is black.</p></td>
     </tr>
     <tr>
       <th>label_size</th>
       <td><p>The size of the labels.
-Default is 0.8em.</p></td>
+Default is 0.75em.</p></td>
     </tr>
     <tr>
       <th>decimals</th>
@@ -332,17 +334,17 @@ Default is NULL.</p></td>
     <tr>
       <th>statline_color</th>
       <td><p>The color of the horizontal dotted statline.
-Default is #777777.</p></td>
+Default is red.</p></td>
     </tr>
     <tr>
       <th>statline_label_color</th>
       <td><p>The color of the label to the right of the statline.
-Default is #777777.</p></td>
+Default is red.</p></td>
     </tr>
     <tr>
       <th>statline_label_size</th>
       <td><p>The size of the label to the right of the statline.
-Default is 0.9em.</p></td>
+Default is 0.75em.</p></td>
     </tr>
     <tr>
       <th>bandline</th>
@@ -353,13 +355,13 @@ Default is NULL.</p></td>
     <tr>
       <th>bandline_color</th>
       <td><p>The color of the bandline.
-Default is #777777.</p></td>
+Default is red.</p></td>
     </tr>
     <tr>
       <th>bandline_opacity</th>
       <td><p>A value between 0 and 1 that adjusts the opacity.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
-Default is 0.5.</p></td>
+Default is 0.2.</p></td>
     </tr>
     <tr>
       <th>tooltip</th>
