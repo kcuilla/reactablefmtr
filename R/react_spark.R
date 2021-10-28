@@ -17,7 +17,7 @@ highlight_points <- function(all = "transparent",
 }
 
 
-#' Add a sparkline line chart to a list of values in a reactable table.
+#' Add a sparkline line chart to rows of a reactable table
 #'
 #' The `react_sparkline()` function utilizes the {dataui} package <https://github.com/timelyportfolio/dataui> to create an interactive sparkline line chart.
 #'     The data provided must be in a list format.
@@ -39,8 +39,8 @@ highlight_points <- function(all = "transparent",
 #'
 #' @param data Dataset containing a column with numeric values in a list format.
 #'
-#' @param height Numerica: the height of the sparkline.
-#'     Default is 50.
+#' @param height Height of the sparkline.
+#'     Default is 22.
 #'
 #' @param margin The four-sided margin around the sparkline.
 #'      Use margin() to assign the top, right, bottom, and left margins.
@@ -49,15 +49,15 @@ highlight_points <- function(all = "transparent",
 #'     Default is TRUE.
 #'
 #' @param line_color The color of the line.
-#'     Default is #777777.
+#'     Default is slategray.
 #'
 #' @param line_color_ref Optionally assign line colors from another column
 #'     by providing the name of the column containing the colors in quotes.
 #'     Only one color can be provided per row.
 #'     Default is NULL.
 #'
-#' @param line_width Numeric width of the line.
-#'     Default is 2.
+#' @param line_width Width of the line.
+#'     Default is 1.
 #'
 #' @param line_curve The curvature of the line.
 #'     Options are 'cardinal', 'linear', 'basis', or 'monotoneX'.
@@ -67,16 +67,35 @@ highlight_points <- function(all = "transparent",
 #'     Colors can be assigned to all, min, max, first, or last points.
 #'     By default, transparent colors are assigned to each point.
 #'
-#' @param point_size Numerical: the size of the points.
+#' @param point_size Size of the points.
 #'     Must first assigned colors to point(s) using `highlight_points`.
-#'     Default is 1.3.
+#'     Default is 1.1.
+#'
+#' @param labels Show labels for points of interest.
+#'     Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
+#'     Default is 'none'.
+#'
+#' @param label_color Color of the labels.
+#'     Default is black.
+#'
+#' @param label_size Size of the labels.
+#'     Default is 0.75em.
+#'
+#' @param decimals The number of decimals displayed in the labels and tooltip.
+#'     Default is 0.
+#'
+#' @param max_value The maximum value of the sparkline range.
+#'     Default is NULL (automatically the maximum value of each sparkline series).
+#'
+#' @param min_value The minimum value of the sparkline range.
+#'     Default is NULL (automatically the minimum value of each sparkline series).
 #'
 #' @param show_area Logical: show or hide area beneath line.
 #'     Default is FALSE.
 #'
 #' @param area_color The color of the area.
 #'      `show_area` must be set to TRUE for color to be shown.
-#'      Default is #777777.
+#'      Default is NULL (inherited from line_color).
 #'
 #' @param area_color_ref Optionally assign area colors from another column
 #'     by providing the name of the column containing the colors in quotes.
@@ -86,7 +105,7 @@ highlight_points <- function(all = "transparent",
 #'
 #' @param area_opacity A value between 0 and 1 that adjusts the opacity.
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
-#'     Default is 0.3.
+#'     Default is 0.1.
 #'
 #' @param statline Inserts a horizontal dotted line representing a statistic,
 #'     and places the value of that statistic to the right of the line.
@@ -94,46 +113,27 @@ highlight_points <- function(all = "transparent",
 #'     Default is NULL.
 #'
 #' @param statline_color The color of the horizontal dotted statline.
-#'     Default is #777777.
+#'     Default is red.
 #'
 #' @param statline_label_color The color of the label to the right of the statline.
-#'     Default is #777777.
+#'     Default is red.
 #'
 #' @param statline_label_size The size of the label to the right of the statline.
-#'     Default is 0.9em.
+#'     Default is 0.75em.
 #'
 #' @param bandline Inserts a horizontal bandline to render ranges of interest.
 #'     Options are 'innerquartiles' or 'range' (min to max).
 #'     Default is NULL.
 #'
 #' @param bandline_color The color of the bandline.
-#'     Default is #777777.
+#'     Default is red.
 #'
 #' @param bandline_opacity A value between 0 and 1 that adjusts the opacity.
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
-#'     Default is 0.5.
+#'     Default is 0.2.
 #'
 #' @param tooltip Logical: turn the tooltip on or off.
 #'     Default is TRUE.
-#'
-#' @param labels Show labels for points of interest.
-#'     Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
-#'     Default is 'none'.
-#'
-#' @param label_color The color of the labels.
-#'     Default is #777777.
-#'
-#' @param label_size The size of the labels.
-#'     Default is 0.8em.
-#'
-#' @param decimals Numeric: The number of decimals displayed in the labels and tooltip.
-#'     Default is 0.
-#'
-#' @param max_value Numeric: the maximum value of the sparkline range.
-#'     Default is NULL (automatically the maximum value of each sparkline series).
-#'
-#' @param min_value Numeric: the minimum value of the sparkline range.
-#'     Default is NULL (automatically the minimum value of each sparkline series).
 #'
 #' @return a function that applies conditional colors
 #'     to a column of numeric values.
@@ -267,7 +267,7 @@ react_sparkline <- function(data,
                             highlight_points = NULL,
                             point_size = 1.1,
                             labels = "none",
-                            label_color = "slategray",
+                            label_color = "black",
                             label_size = "0.75em",
                             decimals = 0,
                             min_value = NULL,
@@ -613,7 +613,7 @@ react_sparkline <- function(data,
           fill = "transparent",
           stroke = "transparent",
           renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
-            "(d) => React.createElement('tspan', {fill: '",label_color,"', fontSize: '",label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
+            "(d) => React.createElement('tspan', {fill: '",label_color,"', fontSize: '",label_size,"', stroke: 'white'}, d.toFixed(",decimals,"))"))),
           labelPosition = label_position,
           labelOffset = label_offset
         ),
@@ -645,7 +645,7 @@ highlight_bars <- function(first = "transparent",
 }
 
 
-#' Add a sparkline bar chart to a list of values in a reactable table.
+#' Add a sparkline bar chart to rows of a reactable table
 #'
 #' The `react_sparkbar()` function utilizes the {dataui} package <https://github.com/timelyportfolio/dataui> to create an interactive sparkline bar chart.
 #'     The data provided must be in a list format.
@@ -653,6 +653,7 @@ highlight_bars <- function(first = "transparent",
 #'     The four-sided margin around the sparkbar can be controlled with `margin()`. When labels are added to the sparkbars, the margin will auto-adjust (in most instances) to be able to display those labels.
 #'     If the labels contain large values or values with many digits, the left and right margins may need to be increased slightly for the full numbers to be visible.
 #'     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
+#'     The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
 #'     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
 #'     The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
 #'     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
@@ -665,25 +666,14 @@ highlight_bars <- function(first = "transparent",
 #'
 #' @param data Dataset containing a column with numeric values in a list format.
 #'
-#' @param height Numerica: the height of the sparkbar
-#'     Default is 50.
+#' @param height Height of the sparkbar.
+#'     Default is 22.
 #'
-#' @param margin The four-sided margin around the sparkbar
+#' @param margin The four-sided margin around the sparkbar.
 #'      Use margin() to assign the top, right, bottom, and left margins.
 #'
-#' @param line_color The color of the line.
-#'     Default is #777777.
-#'
-#' @param line_color_ref Optionally assign line colors from another column
-#'     by providing the name of the column containing the colors in quotes.
-#'     Only one color can be provided per row.
-#'     Default is NULL.
-#'
-#' @param line_width Numeric width of the line.
-#'     Default is 2.
-#'
 #' @param fill_color The color of the bar fill.
-#'     Default is #777777.
+#'     Default is slategray.
 #'
 #' @param fill_color_ref Optionally assign fill colors from another column
 #'     by providing the name of the column containing the colors in quotes.
@@ -692,49 +682,32 @@ highlight_bars <- function(first = "transparent",
 #'
 #' @param fill_opacity A value between 0 and 1 that adjusts the opacity.
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
-#'     Default is 0.8.
+#'     Default is 1.
+#'
+#' @param outline_color The color of the outline around the filled bars.
+#'     Default is transparent.
+#'
+#' @param outline_color_ref Optionally assign outline colors from another column
+#'     by providing the name of the column containing the colors in quotes.
+#'     Only one color can be provided per row.
+#'     Default is NULL.
+#'
+#' @param outline_width Width of the outline around the filled bars.
+#'     Default is 1.
 #'
 #' @param highlight_bars Use `highlight_bars()` to assign colors to particular bars.
 #'     Colors can be assigned to all, min, max, first, or last bars.
 #'     By default, transparent colors are assigned to each bars.
-#'
-#' @param statline Inserts a horizontal dotted line representing a statistic,
-#'     and places the value of that statistic to the right of the line.
-#'     Options are 'mean', 'median', 'min', or 'max'.
-#'     Default is NULL.
-#'
-#' @param statline_color The color of the horizontal dotted statline.
-#'     Default is #777777.
-#'
-#' @param statline_label_color The color of the label to the right of the statline.
-#'     Default is #777777.
-#'
-#' @param statline_label_size The size of the label to the right of the statline.
-#'     Default is 0.9em.
-#'
-#' @param bandline Inserts a horizontal bandline to render ranges of interest.
-#'     Options are 'innerquartiles' or 'range' (min to max).
-#'     Default is NULL.
-#'
-#' @param bandline_color The color of the bandline.
-#'     Default is #777777.
-#'
-#' @param bandline_opacity A value between 0 and 1 that adjusts the opacity.
-#'     A value of 0 is fully transparent, a value of 1 is fully opaque.
-#'     Default is 0.5.
-#'
-#' @param tooltip Logical: turn the tooltip on or off.
-#'     Default is TRUE.
 #'
 #' @param labels Show labels for points of interest.
 #'     Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
 #'     Default is 'none'.
 #'
 #' @param label_color The color of the labels.
-#'     Default is #777777.
+#'     Default is black.
 #'
 #' @param label_size The size of the labels.
-#'     Default is 0.8em.
+#'     Default is 0.75em.
 #'
 #' @param decimals Numeric: The number of decimals displayed in the labels and tooltip.
 #'     Default is 0.
@@ -744,6 +717,34 @@ highlight_bars <- function(first = "transparent",
 #'
 #' @param min_value Numeric: the minimum value of the sparkline range.
 #'     Default is NULL (automatically the minimum value of each sparkline series).
+#'
+#' @param statline Inserts a horizontal dotted line representing a statistic,
+#'     and places the value of that statistic to the right of the line.
+#'     Options are 'mean', 'median', 'min', or 'max'.
+#'     Default is NULL.
+#'
+#' @param statline_color The color of the horizontal dotted statline.
+#'     Default is red.
+#'
+#' @param statline_label_color The color of the label to the right of the statline.
+#'     Default is red.
+#'
+#' @param statline_label_size The size of the label to the right of the statline.
+#'     Default is 0.75em.
+#'
+#' @param bandline Inserts a horizontal bandline to render ranges of interest.
+#'     Options are 'innerquartiles' or 'range' (min to max).
+#'     Default is NULL.
+#'
+#' @param bandline_color The color of the bandline.
+#'     Default is red.
+#'
+#' @param bandline_opacity A value between 0 and 1 that adjusts the opacity.
+#'     A value of 0 is fully transparent, a value of 1 is fully opaque.
+#'     Default is 0.2.
+#'
+#' @param tooltip Logical: turn the tooltip on or off.
+#'     Default is TRUE.
 #'
 #' @return a function that applies conditional colors
 #'     to a column of numeric values.
@@ -827,12 +828,12 @@ react_sparkbar <- function(data,
                            fill_color = "slategray",
                            fill_color_ref = NULL,
                            fill_opacity = 1,
-                           line_color = "transparent",
-                           line_color_ref = NULL,
-                           line_width = 1,
+                           outline_color = "transparent",
+                           outline_color_ref = NULL,
+                           outline_width = 1,
                            highlight_bars = NULL,
                            labels = "none",
-                           label_color = "slategray",
+                           label_color = "black",
                            label_size = "0.75em",
                            decimals = 0,
                            max_value = NULL,
@@ -962,25 +963,25 @@ react_sparkbar <- function(data,
       margin <- margin(t=12,r=26,b=0,l=26)
     }
 
-    ### conditional line color
-    if (!is.null(line_color_ref) && is.character(line_color_ref)) {
+    ### conditional outline color
+    if (!is.null(outline_color_ref) && is.character(outline_color_ref)) {
 
-      if (all(line_color_ref %in% names(which(sapply(data, is.character))))) {
+      if (all(outline_color_ref %in% names(which(sapply(data, is.character))))) {
 
-        if (is.character(line_color_ref)) { line_color_ref <- which(names(data) %in% line_color_ref) }
+        if (is.character(outline_color_ref)) { outline_color_ref <- which(names(data) %in% outline_color_ref) }
 
-        line_color <- data[[line_color_ref]][index]
+        outline_color <- data[[outline_color_ref]][index]
 
       } else {
 
-        stop("Attempted to select non-existing column or non-character column with line_color_ref")
+        stop("Attempted to select non-existing column or non-character column with outline_color_ref")
 
       }
     }
 
-    if (is.null(line_color_ref)) {
+    if (is.null(outline_color_ref)) {
 
-      line_color <- line_color
+      outline_color <- outline_color
     }
 
     ### conditional fill color
@@ -1091,7 +1092,7 @@ react_sparkbar <- function(data,
     } else {
 
       if (fill_color == "transparent" | fill_color == "white") {
-        text_color <- line_color
+        text_color <- outline_color
       } else { text_color <- fill_color }
 
       tooltip <- htmlwidgets::JS(htmltools::HTML(paste0("
@@ -1131,8 +1132,8 @@ react_sparkbar <- function(data,
       renderTooltip = tooltip,
       components = list(
         dataui::dui_sparkbarseries(
-          stroke = line_color,
-          strokeWidth = line_width,
+          stroke = outline_color,
+          strokeWidth = outline_width,
           fill = fill_condition,
           fillOpacity = fill_opacity
         ),
@@ -1141,7 +1142,7 @@ react_sparkbar <- function(data,
           fill = "transparent",
           stroke = "transparent",
           renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
-            "(d) => React.createElement('tspan', {fill: '",label_color,"', fontSize: '",label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
+            "(d) => React.createElement('tspan', {fill: '",label_color,"', fontSize: '",label_size,"', stroke: 'white'}, d.toFixed(",decimals,"))"))),
           labelPosition = "top",
           labelOffset = 6.5
         ),
