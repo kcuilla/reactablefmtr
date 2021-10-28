@@ -27,7 +27,7 @@ The first thing we need to do is summarize the column in a list format:
 df <- penguins %>%
   filter(!is.na(sex)) %>%
   group_by(species, sex) %>%
-  summarize(flipper_length_mm = list(flipper_length_mm))
+  summarize(flipper_length = list(flipper_length_mm))
 ```
 
 Then we can call `react_sparkline()` within the cell of {reactable}:
@@ -35,9 +35,10 @@ Then we can call `react_sparkline()` within the cell of {reactable}:
 ```{r}
 reactable(df,
           columns = list(
-            species = colDef(width = 150),
-            sex = colDef(width = 150),
-            flipper_length_mm = colDef(cell = react_sparkline(df))
+            species = colDef(maxWidth = 80),
+            sex = colDef(maxWidth = 80),
+            flipper_length = colDef(
+              cell = react_sparkline(df))
           ))
 ```
 
@@ -50,10 +51,10 @@ We can change the color of the line with `line_color`:
 ```{r}
 reactable(df,
           columns = list(
-            species = colDef(width = 150),
-            sex = colDef(width = 150),
-            flipper_length_mm = colDef(cell = react_sparkline(df,
-                                                              line_color = "blue"))
+            species = colDef(maxWidth = 80),
+            sex = colDef(maxWidth = 80),
+            flipper_length = colDef(cell = react_sparkline(df,
+                                                           line_color = "blue"))
           ))
 ```
 
@@ -73,11 +74,11 @@ df <- df %>%
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(cell = react_sparkline(df,
-                                                      line_color_ref = "cols"))
+    flipper_length = colDef(cell = react_sparkline(df,
+                                                   line_color_ref = "cols"))
   )
 )
 ```
@@ -88,10 +89,10 @@ By default, the curvature of the line is of type "cardinal", but we have the opt
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
+    flipper_length = colDef(
       cell = react_sparkline(
         df,
         line_width = 2,
@@ -105,17 +106,20 @@ reactable(
 
 ## Area Charts
 
-By setting `show_area` to TRUE, we can show the filled area beneath the line:
+By setting `show_area` to TRUE, we can show the filled area beneath the line.
+
+Note that we can also increase the height of the sparklines by providing a value within the `height` option to better display the trends within the data. 
 
 ```{r}
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(cell = react_sparkline(
+    flipper_length = colDef(cell = react_sparkline(
       df,
+      height = 80,
       show_area = TRUE,
       line_color_ref = "cols"
     ))
@@ -129,12 +133,13 @@ The color of the filled area is 90% transparent, but we are able to darken the c
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
+    flipper_length = colDef(
       cell = react_sparkline(
         df,
+        height = 80,
         show_area = TRUE,
         area_opacity = 1,
         line_color_ref = "cols"
@@ -150,14 +155,16 @@ By default, the color of the filled area is assigned from the color of the line,
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
+    flipper_length = colDef(
       cell = react_sparkline(
         df,
+        height = 80,
         show_area = TRUE,
         area_color = "grey",
+        line_width = 3,
         line_color_ref = "cols"
       )
     )
@@ -176,10 +183,10 @@ Below, we are assigning the color red to the minimum values on the sparkline and
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(cell = react_sparkline(
+    flipper_length = colDef(cell = react_sparkline(
       df,
       highlight_points = highlight_points(min = "red", max = "blue")
     ))
@@ -192,10 +199,10 @@ We may also apply the labels directly to the sparkline by specifying which value
 ```{r}
 reactable(df,
           columns = list(
-            species = colDef(width = 150),
-            sex = colDef(width = 150),
+            species = colDef(maxWidth = 80),
+            sex = colDef(maxWidth = 80),
             cols = colDef(show = FALSE),
-            flipper_length_mm = colDef(cell = react_sparkline(
+            flipper_length = colDef(cell = react_sparkline(
               df,
               labels = c("first", "last"),
               highlight_points = highlight_points(first = "green", last = "purple")
@@ -214,14 +221,14 @@ The example below adds a mean reference line to each of the sparklines and displ
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
+    flipper_length = colDef(
       minWidth = 200,
       cell = react_sparkline(
         df,
-        line_width = 1,
+        height = 80,
         line_color = "blue",
         statline = "mean"
       )
@@ -236,17 +243,17 @@ There are additional options to control the appearance of the statline and statl
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
-      minWidth = 200,
+    flipper_length = colDef(
       cell = react_sparkline(
         df,
-        line_width = 1,
+        height = 80,
         line_color = "blue",
-        statline_color = "green",
-        statline_label_color = "green",
+        statline_color = "orange",
+        statline_label_color = "orange",
+        statline_label_size = "1em",
         statline = "mean"
       )
     )
@@ -259,20 +266,17 @@ reactable(
 
 To add a band line to each of the sparklines, we can use the `bandline` option as shown below. The options within `bandline` are "innerquartiles" which shows the inner-quartile range of each series, and "range" which will show the full range of the data from the minimum value to the maximum value.
 
-Note that we can also increase the height of the sparklines by providing a value within the `height` option to better display the trends within the data. 
-
 ```{r}
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
-      minWidth = 200,
+    flipper_length = colDef(
       cell = react_sparkline(
         df,
-        height = 60,
+        height = 80,
         line_width = 1,
         line_color_ref = "cols",
         bandline = "innerquartiles"
@@ -288,18 +292,16 @@ The color and opacity of the bandline can also be adjusted as shown below:
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
-      minWidth = 200,
+    flipper_length = colDef(
       cell = react_sparkline(
         df,
-        height = 60,
-        line_width = 1,
+        height = 80,
         line_color_ref = "cols",
         bandline = "innerquartiles",
-        bandline_color = "darkgreen",
+        bandline_color = "green",
         bandline_opacity = 0.4
       )
     )
@@ -313,15 +315,13 @@ We may also stack multiple elements together, such as showing the bandline with 
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
-      minWidth = 200,
+    flipper_length = colDef(
       cell = react_sparkline(
         df,
-        height = 60,
-        line_width = 1,
+        height = 80,
         line_color_ref = "cols",
         highlight_points = highlight_points(min = "red", max = "blue"),
         labels = c("min", "max"),
@@ -341,10 +341,10 @@ To display the sparkline chart as a bar chart rather than a line chart, we can u
 ```{r}
 reactable(df,
           columns = list(
-            species = colDef(width = 150),
-            sex = colDef(width = 150),
+            species = colDef(maxWidth = 80),
+            sex = colDef(maxWidth = 80),
             cols = colDef(show = FALSE),
-            flipper_length_mm = colDef(cell = react_sparkbar(df))
+            flipper_length = colDef(cell = react_sparkbar(df))
           ))
 ```
 
@@ -356,11 +356,11 @@ Many of the options that are available within `react_sparkline()` are also avail
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(cell = react_sparkbar(df,
-                                                     fill_color_ref = "cols"))
+    flipper_length = colDef(cell = react_sparkbar(df,
+                                                  fill_color_ref = "cols"))
   )
 )
 ```
@@ -371,15 +371,15 @@ By default, the line color around each of the bars is transparent, but we can al
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(
+    flipper_length = colDef(
       cell = react_sparkbar(
         df,
         fill_color = "transparent",
-        line_width = 2,
-        line_color_ref = "cols"
+        outline_width = 2,
+        outline_color_ref = "cols"
       )
     )
   )
@@ -396,12 +396,14 @@ Note: the height of the bars auto-starts at the minimum value in each series. Th
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(cell = react_sparkbar(
+    flipper_length = colDef(cell = react_sparkbar(
       df,
-      min_value = 170,
+      height = 80,
+      min_value = 160,
+      fill_color = "lightgrey",
       highlight_bars =  highlight_bars(min = "red", max = "blue")
     ))
   )
@@ -414,12 +416,15 @@ We can also assign labels using the same method as `react_sparkline()`:
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(cell = react_sparkbar(
+    flipper_length = colDef(cell = react_sparkbar(
       df,
+      height = 80,
+      fill_color = "lightgrey",
       labels = c("first", "last"),
+      label_size = "1em",
       highlight_bars = highlight_bars(first = "green", last = "purple")
     ))
   )
@@ -434,10 +439,10 @@ Just like with `react_sparkline()`, statlines and bandlines can be layered onto 
 reactable(
   df,
   columns = list(
-    species = colDef(width = 150),
-    sex = colDef(width = 150),
+    species = colDef(maxWidth = 80),
+    sex = colDef(maxWidth = 80),
     cols = colDef(show = FALSE),
-    flipper_length_mm = colDef(cell = react_sparkbar(
+    flipper_length = colDef(cell = react_sparkbar(
       df,
       height = 80,
       fill_color_ref = "cols",
