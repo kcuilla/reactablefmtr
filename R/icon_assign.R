@@ -149,7 +149,6 @@ icon_assign <- function(data,
     stop("`empty_opacity` must be a value between 0 and 1")
   }
 
-
   fill_color <- grDevices::adjustcolor(fill_color, alpha.f = fill_opacity)
   empty_color <- grDevices::adjustcolor(empty_color, alpha.f = empty_opacity)
 
@@ -163,7 +162,9 @@ icon_assign <- function(data,
 
   cell <- function(value, index, name) {
 
-    if (!is.numeric(value) | is.na(value)) return(value)
+    if (!is.numeric(value)) return(value)
+
+    if (is.null(value) || is.na(value) || value == "NA" || value == "na" || stringr::str_detect(value, " ")) return("")
 
     if (!is.null(buckets) & !is.numeric(buckets)) {
 
