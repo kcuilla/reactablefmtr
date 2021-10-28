@@ -79,7 +79,7 @@ highlight_points <- function(all = "transparent",
 #'     Default is black.
 #'
 #' @param label_size Size of the labels.
-#'     Default is 0.75em.
+#'     Default is 0.8em.
 #'
 #' @param decimals The number of decimals displayed in the labels and tooltip.
 #'     Default is 0.
@@ -119,7 +119,7 @@ highlight_points <- function(all = "transparent",
 #'     Default is red.
 #'
 #' @param statline_label_size The size of the label to the right of the statline.
-#'     Default is 0.75em.
+#'     Default is 0.8em.
 #'
 #' @param bandline Inserts a horizontal bandline to render ranges of interest.
 #'     Options are 'innerquartiles' or 'range' (min to max).
@@ -268,7 +268,7 @@ react_sparkline <- function(data,
                             point_size = 1.1,
                             labels = "none",
                             label_color = "black",
-                            label_size = "0.75em",
+                            label_size = "0.8em",
                             decimals = 0,
                             min_value = NULL,
                             max_value = NULL,
@@ -279,7 +279,7 @@ react_sparkline <- function(data,
                             statline = NULL,
                             statline_color = "red",
                             statline_label_color = "red",
-                            statline_label_size = "0.75em",
+                            statline_label_size = "0.8em",
                             bandline = NULL,
                             bandline_color = "red",
                             bandline_opacity = 0.2,
@@ -372,7 +372,7 @@ react_sparkline <- function(data,
         ### this applies to min, max, and/or all labels
         } else if (is.null(margin)) {
 
-          margin <- margin(t=12,r=28,b=10,l=8)
+          margin <- margin(t=14,r=28,b=10,l=8)
 
           ### the default height needs to be increased to show all labels
           if (height == 22) {
@@ -400,7 +400,7 @@ react_sparkline <- function(data,
     ### this applies to min, max, and/or all labels
     } else if (is.null(margin)) {
 
-      margin <- margin(t=12,r=8,b=10,l=8)
+      margin <- margin(t=14,r=8,b=10,l=8)
 
       ### the default height needs to be increased to show all labels
       if (height == 22) {
@@ -538,7 +538,7 @@ react_sparkline <- function(data,
             var datum = _ref.datum;
             return React.createElement(
                   'tspan',
-                  {style: {fontSize: '0.8em', color: '",line_color,"'}},
+                  {style: {fontSize: '0.9em', color: '",line_color,"'}},
                   datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
                 )
           }
@@ -707,7 +707,7 @@ highlight_bars <- function(first = "transparent",
 #'     Default is black.
 #'
 #' @param label_size The size of the labels.
-#'     Default is 0.75em.
+#'     Default is 0.8em.
 #'
 #' @param decimals Numeric: The number of decimals displayed in the labels and tooltip.
 #'     Default is 0.
@@ -730,7 +730,7 @@ highlight_bars <- function(first = "transparent",
 #'     Default is red.
 #'
 #' @param statline_label_size The size of the label to the right of the statline.
-#'     Default is 0.75em.
+#'     Default is 0.8em.
 #'
 #' @param bandline Inserts a horizontal bandline to render ranges of interest.
 #'     Options are 'innerquartiles' or 'range' (min to max).
@@ -834,14 +834,14 @@ react_sparkbar <- function(data,
                            highlight_bars = NULL,
                            labels = "none",
                            label_color = "black",
-                           label_size = "0.75em",
+                           label_size = "0.8em",
                            decimals = 0,
                            max_value = NULL,
                            min_value = NULL,
                            statline = NULL,
                            statline_color = "red",
                            statline_label_color = "red",
-                           statline_label_size = "0.75em",
+                           statline_label_size = "0.8em",
                            bandline = NULL,
                            bandline_color = "red",
                            bandline_opacity = 0.2,
@@ -1100,7 +1100,7 @@ react_sparkbar <- function(data,
             var datum = _ref.datum;
             return React.createElement(
                   'tspan',
-                  {style: {fontSize: '0.8em', color: '",text_color,"'}},
+                  {style: {fontSize: '0.9em', color: '",text_color,"'}},
                   datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
                 )
           }
