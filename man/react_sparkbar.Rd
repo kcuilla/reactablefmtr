@@ -2,7 +2,7 @@
 % Please edit documentation in R/react_spark.R
 \name{react_sparkbar}
 \alias{react_sparkbar}
-\title{Add a sparkline bar chart to a list of values in a reactable table.}
+\title{Add a sparkline bar chart to rows of a reactable table}
 \usage{
 react_sparkbar(
   data,
@@ -11,12 +11,12 @@ react_sparkbar(
   fill_color = "slategray",
   fill_color_ref = NULL,
   fill_opacity = 1,
-  line_color = "transparent",
-  line_color_ref = NULL,
-  line_width = 1,
+  outline_color = "transparent",
+  outline_color_ref = NULL,
+  outline_width = 1,
   highlight_bars = NULL,
   labels = "none",
-  label_color = "slategray",
+  label_color = "black",
   label_size = "0.75em",
   decimals = 0,
   max_value = NULL,
@@ -34,14 +34,14 @@ react_sparkbar(
 \arguments{
 \item{data}{Dataset containing a column with numeric values in a list format.}
 
-\item{height}{Numerica: the height of the sparkbar
-Default is 50.}
+\item{height}{Height of the sparkbar.
+Default is 22.}
 
-\item{margin}{The four-sided margin around the sparkbar
+\item{margin}{The four-sided margin around the sparkbar.
 Use margin() to assign the top, right, bottom, and left margins.}
 
 \item{fill_color}{The color of the bar fill.
-Default is #777777.}
+Default is slategray.}
 
 \item{fill_color_ref}{Optionally assign fill colors from another column
 by providing the name of the column containing the colors in quotes.
@@ -50,18 +50,18 @@ Default is NULL.}
 
 \item{fill_opacity}{A value between 0 and 1 that adjusts the opacity.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
-Default is 0.8.}
+Default is 1.}
 
-\item{line_color}{The color of the line.
-Default is #777777.}
+\item{outline_color}{The color of the outline around the filled bars.
+Default is transparent.}
 
-\item{line_color_ref}{Optionally assign line colors from another column
+\item{outline_color_ref}{Optionally assign outline colors from another column
 by providing the name of the column containing the colors in quotes.
 Only one color can be provided per row.
 Default is NULL.}
 
-\item{line_width}{Numeric width of the line.
-Default is 2.}
+\item{outline_width}{Width of the outline around the filled bars.
+Default is 1.}
 
 \item{highlight_bars}{Use `highlight_bars()` to assign colors to particular bars.
 Colors can be assigned to all, min, max, first, or last bars.
@@ -72,10 +72,10 @@ Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
 Default is 'none'.}
 
 \item{label_color}{The color of the labels.
-Default is #777777.}
+Default is black.}
 
 \item{label_size}{The size of the labels.
-Default is 0.8em.}
+Default is 0.75em.}
 
 \item{decimals}{Numeric: The number of decimals displayed in the labels and tooltip.
 Default is 0.}
@@ -92,24 +92,24 @@ Options are 'mean', 'median', 'min', or 'max'.
 Default is NULL.}
 
 \item{statline_color}{The color of the horizontal dotted statline.
-Default is #777777.}
+Default is red.}
 
 \item{statline_label_color}{The color of the label to the right of the statline.
-Default is #777777.}
+Default is red.}
 
 \item{statline_label_size}{The size of the label to the right of the statline.
-Default is 0.9em.}
+Default is 0.75em.}
 
 \item{bandline}{Inserts a horizontal bandline to render ranges of interest.
 Options are 'innerquartiles' or 'range' (min to max).
 Default is NULL.}
 
 \item{bandline_color}{The color of the bandline.
-Default is #777777.}
+Default is red.}
 
 \item{bandline_opacity}{A value between 0 and 1 that adjusts the opacity.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
-Default is 0.5.}
+Default is 0.2.}
 
 \item{tooltip}{Logical: turn the tooltip on or off.
 Default is TRUE.}
@@ -125,6 +125,7 @@ The `react_sparkbar()` function utilizes the {dataui} package <https://github.co
     The four-sided margin around the sparkbar can be controlled with `margin()`. When labels are added to the sparkbars, the margin will auto-adjust (in most instances) to be able to display those labels.
     If the labels contain large values or values with many digits, the left and right margins may need to be increased slightly for the full numbers to be visible.
     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
+    The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
     The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/react_spark.R
 \name{react_sparkline}
 \alias{react_sparkline}
-\title{Add a sparkline line chart to a list of values in a reactable table.}
+\title{Add a sparkline line chart to rows of a reactable table}
 \usage{
 react_sparkline(
   data,
@@ -16,7 +16,7 @@ react_sparkline(
   highlight_points = NULL,
   point_size = 1.1,
   labels = "none",
-  label_color = "slategray",
+  label_color = "black",
   label_size = "0.75em",
   decimals = 0,
   min_value = NULL,
@@ -38,8 +38,8 @@ react_sparkline(
 \arguments{
 \item{data}{Dataset containing a column with numeric values in a list format.}
 
-\item{height}{Numerica: the height of the sparkline.
-Default is 50.}
+\item{height}{Height of the sparkline.
+Default is 22.}
 
 \item{margin}{The four-sided margin around the sparkline.
 Use margin() to assign the top, right, bottom, and left margins.}
@@ -48,15 +48,15 @@ Use margin() to assign the top, right, bottom, and left margins.}
 Default is TRUE.}
 
 \item{line_color}{The color of the line.
-Default is #777777.}
+Default is slategray.}
 
 \item{line_color_ref}{Optionally assign line colors from another column
 by providing the name of the column containing the colors in quotes.
 Only one color can be provided per row.
 Default is NULL.}
 
-\item{line_width}{Numeric width of the line.
-Default is 2.}
+\item{line_width}{Width of the line.
+Default is 1.}
 
 \item{line_curve}{The curvature of the line.
 Options are 'cardinal', 'linear', 'basis', or 'monotoneX'.
@@ -66,27 +66,27 @@ Default is 'cardlinal'.}
 Colors can be assigned to all, min, max, first, or last points.
 By default, transparent colors are assigned to each point.}
 
-\item{point_size}{Numerical: the size of the points.
+\item{point_size}{Size of the points.
 Must first assigned colors to point(s) using `highlight_points`.
-Default is 1.3.}
+Default is 1.1.}
 
 \item{labels}{Show labels for points of interest.
 Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
 Default is 'none'.}
 
-\item{label_color}{The color of the labels.
-Default is #777777.}
+\item{label_color}{Color of the labels.
+Default is black.}
 
-\item{label_size}{The size of the labels.
-Default is 0.8em.}
+\item{label_size}{Size of the labels.
+Default is 0.75em.}
 
-\item{decimals}{Numeric: The number of decimals displayed in the labels and tooltip.
+\item{decimals}{The number of decimals displayed in the labels and tooltip.
 Default is 0.}
 
-\item{min_value}{Numeric: the minimum value of the sparkline range.
+\item{min_value}{The minimum value of the sparkline range.
 Default is NULL (automatically the minimum value of each sparkline series).}
 
-\item{max_value}{Numeric: the maximum value of the sparkline range.
+\item{max_value}{The maximum value of the sparkline range.
 Default is NULL (automatically the maximum value of each sparkline series).}
 
 \item{show_area}{Logical: show or hide area beneath line.
@@ -94,7 +94,7 @@ Default is FALSE.}
 
 \item{area_color}{The color of the area.
 `show_area` must be set to TRUE for color to be shown.
-Default is #777777.}
+Default is NULL (inherited from line_color).}
 
 \item{area_color_ref}{Optionally assign area colors from another column
 by providing the name of the column containing the colors in quotes.
@@ -104,7 +104,7 @@ Default is FALSE.}
 
 \item{area_opacity}{A value between 0 and 1 that adjusts the opacity.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
-Default is 0.3.}
+Default is 0.1.}
 
 \item{statline}{Inserts a horizontal dotted line representing a statistic,
 and places the value of that statistic to the right of the line.
@@ -112,24 +112,24 @@ Options are 'mean', 'median', 'min', or 'max'.
 Default is NULL.}
 
 \item{statline_color}{The color of the horizontal dotted statline.
-Default is #777777.}
+Default is red.}
 
 \item{statline_label_color}{The color of the label to the right of the statline.
-Default is #777777.}
+Default is red.}
 
 \item{statline_label_size}{The size of the label to the right of the statline.
-Default is 0.9em.}
+Default is 0.75em.}
 
 \item{bandline}{Inserts a horizontal bandline to render ranges of interest.
 Options are 'innerquartiles' or 'range' (min to max).
 Default is NULL.}
 
 \item{bandline_color}{The color of the bandline.
-Default is #777777.}
+Default is red.}
 
 \item{bandline_opacity}{A value between 0 and 1 that adjusts the opacity.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
-Default is 0.5.}
+Default is 0.2.}
 
 \item{tooltip}{Logical: turn the tooltip on or off.
 Default is TRUE.}
