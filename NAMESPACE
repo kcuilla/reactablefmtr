@@ -3,6 +3,7 @@
 export(add_source)
 export(add_subtitle)
 export(add_title)
+export(background_img)
 export(cell_style)
 export(cerulean)
 export(clean)
