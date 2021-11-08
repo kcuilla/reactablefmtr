@@ -11,18 +11,26 @@
 
 * The animation of `data_bars()` can now be controlled with `animate`. The `animate` parameter has also been added to `color_scales()`, `color_tiles()`, `icon_sets()`, and `icon_assign()`. The duration and timing function of the animation can be changed within `animate` or the animation can be turned off by setting it to 'none'. For available timing functions, see [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
 
+#### background_img()
+
+* Embed an image from the web into the background of a cell
+* Unlike `embed_img()`, an image within `background_img()` will take up the entire contents of a cell
+* `background_img()` can also be used in conjunction with `embed_img()`
+
 #### cell_style()
 
 * `cell_style()` can be used to customize the appearance of certain cells within a table. For example, if you wanted to display a particular value or set of values in a column as bold and in red text, you can do so by specifying either the row number or values themselves
 * Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, the vertical and horizontal alignment within the cell, and the background color of the cell. Animation is also applied to `cell_style()` by default, but can be turned off by setting to 'none'
 
-#### color_scales()
-
-* The vertical and horizontal alignment within a cell can now be controlled with the `vertical_align` and `horizontal_align` options
-
 #### color_tiles()
 
 * Set `box_shadow` to TRUE to apply a box shadow to the tiles
+
+#### column_stack()
+
+* Merge two columns together and stack the values on top of each other
+* Can be used with both numeric and non-numeric columns
+* Control the appearance of both the top text and the bottom text with options such as text size, color, font weight, font style, and text decoration
 
 #### data_bars()
 
@@ -56,6 +64,7 @@
 * Text is now centered vertically within `data_bars()` by default
 * The size of the text within `data_bars()` can now be changed with `text_size`
 * The four-sided margin dimensions can now be assigned within `margin()` in `add_title()`, `add_subtitle()`, and `add_source()` 
+* The entire contents of a table can be vertically centered by setting `centered` to TRUE within any of the {reactablefmtr} themes 
 
 
 # reactablefmtr 1.0.0
