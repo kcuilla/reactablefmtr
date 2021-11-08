@@ -6,7 +6,7 @@
 \usage{
 color_tiles(
   data,
-  colors = c("#67a9cf", "#f8fcf8", "#ef8a62"),
+  colors = c("#15607A", "#FFFFFF", "#FA8C00"),
   color_ref = NULL,
   opacity = 1,
   number_fmt = NULL,
@@ -25,7 +25,7 @@ color_tiles(
 
 \item{colors}{A vector of colors to color the cells.
 Colors should be given in order from low values to high values.
-Default colors provided are blue-white-orange: c("#67a9cf", "#f8fcf8", "#ef8a62").
+Default colors provided are blue-white-orange: c("#15607A", "#FFFFFF", "#FA8C00").
 Can use R's built-in colors or other color packages.}
 
 \item{color_ref}{Optionally assign colors to from another column

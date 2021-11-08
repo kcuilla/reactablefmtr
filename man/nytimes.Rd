@@ -11,7 +11,8 @@ nytimes(
   header_font_family = "Helvetica",
   header_font_size = 11,
   header_font_color = "#999999",
-  cell_padding = 5
+  cell_padding = 5,
+  centered = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ Default is #999999.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 5.}
+
+\item{centered}{Logical: vertically center the contents of the table.
+Default is FALSE.}
 }
 \value{
 an object of class theme that is applied to a reactable table.

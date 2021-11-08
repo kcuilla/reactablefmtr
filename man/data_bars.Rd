@@ -6,11 +6,11 @@
 \usage{
 data_bars(
   data,
-  fill_color = "#8ebfdb",
+  fill_color = "#15607A",
   fill_color_ref = NULL,
   fill_opacity = 1,
   fill_gradient = FALSE,
-  background = "transparent",
+  background = "#EEEEEE",
   max_value = NULL,
   min_value = NULL,
   align_bars = "left",
@@ -45,7 +45,7 @@ data_bars(
 \item{fill_color}{A single color or a vector of fill_color for the fill of the data bars.
 fill_color should be given in order from low values to high values.
 Can use R's built-in fill_color or other color packages.
-Default is #1e90ff.}
+Default is #15607A.}
 
 \item{fill_color_ref}{Optionally assign fill_color to from another column
 by providing the name of the column containing the fill colors in quotes.
@@ -61,7 +61,7 @@ the colors in the fill of the bars are converted to a left-to-right gradient.
 Default is FALSE.}
 
 \item{background}{The color for the background of the data bars.
-Default is transparent.}
+Default is #EEEEEE.}
 
 \item{max_value}{A value to use as the maximum value for the width of the filled bars.
 The default maximum value is the maximum value in the column.

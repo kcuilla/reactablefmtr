@@ -45,7 +45,6 @@ Options are "bold" or "normal".
 Default is "bold".}
 
 \item{text_decoration}{Optionally add an underline, overline, or line-through title.
-Options are "underline", "overline", "underline overline", or "line-through".
 Default is NULL.}
 
 \item{background_color}{Color of the title background.

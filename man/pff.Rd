@@ -11,7 +11,8 @@ pff(
   header_font_family = "Arial",
   header_font_size = 12,
   header_font_color = "#ffffff",
-  cell_padding = 4
+  cell_padding = 4,
+  centered = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ Default is #ffffff.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 4.}
+
+\item{centered}{Logical: vertically center the contents of the table.
+Default is FALSE.}
 }
 \value{
 an object of class theme that is applied to a reactable table.

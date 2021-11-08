@@ -11,7 +11,8 @@ espn(
   header_font_family = "Arial",
   header_font_size = 11,
   header_font_color = "#48494a",
-  cell_padding = 7
+  cell_padding = 7,
+  centered = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ Default is #48494a.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 7.}
+
+\item{centered}{Logical: vertically center the contents of the table.
+Default is FALSE.}
 }
 \value{
 an object of class theme that is applied to a reactable table.

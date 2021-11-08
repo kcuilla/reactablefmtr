@@ -6,7 +6,7 @@
 \usage{
 color_scales(
   data,
-  colors = c("#67a9cf", "#f8fcf8", "#ef8a62"),
+  colors = c("#15607A", "#FFFFFF", "#FA8C00"),
   color_ref = NULL,
   opacity = 1,
   text_color = "black",
@@ -14,8 +14,6 @@ color_scales(
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
-  horizontal_align = "right",
-  vertical_align = "top",
   span = FALSE,
   animation = "1s ease"
 )
@@ -25,7 +23,7 @@ color_scales(
 
 \item{colors}{A vector of colors to color the cells.
 Colors should be given in order from low values to high values.
-Default colors provided are blue-white-orange: c("#67a9cf", "#f8fcf8", "#ef8a62").
+Default colors provided are blue-white-orange: c("#15607A", "#FFFFFF", "#FA8C00").
 Can use R's built-in colors or other color packages.}
 
 \item{color_ref}{Optionally assign colors to from another column
@@ -52,14 +50,6 @@ Default is white.}
 
 \item{bold_text}{Logical: bold text.
 Default is FALSE.}
-
-\item{horizontal_align}{The horizontal alignment of the text within a cell.
-Options are "left", "right", or "center".
-Default is "right".}
-
-\item{vertical_align}{The vertical alignment of the text within a cell.
-Options are "top", "bottom", or "center".
-Default is "top".}
 
 \item{span}{Optionally apply colors to values across multiple columns instead of by each column.
 To apply across all columns set to TRUE.

@@ -15,7 +15,8 @@ sanfran(
   cell_border_width = 6,
   cell_border_color = "#ffffff",
   cell_padding = 6,
-  pagination_color = "#222222"
+  pagination_color = "#222222",
+  centered = FALSE
 )
 }
 \arguments{
@@ -51,6 +52,9 @@ Default is 6.}
 
 \item{pagination_color}{Color of the pagination below the table.
 Default is #222222.}
+
+\item{centered}{Logical: vertically center the contents of the table.
+Default is FALSE.}
 }
 \value{
 an object of class theme that is applied to a reactable table.

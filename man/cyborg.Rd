@@ -11,7 +11,8 @@ cyborg(
   header_font_family = "Verdana",
   header_font_size = 15,
   header_font_color = "#7b7b7b",
-  cell_padding = 6
+  cell_padding = 6,
+  centered = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ Default is #7b7b7b.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}
+
+\item{centered}{Logical: vertically center the contents of the table.
+Default is FALSE.}
 }
 \value{
 an object of class theme that is applied to a reactable table.

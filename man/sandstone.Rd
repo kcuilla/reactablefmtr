@@ -11,7 +11,8 @@ sandstone(
   header_font_family = "Georgia",
   header_font_size = 16,
   header_font_color = "#7c7a78",
-  cell_padding = 6
+  cell_padding = 6,
+  centered = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ Default is #7c7a78.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}
+
+\item{centered}{Logical: vertically center the contents of the table.
+Default is FALSE.}
 }
 \value{
 an object of class theme that is applied to a reactable table.

@@ -6,7 +6,7 @@
 \usage{
 pill_buttons(
   data,
-  colors = "#67a9cf",
+  colors = "#15607A",
   color_ref = NULL,
   opacity = 1,
   number_fmt = NULL,
@@ -28,7 +28,7 @@ Multiple colors can be provided for columns containing values and
 should be given in order from low values to high values.
 If multiple colors are provided for columns containing text,
 the first color in the vector will be assigned to the text.
-The default color provided is "#67a9cf".
+The default color provided is "#15607A".
 Can use R's built-in colors or other color packages.}
 
 \item{color_ref}{Optionally assign colors to from another column
