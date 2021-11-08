@@ -31,7 +31,6 @@
 #'      Default is "bold".
 #'
 #' @param text_decoration Optionally add an underline, overline, or line-through title.
-#'      Options are "underline", "overline", "underline overline", or "line-through".
 #'      Default is NULL.
 #'
 #' @param background_color Color of the title background.
@@ -85,11 +84,6 @@ add_title <- function(table = NULL,
   if (font_weight %notin% c("normal", "bold") == TRUE) {
 
     stop("font_weight must be either 'normal' or 'bold'")
-  }
-
-  if (!is.null(text_decoration) && text_decoration %notin% c("underline", "overline", "underline overline", "line-through") == TRUE) {
-
-    stop("text_decoration must be either 'underline', 'overline', 'underline overline', or 'line-through'")
   }
 
   if (!is.null(margin) && length(margin)<4) {

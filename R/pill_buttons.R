@@ -20,7 +20,7 @@
 #'     should be given in order from low values to high values.
 #'     If multiple colors are provided for columns containing text,
 #'     the first color in the vector will be assigned to the text.
-#'     The default color provided is "#67a9cf".
+#'     The default color provided is "#15607A".
 #'     Can use R's built-in colors or other color packages.
 #'
 #' @param color_ref Optionally assign colors to from another column
@@ -116,7 +116,7 @@
 #' @export
 
 pill_buttons <- function(data,
-                        colors = "#67a9cf",
+                        colors = "#15607A",
                         color_ref = NULL,
                         opacity = 1,
                         number_fmt = NULL,
@@ -208,7 +208,7 @@ pill_buttons <- function(data,
         cell_color <- data[[color_ref]][index]
         cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
         rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
-        font_color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+        font_color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
 
       } else {
 
@@ -229,7 +229,7 @@ pill_buttons <- function(data,
 
           if (!is.na(x)) {
             rgb_sum <- rowSums(colorRamp(c(colors))(x))
-            colors <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+            colors <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
             colors
           } else
             NULL
@@ -245,7 +245,7 @@ pill_buttons <- function(data,
 
       cell_color <- grDevices::adjustcolor(colors, alpha.f = opacity)
       rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
-      font_color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+      font_color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
 
     }
 

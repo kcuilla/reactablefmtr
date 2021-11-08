@@ -16,7 +16,7 @@
 #'
 #' @param colors A vector of colors to color the cells.
 #'     Colors should be given in order from low values to high values.
-#'     Default colors provided are blue-white-orange: c("#67a9cf", "#f8fcf8", "#ef8a62").
+#'     Default colors provided are blue-white-orange: c("#15607A", "#FFFFFF", "#FA8C00").
 #'     Can use R's built-in colors or other color packages.
 #'
 #' @param color_ref Optionally assign colors to from another column
@@ -111,7 +111,7 @@
 
 
 color_tiles <- function(data,
-                        colors = c("#67a9cf", "#f8fcf8", "#ef8a62"),
+                        colors = c("#15607A", "#FFFFFF", "#FA8C00"),
                         color_ref = NULL,
                         opacity = 1,
                         number_fmt = NULL,
@@ -171,7 +171,7 @@ color_tiles <- function(data,
 
     if (!is.na(x)) {
       rgb_sum <- rowSums(colorRamp(c(colors))(x))
-      color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+      color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
       color
     } else
       NULL
@@ -231,7 +231,7 @@ color_tiles <- function(data,
 
           rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
 
-          font_color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+          font_color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
 
         } else {
 

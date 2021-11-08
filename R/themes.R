@@ -23,6 +23,9 @@
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -46,9 +49,22 @@ default <- function(font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Ar
                     header_font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
                     header_font_size = 15,
                     header_font_color = "#333333",
-                    cell_padding = 6) {
+                    cell_padding = 6,
+                    centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     cellPadding = cell_padding,
     tableStyle = list(fontFamily = font_family,
@@ -90,6 +106,9 @@ default <- function(font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Ar
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -113,9 +132,22 @@ cerulean <- function(font_family = "Verdana",
                      header_font_family = "Verdana",
                      header_font_size = 15,
                      header_font_color = "#cfe9f7",
-                     cell_padding = 6) {
+                     cell_padding = 6,
+                     centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "#e9ecef",
@@ -198,6 +230,9 @@ cerulean <- function(font_family = "Verdana",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -221,9 +256,22 @@ cosmo <- function(font_family = "Verdana",
                   header_font_family = "Verdana",
                   header_font_size = 15,
                   header_font_color = "#ffffff",
-                  cell_padding = 6) {
+                  cell_padding = 6,
+                  centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#f8f9fa",
     borderColor = "#f8f9fa",
@@ -305,6 +353,9 @@ cosmo <- function(font_family = "Verdana",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -328,9 +379,22 @@ cyborg <- function(font_family = "Verdana",
                    header_font_family = "Verdana",
                    header_font_size = 15,
                    header_font_color = "#7b7b7b",
-                   cell_padding = 6) {
+                   cell_padding = 6,
+                   centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#060606",
     borderColor = "#888888",
@@ -411,6 +475,9 @@ cyborg <- function(font_family = "Verdana",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -434,9 +501,22 @@ darkly <- function(font_family = "Georgia",
                    header_font_family = "Georgia",
                    header_font_size = 15,
                    header_font_color = "#afbdcc",
-                   cell_padding = 6) {
+                   cell_padding = 6,
+                   centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#222222",
     borderColor = "#222222",
@@ -519,6 +599,9 @@ darkly <- function(font_family = "Georgia",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -542,9 +625,22 @@ flatly <- function(font_family = "Georgia",
                    header_font_family = "Georgia",
                    header_font_size = 15,
                    header_font_color = "#ffffff",
-                   cell_padding = 6) {
+                   cell_padding = 6,
+                   centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "#ffffff",
@@ -626,6 +722,9 @@ flatly <- function(font_family = "Georgia",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -649,9 +748,22 @@ journal <- function(font_family = "Tahoma",
                     header_font_family = "Tahoma",
                     header_font_size = 15,
                     header_font_color = "#fad9d8",
-                    cell_padding = 6) {
+                    cell_padding = 6,
+                    centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "#aaaaaa",
@@ -734,6 +846,9 @@ journal <- function(font_family = "Tahoma",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -757,9 +872,22 @@ lux <- function(font_family = "Tahoma",
                 header_font_family = "Tahoma",
                 header_font_size = 15,
                 header_font_color = "#7f7f7f",
-                cell_padding = 6) {
+                cell_padding = 6,
+                centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "#f7f7f9",
@@ -844,6 +972,9 @@ lux <- function(font_family = "Tahoma",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -867,9 +998,22 @@ minty <- function(font_family = "Helvetica",
                   header_font_family = "Helvetica",
                   header_font_size = 16,
                   header_font_color = "#c9e7de",
-                  cell_padding = 6) {
+                  cell_padding = 6,
+                  centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "#f7f7f9",
@@ -951,6 +1095,9 @@ minty <- function(font_family = "Helvetica",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -974,9 +1121,22 @@ sandstone <- function(font_family = "Georgia",
                       header_font_family = "Georgia",
                       header_font_size = 16,
                       header_font_color = "#7c7a78",
-                      cell_padding = 6) {
+                      cell_padding = 6,
+                      centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "#f8f5f0",
@@ -1062,6 +1222,9 @@ sandstone <- function(font_family = "Georgia",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1085,9 +1248,22 @@ slate <- function(font_family = "Arial",
                   header_font_family = "Arial",
                   header_font_size = 16,
                   header_font_color = "#97999b",
-                  cell_padding = 6) {
+                  cell_padding = 6,
+                  centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#272b30",
     borderColor = "#272b30",
@@ -1170,6 +1346,9 @@ slate <- function(font_family = "Arial",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1193,9 +1372,22 @@ spacelab <- function(font_family = "Georgia",
                      header_font_family = "Georgia",
                      header_font_size = 15,
                      header_font_color = "#8e8e8e",
-                     cell_padding = 6) {
+                     cell_padding = 6,
+                     centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "#eeeeee",
@@ -1271,6 +1463,9 @@ spacelab <- function(font_family = "Georgia",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1294,9 +1489,22 @@ superhero <- function(font_family = "Georgia",
                       header_font_family = "Georgia",
                       header_font_size = 15,
                       header_font_color = "#ebebeb",
-                      cell_padding = 6) {
+                      cell_padding = 6,
+                      centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#2b3e50",
     borderColor = "#2b3e50",
@@ -1367,6 +1575,9 @@ superhero <- function(font_family = "Georgia",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 7.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1390,9 +1601,22 @@ espn <- function(font_family = "Arial",
                  header_font_family = "Arial",
                  header_font_size = 11,
                  header_font_color = "#48494a",
-                 cell_padding = 7) {
+                 cell_padding = 7,
+                 centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderWidth = "1px",
@@ -1461,6 +1685,9 @@ espn <- function(font_family = "Arial",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 5.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1484,9 +1711,22 @@ fivethirtyeight <- function(font_family = "Helvetica",
                             header_font_family = "Helvetica",
                             header_font_size = 12,
                             header_font_color = "#000000",
-                            cell_padding = 5) {
+                            cell_padding = 5,
+                            centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderWidth = "1px",
@@ -1564,6 +1804,9 @@ fivethirtyeight <- function(font_family = "Helvetica",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 5.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1587,9 +1830,22 @@ nytimes <- function(font_family = "Helvetica",
                     header_font_family = "Helvetica",
                     header_font_size = 11,
                     header_font_color = "#999999",
-                    cell_padding = 5) {
+                    cell_padding = 5,
+                    centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderWidth = "1px",
@@ -1657,6 +1913,9 @@ nytimes <- function(font_family = "Helvetica",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 4.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1680,9 +1939,22 @@ pff <- function(font_family = "Arial",
                 header_font_family = "Arial",
                 header_font_size = 12,
                 header_font_color = "#ffffff",
-                cell_padding = 4) {
+                cell_padding = 4,
+                centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderWidth = "0px",
@@ -1793,6 +2065,9 @@ pff <- function(font_family = "Arial",
 #' @param pagination_color Color of the pagination below the table.
 #'      Default is #222222.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1820,7 +2095,29 @@ sanfran <- function(font_family = "Verdana",
                     cell_border_width = 6,
                     cell_border_color = "#ffffff",
                     cell_padding = 6,
-                    pagination_color = "#222222") {
+                    pagination_color = "#222222",
+                    centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex",
+                            flexDirection = "column",
+                            justifyContent = "center",
+                            background = cell_color,
+                            borderWidth = cell_border_width,
+                            borderColor = cell_border_color)
+
+  } else {
+
+    centered_content = list(background = cell_color,
+                        borderWidth = cell_border_width,
+                        borderColor = cell_border_color)
+  }
 
   reactableTheme(
     color = font_color,
@@ -1829,9 +2126,7 @@ sanfran <- function(font_family = "Verdana",
     stripedColor = "lightgrey",
     highlightColor = "lightgrey",
     cellPadding = cell_padding,
-    cellStyle = list(background = cell_color,
-                     borderWidth = cell_border_width,
-                     borderColor = cell_border_color),
+    cellStyle = centered_content,
     tableStyle = list(fontFamily = font_family,
                       fontSize = font_size),
     headerStyle = list(color = header_font_color,
@@ -1865,6 +2160,9 @@ sanfran <- function(font_family = "Verdana",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 4.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1887,9 +2185,22 @@ hoverdark <- function(font_family = "Verdana",
                       font_color = "#222222",
                       header_font_family = "Verdana",
                       header_font_size = 15,
-                      cell_padding = 4) {
+                      cell_padding = 4,
+                      centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "grey",
@@ -1935,6 +2246,9 @@ hoverdark <- function(font_family = "Verdana",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 4.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -1957,9 +2271,22 @@ hoverlight <- function(font_family = "Verdana",
                        font_color = "#ffffff",
                        header_font_family = "Verdana",
                        header_font_size = 15,
-                       cell_padding = 4) {
+                       cell_padding = 4,
+                       centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#000000",
     borderColor = "grey",
@@ -2009,6 +2336,9 @@ hoverlight <- function(font_family = "Verdana",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -2032,7 +2362,32 @@ midnight <- function(font_family = "Tahoma",
                      header_font_family = "Tahoma",
                      header_font_size = 15,
                      header_font_color = "#666666",
-                     cell_padding = 6) {
+                     cell_padding = 6,
+                     centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+  centered_content <- list(display = "flex", flexDirection = "column", justifyContent = "center",
+      "&:hover" = list(
+        transitionDuration = "0.25s",
+        transitionTimingFunction = "ease-out",
+        color = "#ffffff"
+      ))
+
+  } else {
+
+  centered_content <- list(
+      "&:hover" = list(
+        transitionDuration = "0.25s",
+        transitionTimingFunction = "ease-out",
+        color = "#ffffff"
+      ))
+  }
 
   reactableTheme(
     color = font_color,
@@ -2044,13 +2399,7 @@ midnight <- function(font_family = "Tahoma",
     style = list(backgroundColor = "#000000"),
     tableStyle = list(fontFamily = font_family,
                       fontSize = font_size),
-    cellStyle = list(
-      "&:hover" = list(
-        transitionDuration = "0.25s",
-        transitionTimingFunction = "ease-out",
-        color = "#ffffff"
-      )
-    ),
+    cellStyle = centered_content,
     tableBodyStyle = list(backgroundImage = "linear-gradient(#000000, #0d0d0d, #191919)"),
     headerStyle = list(
       borderWidth = "0px",
@@ -2130,6 +2479,9 @@ midnight <- function(font_family = "Tahoma",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -2154,7 +2506,32 @@ midnightblue <- function(font_family = "Tahoma",
                          header_font_family = "Tahoma",
                          header_font_size = 15,
                          header_font_color = "lightgrey",
-                         cell_padding = 6) {
+                         cell_padding = 6,
+                         centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+  centered_content <- list(display = "flex", flexDirection = "column", justifyContent = "center",
+      "&:hover" = list(
+        transitionDuration = "0.25s",
+        transitionTimingFunction = "ease-out",
+        color = "#ffffff"
+      ))
+
+  } else {
+
+  centered_content <- list(
+      "&:hover" = list(
+        transitionDuration = "0.25s",
+        transitionTimingFunction = "ease-out",
+        color = "#ffffff"
+      ))
+  }
 
   reactableTheme(
     color = font_color,
@@ -2166,13 +2543,7 @@ midnightblue <- function(font_family = "Tahoma",
     style = list(backgroundColor = "#001021"),
     tableStyle = list(fontFamily = font_family,
                       fontSize = font_size),
-    cellStyle = list(
-      "&:hover" = list(
-        transitionDuration = "0.25s",
-        transitionTimingFunction = "ease-out",
-        color = "#ffffff"
-      )
-    ),
+    cellStyle = centered_content,
     tableBodyStyle = list(backgroundImage = "linear-gradient(#001021, #001c3a, #002853)"),
     headerStyle = list(
       borderWidth = "1px",
@@ -2253,6 +2624,9 @@ midnightblue <- function(font_family = "Tahoma",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -2276,7 +2650,32 @@ sunrise <- function(font_family = "Tahoma",
                     header_font_family = "Tahoma",
                     header_font_size = 15,
                     header_font_color = "#8069ff",
-                    cell_padding = 6) {
+                    cell_padding = 6,
+                    centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+  centered_content <- list(display = "flex", flexDirection = "column", justifyContent = "center",
+      "&:hover" = list(
+        transitionDuration = "0.25s",
+        transitionTimingFunction = "ease-out",
+        color = "#699dff"
+      ))
+
+  } else {
+
+  centered_content <- list(
+      "&:hover" = list(
+        transitionDuration = "0.25s",
+        transitionTimingFunction = "ease-out",
+        color = "#699dff"
+      ))
+  }
 
   reactableTheme(
     color = font_color,
@@ -2290,9 +2689,7 @@ sunrise <- function(font_family = "Tahoma",
       fontFamily = font_family,
       fontSize = font_size
     ),
-    cellStyle = list("&:hover" = list(transitionDuration = "0.25s",
-                                      transitionTimingFunction = "ease-out",
-                                      color = "#699dff")),
+    cellStyle = centered_content,
     tableBodyStyle = list(backgroundImage = "linear-gradient(#fffa85, #ffe269, #ffcb69, #f98d77)"),
     headerStyle = list(
       borderWidth = "1px",
@@ -2361,6 +2758,9 @@ sunrise <- function(font_family = "Tahoma",
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
 #' @return an object of class theme that is applied to a reactable table.
 #'
 #' @import reactable
@@ -2384,9 +2784,22 @@ clean <- function(font_family = "Verdana",
                   header_font_family = "Verdana",
                   header_font_size = 15,
                   header_font_color = "#222222",
-                  cell_padding = 6) {
+                  cell_padding = 6,
+                  centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else { centered_content = NULL }
 
   reactableTheme(
+    cellStyle = centered_content,
     color = font_color,
     backgroundColor = "#ffffff",
     borderColor = "#ffffff",

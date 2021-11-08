@@ -31,7 +31,7 @@
 #' @param fill_color A single color or a vector of fill_color for the fill of the data bars.
 #'     fill_color should be given in order from low values to high values.
 #'     Can use R's built-in fill_color or other color packages.
-#'     Default is #1e90ff.
+#'     Default is #15607A.
 #'
 #' @param fill_color_ref Optionally assign fill_color to from another column
 #'     by providing the name of the column containing the fill colors in quotes.
@@ -47,7 +47,7 @@
 #'     Default is FALSE.
 #'
 #' @param background The color for the background of the data bars.
-#'     Default is transparent.
+#'     Default is #EEEEEE.
 #'
 #' @param max_value A value to use as the maximum value for the width of the filled bars.
 #'     The default maximum value is the maximum value in the column.
@@ -201,11 +201,11 @@
 
 
 data_bars <- function(data,
-                      fill_color = "#8ebfdb",
+                      fill_color = "#15607A",
                       fill_color_ref = NULL,
                       fill_opacity = 1,
                       fill_gradient = FALSE,
-                      background = "transparent",
+                      background = "#EEEEEE",
                       max_value = NULL,
                       min_value = NULL,
                       align_bars = "left",
@@ -329,7 +329,7 @@ data_bars <- function(data,
 
       if (!is.na(x)) {
         rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color))(x))
-        color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+        color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
         color
       } else
         NULL
@@ -353,7 +353,7 @@ data_bars <- function(data,
 
         if (brighten_text == TRUE & text_position == "inside-end" | brighten_text == TRUE & text_position == "inside-base" | brighten_text == TRUE & text_position == "center") {
 
-          font_color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+          font_color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
 
         } else font_color <- text_color
 
@@ -1450,4 +1450,3 @@ data_bars <- function(data,
     }
   }
 }
-

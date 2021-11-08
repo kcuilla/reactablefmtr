@@ -14,7 +14,7 @@
 #'
 #' @param colors A vector of colors to color the cells.
 #'     Colors should be given in order from low values to high values.
-#'     Default colors provided are blue-white-orange: c("#67a9cf", "#f8fcf8", "#ef8a62").
+#'     Default colors provided are blue-white-orange: c("#15607A", "#FFFFFF", "#FA8C00").
 #'     Can use R's built-in colors or other color packages.
 #'
 #' @param color_ref Optionally assign colors to from another column
@@ -41,14 +41,6 @@
 #'
 #' @param bold_text Logical: bold text.
 #'     Default is FALSE.
-#'
-#' @param horizontal_align The horizontal alignment of the text within a cell.
-#'      Options are "left", "right", or "center".
-#'      Default is "right".
-#'
-#' @param vertical_align The vertical alignment of the text within a cell.
-#'      Options are "top", "bottom", or "center".
-#'      Default is "top".
 #'
 #' @param span Optionally apply colors to values across multiple columns instead of by each column.
 #'     To apply across all columns set to TRUE.
@@ -103,7 +95,7 @@
 #' @export
 
 color_scales <- function(data,
-                         colors = c("#67a9cf", "#f8fcf8", "#ef8a62"),
+                         colors = c("#15607A", "#FFFFFF", "#FA8C00"),
                          color_ref = NULL,
                          opacity = 1,
                          text_color = "black",
@@ -111,44 +103,8 @@ color_scales <- function(data,
                          brighten_text = TRUE,
                          brighten_text_color = "white",
                          bold_text = FALSE,
-                         horizontal_align = "right",
-                         vertical_align = "top",
                          span = FALSE,
                          animation = "1s ease") {
-
-  '%notin%' <- Negate('%in%')
-
-  if (!is.null(horizontal_align) && horizontal_align %notin% c("left", "right", "center") == TRUE) {
-
-    stop("horizontal_align must be either 'left', 'right', or 'center'")
-  }
-
-  if (!is.null(vertical_align) && vertical_align %notin% c("top", "bottom", "center") == TRUE) {
-
-    stop("vertical_align must be either 'top', 'bottom', or 'center'")
-  }
-
-  # assign vertical align
-  if (vertical_align == "top") {
-
-    vertical_align_css <- "start"
-
-  } else if (vertical_align == "bottom") {
-
-    vertical_align_css <- "end"
-
-  } else vertical_align_css <- "center"
-
-  # assign horizontal align
-  if (horizontal_align == "left") {
-
-    horizontal_align_css <- "flex-start"
-
-  } else if (horizontal_align == "right") {
-
-    horizontal_align_css <- "flex-end"
-
-  } else horizontal_align_css <- "center"
 
   if (!is.logical(bold_text)) {
 
@@ -192,7 +148,7 @@ color_scales <- function(data,
 
     if (!is.na(x)) {
       rgb_sum <- rowSums(colorRamp(c(colors))(x))
-      color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+      color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
       color
     } else
       NULL
@@ -236,7 +192,7 @@ color_scales <- function(data,
 
           rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
 
-          font_color <- ifelse(rgb_sum >= 390, text_color, brighten_text_color)
+          font_color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
 
         } else {
 
@@ -271,17 +227,17 @@ color_scales <- function(data,
 
     if (brighten_text == FALSE & show_text == TRUE) {
 
-      list(display = "flex", justifyContent = horizontal_align_css, alignItems = vertical_align_css, background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
+      list(display = "flex", background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
 
     } else if (brighten_text == FALSE & show_text == FALSE) {
 
-      list(display = "flex", justifyContent = horizontal_align_css, alignItems = vertical_align_css, background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0, transition = animation)
+      list(display = "flex", background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0, transition = animation)
 
     } else if (brighten_text == TRUE & show_text == FALSE) {
 
-      list(display = "flex", justifyContent = horizontal_align_css, alignItems = vertical_align_css, background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0, transition = animation)
+      list(display = "flex", background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0, transition = animation)
 
-    } else list(display = "flex", justifyContent = horizontal_align_css, alignItems = vertical_align_css, background = cell_color, color = font_color, fontWeight = bold_text, transition = animation)
+    } else list(display = "flex", background = cell_color, color = font_color, fontWeight = bold_text, transition = animation)
 
   }
 }
