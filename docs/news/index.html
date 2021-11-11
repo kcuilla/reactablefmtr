@@ -196,6 +196,17 @@
 </li>
 </ul>
 </div>
+<div id="background_img" class="section level4">
+<h4 class="hasAnchor">
+<a href="#background_img" class="anchor"></a>background_img()</h4>
+<ul>
+<li>Embed an image from the web into the background of a cell</li>
+<li>Unlike <code><a href="../reference/embed_img.html">embed_img()</a></code>, an image within <code><a href="../reference/background_img.html">background_img()</a></code> will take up the entire contents of a cell</li>
+<li>
+<code><a href="../reference/background_img.html">background_img()</a></code> can also be used in conjunction with <code><a href="../reference/embed_img.html">embed_img()</a></code>
+</li>
+</ul>
+</div>
 <div id="cell_style" class="section level4">
 <h4 class="hasAnchor">
 <a href="#cell_style" class="anchor"></a>cell_style()</h4>
@@ -205,18 +216,20 @@
 <li>Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, the vertical and horizontal alignment within the cell, and the background color of the cell. Animation is also applied to <code><a href="../reference/cell_style.html">cell_style()</a></code> by default, but can be turned off by setting to ‘none’</li>
 </ul>
 </div>
-<div id="color_scales" class="section level4">
-<h4 class="hasAnchor">
-<a href="#color_scales" class="anchor"></a>color_scales()</h4>
-<ul>
-<li>The vertical and horizontal alignment within a cell can now be controlled with the <code>vertical_align</code> and <code>horizontal_align</code> options</li>
-</ul>
-</div>
 <div id="color_tiles" class="section level4">
 <h4 class="hasAnchor">
 <a href="#color_tiles" class="anchor"></a>color_tiles()</h4>
 <ul>
 <li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the tiles</li>
+</ul>
+</div>
+<div id="column_stack" class="section level4">
+<h4 class="hasAnchor">
+<a href="#column_stack" class="anchor"></a>column_stack()</h4>
+<ul>
+<li>Merge two columns together and stack the values on top of each other</li>
+<li>Can be used with both numeric and non-numeric columns</li>
+<li>Control the appearance of both the top text and the bottom text with options such as text size, color, font weight, font style, and text decoration</li>
 </ul>
 </div>
 <div id="data_bars" class="section level4">
@@ -274,6 +287,7 @@
 </li>
 <li>The four-sided margin dimensions can now be assigned within <code><a href="../reference/margin.html">margin()</a></code> in <code><a href="../reference/add_title.html">add_title()</a></code>, <code><a href="../reference/add_subtitle.html">add_subtitle()</a></code>, and <code><a href="../reference/add_source.html">add_source()</a></code>
 </li>
+<li>The entire contents of a table can be vertically centered by setting <code>centered</code> to TRUE within any of the {reactablefmtr} themes</li>
 </ul>
 </div>
 </div>
