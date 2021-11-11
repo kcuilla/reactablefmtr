@@ -11,6 +11,7 @@ pill_buttons(
   opacity = 1,
   number_fmt = NULL,
   text_color = "black",
+  text_color_ref = NULL,
   show_text = TRUE,
   brighten_text = TRUE,
   brighten_text_color = "white",
@@ -45,6 +46,11 @@ Default is NULL.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
+
+\item{text_color_ref}{Optionally assign text color from another column
+by providing the name of the column containing the text colors in quotes.
+Only one color can be provided per cell.
+Default is NULL.}
 
 \item{show_text}{Logical: show text or hide text.
 Default is TRUE.}

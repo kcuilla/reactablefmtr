@@ -18,7 +18,8 @@ data_bars(
   text_position = "inside-end",
   force_outside = NULL,
   text_color = "black",
-  text_size = 13,
+  text_color_ref = NULL,
+  text_size = 14,
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
@@ -36,6 +37,7 @@ data_bars(
   img_height = 20,
   img_width = 20,
   box_shadow = FALSE,
+  round_edges = FALSE,
   animation = "1s ease"
 )
 }
@@ -81,6 +83,7 @@ Default is 19.}
 Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
 outside of the filled bars ("outside-end" or "outside-base"),
 within the center of the filled bars ("center"),
+above the filled bars ("above"),
 or not displayed at all ("none").
 Default is inside-end.}
 
@@ -91,6 +94,11 @@ Default is NULL.}
 
 \item{text_color}{The color of the text labels.
 Default is black.}
+
+\item{text_color_ref}{Optionally assign text color from another column
+by providing the name of the column containing the text colors in quotes.
+Only one color can be provided per cell.
+Default is NULL.}
 
 \item{text_size}{Numeric value representing the size of the text labels (in px).
 Default is 16.}
@@ -161,6 +169,9 @@ Default is 20.}
 Default is 20.}
 
 \item{box_shadow}{Logical: add a box shadow to the bars.
+Default is FALSE.}
+
+\item{round_edges}{Logical: round the edges around the data bars.
 Default is FALSE.}
 
 \item{animation}{Control the duration and timing function of the animation
