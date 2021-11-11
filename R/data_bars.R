@@ -67,6 +67,7 @@
 #'     Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
 #'     outside of the filled bars ("outside-end" or "outside-base"),
 #'     within the center of the filled bars ("center"),
+#'     above the filled bars ("above"),
 #'     or not displayed at all ("none").
 #'     Default is inside-end.
 #'
@@ -77,6 +78,11 @@
 #'
 #' @param text_color The color of the text labels.
 #'     Default is black.
+#'
+#' @param text_color_ref Optionally assign text color from another column
+#'     by providing the name of the column containing the text colors in quotes.
+#'     Only one color can be provided per cell.
+#'     Default is NULL.
 #'
 #' @param text_size Numeric value representing the size of the text labels (in px).
 #'     Default is 16.
@@ -149,6 +155,9 @@
 #' @param box_shadow Logical: add a box shadow to the bars.
 #'     Default is FALSE.
 #'
+#' @param round_edges Logical: round the edges around the data bars.
+#'     Default is FALSE.
+#'
 #' @param animation Control the duration and timing function of the animation
 #'     when sorting/updating values shown on a page.
 #'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
@@ -213,7 +222,8 @@ data_bars <- function(data,
                       text_position = "inside-end",
                       force_outside = NULL,
                       text_color = "black",
-                      text_size = 13,
+                      text_color_ref = NULL,
+                      text_size = 14,
                       brighten_text = TRUE,
                       brighten_text_color = "white",
                       bold_text = FALSE,
@@ -231,6 +241,7 @@ data_bars <- function(data,
                       img_height = 20,
                       img_width = 20,
                       box_shadow = FALSE,
+                      round_edges = FALSE,
                       animation = "1s ease") {
 
   cell <- function(value, index, name) {
@@ -251,6 +262,11 @@ data_bars <- function(data,
     if (!is.logical(box_shadow)) {
 
       stop("`box_shadow` must be TRUE or FALSE")
+    }
+
+    if (!is.logical(round_edges)) {
+
+      stop("`round_edges` must be TRUE or FALSE")
     }
 
     if (!is.logical(brighten_text)) {
@@ -278,9 +294,9 @@ data_bars <- function(data,
       stop("`align_bars` must be either left or right")
     }
 
-    if (!text_position %in% c("inside-base","inside-end","outside-base","outside-end","center","none")) {
+    if (!text_position %in% c("inside-base","inside-end","outside-base","outside-end","center","above","none")) {
 
-      stop("`text_position` must be either center, inside-base, inside-end, outside-base, outside-end, or none")
+      stop("`text_position` must be either above, center, inside-base, inside-end, outside-base, outside-end, or none")
     }
 
     if (length(text_color) > 1) {
@@ -308,6 +324,12 @@ data_bars <- function(data,
       box_shadow <- "0 6px 6px -4px #888888"
 
     } else box_shadow <- NULL
+
+    if (round_edges == TRUE) {
+
+      radius <- "8px"
+
+    } else radius <- "0px"
 
     ### optional formatter from scales package
     if (is.null(number_fmt)) {
@@ -339,6 +361,26 @@ data_bars <- function(data,
     normalized <-
       (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
 
+    ### conditional text color
+    if (is.character(text_color_ref)) {
+
+      if (all(text_color_ref %in% names(which(sapply(data, is.character))))) {
+
+        if (is.character(text_color_ref)) { text_color_ref <- which(names(data) %in% text_color_ref) }
+
+        font_color <- data[[text_color_ref]][index]
+        text_color <- data[[text_color_ref]][index]
+
+      } else {
+
+        stop("Attempted to select non-existing column or non-character column with text_color_ref")
+      }
+
+    } else {
+
+       font_color <- text_color
+    }
+
     ### conditional fill color and font color
     if (is.character(fill_color_ref)) {
 
@@ -367,7 +409,7 @@ data_bars <- function(data,
       fill_color_pal <- color_pal(normalized)
       fill_color_pal <- grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity)
 
-      if (brighten_text == TRUE & text_position == "inside-end" | brighten_text == TRUE & text_position == "inside-base" | brighten_text == TRUE & text_position == "center") {
+      if (brighten_text == TRUE & is.null(text_color_ref) & text_position == "inside-end" | brighten_text == TRUE & is.null(text_color_ref) & text_position == "inside-base" | brighten_text == TRUE & is.null(text_color_ref) & text_position == "center") {
 
         font_color <- assign_color(normalized)
 
@@ -531,8 +573,8 @@ data_bars <- function(data,
           font_color <- "black"
         } else font_color <- font_color
 
-        bar <- htmltools::div(style = list(boxShadow = box_shadow, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
-        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = font_color, fontWeight = bold_text, fontSize = text_size, background = background), text_label, bar)
+        bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
+        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = font_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"), text_label, bar)
         neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
       } else if (value < 0 & text_position == "inside-end") {
@@ -546,16 +588,16 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
-          bar <- htmltools::div(style = list(boxShadow = box_shadow, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = background), text_label, bar)
+          bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"), text_label, bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
                                 icon_label, img_label,
-                                htmltools::div(style = list(boxShadow = box_shadow, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = text_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
-          chart <-  htmltools::div(style = list(flexGrow = 1, background = background), bar)
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = text_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
+          chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
         }
 
@@ -571,8 +613,8 @@ data_bars <- function(data,
 
         bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
                               "", icon_label, img_label,
-                              htmltools::div(style = list(boxShadow = box_shadow, textAlign = "left", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center")))
-        chart <-  htmltools::div(style = list(flexGrow = 1, background = background), bar)
+                              htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center")))
+        chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
         bar_chart <- htmltools::div(style = list(display = "flex", alignItems = "center", color = font_color, fontSize = text_size, fontWeight = bold_text), chart, text_label)
         neg_chart <- htmltools::tagAppendChild(neg_chart, bar_chart)
 
@@ -587,16 +629,16 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
-          bar <- htmltools::div(style = list(boxShadow = box_shadow, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = background), text_label, bar)
+          bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"), text_label, bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
                                 icon_label, img_label,
-                                htmltools::div(style = list(boxShadow = box_shadow, display = "flex", alignItems = "center", justifyContent = "flex-end", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
-          chart <-  htmltools::div(style = list(background = background), bar)
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, display = "flex", alignItems = "center", justifyContent = "flex-end", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
+          chart <-  htmltools::div(style = list(background = "transparent"), bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
         }
 
@@ -611,16 +653,16 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
-          bar <- htmltools::div(style = list(boxShadow = box_shadow, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = background), text_label, bar)
+          bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"), text_label, bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
                                 icon_label, img_label,
-                                htmltools::div(style = list(boxShadow = box_shadow, textAlign = "center", display = "flex", alignItems = "center", justifyContent = "center", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
-          chart <-  htmltools::div(style = list(flexGrow = 1, background = background), bar)
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "center", display = "flex", alignItems = "center", justifyContent = "center", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
+          chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
         }
 
@@ -635,8 +677,8 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
-                              htmltools::div(style = list(boxShadow = box_shadow, textAlign = "left", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, display = "flex", alignItems = "center"), icon_label, img_label))
-        chart <-  htmltools::div(style = list(flexGrow = 1, background = background), bar)
+                              htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, display = "flex", alignItems = "center"), icon_label, img_label))
+        chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
         neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
         ### pos side
@@ -651,8 +693,8 @@ data_bars <- function(data,
           font_color <- "black"
         } else font_color <- font_color
 
-        bar <- htmltools::div(style = list(boxShadow = box_shadow, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = background, color = font_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
+        bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
+        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = font_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
         pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
 
       } else if (value >= 0 & text_position == "inside-end") {
@@ -666,15 +708,15 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
-          bar <- htmltools::div(style = list(boxShadow = box_shadow, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = background, color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
+          bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center"),
-                                htmltools::div(style = list(boxShadow = box_shadow, textAlign = "right", display = "flex", alignItems = "center", justifyContent = "flex-end", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label), icon_label, img_label)
-          chart <- htmltools::div(style = list(background = background), bar)
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "right", display = "flex", alignItems = "center", justifyContent = "flex-end", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label), icon_label, img_label)
+          chart <- htmltools::div(style = list(background = "transparent"), bar)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
         }
 
@@ -689,9 +731,9 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         bar <- htmltools::div(style = list(display = "flex", alignItems = "center"),
-                              htmltools::div(style = list(boxShadow = box_shadow, background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center"), ""),
+                              htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center"), ""),
                               icon_label, img_label)
-        chart <- htmltools::div(style = list(flexGrow = 1, background = background), bar)
+        chart <- htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
         bar_chart <- htmltools::div(style = list(display = "flex", alignItems = "center", color = font_color, fontWeight = bold_text, fontSize = text_size, display = "flex", alignItems = "center"), text_label, chart)
         pos_chart <- htmltools::tagAppendChild(pos_chart, bar_chart)
 
@@ -706,16 +748,16 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
-          bar <- htmltools::div(style = list(boxShadow = box_shadow, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = background, color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
+          bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center"),
-                                htmltools::div(style = list(boxShadow = box_shadow, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label),
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label),
                                 icon_label, img_label)
-          chart <- htmltools::div(style = list(background = background), bar)
+          chart <- htmltools::div(style = list(background = "transparent"), bar)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
         }
 
@@ -730,15 +772,15 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
-          bar <- htmltools::div(style = list(boxShadow = box_shadow, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = background, color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
+          bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center"),
-                                htmltools::div(style = list(boxShadow = box_shadow, textAlign = "center", display = "flex", alignItems = "center", justifyContent = "center", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label), icon_label, img_label)
-          chart <- htmltools::div(style = list(background = background), bar)
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "center", display = "flex", alignItems = "center", justifyContent = "center", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label), icon_label, img_label)
+          chart <- htmltools::div(style = list(background = "transparent"), bar)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
         }
 
@@ -748,8 +790,8 @@ data_bars <- function(data,
           fill_color_pal <- fill_color[[2]]
         } else fill_color_pal <- fill_color_pal
 
-        bar <- htmltools::div(style = list(boxShadow = box_shadow, textAlign = "right", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = background),
+        bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "right", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
+        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent"),
                                 bar)
         pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
       }
@@ -777,13 +819,17 @@ data_bars <- function(data,
                 display = "flex",
                 alignItems = "center",
                 justifyContent = "flex-end",
-                color = font_color,
+                color = text_color,
                 fontSize = text_size,
                 fontWeight = bold_text),
                 text_label,
                 htmltools::div(style = list(
                   textAlign = "left",
                   boxShadow = box_shadow,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                   background = fill,
                   backgroundImage = gradient,
@@ -798,11 +844,59 @@ data_bars <- function(data,
             back <-
               htmltools::div(style = list(
                 flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
                 background = background
               ),
               chart)
 
             htmltools::div(back)
+
+          } else if (align_bars == "right" & text_position == "above") {
+
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                justifyContent = "flex-end"),
+                htmltools::div(style = list(
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
+                  boxShadow = box_shadow,
+                  border = paste0("", border_width, " ", border_style, " ", border_color, ""),
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = 5,
+                  transition = animation
+                ),
+                icon_label,
+                img_label))
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                background = background),
+              fill_chart)
+
+            htmltools::div(
+            htmltools::div(text_label,
+                  style = list(display = "flex",
+                               alignItems = "center",
+                               justifyContent = "flex-end",
+                               textAlign = "right",
+                               color = text_color,
+                               fontWeight = bold_text,
+                               fontSize = text_size)),
+                  back_chart)
 
           } else if (align_bars == "right" & text_position == "inside-end") {
 
@@ -820,6 +914,10 @@ data_bars <- function(data,
                   htmltools::div(style = list(
                     textAlign = "left",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -834,6 +932,10 @@ data_bars <- function(data,
               back <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 chart)
@@ -855,6 +957,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "flex-start",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -871,6 +977,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 fill_chart)
@@ -894,6 +1004,10 @@ data_bars <- function(data,
                   htmltools::div(style = list(
                     textAlign = "left",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -908,6 +1022,10 @@ data_bars <- function(data,
               back <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 chart)
@@ -929,6 +1047,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "flex-end",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -945,6 +1067,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 fill_chart)
@@ -967,8 +1093,12 @@ data_bars <- function(data,
                   border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                   background = fill,
                   boxShadow = box_shadow,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   backgroundImage = gradient,
-                  color = font_color,
+                  color = text_color,
                   fontWeight = bold_text,
                   fontSize = text_size,
                   width = width,
@@ -981,6 +1111,10 @@ data_bars <- function(data,
             back_chart <-
               htmltools::div(style = list(
                 flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
                 marginRight = "7px",
                 background = background
               ),
@@ -1008,6 +1142,10 @@ data_bars <- function(data,
                   htmltools::div(style = list(
                     textAlign = "left",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -1022,6 +1160,10 @@ data_bars <- function(data,
               back <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 chart)
@@ -1043,6 +1185,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "center",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -1059,6 +1205,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   marginLeft = "7px",
                   background = background
                 ),
@@ -1077,6 +1227,10 @@ data_bars <- function(data,
                 htmltools::div(style = list(
                   textAlign = "left",
                   boxShadow = box_shadow,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                   background = fill,
                   backgroundImage = gradient,
@@ -1090,6 +1244,10 @@ data_bars <- function(data,
             back_chart <-
               htmltools::div(style = list(
                 flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                borderBottomLeftRadius = radius,
                 marginLeft = "7px",
                 background = background
               ),
@@ -1112,6 +1270,10 @@ data_bars <- function(data,
                   display = "flex",
                   alignItems = "center",
                   justifyContent = "flex-end",
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   boxShadow = box_shadow,
                   border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                   background = fill,
@@ -1128,11 +1290,55 @@ data_bars <- function(data,
             back_chart <-
               htmltools::div(style = list(
                 flexGrow = 1,
+                borderTopLeftRadius =  radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
                 background = background
               ),
               fill_chart)
 
             htmltools::div(back_chart)
+
+          } else if (align_bars == "left" & text_position == "above") {
+
+            fill_chart <-
+                htmltools::div(style = list(
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
+                  boxShadow = box_shadow,
+                  border = paste0("", border_width, " ", border_style, " ", border_color, ""),
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = 5,
+                  transition = animation
+                ),
+                icon_label,
+                img_label)
+
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                background = background),
+              fill_chart)
+
+            htmltools::div(
+            htmltools::div(text_label,
+                  style = list(display = "flex",
+                               alignItems = "center",
+                               justifyContent = "flex-start",
+                               textAlign = "left",
+                               color = text_color,
+                               fontWeight = bold_text,
+                               fontSize = text_size)),
+                  back_chart)
 
           } else if (align_bars == "left" & text_position == "inside-end") {
 
@@ -1151,6 +1357,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "flex-end",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -1166,6 +1376,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 fill_chart)
@@ -1185,6 +1399,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "flex-end",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -1195,7 +1413,8 @@ data_bars <- function(data,
                     height = height,
                     transition = animation,
                     textOverflow = "ellipsis",
-                    whiteSpace = "nowrap"
+                    whiteSpace = "nowrap",
+                    marginRight = "7px"
                   ), text_label),
                   icon_label,
                   img_label)
@@ -1203,6 +1422,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 fill_chart)
@@ -1227,6 +1450,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "flex-end",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -1242,6 +1469,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 fill_chart)
@@ -1260,6 +1491,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "flex-start",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -1278,6 +1513,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 fill_chart)
@@ -1293,6 +1532,10 @@ data_bars <- function(data,
                 alignItems = "center"),
                 htmltools::div(style = list(
                   boxShadow = box_shadow,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = fill,
                   backgroundImage = gradient,
                   border = paste0("", border_width, " ", border_style, " ", border_color, ""),
@@ -1309,6 +1552,10 @@ data_bars <- function(data,
             chart <-
               htmltools::div(style = list(
                 flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
                 marginLeft = "7px",
                 background = background
               ),
@@ -1339,6 +1586,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "flex-end",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -1353,6 +1604,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 fill_chart)
@@ -1371,6 +1626,10 @@ data_bars <- function(data,
                     alignItems = "center",
                     justifyContent = "center",
                     boxShadow = box_shadow,
+                    borderTopLeftRadius = radius,
+                    borderBottomLeftRadius = radius,
+                    borderTopRightRadius = radius,
+                    borderBottomRightRadius = radius,
                     border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                     background = fill,
                     backgroundImage = gradient,
@@ -1389,6 +1648,10 @@ data_bars <- function(data,
               back_chart <-
                 htmltools::div(style = list(
                   flexGrow = 1,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   background = background
                 ),
                 fill_chart)
@@ -1405,6 +1668,10 @@ data_bars <- function(data,
                 htmltools::div(style = list(
                   textAlign = "right",
                   boxShadow = box_shadow,
+                  borderTopLeftRadius = radius,
+                  borderBottomLeftRadius = radius,
+                  borderTopRightRadius = radius,
+                  borderBottomRightRadius = radius,
                   border = paste0("", border_width, " ", border_style, " ", border_color, ""),
                   background = fill,
                   backgroundImage = gradient,
@@ -1421,6 +1688,10 @@ data_bars <- function(data,
             back_chart <-
               htmltools::div(style = list(
                 flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
                 background = background
               ),
               fill_chart)

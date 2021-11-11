@@ -34,6 +34,11 @@
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
+#' @param text_color_ref Optionally assign text color from another column
+#'     by providing the name of the column containing the text colors in quotes.
+#'     Only one color can be provided per cell.
+#'     Default is NULL.
+#'
 #' @param show_text Logical: show text or hide text.
 #'     Default is TRUE.
 #'
@@ -116,6 +121,7 @@ color_tiles <- function(data,
                         opacity = 1,
                         number_fmt = NULL,
                         text_color = "black",
+                        text_color_ref = NULL,
                         show_text = TRUE,
                         brighten_text = TRUE,
                         brighten_text_color = "white",
@@ -219,6 +225,26 @@ color_tiles <- function(data,
 
       }
 
+      ### conditional text color
+      if (is.character(text_color_ref)) {
+
+        if (all(text_color_ref %in% names(which(sapply(data, is.character))))) {
+
+          if (is.character(text_color_ref)) { text_color_ref <- which(names(data) %in% text_color_ref) }
+
+          font_color <- data[[text_color_ref]][index]
+          text_color <- data[[text_color_ref]][index]
+
+        } else {
+
+          stop("Attempted to select non-existing column or non-character column with text_color_ref")
+        }
+
+      } else {
+
+         font_color <- text_color
+      }
+
       ### conditional fill color and font color
       if (is.character(color_ref)) {
 
@@ -275,6 +301,18 @@ color_tiles <- function(data,
                                   alignItems = "center",
                                   borderRadius = "6px",
                                   fontWeight = bold_text,
+                                  boxShadow = box_shadow,
+                                  transition = animation))
+
+    } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
+
+      htmltools::div(label,
+                     style = list(background = cell_color,
+                                  color = text_color,
+                                  display = "flex",
+                                  justifyContent = "center",
+                                  height = "18px",
+                                  borderRadius = "6px",
                                   boxShadow = box_shadow,
                                   transition = animation))
 

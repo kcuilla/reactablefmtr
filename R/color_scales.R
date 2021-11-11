@@ -29,6 +29,11 @@
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
+#' @param text_color_ref Optionally assign text color from another column
+#'     by providing the name of the column containing the text colors in quotes.
+#'     Only one color can be provided per cell.
+#'     Default is NULL.
+#'
 #' @param show_text Logical: show text or hide text.
 #'     Default is TRUE.
 #'
@@ -99,6 +104,7 @@ color_scales <- function(data,
                          color_ref = NULL,
                          opacity = 1,
                          text_color = "black",
+                         text_color_ref = NULL,
                          show_text = TRUE,
                          brighten_text = TRUE,
                          brighten_text_color = "white",
@@ -180,6 +186,26 @@ color_scales <- function(data,
 
       }
 
+      ### conditional text color
+      if (is.character(text_color_ref)) {
+
+        if (all(text_color_ref %in% names(which(sapply(data, is.character))))) {
+
+          if (is.character(text_color_ref)) { text_color_ref <- which(names(data) %in% text_color_ref) }
+
+          font_color <- data[[text_color_ref]][index]
+          text_color <- data[[text_color_ref]][index]
+
+        } else {
+
+          stop("Attempted to select non-existing column or non-character column with text_color_ref")
+        }
+
+      } else {
+
+         font_color <- text_color
+      }
+
       ### conditional fill color and font color
       if (is.character(color_ref)) {
 
@@ -229,7 +255,11 @@ color_scales <- function(data,
 
       list(display = "flex", background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
 
-    } else if (brighten_text == FALSE & show_text == FALSE) {
+     } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
+
+      list(display = "flex", background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
+
+     } else if (brighten_text == FALSE & show_text == FALSE) {
 
       list(display = "flex", background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0, transition = animation)
 
