@@ -228,11 +228,11 @@
 
     <pre class="usage"><span class='fu'>data_bars</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  fill_color <span class='op'>=</span> <span class='st'>"#8ebfdb"</span>,
+  fill_color <span class='op'>=</span> <span class='st'>"#15607A"</span>,
   fill_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   fill_opacity <span class='op'>=</span> <span class='fl'>1</span>,
   fill_gradient <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  background <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  background <span class='op'>=</span> <span class='st'>"#EEEEEE"</span>,
   max_value <span class='op'>=</span> <span class='cn'>NULL</span>,
   min_value <span class='op'>=</span> <span class='cn'>NULL</span>,
   align_bars <span class='op'>=</span> <span class='st'>"left"</span>,
@@ -240,7 +240,8 @@
   text_position <span class='op'>=</span> <span class='st'>"inside-end"</span>,
   force_outside <span class='op'>=</span> <span class='cn'>NULL</span>,
   text_color <span class='op'>=</span> <span class='st'>"black"</span>,
-  text_size <span class='op'>=</span> <span class='fl'>13</span>,
+  text_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
+  text_size <span class='op'>=</span> <span class='fl'>14</span>,
   brighten_text <span class='op'>=</span> <span class='cn'>TRUE</span>,
   brighten_text_color <span class='op'>=</span> <span class='st'>"white"</span>,
   bold_text <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -258,6 +259,7 @@
   img_height <span class='op'>=</span> <span class='fl'>20</span>,
   img_width <span class='op'>=</span> <span class='fl'>20</span>,
   box_shadow <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  round_edges <span class='op'>=</span> <span class='cn'>FALSE</span>,
   animation <span class='op'>=</span> <span class='st'>"1s ease"</span>
 <span class='op'>)</span></pre>
 
@@ -273,7 +275,7 @@
       <td><p>A single color or a vector of fill_color for the fill of the data bars.
 fill_color should be given in order from low values to high values.
 Can use R's built-in fill_color or other color packages.
-Default is #1e90ff.</p></td>
+Default is #15607A.</p></td>
     </tr>
     <tr>
       <th>fill_color_ref</th>
@@ -297,7 +299,7 @@ Default is FALSE.</p></td>
     <tr>
       <th>background</th>
       <td><p>The color for the background of the data bars.
-Default is transparent.</p></td>
+Default is #EEEEEE.</p></td>
     </tr>
     <tr>
       <th>max_value</th>
@@ -327,6 +329,7 @@ Default is 19.</p></td>
 Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
 outside of the filled bars ("outside-end" or "outside-base"),
 within the center of the filled bars ("center"),
+above the filled bars ("above"),
 or not displayed at all ("none").
 Default is inside-end.</p></td>
     </tr>
@@ -341,6 +344,13 @@ Default is NULL.</p></td>
       <th>text_color</th>
       <td><p>The color of the text labels.
 Default is black.</p></td>
+    </tr>
+    <tr>
+      <th>text_color_ref</th>
+      <td><p>Optionally assign text color from another column
+by providing the name of the column containing the text colors in quotes.
+Only one color can be provided per cell.
+Default is NULL.</p></td>
     </tr>
     <tr>
       <th>text_size</th>
@@ -447,6 +457,11 @@ Default is 20.</p></td>
     <tr>
       <th>box_shadow</th>
       <td><p>Logical: add a box shadow to the bars.
+Default is FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>round_edges</th>
+      <td><p>Logical: round the edges around the data bars.
 Default is FALSE.</p></td>
     </tr>
     <tr>
