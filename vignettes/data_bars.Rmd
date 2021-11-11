@@ -19,7 +19,7 @@ library(nflfastR)
 
 ## Position Text
 
-By default, the values are now positioned on the "outside-end" of the filled bars:
+By default, the values are positioned on the "inside-end" of the filled bars:
 
 ```{r}
 data <- data.frame(
@@ -27,7 +27,7 @@ data <- data.frame(
             "Blue Group 1","Blue Group 2","Blue Group 3","Blue Group 4","Blue Group 5",
             "Green Group 1","Green Group 2","Green Group 3","Green Group 4","Green Group 5"),
   Pct1 = c(.27, .82, .44, .68, .78, 
-           .74, .66, .33, .23, .11, 
+           .74, .66, .33, .23, .20, 
            .50, .55, .40, .70, .60),
   Pct2 = c(.33, .17, .87, .54, .37,
            .84, .72, .61, .48, .77,
@@ -38,19 +38,22 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     number_fmt = scales::percent)
   )
 )
 ```
 
-However, you can change the location of the values with `text_position`. The available options are "outside-end" (default), "outside-base", "inside-end", "inside-base", "center", or "none". Below is an example of "outside-base" which is the way the old version of `data_bars()` displayed the values.
+However, you can change the location of the values with `text_position`. The available options are "inside-end" (default), "outside-base", "outside-end", "inside-base", "center", "above", or "none". Below is an example of "outside-base" which is the way the old version of `data_bars()` displayed the values.
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "outside-base", number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     text_position = "outside-base", 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -62,19 +65,23 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "inside-base", number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     text_position = "inside-base", 
+                     number_fmt = scales::percent)
   )
 )
 ```
 
-Values positioned inside the end of the filled bars with "inside-end":
+Values positioned inside the end of the filled bars with "outside-end":
 
 ```{r}
 reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "inside-end", number_fmt = scales::percent)
+    cell = data_bars(data,
+                     text_position = "inside-end",
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -86,7 +93,23 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "center", number_fmt = scales::percent)
+    cell = data_bars(data,
+                     text_position = "center", 
+                     number_fmt = scales::percent)
+  )
+)
+```
+
+Values positioned above the filled bars with "above":
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data,
+                     text_position = "above", 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -98,7 +121,27 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_position = "none")
+    cell = data_bars(data, 
+                     text_position = "none")
+  )
+)
+```
+
+
+## Force Text Outside
+
+If the values are difficult to see inside the bars since they are small relative to other values in the column, you can "force" them to show outside of the data bars by providing a range of values within `force_outside`:
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultSortOrder = "desc",
+  defaultSorted = "Pct2",
+  defaultColDef = colDef(
+    cell = data_bars(data, 
+                     number_fmt = scales::percent,
+                     force_outside = c(0,0.4))
   )
 )
 ```
@@ -114,7 +157,9 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", text_color = "red", number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     text_color = "red", 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -126,7 +171,10 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), text_position = "inside-end", number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     fill_color = viridis(5), 
+                     text_position = "inside-end",
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -140,7 +188,11 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), text_position = "inside-end", brighten_text_color = "gold", number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     fill_color = viridis(5),
+                     text_position = "inside-end", 
+                     brighten_text_color = "gold", 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -156,7 +208,9 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = "lightblue", align_bars = "right", number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     align_bars = "right", 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -169,10 +223,16 @@ reactable(
   pagination = FALSE,
   columns = list(
     Pct1 = colDef(
-      cell = data_bars(data, fill_color = "lightblue", align_bars = "right", text_position = "inside-end", number_fmt = scales::percent)
+      cell = data_bars(data, 
+                       align_bars = "right", 
+                       text_position = "inside-end", 
+                       number_fmt = scales::percent)
       ),
     Pct2 = colDef(
-      cell = data_bars(data, fill_color = "lightblue", align_bars = "left", text_position = "inside-end", number_fmt = scales::percent)
+      cell = data_bars(data, 
+                       align_bars = "left",
+                       text_position = "inside-end",
+                       number_fmt = scales::percent)
       )
   )
 )
@@ -188,7 +248,26 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, box_shadow = TRUE, number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     box_shadow = TRUE, 
+                     number_fmt = scales::percent)
+  )
+)
+```
+
+
+## Round Edges
+
+The edges of the bars can be rounded by setting `round_edges` to TRUE.
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data, 
+                     round_edges = TRUE, 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -203,7 +282,12 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = viridis(5), background = "lightgrey", text_position = "inside-end", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     fill_color = viridis(5), 
+                     background = "lightgrey",
+                     text_position = "inside-end", 
+                     max_value = 1, 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -222,7 +306,9 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, bar_height = 35)
+    cell = data_bars(data, 
+                     bar_height = 35, 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -234,7 +320,11 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, bar_height = 3)
+    cell = data_bars(data,
+                     bar_height = 3, 
+                     text_position = "outside-end", 
+                     background = "transparent", 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -255,7 +345,12 @@ data %>%
 reactable(.,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(., fill_color_ref = "color_pal", text_position = "inside-end", background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(.,
+                     fill_color_ref = "color_pal", 
+                     text_position = "inside-end",
+                     background = "lightgrey", 
+                     max_value = 1, 
+                     number_fmt = scales::percent)
   ),
   columns = list(color_pal = colDef(show = FALSE) ## hide the color_pal column
   )
@@ -276,7 +371,12 @@ reactable(.,
   defaultSorted = "Pct1",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    cell = data_bars(., fill_color_ref = "color_pal", text_position = "inside-end", background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(., 
+                     fill_color_ref = "color_pal", 
+                     text_position = "inside-end", 
+                     background = "lightgrey", 
+                     max_value = 1, 
+                     number_fmt = scales::percent)
   ),
   columns = list(color_pal = colDef(show = FALSE)
   )
@@ -294,7 +394,12 @@ reactable(
   data,
   pagination = FALSE,
   defaultColDef = colDef(
-    cell = data_bars(data, fill_color = c("#1efffd", "#1e20ff"), fill_gradient = TRUE, background = "lightgrey", max_value = 1, number_fmt = scales::percent)
+    cell = data_bars(data, 
+                     fill_color = c("#1efffd", "#1e20ff"), 
+                     fill_gradient = TRUE, 
+                     background = "lightgrey", 
+                     max_value = 1, 
+                     number_fmt = scales::percent)
   )
 )
 ```
@@ -303,18 +408,7 @@ reactable(
 
 ## Positive and Negative Values
 
-`data_bars_pos_neg()` is also now depreciated and has been replaced with the default setting of `data_bars()` which automatically detects if there are negative values within a column and adjusts the bars to go in opposite directions rather than one:
-
-```{r}
-data %>% 
-  mutate(Change = Pct1 - Pct2) %>% 
-reactable(., 
-  pagination = FALSE, 
-  defaultColDef = colDef(   
-    cell = data_bars(., fill_color = "grey", number_fmt = scales::percent)
-  )
-)
-```
+`data_bars_pos_neg()` is also now depreciated and has been replaced with the default setting of `data_bars()` which automatically detects if there are negative values within a column and adjusts the bars to go in opposite directions rather than one.
 
 If two colors are provided, the first color will be applied to the negative-filled bars and the second color will be applied to the positive-filled bars
 
@@ -326,7 +420,9 @@ reactable(.,
   pagination = FALSE,
   columns = list(
     Change = colDef(
-      cell = data_bars(., fill_color = c("lightblue","orange"), number_fmt = scales::percent))
+      cell = data_bars(., 
+                       fill_color = c("lightblue","orange"),
+                       number_fmt = scales::percent))
   )
 )
 ```
@@ -343,7 +439,10 @@ reactable(.,
   defaultSortOrder = "asc",
   columns = list(
     Change = colDef(
-      cell = data_bars(., fill_color = c("lightblue","orange"), text_position = "inside-end", number_fmt = scales::percent))
+      cell = data_bars(., 
+                       fill_color = c("lightblue","orange"),
+                       text_position = "inside-end", 
+                       number_fmt = scales::percent))
   )
 )
 ```
@@ -368,7 +467,10 @@ reactable(
   defaultSortOrder = "desc",
   columns = list(
     Values = colDef(
-      cell = data_bars(data, fill_color = "black", fill_opacity = 0.8, text_position = "inside-end"))
+      cell = data_bars(data, 
+                       fill_color = "black",
+                       fill_opacity = 0.8, 
+                       text_position = "inside-end"))
   )
 )
 ```
@@ -382,7 +484,11 @@ reactable(
   defaultSortOrder = "desc",
   columns = list(
     Values = colDef(
-      cell = data_bars(data, icon_ref = "Company", fill_color = "black", fill_opacity = 0.8, text_position = "inside-end"))
+      cell = data_bars(data, 
+                       icon_ref = "Company", 
+                       fill_color = "black", 
+                       fill_opacity = 0.8, 
+                       text_position = "inside-end"))
   )
 )
 ```
@@ -396,7 +502,12 @@ reactable(
   defaultSortOrder = "desc",
   columns = list(
     Values = colDef(
-      cell = data_bars(data, icon_ref = "Company", icon_color_ref = "Primary", fill_color = "black", fill_opacity = 0.8, text_position = "inside-end"))
+      cell = data_bars(data,
+                       icon_ref = "Company", 
+                       icon_color_ref = "Primary",
+                       fill_color = "black", 
+                       fill_opacity = 0.8, 
+                       text_position = "inside-end"))
   )
 )
 ```
@@ -410,7 +521,10 @@ reactable(
   defaultSortOrder = "desc",
   columns = list(
     Values = colDef(
-      cell = data_bars(data, icon_ref = "Company", fill_color_ref = "Primary", text_position = "inside-end"))
+      cell = data_bars(data, 
+                       icon_ref = "Company",
+                       fill_color_ref = "Primary",
+                       text_position = "inside-end"))
   )
 )
 ```
@@ -424,7 +538,12 @@ reactable(
   defaultSortOrder = "desc",
   columns = list(
     Values = colDef(
-      cell = data_bars(data, icon_ref = "Company", icon_size = 35, fill_color_ref = "Primary", text_position = "inside-end")
+      cell = data_bars(data, 
+                       icon_ref = "Company", 
+                       icon_size = 35, 
+                       fill_color_ref = "Primary",
+                       text_position = "inside-end", 
+                       background = "transparent")
     ),
     Company = colDef(show = FALSE), 
     Primary = colDef(show = FALSE)
@@ -484,10 +603,26 @@ reactable(
     team_color = colDef(show = FALSE), ## hide column containing team colors
     name = colDef(maxWidth = 120),
     cpoe = colDef(
-      cell = data_bars(qbs, fill_color_ref = "team_color", fill_opacity = 0.3, brighten_text = FALSE, text_position = "inside-end", number_fmt = scales::percent, img_ref = "team_logo_espn", img_height = 30, img_width = 30)
+      cell = data_bars(qbs, 
+                       fill_color_ref = "team_color",
+                       fill_opacity = 0.3,
+                       brighten_text = FALSE, 
+                       text_position = "inside-end",
+                       number_fmt = scales::percent, 
+                       img_ref = "team_logo_espn", 
+                       img_height = 30, 
+                       img_width = 30)
     ),
     epa = colDef(
-      cell = data_bars(qbs, fill_color_ref = "team_color", fill_opacity = 0.3, brighten_text = FALSE, text_position = "inside-end", number_fmt = scales::number_format(accuracy = 0.01), img_ref = "team_logo_espn", img_height = 30, img_width = 30)
+      cell = data_bars(qbs, 
+                       fill_color_ref = "team_color",
+                       fill_opacity = 0.3, 
+                       brighten_text = FALSE,
+                       text_position = "inside-end",
+                       number_fmt = scales::number_format(accuracy = 0.01),
+                       img_ref = "team_logo_espn",
+                       img_height = 30, 
+                       img_width = 30)
     )
   )
 )
