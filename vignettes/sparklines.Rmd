@@ -82,7 +82,8 @@ reactable(
       cell = react_sparkline(
         df,
         line_color = "red",
-        line_width = 3)
+        line_width = 3
+      )
     )
   )
 )
@@ -111,7 +112,8 @@ reactable(
     flipper_length = colDef(
       cell = react_sparkline(
         df,
-        line_color_ref = "cols")
+        line_color_ref = "cols"
+      )
     )
   )
 )
