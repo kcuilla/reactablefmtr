@@ -85,7 +85,7 @@
 #'     Default is NULL.
 #'
 #' @param text_size Numeric value representing the size of the text labels (in px).
-#'     Default is 16.
+#'     Default is 14.
 #'
 #' @param brighten_text Logical: automatically assign color to text labels based on filled color
 #'     when the text labels are positioned within the filled bars.
@@ -457,7 +457,7 @@ data_bars <- function(data,
         }
 
         icon_label <- htmltools::tagAppendAttributes(shiny::icon(icon),
-                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors))
+                                                     style = paste0("font-size:", icon_size, "px", "; color:", colors, "; margin-left:7px"))
 
       } else {
 
@@ -483,7 +483,7 @@ data_bars <- function(data,
       }
 
       icon_label <- htmltools::tagAppendAttributes(shiny::icon(icon),
-                                                   style = paste0("font-size:", icon_size, "px", "; color:", colors))
+                                                   style = paste0("font-size:", icon_size, "px", "; color:", colors, "; margin-left:7px"))
 
     } else icon_label <- NULL
 
@@ -596,7 +596,7 @@ data_bars <- function(data,
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
                                 icon_label, img_label,
-                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = text_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
           chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
         }
@@ -836,7 +836,7 @@ data_bars <- function(data,
                   width = width,
                   height = height,
                   transition = animation,
-                  marginLeft = "7px",
+                  # marginLeft = "7px",
                   display = "flex",
                   alignItems = "center"
                 ), icon_label, img_label))
@@ -924,7 +924,7 @@ data_bars <- function(data,
                     width = width,
                     height = height,
                     transition = animation,
-                    marginLeft = "7px",
+                    # marginLeft = "7px",
                     display = "flex",
                     alignItems = "center"
                   ), icon_label, img_label))
@@ -1014,7 +1014,7 @@ data_bars <- function(data,
                     width = width,
                     height = height,
                     transition = animation,
-                    marginLeft = "7px",
+                    # marginLeft = "7px",
                     display = "flex",
                     alignItems = "center"
                   ), icon_label, img_label))
@@ -1115,7 +1115,7 @@ data_bars <- function(data,
                 borderBottomLeftRadius = radius,
                 borderTopRightRadius = radius,
                 borderBottomRightRadius = radius,
-                marginRight = "7px",
+                # marginRight = "7px",
                 background = background
               ),
               fill_chart)
@@ -1152,7 +1152,7 @@ data_bars <- function(data,
                     width = width,
                     height = height,
                     transition = animation,
-                    marginLeft = "7px",
+                    # marginLeft = "7px",
                     display = "flex",
                     alignItems = "center"
                   ), icon_label, img_label))
@@ -1209,7 +1209,7 @@ data_bars <- function(data,
                   borderBottomLeftRadius = radius,
                   borderTopRightRadius = radius,
                   borderBottomRightRadius = radius,
-                  marginLeft = "7px",
+                  # marginLeft = "7px",
                   background = background
                 ),
                 fill_chart)
@@ -1248,7 +1248,7 @@ data_bars <- function(data,
                 borderTopRightRadius = radius,
                 borderBottomRightRadius = radius,
                 borderBottomLeftRadius = radius,
-                marginLeft = "7px",
+                # marginLeft = "7px",
                 background = background
               ),
               fill_chart)
@@ -1280,8 +1280,8 @@ data_bars <- function(data,
                   backgroundImage = gradient,
                   width = width,
                   height = height,
-                  transition = animation,
-                  marginRight = "7px"
+                  transition = animation
+                  # marginRight = "7px"
                 ),
                 icon_label,
                 img_label),
@@ -1366,8 +1366,8 @@ data_bars <- function(data,
                     backgroundImage = gradient,
                     width = width,
                     height = height,
-                    transition = animation,
-                    marginRight = "7px"
+                    transition = animation
+                    # marginRight = "7px"
                   ),
                   icon_label,
                   img_label),
@@ -1413,8 +1413,8 @@ data_bars <- function(data,
                     height = height,
                     transition = animation,
                     textOverflow = "ellipsis",
-                    whiteSpace = "nowrap",
-                    marginRight = "7px"
+                    whiteSpace = "nowrap"
+                    # marginRight = "7px"
                   ), text_label),
                   icon_label,
                   img_label)
@@ -1459,8 +1459,8 @@ data_bars <- function(data,
                     backgroundImage = gradient,
                     width = width,
                     height = height,
-                    transition = animation,
-                    marginRight = "7px"
+                    transition = animation
+                    # marginRight = "7px"
                   ),
                   icon_label,
                   img_label),
@@ -1556,7 +1556,7 @@ data_bars <- function(data,
                 borderBottomLeftRadius = radius,
                 borderTopRightRadius = radius,
                 borderBottomRightRadius = radius,
-                marginLeft = "7px",
+                # marginLeft = "7px",
                 background = background
               ),
               bar)
