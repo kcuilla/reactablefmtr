@@ -307,30 +307,6 @@ reactable(
 )
 ```
 
-All points and all labels applied (not recommended for sparklines with many data points):
-
-```{r}
-reactable(
-  df,
-  columns = list(
-    species = colDef(maxWidth = 85),
-    sex = colDef(maxWidth = 85),
-    cols = colDef(show = FALSE),
-    flipper_length = colDef(
-      cell = react_sparkline(
-        df,
-        height = 80,
-        labels = "all",
-        label_size = "0.75em",
-        highlight_points = highlight_points(all = "slategray"),
-        point_size = 2
-      )
-    )
-  )
-)
-```
-
-
 ## Statlines
 
 Options to change the appearance of the statlines:
@@ -651,27 +627,6 @@ reactable(
   )
 )
 ```
-
-
-```{r}
-reactable(
-  df,
-  columns = list(
-    species = colDef(maxWidth = 85),
-    sex = colDef(maxWidth = 85),
-    cols = colDef(show = FALSE),
-    flipper_length = colDef(
-      cell = react_sparkbar(
-        df,
-        height = 80,
-        labels = "all",
-        label_size = "0.75em"
-      )
-    )
-  )
-)
-```
-
 
 ## Statlines and Bandlines
 
