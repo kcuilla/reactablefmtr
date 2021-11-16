@@ -101,7 +101,7 @@ Only one color can be provided per cell.
 Default is NULL.}
 
 \item{text_size}{Numeric value representing the size of the text labels (in px).
-Default is 16.}
+Default is 14.}
 
 \item{brighten_text}{Logical: automatically assign color to text labels based on filled color
 when the text labels are positioned within the filled bars.
