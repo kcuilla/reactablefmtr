@@ -89,19 +89,9 @@ Use `icon_assign()` to assign icons to values from the [Font Awesome](https://fo
 
 Within {reactablefmtr}, there are 24+ custom table themes. The themes include [bootstrap](https://bootswatch.com/) themes, themes inspired by news/sports sites such as The New York Times, FiveThirtyEight, and ESPN, as well as other custom themes that can only be found within {reactablefmtr}. The themes can be applied easily to tables by simply referencing the theme name. Additional customization options, such as changing the font size, font color, etc. are also [available](https://kcuilla.github.io/reactablefmtr/articles/themes.html).
 
-```{r}
-data <- MASS::Cars93[1:20, c("Model", "MPG.city", "MPG.highway")]
-        
-data %>%
-  reactable(.,
-    theme = slate(),
-    defaultColDef = colDef(
-      cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
-  )
-)
-```
+An example of the fivethirtyeight() theme:
 
-<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/43042890-A054-49D2-B066-8E329BE90ACA.jpeg" align="center" />
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/78A671F4-6705-4EE9-9B49-D29934FFE019.jpeg" align="center" />
 
 
 ## Add a Title, Subtitle, and Source
