@@ -358,8 +358,15 @@ data_bars <- function(data,
     }
 
     ### normalization for color palette
-    normalized <-
-      (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+    if (stats::var(data[[name]]) == 0) {
+
+      normalized <- 1
+
+    } else {
+
+      normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+
+    }
 
     ### conditional text color
     if (is.character(text_color_ref)) {
@@ -836,7 +843,7 @@ data_bars <- function(data,
                   width = width,
                   height = height,
                   transition = animation,
-                  # marginLeft = "7px",
+                  marginLeft = "6px",
                   display = "flex",
                   alignItems = "center"
                 ), icon_label, img_label))
@@ -902,45 +909,45 @@ data_bars <- function(data,
 
             if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
 
-              chart <-
+            chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                justifyContent = "flex-end",
+                color = text_color,
+                fontSize = text_size,
+                fontWeight = bold_text),
+                text_label,
                 htmltools::div(style = list(
-                  display = "flex",
-                  alignItems = "center",
-                  justifyContent = "flex-end",
-                  color = text_color,
-                  fontSize = text_size,
-                  fontWeight = bold_text),
-                  text_label,
-                  htmltools::div(style = list(
-                    textAlign = "left",
-                    boxShadow = box_shadow,
-                    borderTopLeftRadius = radius,
-                    borderBottomLeftRadius = radius,
-                    borderTopRightRadius = radius,
-                    borderBottomRightRadius = radius,
-                    border = paste0("", border_width, " ", border_style, " ", border_color, ""),
-                    background = fill,
-                    backgroundImage = gradient,
-                    width = width,
-                    height = height,
-                    transition = animation,
-                    # marginLeft = "7px",
-                    display = "flex",
-                    alignItems = "center"
-                  ), icon_label, img_label))
-
-              back <-
-                htmltools::div(style = list(
-                  flexGrow = 1,
+                  textAlign = "left",
+                  boxShadow = box_shadow,
                   borderTopLeftRadius = radius,
                   borderBottomLeftRadius = radius,
                   borderTopRightRadius = radius,
                   borderBottomRightRadius = radius,
-                  background = background
-                ),
-                chart)
+                  border = paste0("", border_width, " ", border_style, " ", border_color, ""),
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = animation,
+                  marginLeft = "6px",
+                  display = "flex",
+                  alignItems = "center"
+                ), icon_label, img_label))
 
-              htmltools::div(back)
+            back <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                background = background
+              ),
+              chart)
+
+            htmltools::div(back)
 
             } else {
 
@@ -992,45 +999,45 @@ data_bars <- function(data,
 
             if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
 
-              chart <-
+            chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                justifyContent = "flex-end",
+                color = text_color,
+                fontSize = text_size,
+                fontWeight = bold_text),
+                text_label,
                 htmltools::div(style = list(
-                  display = "flex",
-                  alignItems = "center",
-                  justifyContent = "flex-end",
-                  color = text_color,
-                  fontSize = text_size,
-                  fontWeight = bold_text),
-                  text_label,
-                  htmltools::div(style = list(
-                    textAlign = "left",
-                    boxShadow = box_shadow,
-                    borderTopLeftRadius = radius,
-                    borderBottomLeftRadius = radius,
-                    borderTopRightRadius = radius,
-                    borderBottomRightRadius = radius,
-                    border = paste0("", border_width, " ", border_style, " ", border_color, ""),
-                    background = fill,
-                    backgroundImage = gradient,
-                    width = width,
-                    height = height,
-                    transition = animation,
-                    # marginLeft = "7px",
-                    display = "flex",
-                    alignItems = "center"
-                  ), icon_label, img_label))
-
-              back <-
-                htmltools::div(style = list(
-                  flexGrow = 1,
+                  textAlign = "left",
+                  boxShadow = box_shadow,
                   borderTopLeftRadius = radius,
                   borderBottomLeftRadius = radius,
                   borderTopRightRadius = radius,
                   borderBottomRightRadius = radius,
-                  background = background
-                ),
-                chart)
+                  border = paste0("", border_width, " ", border_style, " ", border_color, ""),
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = animation,
+                  marginLeft = "6px",
+                  display = "flex",
+                  alignItems = "center"
+                ), icon_label, img_label))
 
-              htmltools::div(back)
+            back <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                background = background
+              ),
+              chart)
+
+            htmltools::div(back)
 
             } else {
 
@@ -1115,7 +1122,7 @@ data_bars <- function(data,
                 borderBottomLeftRadius = radius,
                 borderTopRightRadius = radius,
                 borderBottomRightRadius = radius,
-                # marginRight = "7px",
+                marginRight = "7px",
                 background = background
               ),
               fill_chart)
@@ -1130,45 +1137,45 @@ data_bars <- function(data,
 
             if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
 
-              chart <-
+            chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                justifyContent = "flex-end",
+                color = text_color,
+                fontSize = text_size,
+                fontWeight = bold_text),
+                text_label,
                 htmltools::div(style = list(
-                  display = "flex",
-                  alignItems = "center",
-                  justifyContent = "flex-end",
-                  color = text_color,
-                  fontSize = text_size,
-                  fontWeight = bold_text),
-                  text_label,
-                  htmltools::div(style = list(
-                    textAlign = "left",
-                    boxShadow = box_shadow,
-                    borderTopLeftRadius = radius,
-                    borderBottomLeftRadius = radius,
-                    borderTopRightRadius = radius,
-                    borderBottomRightRadius = radius,
-                    border = paste0("", border_width, " ", border_style, " ", border_color, ""),
-                    background = fill,
-                    backgroundImage = gradient,
-                    width = width,
-                    height = height,
-                    transition = animation,
-                    # marginLeft = "7px",
-                    display = "flex",
-                    alignItems = "center"
-                  ), icon_label, img_label))
-
-              back <-
-                htmltools::div(style = list(
-                  flexGrow = 1,
+                  textAlign = "left",
+                  boxShadow = box_shadow,
                   borderTopLeftRadius = radius,
                   borderBottomLeftRadius = radius,
                   borderTopRightRadius = radius,
                   borderBottomRightRadius = radius,
-                  background = background
-                ),
-                chart)
+                  border = paste0("", border_width, " ", border_style, " ", border_color, ""),
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = animation,
+                  marginLeft = "6px",
+                  display = "flex",
+                  alignItems = "center"
+                ), icon_label, img_label))
 
-              htmltools::div(back)
+            back <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                borderTopLeftRadius = radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                background = background
+              ),
+              chart)
+
+            htmltools::div(back)
 
             } else {
 
@@ -1280,8 +1287,8 @@ data_bars <- function(data,
                   backgroundImage = gradient,
                   width = width,
                   height = height,
-                  transition = animation
-                  # marginRight = "7px"
+                  transition = animation,
+                  marginRight = "6px"
                 ),
                 icon_label,
                 img_label),
@@ -1344,47 +1351,47 @@ data_bars <- function(data,
 
             if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
 
-              fill_chart <-
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                color = text_color,
+                fontSize = text_size,
+                fontWeight = bold_text),
                 htmltools::div(style = list(
+                  alignText = "right",
                   display = "flex",
                   alignItems = "center",
-                  color = text_color,
-                  fontSize = text_size,
-                  fontWeight = bold_text),
-                  htmltools::div(style = list(
-                    alignText = "right",
-                    display = "flex",
-                    alignItems = "center",
-                    justifyContent = "flex-end",
-                    boxShadow = box_shadow,
-                    borderTopLeftRadius = radius,
-                    borderBottomLeftRadius = radius,
-                    borderTopRightRadius = radius,
-                    borderBottomRightRadius = radius,
-                    border = paste0("", border_width, " ", border_style, " ", border_color, ""),
-                    background = fill,
-                    backgroundImage = gradient,
-                    width = width,
-                    height = height,
-                    transition = animation
-                    # marginRight = "7px"
-                  ),
-                  icon_label,
-                  img_label),
-                  text_label)
-
-              back_chart <-
-                htmltools::div(style = list(
-                  flexGrow = 1,
+                  justifyContent = "flex-end",
                   borderTopLeftRadius = radius,
                   borderBottomLeftRadius = radius,
                   borderTopRightRadius = radius,
                   borderBottomRightRadius = radius,
-                  background = background
+                  boxShadow = box_shadow,
+                  border = paste0("", border_width, " ", border_style, " ", border_color, ""),
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = animation,
+                  marginRight = "6px"
                 ),
-                fill_chart)
+                icon_label,
+                img_label),
+                text_label)
 
-              htmltools::div(back_chart)
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                borderTopLeftRadius =  radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
 
             } else {
 
@@ -1437,47 +1444,47 @@ data_bars <- function(data,
 
             if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
 
-              fill_chart <-
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                color = text_color,
+                fontSize = text_size,
+                fontWeight = bold_text),
                 htmltools::div(style = list(
+                  alignText = "right",
                   display = "flex",
                   alignItems = "center",
-                  color = text_color,
-                  fontSize = text_size,
-                  fontWeight = bold_text),
-                  htmltools::div(style = list(
-                    alignText = "right",
-                    display = "flex",
-                    alignItems = "center",
-                    justifyContent = "flex-end",
-                    boxShadow = box_shadow,
-                    borderTopLeftRadius = radius,
-                    borderBottomLeftRadius = radius,
-                    borderTopRightRadius = radius,
-                    borderBottomRightRadius = radius,
-                    border = paste0("", border_width, " ", border_style, " ", border_color, ""),
-                    background = fill,
-                    backgroundImage = gradient,
-                    width = width,
-                    height = height,
-                    transition = animation
-                    # marginRight = "7px"
-                  ),
-                  icon_label,
-                  img_label),
-                  text_label)
-
-              back_chart <-
-                htmltools::div(style = list(
-                  flexGrow = 1,
+                  justifyContent = "flex-end",
                   borderTopLeftRadius = radius,
                   borderBottomLeftRadius = radius,
                   borderTopRightRadius = radius,
                   borderBottomRightRadius = radius,
-                  background = background
+                  boxShadow = box_shadow,
+                  border = paste0("", border_width, " ", border_style, " ", border_color, ""),
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = animation,
+                  marginRight = "6px"
                 ),
-                fill_chart)
+                icon_label,
+                img_label),
+                text_label)
 
-              htmltools::div(back_chart)
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                borderTopLeftRadius =  radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
 
             } else {
 
@@ -1506,6 +1513,7 @@ data_bars <- function(data,
                     transition = animation,
                     textOverflow = "ellipsis",
                     whiteSpace = "nowrap"
+                    # marginRight = "6px"
                   ), text_label),
                   icon_label,
                   img_label)
@@ -1556,7 +1564,7 @@ data_bars <- function(data,
                 borderBottomLeftRadius = radius,
                 borderTopRightRadius = radius,
                 borderBottomRightRadius = radius,
-                # marginLeft = "7px",
+                marginLeft = "7px",
                 background = background
               ),
               bar)
@@ -1573,46 +1581,47 @@ data_bars <- function(data,
 
             if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
 
-              fill_chart <-
+            fill_chart <-
+              htmltools::div(style = list(
+                display = "flex",
+                alignItems = "center",
+                color = text_color,
+                fontSize = text_size,
+                fontWeight = bold_text),
                 htmltools::div(style = list(
+                  alignText = "right",
                   display = "flex",
                   alignItems = "center",
-                  color = text_color,
-                  fontSize = text_size,
-                  fontWeight = bold_text),
-                  htmltools::div(style = list(
-                    alignText = "right",
-                    display = "flex",
-                    alignItems = "center",
-                    justifyContent = "flex-end",
-                    boxShadow = box_shadow,
-                    borderTopLeftRadius = radius,
-                    borderBottomLeftRadius = radius,
-                    borderTopRightRadius = radius,
-                    borderBottomRightRadius = radius,
-                    border = paste0("", border_width, " ", border_style, " ", border_color, ""),
-                    background = fill,
-                    backgroundImage = gradient,
-                    width = width,
-                    height = height,
-                    transition = animation
-                  ),
-                  icon_label,
-                  img_label),
-                  text_label)
-
-              back_chart <-
-                htmltools::div(style = list(
-                  flexGrow = 1,
+                  justifyContent = "flex-end",
                   borderTopLeftRadius = radius,
                   borderBottomLeftRadius = radius,
                   borderTopRightRadius = radius,
                   borderBottomRightRadius = radius,
-                  background = background
+                  boxShadow = box_shadow,
+                  border = paste0("", border_width, " ", border_style, " ", border_color, ""),
+                  background = fill,
+                  backgroundImage = gradient,
+                  width = width,
+                  height = height,
+                  transition = animation,
+                  marginRight = "6px"
                 ),
-                fill_chart)
+                icon_label,
+                img_label),
+                text_label)
 
-              htmltools::div(back_chart)
+            back_chart <-
+              htmltools::div(style = list(
+                flexGrow = 1,
+                borderTopLeftRadius =  radius,
+                borderBottomLeftRadius = radius,
+                borderTopRightRadius = radius,
+                borderBottomRightRadius = radius,
+                background = background
+              ),
+              fill_chart)
+
+            htmltools::div(back_chart)
 
             } else {
 
@@ -1641,6 +1650,7 @@ data_bars <- function(data,
                     transition = animation,
                     textOverflow = "ellipsis",
                     whiteSpace = "nowrap"
+                    # marginRight = "6px"
                   ), text_label),
                   icon_label,
                   img_label)
@@ -1721,3 +1731,4 @@ data_bars <- function(data,
     }
   }
 }
+
