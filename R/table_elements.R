@@ -2,7 +2,7 @@
 #'
 #' Use `add_title()` to place a title above a {reactable} or {reactablefmtr} table.
 #'      The title can be aligned to the left, right, or center with the align option.
-#'      The text properties of the title, such as the font size, font family, and font style can be customized.
+#'      The text properties of the title, such as the font size and font style can be customized.
 #'      The background color of the title can also be adjusted as well as the margin around the title.
 #'
 #' @param table A reactable table.
@@ -15,9 +15,6 @@
 #'
 #' @param font_color Color of the title text.
 #'      Default is #000.
-#'
-#' @param font_family Font family of the title.
-#'      Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.
 #'
 #' @param font_size Numeric value representing the size of the font of the title (in px).
 #'      Default is 32.
@@ -61,7 +58,6 @@ add_title <- function(table = NULL,
                       title = NULL,
                       align = "left",
                       font_color = "#000",
-                      font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
                       font_size = 32,
                       font_style = "normal",
                       font_weight = "bold",
@@ -103,7 +99,6 @@ add_title <- function(table = NULL,
                        style = paste0("color:", font_color, ";",
                                       "background:", background_color, ";",
                                       "text-align:", align, ";",
-                                      "font-family:", font_family, ";",
                                       "font-size:", font_size, "px;",
                                       "font-style:", font_style, ";",
                                       "font-weight:", font_weight, ";",
@@ -122,7 +117,7 @@ add_title <- function(table = NULL,
 #' Use `add_subtitle()` to place a subtitle above a {reactable} or {reactablefmtr} table.
 #'      The same options that are present in `add_title()` and `add_source()` are also available in `add_subtitle()`.
 #'      The subtitle can be aligned to the left, right, or center with the align option.
-#'      The text properties of the subtitle, such as the font size, font family, and font style can be customized.
+#'      The text properties of the subtitle, such as the font size and font style can be customized.
 #'      The background color of the subtitle can also be adjusted as well as the margin around the subtitle.
 #'
 #' @param table A reactable table.
@@ -135,9 +130,6 @@ add_title <- function(table = NULL,
 #'
 #' @param font_color Color of the subtitle text.
 #'      Default is #333.
-#'
-#' @param font_family Font family of the subtitle.
-#'      Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.
 #'
 #' @param font_size Numeric value representing the size of the font of the subtitle (in px).
 #'      Default is 24.
@@ -187,7 +179,6 @@ add_subtitle <- function(table = NULL,
                          subtitle = NULL,
                          align = "left",
                          font_color = "#333",
-                         font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
                          font_size = 24,
                          font_style = "normal",
                          font_weight = "bold",
@@ -235,7 +226,6 @@ add_subtitle <- function(table = NULL,
                        style = paste0("color:", font_color, ";",
                                       "background:", background_color, ";",
                                       "text-align:", align, ";",
-                                      "font-family:", font_family, ";",
                                       "font-size:", font_size, "px;",
                                       "font-style:", font_style, ";",
                                       "font-weight:", font_weight, ";",
@@ -254,7 +244,7 @@ add_subtitle <- function(table = NULL,
 #' Use `add_source()` to place a source below a {reactable} or {reactablefmtr} table.
 #'      The same options that are present in `add_title()` and `add_subtitle()` are also available in `add_source()`.
 #'      The source can be aligned to the left, right, or center with the align option.
-#'      The text properties of the source, such as the font size, font family, and font style can be customized.
+#'      The text properties of the source, such as the font size and font style can be customized.
 #'      The background color of the source can also be adjusted as well as the margin around the source.
 #'
 #' @param table A reactable table.
@@ -267,9 +257,6 @@ add_subtitle <- function(table = NULL,
 #'
 #' @param font_color Color of the source text.
 #'      Default is #000.
-#'
-#' @param font_family Font family of the source.
-#'      Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.
 #'
 #' @param font_size Numeric value representing the size of the font of the source (in px).
 #'      Default is 16.
@@ -314,7 +301,6 @@ add_source <- function(table = NULL,
                         source = NULL,
                         align = "left",
                         font_color = "#000",
-                        font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
                         font_size = 16,
                         font_style = "normal",
                         font_weight = "normal",
@@ -361,7 +347,6 @@ add_source <- function(table = NULL,
                       style = paste0("color:", font_color, ";",
                                      "background:", background_color, ";",
                                      "text-align:", align, ";",
-                                     "font-family:", font_family, ";",
                                      "font-size:", font_size, "px;",
                                      "font-style:", font_style, ";",
                                      "font-weight:", font_weight, ";",
@@ -624,4 +609,79 @@ html <- function(text, ...) {
 margin <- function(t = 0, r = 0, b = 0, l = 0) {
   m <- c(t, r, b, l)
   m
+}
+
+
+#' Apply a font from Google Fonts <https://fonts.google.com/> to the table.
+#'
+#' @param table Null.
+#'
+#' @param font_family Color of the font for the text within the table.
+#'      Default is #222222.
+#'
+#' @param font_weight The numeric weight of the font.
+#'      Must be a value between 100 and 900.
+#'      Note: not every font on Google Fonts has all font weights available.
+#'      Please check <https://fonts.google.com/> for available weights for desired font family.
+#'      Default is 400.
+#'
+#' @param font_style Style of the text font.
+#'      Options are "normal" or "italic".
+#'      Default is "normal".
+#'
+#' @return a function that applies a font to a reactable table.
+#'
+#' @import reactable
+#' @import sass
+#'
+#' @examples
+#' \dontrun{
+#' data <- iris[10:29, ]
+#'
+#' ## Default 'Poppins' font from Google Fonts
+#' reactable(data) %>%
+#' google_font()
+#'
+#' ## Apply styles to fonts
+#' reactable(data) %>%
+#' google_font("Roboto Mono", font_weight = 500, font_style = "italic")
+#' }
+#' @export
+
+google_font <- function(table = NULL,
+                        font_family = "Poppins",
+                        font_weight = 400,
+                        font_style = "normal") {
+
+  '%notin%' <- Negate('%in%')
+
+  if (font_style %notin% c("normal", "italic") == TRUE) {
+
+    stop("font_style must be either 'normal' or 'italic'")
+
+  } else if (font_style == "normal") {
+
+    style = "0"
+
+  } else { style = "1" }
+
+  if (!is.null(font_weight) & !is.numeric(font_weight)) {
+
+    stop("font_weight must either be a numeric value between 100 and 900")
+  }
+
+  pull_font <- list("my-font" = font_google(font_family, wght = font_weight, ital = style))
+
+  css <- sass(
+    list(
+      pull_font,
+      list("body {font-family: $my-font}")
+      )
+  )
+
+  htmlwidgets::appendContent(
+    table,
+    htmltools::tags$style(css)
+    )
+
 }

@@ -2,17 +2,11 @@
 #'
 #' Reactable-inspired default theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #333333.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -43,10 +37,8 @@
 #'
 #' @export
 
-default <- function(font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
-                    font_size = 15,
+default <- function(font_size = 15,
                     font_color = "#333333",
-                    header_font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
                     header_font_size = 15,
                     header_font_color = "#333333",
                     cell_padding = 6,
@@ -67,15 +59,12 @@ default <- function(font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Ar
     cellStyle = centered_content,
     color = font_color,
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
-      fontFamily = header_font_family,
       color = header_font_color,
       fontSize = header_font_size
     ),
-    groupHeaderStyle = list(fontFamily = header_font_family,
-                            color = font_color,
+    groupHeaderStyle = list(color = font_color,
                             fontSize = header_font_size)
   )
 }
@@ -85,17 +74,11 @@ default <- function(font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Ar
 #'
 #' Bootstrap-inspired cerulean theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Verdana.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #141415.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Verdana.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -126,10 +109,8 @@ default <- function(font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Ar
 #'
 #' @export
 
-cerulean <- function(font_family = "Verdana",
-                     font_size = 14,
+cerulean <- function(font_size = 14,
                      font_color = "#141415",
-                     header_font_family = "Verdana",
                      header_font_size = 15,
                      header_font_color = "#cfe9f7",
                      cell_padding = 6,
@@ -155,8 +136,7 @@ cerulean <- function(font_family = "Verdana",
     stripedColor = "#e9ecef",
     highlightColor = "#e9ecef",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#3ba9e8",
@@ -165,13 +145,11 @@ cerulean <- function(font_family = "Verdana",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#ffffff"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#ffffff"),
-      fontFamily = header_font_family,
       fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontSize = header_font_size,
-                             fontFamily = header_font_family),
+                             fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
@@ -209,17 +187,11 @@ cerulean <- function(font_family = "Verdana",
 #'
 #' Bootstrap-inspired cosmo theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Verdana.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #141415.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Verdana.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -250,10 +222,8 @@ cerulean <- function(font_family = "Verdana",
 #'
 #' @export
 
-cosmo <- function(font_family = "Verdana",
-                  font_size = 14,
+cosmo <- function(font_size = 14,
                   font_color = "#141415",
-                  header_font_family = "Verdana",
                   header_font_size = 15,
                   header_font_color = "#ffffff",
                   cell_padding = 6,
@@ -279,8 +249,7 @@ cosmo <- function(font_family = "Verdana",
     stripedColor = "white",
     highlightColor = "white",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#373a3c",
@@ -288,13 +257,11 @@ cosmo <- function(font_family = "Verdana",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#ffffff"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#ffffff"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontSize = header_font_size,
-                             fontFamily = header_font_family),
+                             fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
@@ -332,17 +299,11 @@ cosmo <- function(font_family = "Verdana",
 #'
 #' Bootstrap-inspired cyborg theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Verdana.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #888888.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Verdana.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -373,10 +334,8 @@ cosmo <- function(font_family = "Verdana",
 #'
 #' @export
 
-cyborg <- function(font_family = "Verdana",
-                   font_size = 14,
+cyborg <- function(font_size = 14,
                    font_color = "#888888",
-                   header_font_family = "Verdana",
                    header_font_size = 15,
                    header_font_color = "#7b7b7b",
                    cell_padding = 6,
@@ -402,8 +361,7 @@ cyborg <- function(font_family = "Verdana",
     stripedColor = "#282828",
     highlightColor = "#282828",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#060606",
@@ -415,8 +373,7 @@ cyborg <- function(font_family = "Verdana",
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontSize = header_font_size,
-                             fontFamily = header_font_family),
+                             fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
@@ -454,17 +411,11 @@ cyborg <- function(font_family = "Verdana",
 #'
 #' Bootstrap-inspired darkly theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Georgia.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #ffffff.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Georgia.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -495,10 +446,8 @@ cyborg <- function(font_family = "Verdana",
 #'
 #' @export
 
-darkly <- function(font_family = "Georgia",
-                   font_size = 14,
+darkly <- function(font_size = 14,
                    font_color = "#ffffff",
-                   header_font_family = "Georgia",
                    header_font_size = 15,
                    header_font_color = "#afbdcc",
                    cell_padding = 6,
@@ -524,8 +473,7 @@ darkly <- function(font_family = "Georgia",
     stripedColor = "#adb5bd",
     highlightColor = "#adb5bd",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#375a7f",
@@ -533,12 +481,10 @@ darkly <- function(font_family = "Georgia",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#ffffff"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#ffffff"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontFamily = header_font_family,
                              fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
@@ -578,17 +524,11 @@ darkly <- function(font_family = "Georgia",
 #'
 #' Bootstrap-inspired flatly theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Georgia.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #212529.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Georgia.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -619,10 +559,8 @@ darkly <- function(font_family = "Georgia",
 #'
 #' @export
 
-flatly <- function(font_family = "Georgia",
-                   font_size = 14,
+flatly <- function(font_size = 14,
                    font_color = "#212529",
-                   header_font_family = "Georgia",
                    header_font_size = 15,
                    header_font_color = "#ffffff",
                    cell_padding = 6,
@@ -648,8 +586,7 @@ flatly <- function(font_family = "Georgia",
     stripedColor = "#ecf0f1",
     highlightColor = "#ecf0f1",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#2c3e50",
@@ -657,12 +594,10 @@ flatly <- function(font_family = "Georgia",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#1cbc9c"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#1cbc9c"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontFamily = header_font_family,
                              fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
@@ -701,17 +636,11 @@ flatly <- function(font_family = "Georgia",
 #'
 #' Bootstrap-inspired journal theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Tahoma.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #222222.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Tahoma.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -742,10 +671,8 @@ flatly <- function(font_family = "Georgia",
 #'
 #' @export
 
-journal <- function(font_family = "Tahoma",
-                    font_size = 14,
+journal <- function(font_size = 14,
                     font_color = "#222222",
-                    header_font_family = "Tahoma",
                     header_font_size = 15,
                     header_font_color = "#fad9d8",
                     cell_padding = 6,
@@ -771,8 +698,7 @@ journal <- function(font_family = "Tahoma",
     stripedColor = "#eeeeee",
     highlightColor = "#eeeeee",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#ef8683",
@@ -780,13 +706,10 @@ journal <- function(font_family = "Tahoma",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#ffffff"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#ffffff"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
-      "&:not(:empty)" = list(color = font_color,
-                             fontSize = header_font_size,
-                             fontFamily = header_font_family),
+      "&:not(:empty)" = list(color = font_color),
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
@@ -825,17 +748,11 @@ journal <- function(font_family = "Tahoma",
 #'
 #' Bootstrap-inspired lux theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Tahoma.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #8c8c8c.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Tahoma.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -866,10 +783,8 @@ journal <- function(font_family = "Tahoma",
 #'
 #' @export
 
-lux <- function(font_family = "Tahoma",
-                font_size = 14,
+lux <- function(font_size = 14,
                 font_color = "#8c8c8c",
-                header_font_family = "Tahoma",
                 header_font_size = 15,
                 header_font_color = "#7f7f7f",
                 cell_padding = 6,
@@ -895,8 +810,7 @@ lux <- function(font_family = "Tahoma",
     stripedColor = "#dadada",
     highlightColor = "#f7f7f9",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#1a1a1a",
@@ -905,14 +819,12 @@ lux <- function(font_family = "Tahoma",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#ffffff"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#ffffff"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(textTransform = "uppercase",
                              color = font_color,
-                             fontSize = header_font_size,
-                             fontFamily = header_font_family),
+                             fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
@@ -951,17 +863,11 @@ lux <- function(font_family = "Tahoma",
 #'
 #' Bootstrap-inspired minty theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Helvetica.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #9a9a9a.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Helvetica.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 16.
@@ -992,10 +898,8 @@ lux <- function(font_family = "Tahoma",
 #'
 #' @export
 
-minty <- function(font_family = "Helvetica",
-                  font_size = 15,
+minty <- function(font_size = 15,
                   font_color = "#9a9a9a",
-                  header_font_family = "Helvetica",
                   header_font_size = 16,
                   header_font_color = "#c9e7de",
                   cell_padding = 6,
@@ -1021,8 +925,7 @@ minty <- function(font_family = "Helvetica",
     stripedColor = "#ededed",
     highlightColor = "#f7f7f9",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#78c2ad",
@@ -1030,13 +933,11 @@ minty <- function(font_family = "Helvetica",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#ffffff"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#ffffff"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontSize = header_font_size,
-                             fontFamily = header_font_family),
+                             fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
@@ -1074,17 +975,11 @@ minty <- function(font_family = "Helvetica",
 #'
 #' Bootstrap-inspired sandstone theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Georgia.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #3e3f3a.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Georgia.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 16.
@@ -1115,10 +1010,8 @@ minty <- function(font_family = "Helvetica",
 #'
 #' @export
 
-sandstone <- function(font_family = "Georgia",
-                      font_size = 15,
+sandstone <- function(font_size = 15,
                       font_color = "#3e3f3a",
-                      header_font_family = "Georgia",
                       header_font_size = 16,
                       header_font_color = "#7c7a78",
                       cell_padding = 6,
@@ -1144,8 +1037,7 @@ sandstone <- function(font_family = "Georgia",
     stripedColor = "#ededed",
     highlightColor = "#f8f5f0",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#f8f5f0",
@@ -1153,13 +1045,11 @@ sandstone <- function(font_family = "Georgia",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#000000"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#000000"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontSize = header_font_size,
-                             fontFamily = header_font_family),
+                             fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
@@ -1201,17 +1091,11 @@ sandstone <- function(font_family = "Georgia",
 #'
 #' Bootstrap-inspired slate theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Arial.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #aaaaaa.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Arial.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 16.
@@ -1242,10 +1126,8 @@ sandstone <- function(font_family = "Georgia",
 #'
 #' @export
 
-slate <- function(font_family = "Arial",
-                  font_size = 15,
+slate <- function(font_size = 15,
                   font_color = "#aaaaaa",
-                  header_font_family = "Arial",
                   header_font_size = 16,
                   header_font_color = "#97999b",
                   cell_padding = 6,
@@ -1271,8 +1153,7 @@ slate <- function(font_family = "Arial",
     stripedColor = "#464a4d",
     highlightColor = "#464a4d",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#3a3f44",
@@ -1280,13 +1161,11 @@ slate <- function(font_family = "Arial",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(backgroundColor = "#141516", color = "#ffffff"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(backgroundColor = "#141516", color = "#ffffff"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontSize = header_font_size,
-                             fontFamily = header_font_family),
+                             fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
         transitionDuration = "1s",
@@ -1325,17 +1204,11 @@ slate <- function(font_family = "Arial",
 #'
 #' Bootstrap-inspired spacelab theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Georgia.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #8e8e8e.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Georgia.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -1366,10 +1239,8 @@ slate <- function(font_family = "Arial",
 #'
 #' @export
 
-spacelab <- function(font_family = "Georgia",
-                     font_size = 14,
+spacelab <- function(font_size = 14,
                      font_color = "#8e8e8e",
-                     header_font_family = "Georgia",
                      header_font_size = 15,
                      header_font_color = "#8e8e8e",
                      cell_padding = 6,
@@ -1395,8 +1266,7 @@ spacelab <- function(font_family = "Georgia",
     stripedColor = "#dadada",
     highlightColor = "#dadada",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#ededed",
@@ -1404,12 +1274,10 @@ spacelab <- function(font_family = "Georgia",
       transitionDuration = "0.5s",
       "&:hover[aria-sort]" = list(color = "#349cf4"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#349cf4"),
-      fontFamily = header_font_family,
       fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontFamily = header_font_family,
                              fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
@@ -1442,17 +1310,11 @@ spacelab <- function(font_family = "Georgia",
 #'
 #' Bootstrap-inspired superhero theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Georgia.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #ebebeb.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Georgia.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -1483,10 +1345,8 @@ spacelab <- function(font_family = "Georgia",
 #'
 #' @export
 
-superhero <- function(font_family = "Georgia",
-                      font_size = 14,
+superhero <- function(font_size = 14,
                       font_color = "#ebebeb",
-                      header_font_family = "Georgia",
                       header_font_size = 15,
                       header_font_color = "#ebebeb",
                       cell_padding = 6,
@@ -1512,8 +1372,7 @@ superhero <- function(font_family = "Georgia",
     stripedColor = "#4a5969",
     highlightColor = "#4a5969",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       backgroundColor = "#4e5d6c",
@@ -1521,12 +1380,10 @@ superhero <- function(font_family = "Georgia",
       transitionDuration = "0.5s",
       "&:hover[aria-sort], &:focus" = list(color = "#ffffff"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(color = "#ffffff"),
-      fontFamily = header_font_family,
       fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(color = font_color,
-                             fontFamily = header_font_family,
                              fontSize = header_font_size),
       "&:hover" = list(
         fontWeight = "bold",
@@ -1554,17 +1411,11 @@ superhero <- function(font_family = "Georgia",
 #'
 #' ESPN-inspired table theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Arial.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 12.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #6C6D6F.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Arial.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 11.
@@ -1595,10 +1446,8 @@ superhero <- function(font_family = "Georgia",
 #'
 #' @export
 
-espn <- function(font_family = "Arial",
-                 font_size = 12,
+espn <- function(font_size = 12,
                  font_color = "#6C6D6F",
-                 header_font_family = "Arial",
                  header_font_size = 11,
                  header_font_color = "#48494a",
                  cell_padding = 7,
@@ -1624,8 +1473,7 @@ espn <- function(font_family = "Arial",
     stripedColor = "#fafafa",
     highlightColor = "#fafafa",
     cellPadding = cell_padding,
-    tableStyle = list(fontSize = font_size,
-                      fontFamily = font_family),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderTop = "1px solid #e1e2e4",
       borderBottom = "1px solid #e1e2e4",
@@ -1635,8 +1483,7 @@ espn <- function(font_family = "Arial",
       color = header_font_color,
       textTransform = "uppercase",
       "&:hover" = list(color = "#004D9A"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       borderTop = "1px solid #e1e2e4",
@@ -1646,8 +1493,7 @@ espn <- function(font_family = "Arial",
       textTransform = "uppercase",
       fontSize = "11px",
       color = font_color,
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     searchInputStyle = list(color = "#6C6D6F",
                             fontSize = "13px"),
@@ -1664,17 +1510,11 @@ espn <- function(font_family = "Arial",
 #'
 #' 538-inspired table theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Helvetica.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #222222.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Helvetica.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 12.
@@ -1705,10 +1545,8 @@ espn <- function(font_family = "Arial",
 #'
 #' @export
 
-fivethirtyeight <- function(font_family = "Helvetica",
-                            font_size = 14,
+fivethirtyeight <- function(font_size = 14,
                             font_color = "#222222",
-                            header_font_family = "Helvetica",
                             header_font_size = 12,
                             header_font_color = "#000000",
                             cell_padding = 5,
@@ -1735,7 +1573,6 @@ fivethirtyeight <- function(font_family = "Helvetica",
     highlightColor = "#f0f0f0",
     cellPadding = cell_padding,
     tableStyle = list(
-      fontFamily = font_family,
       fontSize = font_size,
       borderBottom = "3px solid #222222"
     ),
@@ -1751,8 +1588,7 @@ fivethirtyeight <- function(font_family = "Helvetica",
       "&:hover" = list(background = "#dddddd"),
       "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "#5b5e5f", color = "#ffffff"),
       borderColor = "#333",
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(
@@ -1762,7 +1598,6 @@ fivethirtyeight <- function(font_family = "Helvetica",
         backgroundColor = "#ffffff",
         textTransform = "uppercase",
         fontSize = header_font_size,
-        fontFamily = header_font_family,
         color = font_color
       )
     ),
@@ -1783,17 +1618,11 @@ fivethirtyeight <- function(font_family = "Helvetica",
 #'
 #' The New York Times-inspired table theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Helvetica.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 13.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #333333.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Helvetica.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 11.
@@ -1824,10 +1653,8 @@ fivethirtyeight <- function(font_family = "Helvetica",
 #'
 #' @export
 
-nytimes <- function(font_family = "Helvetica",
-                    font_size = 13,
+nytimes <- function(font_size = 13,
                     font_color = "#333333",
-                    header_font_family = "Helvetica",
                     header_font_size = 11,
                     header_font_color = "#999999",
                     cell_padding = 5,
@@ -1853,8 +1680,7 @@ nytimes <- function(font_family = "Helvetica",
     stripedColor = "#e7e7e7",
     highlightColor = "#eeeeee",
     cellPadding = cell_padding,
-    tableStyle = list(fontSize = font_size,
-                      fontFamily = font_family),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "0px",
       padding = "5px",
@@ -1863,8 +1689,7 @@ nytimes <- function(font_family = "Helvetica",
       color = header_font_color,
       fontWeight = "500",
       textTransform = "uppercase",
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       "&:not(:empty)" = list(
@@ -1872,7 +1697,6 @@ nytimes <- function(font_family = "Helvetica",
         backgroundColor = "#ffffff",
         textTransform = "uppercase",
         fontSize = header_font_size,
-        fontFamily = header_font_family,
         borderColor = "#ffffff",
         color = font_color
       )
@@ -1892,17 +1716,11 @@ nytimes <- function(font_family = "Helvetica",
 #'
 #' Pro Football Focus-inspired table theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Arial.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 16.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #878e94.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Arial.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 12.
@@ -1933,10 +1751,8 @@ nytimes <- function(font_family = "Helvetica",
 #'
 #' @export
 
-pff <- function(font_family = "Arial",
-                font_size = 16,
+pff <- function(font_size = 16,
                 font_color = "#878e94",
-                header_font_family = "Arial",
                 header_font_size = 12,
                 header_font_color = "#ffffff",
                 cell_padding = 4,
@@ -1961,8 +1777,7 @@ pff <- function(font_family = "Arial",
     stripedColor = "#f9f9fb",
     highlightColor = "#f1f3f4",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "1px",
       padding = "7px",
@@ -1984,7 +1799,6 @@ pff <- function(font_family = "Arial",
         boxShadow = "inset 0 -3px 0 0 #ffffff"
       ),
       fontSize = header_font_size,
-      fontFamily = header_font_family,
       fontWeight = "bold"
     ),
     groupHeaderStyle = list(
@@ -1993,7 +1807,6 @@ pff <- function(font_family = "Arial",
         textTransform = "uppercase",
         fontWeight = "bold",
         color = font_color,
-        fontFamily = header_font_family,
         fontSize = header_font_size,
         boxShadow = "inset 3px 0 0 0 #ffffff"
       )
@@ -2032,17 +1845,11 @@ pff <- function(font_family = "Arial",
 #'
 #' San Francisco Chronicles-inspired table theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Verdana.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table.
 #'      Default is #222222.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Verdana.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -2085,10 +1892,8 @@ pff <- function(font_family = "Arial",
 #'
 #' @export
 
-sanfran <- function(font_family = "Verdana",
-                    font_size = 14,
+sanfran <- function(font_size = 14,
                     font_color = "#222222",
-                    header_font_family = "Verdana",
                     header_font_size = 15,
                     header_font_color = "#212121",
                     cell_color = "#f5f5f5",
@@ -2127,10 +1932,8 @@ sanfran <- function(font_family = "Verdana",
     highlightColor = "lightgrey",
     cellPadding = cell_padding,
     cellStyle = centered_content,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(color = header_font_color,
-                       fontFamily = header_font_family,
                        fontSize = header_font_size),
     selectStyle = list(color = pagination_color),
     paginationStyle = list(color = pagination_color)
@@ -2142,17 +1945,11 @@ sanfran <- function(font_family = "Verdana",
 #'
 #' Changes from light-themed to dark-themed on hover
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Verdana.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table.
 #'      Default is #222222.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Verdana.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -2180,10 +1977,8 @@ sanfran <- function(font_family = "Verdana",
 #'
 #' @export
 
-hoverdark <- function(font_family = "Verdana",
-                      font_size = 15,
+hoverdark <- function(font_size = 15,
                       font_color = "#222222",
-                      header_font_family = "Verdana",
                       header_font_size = 15,
                       cell_padding = 4,
                       centered = FALSE) {
@@ -2211,13 +2006,11 @@ hoverdark <- function(font_family = "Verdana",
     tableStyle = list(
       transitionDuration = "2s",
       "&:hover" = list(backgroundColor = "black", color = "#ffffff"),
-      fontFamily = font_family,
       fontSize = font_size
     ),
     headerStyle = list(
       borderWidth = "2px",
       "&:hover" = list(borderColor = "#ffffff"),
-      fontFamily = header_font_family,
       fontSize = header_font_size
     )
   )
@@ -2228,17 +2021,11 @@ hoverdark <- function(font_family = "Verdana",
 #'
 #' Changes from dark-themed to light-themed on hover
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Verdana.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table.
 #'      Default is #ffffff.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Verdana.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -2266,10 +2053,8 @@ hoverdark <- function(font_family = "Verdana",
 #'
 #' @export
 
-hoverlight <- function(font_family = "Verdana",
-                       font_size = 15,
+hoverlight <- function(font_size = 15,
                        font_color = "#ffffff",
-                       header_font_family = "Verdana",
                        header_font_size = 15,
                        cell_padding = 4,
                        centered = FALSE) {
@@ -2297,14 +2082,12 @@ hoverlight <- function(font_family = "Verdana",
     tableStyle = list(
       transitionDuration = "2s",
       "&:hover" = list(backgroundColor = "white", color = "#000000"),
-      fontFamily = font_family,
       fontSize = font_size
     ),
     headerStyle = list(
       borderWidth = "2px",
       "&:hover" = list(borderColor = "black"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     paginationStyle = list(backgroundColor = "#ffffff", color = "black")
   )
@@ -2315,17 +2098,11 @@ hoverlight <- function(font_family = "Verdana",
 #'
 #' midnight table theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Tahoma.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #727272.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Tahoma.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -2356,10 +2133,8 @@ hoverlight <- function(font_family = "Verdana",
 #'
 #' @export
 
-midnight <- function(font_family = "Tahoma",
-                     font_size = 15,
+midnight <- function(font_size = 15,
                      font_color = "#727272",
-                     header_font_family = "Tahoma",
                      header_font_size = 15,
                      header_font_color = "#666666",
                      cell_padding = 6,
@@ -2397,8 +2172,7 @@ midnight <- function(font_family = "Tahoma",
     highlightColor = "#00468c",
     cellPadding = cell_padding,
     style = list(backgroundColor = "#000000"),
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     cellStyle = centered_content,
     tableBodyStyle = list(backgroundImage = "linear-gradient(#000000, #0d0d0d, #191919)"),
     headerStyle = list(
@@ -2414,12 +2188,10 @@ midnight <- function(font_family = "Tahoma",
         borderBottomColor = "#ffffff",
         borderWidth = "1px"
       ),
-      fontFamily = header_font_family,
       fonSize = header_font_size
     ),
     groupHeaderStyle = list(
       backgroundColor = "#000000",
-      fontFamily = header_font_family,
       fonSize = header_font_size,
       color = font_color,
       "&:hover" = list(
@@ -2458,17 +2230,11 @@ midnight <- function(font_family = "Tahoma",
 #'
 #' midnightblue table theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Tahoma.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #bababa.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Tahoma.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -2500,10 +2266,8 @@ midnight <- function(font_family = "Tahoma",
 #' @export
 
 
-midnightblue <- function(font_family = "Tahoma",
-                         font_size = 15,
+midnightblue <- function(font_size = 15,
                          font_color = "#bababa",
-                         header_font_family = "Tahoma",
                          header_font_size = 15,
                          header_font_color = "lightgrey",
                          cell_padding = 6,
@@ -2541,8 +2305,7 @@ midnightblue <- function(font_family = "Tahoma",
     highlightColor = "#00468c",
     cellPadding = cell_padding,
     style = list(backgroundColor = "#001021"),
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     cellStyle = centered_content,
     tableBodyStyle = list(backgroundImage = "linear-gradient(#001021, #001c3a, #002853)"),
     headerStyle = list(
@@ -2559,12 +2322,10 @@ midnightblue <- function(font_family = "Tahoma",
         borderBottomColor = "#ffffff",
         borderWidth = "1px"
       ),
-      fontFamily = header_font_family,
       fonSize = header_font_size
     ),
     groupHeaderStyle = list(
       backgroundColor = "#001021",
-      fontFamily = header_font_family,
       fonSize = header_font_size,
       color = font_color,
       "&:hover" = list(
@@ -2603,17 +2364,11 @@ midnightblue <- function(font_family = "Tahoma",
 #'
 #' sunrise table theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Tahoma.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
 #' @param font_color Color of the font for the text within the table and the group headers.
 #'      Default is #8069ff.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Tahoma.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -2644,10 +2399,8 @@ midnightblue <- function(font_family = "Tahoma",
 #'
 #' @export
 
-sunrise <- function(font_family = "Tahoma",
-                    font_size = 15,
+sunrise <- function(font_size = 15,
                     font_color = "#8069ff",
-                    header_font_family = "Tahoma",
                     header_font_size = 15,
                     header_font_color = "#8069ff",
                     cell_padding = 6,
@@ -2686,7 +2439,6 @@ sunrise <- function(font_family = "Tahoma",
     cellPadding = cell_padding,
     style = list(backgroundColor = "#fffa85"),
     tableStyle = list(
-      fontFamily = font_family,
       fontSize = font_size
     ),
     cellStyle = centered_content,
@@ -2701,8 +2453,7 @@ sunrise <- function(font_family = "Tahoma",
       "&:hover[aria-sort]" = list(color = "#699dff"),
       "&[aria-sort='ascending']" = list(color = "#699dff", boxShadow = "inset 0 1px 0 0 #699dff"),
       "&[aria-sort='descending']" = list(color = "#699dff", borderBottomColor = "#699dff", borderWidth = "1px"),
-      fontSize = header_font_size,
-      fontFamily = header_font_family),
+      fontSize = header_font_size),
     groupHeaderStyle = list(
       backgroundColor = "#fffa85",
       "&:hover" = list(
@@ -2710,8 +2461,7 @@ sunrise <- function(font_family = "Tahoma",
         transitionDuration = "1s",
         transitionTimingFunction = "ease-out",
         color = font_color,
-        fontSize = header_font_size,
-        fontFamily = header_font_family
+        fontSize = header_font_size
       )
     ),
     searchInputStyle = list(
@@ -2737,17 +2487,11 @@ sunrise <- function(font_family = "Tahoma",
 #'
 #' Simple clean-look theme
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Verdana.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table.
 #'      Default is #222222.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Verdana.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -2778,10 +2522,8 @@ sunrise <- function(font_family = "Tahoma",
 #'
 #' @export
 
-clean <- function(font_family = "Verdana",
-                  font_size = 14,
+clean <- function(font_size = 14,
                   font_color = "#222222",
-                  header_font_family = "Verdana",
                   header_font_size = 15,
                   header_font_color = "#222222",
                   cell_padding = 6,
@@ -2806,14 +2548,12 @@ clean <- function(font_family = "Verdana",
     stripedColor = "#e0e0e0",
     highlightColor = "#e0e0e0",
     cellPadding = cell_padding,
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(
       borderWidth = "2px",
       borderColor = "#3b3b3b",
       color = header_font_color,
-      fontSize = header_font_size,
-      fontFamily = header_font_family
+      fontSize = header_font_size
     ),
     rowSelectedStyle = list(backgroundColor = "#e0e0e0")
   )
@@ -2824,17 +2564,11 @@ clean <- function(font_family = "Verdana",
 #'
 #' A table style completely void of borders and headers
 #'
-#' @param font_family Font family for the text within the table.
-#'      Default is Verdana.
-#'
 #' @param font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 14.
 #'
 #' @param font_color Color of the font for the text within the table.
 #'      Default is #222222.
-#'
-#' @param header_font_family Font family for the header text.
-#'      Default is Verdana.
 #'
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
@@ -2874,10 +2608,8 @@ clean <- function(font_family = "Verdana",
 #'
 #' @export
 
-void <- function(font_family = "Verdana",
-                 font_size = 14,
+void <- function(font_size = 14,
                  font_color = "#222222",
-                 header_font_family = "Verdana",
                  header_font_size = 15,
                  header_font_color = "transparent",
                  border_color = "transparent",
@@ -2894,11 +2626,9 @@ void <- function(font_family = "Verdana",
     cellPadding = cell_padding,
     cellStyle = list(borderColor = border_color,
                      borderWidth = border_width),
-    tableStyle = list(fontFamily = font_family,
-                      fontSize = font_size),
+    tableStyle = list(fontSize = font_size),
     headerStyle = list(color = header_font_color,
                        borderBottom = paste0("", header_border_width, "px solid ", header_border_color, ""),
-                       fontFamily = header_font_family,
                        fontSize = header_font_size),
     selectStyle = list(color = "transparent"),
     paginationStyle = list(color = "transparent")
