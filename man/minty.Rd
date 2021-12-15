@@ -5,10 +5,8 @@
 \title{Theme minty}
 \usage{
 minty(
-  font_family = "Helvetica",
   font_size = 15,
   font_color = "#9a9a9a",
-  header_font_family = "Helvetica",
   header_font_size = 16,
   header_font_color = "#c9e7de",
   cell_padding = 6,
@@ -16,17 +14,11 @@ minty(
 )
 }
 \arguments{
-\item{font_family}{Font family for the text within the table.
-Default is Helvetica.}
-
 \item{font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}
 
 \item{font_color}{Color of the font for the text within the table and the group headers.
 Default is #9a9a9a.}
-
-\item{header_font_family}{Font family for the header text.
-Default is Helvetica.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 16.}

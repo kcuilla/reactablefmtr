@@ -9,7 +9,6 @@ add_subtitle(
   subtitle = NULL,
   align = "left",
   font_color = "#333",
-  font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
   font_size = 24,
   font_style = "normal",
   font_weight = "bold",
@@ -29,9 +28,6 @@ Default is "left".}
 
 \item{font_color}{Color of the subtitle text.
 Default is #333.}
-
-\item{font_family}{Font family of the subtitle.
-Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.}
 
 \item{font_size}{Numeric value representing the size of the font of the subtitle (in px).
 Default is 24.}
@@ -61,7 +57,7 @@ a function that adds a subtitle above a reactable table.
 Use `add_subtitle()` to place a subtitle above a {reactable} or {reactablefmtr} table.
      The same options that are present in `add_title()` and `add_source()` are also available in `add_subtitle()`.
      The subtitle can be aligned to the left, right, or center with the align option.
-     The text properties of the subtitle, such as the font size, font family, and font style can be customized.
+     The text properties of the subtitle, such as the font size and font style can be customized.
      The background color of the subtitle can also be adjusted as well as the margin around the subtitle.
 }
 \examples{

@@ -9,7 +9,6 @@ add_source(
   source = NULL,
   align = "left",
   font_color = "#000",
-  font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
   font_size = 16,
   font_style = "normal",
   font_weight = "normal",
@@ -29,9 +28,6 @@ Default is "left".}
 
 \item{font_color}{Color of the source text.
 Default is #000.}
-
-\item{font_family}{Font family of the source.
-Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.}
 
 \item{font_size}{Numeric value representing the size of the font of the source (in px).
 Default is 16.}
@@ -61,7 +57,7 @@ a function that adds a source below a reactable table.
 Use `add_source()` to place a source below a {reactable} or {reactablefmtr} table.
      The same options that are present in `add_title()` and `add_subtitle()` are also available in `add_source()`.
      The source can be aligned to the left, right, or center with the align option.
-     The text properties of the source, such as the font size, font family, and font style can be customized.
+     The text properties of the source, such as the font size and font style can be customized.
      The background color of the source can also be adjusted as well as the margin around the source.
 }
 \examples{

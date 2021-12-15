@@ -5,10 +5,8 @@
 \title{Theme darkly}
 \usage{
 darkly(
-  font_family = "Georgia",
   font_size = 14,
   font_color = "#ffffff",
-  header_font_family = "Georgia",
   header_font_size = 15,
   header_font_color = "#afbdcc",
   cell_padding = 6,
@@ -16,17 +14,11 @@ darkly(
 )
 }
 \arguments{
-\item{font_family}{Font family for the text within the table.
-Default is Georgia.}
-
 \item{font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 14.}
 
 \item{font_color}{Color of the font for the text within the table and the group headers.
 Default is #ffffff.}
-
-\item{header_font_family}{Font family for the header text.
-Default is Georgia.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}

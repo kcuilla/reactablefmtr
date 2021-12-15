@@ -5,10 +5,8 @@
 \title{Theme sandstone}
 \usage{
 sandstone(
-  font_family = "Georgia",
   font_size = 15,
   font_color = "#3e3f3a",
-  header_font_family = "Georgia",
   header_font_size = 16,
   header_font_color = "#7c7a78",
   cell_padding = 6,
@@ -16,17 +14,11 @@ sandstone(
 )
 }
 \arguments{
-\item{font_family}{Font family for the text within the table.
-Default is Georgia.}
-
 \item{font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}
 
 \item{font_color}{Color of the font for the text within the table and the group headers.
 Default is #3e3f3a.}
-
-\item{header_font_family}{Font family for the header text.
-Default is Georgia.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 16.}

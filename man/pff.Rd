@@ -5,10 +5,8 @@
 \title{Theme pff}
 \usage{
 pff(
-  font_family = "Arial",
   font_size = 16,
   font_color = "#878e94",
-  header_font_family = "Arial",
   header_font_size = 12,
   header_font_color = "#ffffff",
   cell_padding = 4,
@@ -16,17 +14,11 @@ pff(
 )
 }
 \arguments{
-\item{font_family}{Font family for the text within the table.
-Default is Arial.}
-
 \item{font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 16.}
 
 \item{font_color}{Color of the font for the text within the table and the group headers.
 Default is #878e94.}
-
-\item{header_font_family}{Font family for the header text.
-Default is Arial.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 12.}

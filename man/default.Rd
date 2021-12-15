@@ -5,10 +5,8 @@
 \title{Theme default}
 \usage{
 default(
-  font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
   font_size = 15,
   font_color = "#333333",
-  header_font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
   header_font_size = 15,
   header_font_color = "#333333",
   cell_padding = 6,
@@ -16,17 +14,11 @@ default(
 )
 }
 \arguments{
-\item{font_family}{Font family for the text within the table.
-Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.}
-
 \item{font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}
 
 \item{font_color}{Color of the font for the text within the table and the group headers.
 Default is #333333.}
-
-\item{header_font_family}{Font family for the header text.
-Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}

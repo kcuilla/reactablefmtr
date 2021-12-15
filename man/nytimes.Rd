@@ -5,10 +5,8 @@
 \title{Theme nytimes}
 \usage{
 nytimes(
-  font_family = "Helvetica",
   font_size = 13,
   font_color = "#333333",
-  header_font_family = "Helvetica",
   header_font_size = 11,
   header_font_color = "#999999",
   cell_padding = 5,
@@ -16,17 +14,11 @@ nytimes(
 )
 }
 \arguments{
-\item{font_family}{Font family for the text within the table.
-Default is Helvetica.}
-
 \item{font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 13.}
 
 \item{font_color}{Color of the font for the text within the table and the group headers.
 Default is #333333.}
-
-\item{header_font_family}{Font family for the header text.
-Default is Helvetica.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 11.}

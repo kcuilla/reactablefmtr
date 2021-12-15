@@ -9,7 +9,6 @@ add_title(
   title = NULL,
   align = "left",
   font_color = "#000",
-  font_family = "-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif",
   font_size = 32,
   font_style = "normal",
   font_weight = "bold",
@@ -29,9 +28,6 @@ Default is "left".}
 
 \item{font_color}{Color of the title text.
 Default is #000.}
-
-\item{font_family}{Font family of the title.
-Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.}
 
 \item{font_size}{Numeric value representing the size of the font of the title (in px).
 Default is 32.}
@@ -59,7 +55,7 @@ a function that adds a title above a reactable table.
 \description{
 Use `add_title()` to place a title above a {reactable} or {reactablefmtr} table.
      The title can be aligned to the left, right, or center with the align option.
-     The text properties of the title, such as the font size, font family, and font style can be customized.
+     The text properties of the title, such as the font size and font style can be customized.
      The background color of the title can also be adjusted as well as the margin around the title.
 }
 \examples{

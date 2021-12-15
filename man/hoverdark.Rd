@@ -5,27 +5,19 @@
 \title{Theme hoverdark}
 \usage{
 hoverdark(
-  font_family = "Verdana",
   font_size = 15,
   font_color = "#222222",
-  header_font_family = "Verdana",
   header_font_size = 15,
   cell_padding = 4,
   centered = FALSE
 )
 }
 \arguments{
-\item{font_family}{Font family for the text within the table.
-Default is Verdana.}
-
 \item{font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}
 
 \item{font_color}{Color of the font for the text within the table.
 Default is #222222.}
-
-\item{header_font_family}{Font family for the header text.
-Default is Verdana.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}

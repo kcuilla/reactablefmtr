@@ -5,10 +5,8 @@
 \title{Theme cyborg}
 \usage{
 cyborg(
-  font_family = "Verdana",
   font_size = 14,
   font_color = "#888888",
-  header_font_family = "Verdana",
   header_font_size = 15,
   header_font_color = "#7b7b7b",
   cell_padding = 6,
@@ -16,17 +14,11 @@ cyborg(
 )
 }
 \arguments{
-\item{font_family}{Font family for the text within the table.
-Default is Verdana.}
-
 \item{font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 14.}
 
 \item{font_color}{Color of the font for the text within the table and the group headers.
 Default is #888888.}
-
-\item{header_font_family}{Font family for the header text.
-Default is Verdana.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}
