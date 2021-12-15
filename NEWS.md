@@ -43,6 +43,10 @@
 
 * The horizontal alignment within a cell can now be controlled with the `horizontal_align` option 
 
+#### google_font()
+
+* Apply any font from Google Fonts <https://fonts.google.com/> to a reactable table using `google_font()`
+
 #### html()
 
 * Apply HTML attributes to to text within `add_title()`, `add_subtitle()`, and `add_source()` with the `html()` helper function
