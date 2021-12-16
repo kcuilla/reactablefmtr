@@ -9,11 +9,11 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r, include=FALSE}
 library(reactablefmtr)
-library(dplyr)
-library(tibble)
+library(tidyverse)
+library(gapminder)
 ```
 
-## Example
+## Default
 
 With `{reactablefmtr}`, we can easily apply color scales to columns within a table by using `color_scales()` within `style` of `reactable::colDef()`.
 
@@ -37,35 +37,12 @@ reactable(
 )
 ```
 
-You may recall the original method of doing this via `{reactable}` looks like this:
-
-```{r}
-color_pal <- function(x) rgb(colorRamp(c("#67a9cf", "#f8fcf8", "#ef8a62"))(x), maxColorValue = 255)
-
-reactable(
-  data, 
-  defaultSorted = "MPG.city",
-  defaultSortOrder = "desc",
-  columns = list(
-    MPG.city = colDef(
-      style = function(value) {
-        normalized <- (value - min(data$MPG.city, na.rm = TRUE)) / (max(data$MPG.city, na.rm = TRUE) - min(data$MPG.city, na.rm = TRUE))
-        color <- color_pal(normalized)
-        list(background = color)
-    })
-  )
-)
-```
-
-As you can see, `color_scales()` significantly reduces the amount of code needed, is more reproducible, and is easier to customize as we're about to see below.
-
-
 ## Custom Color Palettes
 
 If we want to show a different color palette than the default, we can call them within the `colors` argument like so: 
 
 ```{r}
-my_color_pal = c("purple", "lightgrey", "darkgreen")
+my_color_pal = c("#e5f5e0", "#a1d99b", "#31a354")
 
 reactable(
   data,
@@ -85,17 +62,15 @@ reactable(
 The opacity of the colors can be controlled by assigning a value between 0 (fully transparent) and 1 (fully opaque).
 
 ```{r}
-my_color_pal = c("purple", "lightgrey", "darkgreen")
-
 reactable(data,
   defaultSorted = "MPG.city",
   defaultSortOrder = "desc",
   columns = list(
     MPG.city = colDef(
-      style = color_scales(data, colors = my_color_pal, opacity = 0.6)
+      style = color_scales(data, colors = my_color_pal, opacity = 0.5)
       ),
     MPG.highway = colDef(
-      style = color_scales(data, colors = my_color_pal, opacity = 0.6)
+      style = color_scales(data, colors = my_color_pal, opacity = 0.5)
       )
   )
 )
@@ -124,68 +99,49 @@ reactable(
 ```
 
 
-## Adjusting the Text Color
+<!-- ## Adjusting the Text Color -->
 
-When using light and dark color palettes, the colors of the values automatically adjust to the background to display the values. This option is already turned on by default, but if you don't want to use this feature, you can turn it off by setting `brighten_text = FALSE`.
+<!-- When using light and dark color palettes, the colors of the values automatically adjust to the background to display the values. This option is already turned on by default, but if you don't want to use this feature, you can turn it off by setting `brighten_text = FALSE`. -->
 
-The color of the `brighten_text` can also be changed from the default white color to any other color within `brighten_text_color`:
+<!-- The color of the `brighten_text` can also be changed from the default white color to any other color within `brighten_text_color`: -->
 
-```{r}
-reactable(
-  data,
-  defaultSorted = "MPG.city",
-  columns = list(
-    MPG.city = colDef(
-      style = color_scales(data, colors = viridis::mako(5), brighten_text_color = "orange")
-      ),
-    MPG.highway = colDef(
-      style = color_scales(data, colors = viridis::mako(5), brighten_text_color = "orange")
-      )
-  )
-)
-```
+<!-- ```{r} -->
+<!-- reactable( -->
+<!--   data, -->
+<!--   defaultSorted = "MPG.city", -->
+<!--   columns = list( -->
+<!--     MPG.city = colDef( -->
+<!--       style = color_scales(data, colors = viridis::mako(5), brighten_text_color = "orange") -->
+<!--       ), -->
+<!--     MPG.highway = colDef( -->
+<!--       style = color_scales(data, colors = viridis::mako(5), brighten_text_color = "orange") -->
+<!--       ) -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
 
-For light-colored palettes, the text color can be changed with `text_color` and there is also an option to make the text bold by setting `bold_text = TRUE`:
+<!-- For light-colored palettes, the text color can be changed with `text_color` and there is also an option to make the text bold by setting `bold_text = TRUE`: -->
 
-```{r}
-reactable(
-  data,
-  defaultSorted = "MPG.city",
-  defaultSortOrder = "desc",
-  columns = list(
-    MPG.city = colDef(
-      style = color_scales(data, text_color = "darkgreen", bold_text = TRUE)
-    ),
-    MPG.highway = colDef(
-      style = color_scales(data, text_color = "darkgreen", bold_text = TRUE)
-    )
-  )
-)
-```
-
-
-Lastly, if you wanted to completely hide the text and just so the color scales, you could do this by setting `show_text = FALSE`, which gives more of a heatmap feel to the table:
-
-```{r}
-reactable(
-  data,
-  defaultSorted = "MPG.city",
-  defaultSortOrder = "desc",
-  columns = list(
-    MPG.city = colDef(
-      style = color_scales(data, show_text = FALSE)
-    ),
-    MPG.highway = colDef(
-      style = color_scales(data, show_text = FALSE)
-    )
-  )
-)
-```
+<!-- ```{r} -->
+<!-- reactable( -->
+<!--   data, -->
+<!--   defaultSorted = "MPG.city", -->
+<!--   defaultSortOrder = "desc", -->
+<!--   columns = list( -->
+<!--     MPG.city = colDef( -->
+<!--       style = color_scales(data, text_color = "darkgreen", bold_text = TRUE) -->
+<!--     ), -->
+<!--     MPG.highway = colDef( -->
+<!--       style = color_scales(data, text_color = "darkgreen", bold_text = TRUE) -->
+<!--     ) -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
 
 
 ## Formatting Numbers
 
-To format the numbers within columns containing `color_scales()`, you can use any of the [formata](https://glin.github.io/reactable/articles/examples.html#column-formatting-1) within reactable's `colFormat()` argument:
+To format the numbers within columns containing `color_scales()`, you can use any of the [formats](https://glin.github.io/reactable/articles/examples.html#column-formatting-1) within reactable's `colFormat()` argument:
 
 ```{r}
 reactable(
@@ -270,7 +226,9 @@ reactable(
 
 ## Row-wise Styling
 
-By default, `color_scales()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month as shown below:
+By default, `color_scales()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month:
+
+By including `span = TRUE` within our `color_scales()` formatter, we can conditionally assign colors to the values based on their relation to other values within the entire dataset, instead of within each column. Now our table displaying temperatures is much easier to read when comparing temperatures across months:
 
 <i>Note: the dataset for this example is sourced from the reactable [demo cookbook](https://glin.github.io/reactable/articles/cookbook/cookbook.html#conditional-formatting-1)</i>
 
@@ -278,22 +236,15 @@ By default, `color_scales()` conditionally assigns colors to values based on the
 dimnames <- list(start(nottem)[1]:end(nottem)[1], month.abb)
 temps <- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
 temps <- as_tibble(temps, rownames = "Year")
+temppal <- c("#36a1d6", "#76b8de", "#a0bfd9", "#ffffff", "#d88359", "#d65440", "#c62c34")
 
 reactable(
   temps,
   defaultColDef = colDef(
-    style = color_scales(temps, colors = c("#1e90ff", "#ffffff", "#ff3030")),
-    minWidth = 50))
-```
-
-By including `span = TRUE` within our `color_scales()` formatter, we can conditionally assign colors to the values based on their relation to other values within the entire dataset, instead of within each column. Now our table displaying temperatures is much easier to read when comparing temperatures across months:
-
-```{r}
-reactable(
-  temps,
-  defaultColDef = colDef(
-    style = color_scales(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
-    minWidth = 50))
+    style = color_scales(temps, span = TRUE, colors = temppal),
+    minWidth = 50
+    )
+)
 ```
 
 
@@ -303,6 +254,38 @@ If we only wanted to apply color scales to some of the months, we can do so by r
 reactable(
   temps,
   defaultColDef = colDef(
-    style = color_scales(temps, span = 2:7, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    style = color_scales(temps, span = 4:7, colors = temppal),
     minWidth = 50))
 ```
+
+
+Lastly, if you wanted to completely hide the text, you could do this by setting `show_text = FALSE`, which displays the table as a heatmap as shown below:
+
+```{r}
+population_data <- gapminder %>% 
+  filter(continent == "Americas") %>%
+  mutate(country = as.character(country),
+         year = paste0("'", str_sub(year, 3, 4))) %>% 
+  select(country, year, lifeExp) %>%
+  pivot_wider(names_from = year, values_from = lifeExp) 
+
+reactable(
+  population_data,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    maxWidth = 50,
+    style = color_scales(population_data, show_text = FALSE, span = TRUE)
+  ),
+  columns = list(
+    country = colDef(
+      maxWidth = 160
+    )
+  )
+) %>% 
+  add_title("Average Life Expectancy") %>% 
+  add_source("Data sourced from the {gapminder} package") 
+```
+
