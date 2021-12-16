@@ -9,11 +9,11 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r, include=FALSE}
 library(reactablefmtr)
-library(dplyr)
-library(tibble)
+library(tidyverse)
+library(gapminder)
 ```
 
-## Example
+## Default
 
 With `{reactablefmtr}`, we can easily apply color tiles to columns within a table by using `color_tiles()` within `cell` of `reactable::colDef()`.
 
@@ -22,13 +22,11 @@ By default a normalized orange-white-blue color scale is applied to each column.
 ```{r}
 data <- MASS::Cars93 %>% 
   filter(Type %in% c("Compact", "Sporty", "Van")) %>% 
-  select(c("Make", "Type", "Passengers", "Horsepower", "MPG.city", "MPG.highway")) %>% 
-  head(10)
+  select(c("Make", "Type", "Horsepower", "MPG.city", "MPG.highway")) %>% 
+  tail(10)
 
 reactable(
   data,
-  defaultSorted = "Passengers",
-  defaultSortOrder = "desc",
   defaultColDef = colDef(
     cell = color_tiles(data)
   )
@@ -41,12 +39,10 @@ reactable(
 If we want to show a different color palette than the default, we can call them within the `colors` argument like so: 
 
 ```{r}
-my_color_pal = c("purple", "lightgrey", "darkgreen")
+my_color_pal = c("#e5f5e0", "#a1d99b", "#31a354")
 
 reactable(
   data,
-  defaultSorted = "Passengers",
-  defaultSortOrder = "desc",
   defaultColDef = colDef(
     cell = color_tiles(data, colors = my_color_pal)
   )
@@ -56,14 +52,10 @@ reactable(
 The opacity of the colors can be controlled by assigning a value between 0 (fully transparent) and 1 (fully opaque).
 
 ```{r}
-my_color_pal = c("purple", "lightgrey", "darkgreen")
-
 reactable(
   data,
-  defaultSorted = "Passengers",
-  defaultSortOrder = "desc",
   defaultColDef = colDef(
-    cell = color_tiles(data, colors = my_color_pal, opacity = 0.6)
+    cell = color_tiles(data, colors = my_color_pal, opacity = 0.5)
   )
 )
 ```
@@ -78,58 +70,12 @@ library(viridis)
 
 reactable(
   data,
-  defaultSorted = "Passengers",
-  defaultSortOrder = "desc",
   defaultColDef = colDef(
     cell = color_tiles(data, colors = viridis::mako(5))
   )
 )
 ```
 
-
-## Adjusting the Text Color
-
-When using light and dark color palettes, the colors of the values automatically adjust to the background to display the values. This option is already turned on by default, but if you don't want to use this feature, you can turn it off by setting `brighten_text = FALSE`.
-
-The color of the `brighten_text` can also be changed from the default white color to any other color within `brighten_text_color`:
-
-```{r}
-reactable(
-  data,
-  defaultSorted = "Passengers",
-  defaultSortOrder = "desc",
-  defaultColDef = colDef(
-    cell = color_tiles(data, colors = viridis::mako(5), brighten_text_color = "orange")
-  )
-)
-```
-
-For light-colored palettes, the text color can be changed with `text_color` and there is also an option to make the text bold by setting `bold_text = TRUE`:
-
-```{r}
-reactable(
-  data,
-  defaultSorted = "Passengers",
-  defaultSortOrder = "desc",
-  defaultColDef = colDef(
-    cell = color_tiles(data, text_color = "darkgreen", bold_text = TRUE)
-  )
-)
-```
-
-
-Lastly, if you wanted to completely hide the text and just so the color tiles, you could do this by setting `show_text = FALSE`, which gives more of a heatmap feel to the table:
-
-```{r}
-reactable(
-  data,
-  defaultSorted = "Passengers",
-  defaultSortOrder = "desc",
-  defaultColDef = colDef(
-    cell = color_tiles(data, show_text = FALSE)
-  )
-)
-```
 
 ## Formatting Numbers
 
@@ -138,9 +84,7 @@ Numbers can be formatted within the `number_fmt` argument in `color_tiles()`. On
 ```{r}
 reactable(
   data,
-  defaultSorted = "Passengers",
   columns = list(
-    Passengers = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " ppl"))),
     Horsepower = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " hp"))),
     MPG.city = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " mpg"))),
     MPG.highway = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " mpg")))
@@ -155,8 +99,6 @@ Box shadows can be added to the tiles to create a "3-D" effect via `box_shadow`.
 ```{r}
 reactable(
   data,
-  defaultSorted = "Passengers",
-  defaultSortOrder = "desc",
   defaultColDef = colDef(
     cell = color_tiles(data,
                        box_shadow = TRUE)
@@ -184,11 +126,9 @@ car_data <- data %>%
 
 reactable(
   car_data,
-  defaultSorted = "Passengers",
   columns = list(
     Make = colDef(minWidth = 150),
     car_colors = colDef(show = FALSE),
-    Passengers = colDef(cell = color_tiles(car_data, color_ref = "car_colors")),
     Horsepower = colDef(cell = color_tiles(car_data, color_ref = "car_colors")),
     MPG.city = colDef(cell = color_tiles(car_data, color_ref = "car_colors")),
     MPG.highway = colDef(cell = color_tiles(car_data, color_ref = "car_colors"))
@@ -201,7 +141,6 @@ We can further apply the conditional colors to the entire dataset by setting the
 ```{r}
 reactable(
   car_data,
-  defaultSorted = "Passengers",
     defaultColDef = colDef(
     cell = color_tiles(car_data, color_ref = "car_colors")
   ),
@@ -241,7 +180,9 @@ reactable(
 
 ## Row-wise Styling
 
-By default, `color_tiles()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month as shown below:
+By default, `color_tiles()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month:
+
+By including `span = TRUE` within our `color_tiles()` formatter, we can conditionally assign colors to the values based on their relation to other values within the entire dataset, instead of within each column. Now our table displaying temperatures is much easier to read when comparing temperatures across months:
 
 <i>Note: the dataset for this example is sourced from the reactable [demo cookbook](https://glin.github.io/reactable/articles/cookbook/cookbook.html#conditional-formatting-1)</i>
 
@@ -249,22 +190,15 @@ By default, `color_tiles()` conditionally assigns colors to values based on thei
 dimnames <- list(start(nottem)[1]:end(nottem)[1], month.abb)
 temps <- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
 temps <- as_tibble(temps, rownames = "Year")
+temppal <- c("#36a1d6", "#76b8de", "#a0bfd9", "#ffffff", "#d88359", "#d65440", "#c62c34")
 
 reactable(
   temps,
   defaultColDef = colDef(
-    cell =color_tiles(temps, colors = c("#1e90ff", "#ffffff", "#ff3030")),
-    minWidth = 50))
-```
-
-By including `span = TRUE` within our `color_tiles()` formatter, we can conditionally assign colors to the values based on their relation to other values within the entire dataset, instead of within each column. Now our table displaying temperatures is much easier to read when comparing temperatures across months:
-
-```{r}
-reactable(
-  temps,
-  defaultColDef = colDef(
-    cell =color_tiles(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
-    minWidth = 50))
+    cell =color_tiles(temps, span = TRUE, colors = temppal),
+    minWidth = 50
+    )
+)
 ```
 
 
@@ -274,6 +208,38 @@ If we only wanted to apply color tiles to some of the months, we can do so by re
 reactable(
   temps,
   defaultColDef = colDef(
-    cell =color_tiles(temps, span = 2:7, colors = c("#1e90ff", "#ffffff", "#ff3030")),
+    cell =color_tiles(temps, span = 4:7, colors = temppal),
     minWidth = 50))
 ```
+
+
+Lastly, if you wanted to completely hide the text, you could do this by setting `show_text = FALSE`, which displays the table as a heatmap as shown below:
+
+```{r}
+population_data <- gapminder %>% 
+  filter(continent == "Americas") %>%
+  mutate(country = as.character(country),
+         year = paste0("'", str_sub(year, 3, 4))) %>% 
+  select(country, year, lifeExp) %>%
+  pivot_wider(names_from = year, values_from = lifeExp) 
+
+reactable(
+  population_data,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    maxWidth = 50,
+    cell = color_tiles(population_data, show_text = FALSE, span = TRUE)
+  ),
+  columns = list(
+    country = colDef(
+      maxWidth = 160
+    )
+  )
+) %>% 
+  add_title("Average Life Expectancy") %>% 
+  add_source("Data sourced from the {gapminder} package") 
+```
+
