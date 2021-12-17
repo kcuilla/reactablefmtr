@@ -23,7 +23,7 @@ By default a normalized orange-white-blue color scale is applied to the column.
 data <- MASS::Cars93 %>% 
   filter(Type %in% c("Compact", "Sporty", "Van")) %>% 
   select(c("Make", "Type", "MPG.city", "MPG.highway")) %>% 
-  head(10)
+  tail(10)
 
 reactable(
   data,
@@ -236,12 +236,12 @@ reactable(
   defaultSorted = "'52",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    maxWidth = 50,
+    maxWidth = 45,
     style = color_scales(population_data, show_text = FALSE, span = TRUE)
   ),
   columns = list(
     country = colDef(
-      maxWidth = 160
+      maxWidth = 150
     )
   )
 ) %>% 
