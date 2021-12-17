@@ -230,12 +230,12 @@ reactable(
   defaultSorted = "'52",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    maxWidth = 50,
+    maxWidth = 45,
     cell = color_tiles(population_data, show_text = FALSE, span = TRUE)
   ),
   columns = list(
     country = colDef(
-      maxWidth = 160
+      maxWidth = 150
     )
   )
 ) %>% 

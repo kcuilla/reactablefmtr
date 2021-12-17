@@ -23,7 +23,7 @@ By default a normalized orange-white-blue color scale is applied to the column.
 data <- MASS::Cars93 %>% 
   filter(Type %in% c("Compact", "Sporty", "Van")) %>% 
   select(c("Make", "Type", "MPG.city", "MPG.highway")) %>% 
-  head(10)
+  tail(10)
 
 reactable(
   data,
@@ -97,46 +97,6 @@ reactable(
   )
 )
 ```
-
-
-<!-- ## Adjusting the Text Color -->
-
-<!-- When using light and dark color palettes, the colors of the values automatically adjust to the background to display the values. This option is already turned on by default, but if you don't want to use this feature, you can turn it off by setting `brighten_text = FALSE`. -->
-
-<!-- The color of the `brighten_text` can also be changed from the default white color to any other color within `brighten_text_color`: -->
-
-<!-- ```{r} -->
-<!-- reactable( -->
-<!--   data, -->
-<!--   defaultSorted = "MPG.city", -->
-<!--   columns = list( -->
-<!--     MPG.city = colDef( -->
-<!--       style = color_scales(data, colors = viridis::mako(5), brighten_text_color = "orange") -->
-<!--       ), -->
-<!--     MPG.highway = colDef( -->
-<!--       style = color_scales(data, colors = viridis::mako(5), brighten_text_color = "orange") -->
-<!--       ) -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
-
-<!-- For light-colored palettes, the text color can be changed with `text_color` and there is also an option to make the text bold by setting `bold_text = TRUE`: -->
-
-<!-- ```{r} -->
-<!-- reactable( -->
-<!--   data, -->
-<!--   defaultSorted = "MPG.city", -->
-<!--   defaultSortOrder = "desc", -->
-<!--   columns = list( -->
-<!--     MPG.city = colDef( -->
-<!--       style = color_scales(data, text_color = "darkgreen", bold_text = TRUE) -->
-<!--     ), -->
-<!--     MPG.highway = colDef( -->
-<!--       style = color_scales(data, text_color = "darkgreen", bold_text = TRUE) -->
-<!--     ) -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
 
 
 ## Formatting Numbers
@@ -276,12 +236,12 @@ reactable(
   defaultSorted = "'52",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    maxWidth = 50,
+    maxWidth = 45,
     style = color_scales(population_data, show_text = FALSE, span = TRUE)
   ),
   columns = list(
     country = colDef(
-      maxWidth = 160
+      maxWidth = 150
     )
   )
 ) %>% 
