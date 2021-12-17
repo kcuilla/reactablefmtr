@@ -85,7 +85,7 @@ reactable(
   add_source("Data sourced from the {gapminder} package") 
 ```
 
-<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/colorscales_heatmap.png" align="center"/>
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/colorscales_heatmap2.gif" align="center"/>
 
 
 ### Icon Sets
