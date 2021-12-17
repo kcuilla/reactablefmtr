@@ -54,20 +54,38 @@ Use `react_sparkline()` to create sparklines or `react_sparkbar()` to create spa
 Use `color_scales()` to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html) for more examples.
 
 ```{r}
-dimnames <- list(start(nottem)[1]:end(nottem)[1], month.abb)
-temps <- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
-temps <- as_tibble(temps, rownames = "Year")
+library(reactablefmtr)
+library(tidyverse)
+library(gapminder)
+ 
+population_data <- gapminder %>% 
+  filter(continent == "Americas") %>%
+  mutate(country = as.character(country),
+         year = paste0("'", str_sub(year, 3, 4))) %>% 
+  select(country, year, lifeExp) %>%
+  pivot_wider(names_from = year, values_from = lifeExp) 
 
 reactable(
-  temps,
+  population_data,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = "desc",
   defaultColDef = colDef(
-    style = color_scales(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
-    minWidth = 50
+    maxWidth = 45,
+    style = color_scales(population_data, show_text = FALSE, span = TRUE)
+  ),
+  columns = list(
+    country = colDef(
+      maxWidth = 160
+    )
   )
-)
+) %>% 
+  add_title("Average Life Expectancy") %>% 
+  add_source("Data sourced from the {gapminder} package") 
 ```
 
-<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/C6731D97-6D37-4CD2-A93D-374352961F4A.png" align="center"/>
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/colorscales_heatmap.png" align="center"/>
 
 
 ### Icon Sets
