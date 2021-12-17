@@ -241,7 +241,7 @@ reactable(
   ),
   columns = list(
     country = colDef(
-      maxWidth = 150
+      maxWidth = 160
     )
   )
 ) %>% 
