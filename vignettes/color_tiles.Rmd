@@ -225,6 +225,7 @@ population_data <- gapminder %>%
 
 reactable(
   population_data,
+  compact = TRUE,
   pagination = FALSE,
   showSortIcon = FALSE,
   defaultSorted = "'52",
