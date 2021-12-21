@@ -246,7 +246,7 @@ data_bars <- function(data,
 
   cell <- function(value, index, name) {
 
-    if (!is.numeric(value)) return(value)
+    if (is.na(value) || !is.numeric(value)) return(value)
 
     ### stop messages
     if (!is.logical(fill_gradient)) {
@@ -358,7 +358,9 @@ data_bars <- function(data,
     }
 
     ### normalization for color palette
-    if (stats::var(data[[name]]) == 0) {
+    data_var <- stats::var(data[[name]], na.rm = TRUE)
+
+    if (is.na(data_var) || data_var == 0) {
 
       normalized <- 1
 
