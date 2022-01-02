@@ -251,7 +251,7 @@ data_bars <- function(data,
 
   cell <- function(value, index, name) {
 
-    if (!is.numeric(value)) return(value)
+    if (!is.numeric(value) || is.na(value)) return(value)
 
     ### stop messages
     if (!is.logical(fill_gradient)) {
