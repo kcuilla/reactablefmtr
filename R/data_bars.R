@@ -49,6 +49,10 @@
 #' @param background The color for the background of the data bars.
 #'     Default is #EEEEEE.
 #'
+#' @param bias A positive value that determines the spacing between multiple colors.
+#'     A higher value spaces out the colors at the higher end more than a lower number.
+#'     Default is 1.
+#'
 #' @param max_value A value to use as the maximum value for the width of the filled bars.
 #'     The default maximum value is the maximum value in the column.
 #'     Default is NULL.
@@ -215,6 +219,7 @@ data_bars <- function(data,
                       fill_opacity = 1,
                       fill_gradient = FALSE,
                       background = "#EEEEEE",
+                      bias = 1,
                       max_value = NULL,
                       min_value = NULL,
                       align_bars = "left",
@@ -342,7 +347,7 @@ data_bars <- function(data,
     color_pal <- function(x) {
 
       if (!is.na(x))
-        rgb(grDevices::colorRamp(c(fill_color))(x), maxColorValue = 255)
+        rgb(grDevices::colorRamp(c(fill_color), bias = bias)(x), maxColorValue = 255)
       else
         NULL
     }
@@ -350,7 +355,7 @@ data_bars <- function(data,
     assign_color <- function(x) {
 
       if (!is.na(x)) {
-        rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color))(x))
+        rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color), bias = bias)(x))
         color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
         color
       } else
@@ -358,7 +363,7 @@ data_bars <- function(data,
     }
 
     ### normalization for color palette
-    if (stats::var(data[[name]]) == 0) {
+    if (is.numeric(value) & mean((data[[name]] - mean(data[[name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
 
       normalized <- 1
 
@@ -398,7 +403,7 @@ data_bars <- function(data,
         fill_color_pal <- data[[fill_color_ref]][index]
         fill_color_pal <- grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity)
 
-        rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color_pal))(1))
+        rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color_pal), bias = bias)(1))
 
         if (brighten_text == TRUE & text_position == "inside-end" | brighten_text == TRUE & text_position == "inside-base" | brighten_text == TRUE & text_position == "center") {
 
@@ -1731,4 +1736,3 @@ data_bars <- function(data,
     }
   }
 }
-
