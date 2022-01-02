@@ -11,6 +11,7 @@ data_bars(
   fill_opacity = 1,
   fill_gradient = FALSE,
   background = "#EEEEEE",
+  bias = 1,
   max_value = NULL,
   min_value = NULL,
   align_bars = "left",
@@ -64,6 +65,10 @@ Default is FALSE.}
 
 \item{background}{The color for the background of the data bars.
 Default is #EEEEEE.}
+
+\item{bias}{A positive value that determines the spacing between multiple colors.
+A higher value spaces out the colors at the higher end more than a lower number.
+Default is 1.}
 
 \item{max_value}{A value to use as the maximum value for the width of the filled bars.
 The default maximum value is the maximum value in the column.
