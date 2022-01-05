@@ -28,6 +28,10 @@
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
 #'     Default is 1.
 #'
+#' @param bias A positive value that determines the spacing between multiple colors.
+#'     A higher value spaces out the colors at the higher end more than a lower number.
+#'     Default is 1.
+#'
 #' @param number_fmt Optionally format numbers using formats from the scales package.
 #'     Default is NULL.
 #'
@@ -58,6 +62,9 @@
 #'     Default is FALSE.
 #'
 #' @param box_shadow Logical: add a box shadow to the tiles.
+#'     Default is FALSE.
+#'
+#' @param tooltip Logical: hover tooltip.
 #'     Default is FALSE.
 #'
 #' @param animation Control the duration and timing function of the animation
@@ -119,6 +126,7 @@ color_tiles <- function(data,
                         colors = c("#15607A", "#FFFFFF", "#FA8C00"),
                         color_ref = NULL,
                         opacity = 1,
+                        bias = 1,
                         number_fmt = NULL,
                         text_color = "black",
                         text_color_ref = NULL,
@@ -128,6 +136,7 @@ color_tiles <- function(data,
                         bold_text = FALSE,
                         span = FALSE,
                         box_shadow = FALSE,
+                        tooltip = FALSE,
                         animation = "1s ease") {
 
   if (!is.logical(bold_text)) {
@@ -143,6 +152,11 @@ color_tiles <- function(data,
   if (!is.logical(box_shadow)) {
 
     stop("`box_shadow` must be TRUE or FALSE")
+  }
+
+  if (!is.logical(tooltip)) {
+
+    stop("`tooltip` must be TRUE or FALSE")
   }
 
   if (!is.numeric(opacity)) {
@@ -168,7 +182,7 @@ color_tiles <- function(data,
   color_pal <- function(x) {
 
     if (!is.na(x))
-      rgb(colorRamp(c(colors))(x), maxColorValue = 255)
+      rgb(colorRamp(c(colors), bias = bias)(x), maxColorValue = 255)
     else
       NULL
   }
@@ -176,7 +190,7 @@ color_tiles <- function(data,
   assign_color <- function(x) {
 
     if (!is.na(x)) {
-      rgb_sum <- rowSums(colorRamp(c(colors))(x))
+      rgb_sum <- rowSums(colorRamp(c(colors), bias = bias)(x))
       color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
       color
     } else
@@ -221,7 +235,16 @@ color_tiles <- function(data,
 
       } else {
 
-        normalized <- (value - min(data[[name]], na.rm = TRUE))/(max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+          ### normalization for color palette
+          if (is.numeric(value) & mean((data[[name]] - mean(data[[name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
+
+            normalized <- 1
+
+          } else {
+
+            normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+
+          }
 
       }
 
@@ -242,7 +265,7 @@ color_tiles <- function(data,
 
       } else {
 
-         font_color <- text_color
+        font_color <- text_color
       }
 
       ### conditional fill color and font color
@@ -255,7 +278,7 @@ color_tiles <- function(data,
           cell_color <- data[[color_ref]][index]
           cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
 
-          rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
+          rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color), bias = bias)(1))
 
           font_color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
 
@@ -292,68 +315,177 @@ color_tiles <- function(data,
 
     if (brighten_text == FALSE & show_text == TRUE) {
 
-      htmltools::div(label,
-                     style = list(background = cell_color,
-                                  color = text_color,
-                                  display = "flex",
-                                  flexDirection = "column",
-                                  justifyContent = "center",
-                                  alignItems = "center",
-                                  borderRadius = "6px",
-                                  fontWeight = bold_text,
-                                  boxShadow = box_shadow,
-                                  transition = animation))
+      if (tooltip == TRUE) {
+
+      htmltools::tagAppendChild(
+        htmltools::div(
+           style = list(background = cell_color,
+                        color = text_color,
+                        display = "flex",
+                        flexDirection = "column",
+                        justifyContent = "center",
+                        alignItems = "center",
+                        borderRadius = "6px",
+                        fontWeight = bold_text,
+                        boxShadow = box_shadow,
+                        transition = animation)),
+        tippy::tippy(label,
+                     animateFill = FALSE,
+                     arrow = "small",
+                     tooltip = label)
+      )
+
+      } else {
+
+        htmltools::div(label,
+          style = list(background = cell_color,
+                       color = text_color,
+                       display = "flex",
+                       flexDirection = "column",
+                       justifyContent = "center",
+                       alignItems = "center",
+                       borderRadius = "6px",
+                       fontWeight = bold_text,
+                       boxShadow = box_shadow,
+                       transition = animation))
+      }
 
     } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
 
+      if (tooltip == TRUE) {
+
+      htmltools::tagAppendChild(
+        htmltools::div(
+           style = list(background = cell_color,
+                        color = text_color,
+                        display = "flex",
+                        justifyContent = "center",
+                        height = "18px",
+                        borderRadius = "6px",
+                        boxShadow = box_shadow,
+                        transition = animation)),
+        tippy::tippy(label,
+                     animateFill = FALSE,
+                     arrow = "small",
+                     tooltip = label)
+      )
+
+      } else {
+
       htmltools::div(label,
-                     style = list(background = cell_color,
-                                  color = text_color,
-                                  display = "flex",
-                                  justifyContent = "center",
-                                  height = "18px",
-                                  borderRadius = "6px",
-                                  boxShadow = box_shadow,
-                                  transition = animation))
+        style = list(background = cell_color,
+                     color = text_color,
+                     display = "flex",
+                     justifyContent = "center",
+                     height = "18px",
+                     borderRadius = "6px",
+                     boxShadow = box_shadow,
+                     transition = animation))
+      }
 
     } else if (brighten_text == FALSE & show_text == FALSE) {
 
-      htmltools::div(label,
-                     style = list(background = cell_color,
-                                  display = "flex",
-                                  justifyContent = "center",
-                                  height = "18px",
-                                  borderRadius = "6px",
-                                  fontSize = 0,
-                                  boxShadow = box_shadow,
-                                  transition = animation))
+      if (tooltip == TRUE) {
+
+      htmltools::tagAppendChild(
+        htmltools::div(
+           style = list(background = cell_color,
+                        display = "flex",
+                        justifyContent = "center",
+                        height = "18px",
+                        borderRadius = "6px",
+                        fontSize = 0,
+                        boxShadow = box_shadow,
+                        transition = animation)),
+        tippy::tippy(label,
+                     animateFill = FALSE,
+                     arrow = "small",
+                     tooltip = label)
+      )
+
+      } else {
+
+        htmltools::div(label,
+          style = list(background = cell_color,
+                       display = "flex",
+                       justifyContent = "center",
+                       height = "18px",
+                       borderRadius = "6px",
+                       fontSize = 0,
+                       boxShadow = box_shadow,
+                       transition = animation))
+      }
 
     } else if (brighten_text == TRUE & show_text == FALSE) {
 
-      htmltools::div(label,
-                     style = list(background = cell_color,
-                                  display = "flex",
-                                  justifyContent = "center",
-                                  height = "18px",
-                                  borderRadius = "6px",
-                                  fontSize = 0,
-                                  boxShadow = box_shadow,
-                                  transition = animation))
+      if (tooltip == TRUE) {
+
+      htmltools::tagAppendChild(
+        htmltools::div(
+           style = list(background = cell_color,
+                        display = "flex",
+                        justifyContent = "center",
+                        height = "18px",
+                        borderRadius = "6px",
+                        color = "transparent",
+                        boxShadow = box_shadow,
+                        transition = animation)),
+        tippy::tippy(label,
+                     animateFill = FALSE,
+                     arrow = "small",
+                     tooltip = label)
+      )
+
+      } else {
+
+        htmltools::div(label,
+          style = list(background = cell_color,
+                       display = "flex",
+                       justifyContent = "center",
+                       height = "18px",
+                       borderRadius = "6px",
+                       color = "transparent",
+                       boxShadow = box_shadow,
+                       transition = animation))
+      }
 
     } else {
 
-      htmltools::div(label,
-                     style = list(background = cell_color,
-                                  color = font_color,
-                                  display = "flex",
-                                  flexDirection = "column",
-                                  justifyContent = "center",
-                                  alignItems = "center",
-                                  borderRadius = "6px",
-                                  boxShadow = box_shadow,
-                                  fontWeight = bold_text,
-                                  transition = animation))
-    }
+      if (tooltip == TRUE) {
 
+      htmltools::tagAppendChild(
+        htmltools::div(
+          style = list(background = cell_color,
+                       color = font_color,
+                       display = "flex",
+                       flexDirection = "column",
+                       justifyContent = "center",
+                       alignItems = "center",
+                       borderRadius = "6px",
+                       boxShadow = box_shadow,
+                       fontWeight = bold_text,
+                       transition = animation)),
+        tippy::tippy(label,
+                     animateFill = FALSE,
+                     arrow = "small",
+                     tooltip = label)
+      )
+
+      } else {
+
+      htmltools::div(label,
+        style = list(background = cell_color,
+                     color = font_color,
+                     display = "flex",
+                     flexDirection = "column",
+                     justifyContent = "center",
+                     alignItems = "center",
+                     borderRadius = "6px",
+                     boxShadow = box_shadow,
+                     fontWeight = bold_text,
+                     transition = animation))
+
+      }
+    }
   }
 }

@@ -261,7 +261,16 @@ pill_buttons <- function(data,
             NULL
         }
 
-        normalized <- (value - min(data[[name]], na.rm = TRUE))/(max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+        ### normalization for color palette
+        if (is.numeric(value) & mean((data[[name]] - mean(data[[name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
+
+          normalized <- 1
+
+        } else {
+
+          normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+
+        }
 
         cell_color <- color_pal(normalized)
         cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)

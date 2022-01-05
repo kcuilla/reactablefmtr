@@ -26,6 +26,10 @@
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
 #'     Default is 1.
 #'
+#' @param bias A positive value that determines the spacing between multiple colors.
+#'     A higher value spaces out the colors at the higher end more than a lower number.
+#'     Default is 1.
+#'
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
@@ -103,6 +107,7 @@ color_scales <- function(data,
                          colors = c("#15607A", "#FFFFFF", "#FA8C00"),
                          color_ref = NULL,
                          opacity = 1,
+                         bias = 1,
                          text_color = "black",
                          text_color_ref = NULL,
                          show_text = TRUE,
@@ -145,7 +150,7 @@ color_scales <- function(data,
   color_pal <- function(x) {
 
     if (!is.na(x))
-      rgb(colorRamp(c(colors))(x), maxColorValue = 255)
+      rgb(colorRamp(c(colors), bias = bias)(x), maxColorValue = 255)
     else
       NULL
   }
@@ -153,7 +158,7 @@ color_scales <- function(data,
   assign_color <- function(x) {
 
     if (!is.na(x)) {
-      rgb_sum <- rowSums(colorRamp(c(colors))(x))
+      rgb_sum <- rowSums(colorRamp(c(colors), bias = bias)(x))
       color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
       color
     } else
@@ -182,8 +187,16 @@ color_scales <- function(data,
 
       } else {
 
-        normalized <- (value - min(data[[name]], na.rm = TRUE))/(max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+          ### normalization for color palette
+          if (is.numeric(value) & mean((data[[name]] - mean(data[[name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
 
+            normalized <- 1
+
+          } else {
+
+            normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+
+          }
       }
 
       ### conditional text color
@@ -216,7 +229,7 @@ color_scales <- function(data,
           cell_color <- data[[color_ref]][index]
           cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
 
-          rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color))(1))
+          rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color), bias = bias)(1))
 
           font_color <- ifelse(rgb_sum >= 395, text_color, brighten_text_color)
 
