@@ -9,6 +9,7 @@ color_scales(
   colors = c("#15607A", "#FFFFFF", "#FA8C00"),
   color_ref = NULL,
   opacity = 1,
+  bias = 1,
   text_color = "black",
   text_color_ref = NULL,
   show_text = TRUE,
@@ -34,6 +35,10 @@ Default is NULL.}
 
 \item{opacity}{A value between 0 and 1 that adjusts the opacity in colors.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
+Default is 1.}
+
+\item{bias}{A positive value that determines the spacing between multiple colors.
+A higher value spaces out the colors at the higher end more than a lower number.
 Default is 1.}
 
 \item{text_color}{Assigns text color to values.
