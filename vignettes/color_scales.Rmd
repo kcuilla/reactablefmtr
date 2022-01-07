@@ -221,6 +221,8 @@ reactable(
 
 Lastly, if you wanted to completely hide the text, you could do this by setting `show_text = FALSE`, which displays the table as a heatmap as shown below:
 
+<i>Note: by including `cell = tooltip()`, the values are still visible on hover and the format of the numbers can be specified with `number_fmt`.</i>
+
 ```{r}
 population_data <- gapminder %>% 
   filter(continent == "Americas") %>%
@@ -238,6 +240,7 @@ reactable(
   defaultSortOrder = "desc",
   defaultColDef = colDef(
     maxWidth = 45,
+    cell = tooltip(number_fmt = scales::comma),
     style = color_scales(population_data, show_text = FALSE, span = TRUE)
   ),
   columns = list(
