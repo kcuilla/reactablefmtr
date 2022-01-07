@@ -15,7 +15,7 @@ data_bars(
   max_value = NULL,
   min_value = NULL,
   align_bars = "left",
-  bar_height = 19,
+  bar_height = 18,
   text_position = "inside-end",
   force_outside = NULL,
   text_color = "black",
@@ -39,6 +39,7 @@ data_bars(
   img_width = 20,
   box_shadow = FALSE,
   round_edges = FALSE,
+  tooltip = FALSE,
   animation = "1s ease"
 )
 }
@@ -82,7 +83,7 @@ Options are "left" or "right".
 Default is left.}
 
 \item{bar_height}{Numeric height of the data bars in px.
-Default is 19.}
+Default is 18.}
 
 \item{text_position}{Choose where to display the text labels relative to the filled data bars.
 Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
@@ -177,6 +178,9 @@ Default is 20.}
 Default is FALSE.}
 
 \item{round_edges}{Logical: round the edges around the data bars.
+Default is FALSE.}
+
+\item{tooltip}{Logical: hover tooltip.
 Default is FALSE.}
 
 \item{animation}{Control the duration and timing function of the animation

@@ -7,6 +7,7 @@
 icon_sets(
   data,
   icons = c("circle"),
+  icon_set = NULL,
   colors = c("#67a9cf", "#808080", "#ef8a62"),
   opacity = 1,
   icon_position = "right",
@@ -14,6 +15,7 @@ icon_sets(
   icon_size = 16,
   icon_color_ref = NULL,
   number_fmt = NULL,
+  tooltip = FALSE,
   animation = "1s ease"
 )
 }
@@ -23,6 +25,10 @@ icon_sets(
 \item{icons}{A vector of three icons from the Font Awesome library (via shiny).
 Icons should be given in order from low values to high values.
 Default icons are circles.}
+
+\item{icon_set}{Apply a pre-selected set of icons to values.
+Options are "ski rating", "medals", and "fire+ice".
+Default is NULL.}
 
 \item{colors}{A vector of three colors to color the icons.
 Colors should be given in order from low values to high values.
@@ -53,6 +59,9 @@ Default is NULL.}
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is set to NULL.}
 
+\item{tooltip}{Logical: hover tooltip.
+Default is FALSE.}
+
 \item{animation}{Control the duration and timing function of the animation
 when sorting/updating values shown on a page.
 See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
@@ -82,6 +91,11 @@ data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
 ## and orange to the top-third values
 reactable(data,
 defaultColDef = colDef(cell = icon_sets(data)))
+
+## Apply pre-set icon sets with icon_set:
+reactable(data,
+defaultColDef = colDef(cell = icon_sets(data,
+icon_set = 'ski rating')))
 
 ## Assign custom colors
 reactable(data,

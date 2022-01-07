@@ -13,6 +13,10 @@ add_title(
   font_style = "normal",
   font_weight = "bold",
   text_decoration = NULL,
+  text_transform = NULL,
+  letter_spacing = NULL,
+  word_spacing = NULL,
+  text_shadow = NULL,
   background_color = "#FFFFFF",
   margin = NULL
 )
@@ -40,7 +44,23 @@ Default is "normal".}
 Options are "bold" or "normal".
 Default is "bold".}
 
-\item{text_decoration}{Optionally add an underline, overline, or line-through title.
+\item{text_decoration}{Add an underline, overline, or line-through title.
+Default is NULL.}
+
+\item{text_transform}{Specify how to capitalize the title.
+Options are "uppercase", "lowercase", or "capitalize".
+Default is NULL.}
+
+\item{letter_spacing}{Numeric value that adjusts the horizontal spacing between letters.
+A number above 0 adds more spacing between letters, a number below 0 decreases the spacing.
+Default is NULL.}
+
+\item{word_spacing}{Numeric value that adjusts the horizontal spacing between words.
+A number above 0 adds more spacing between words, a number below 0 decreases the spacing.
+Default is NULL.}
+
+\item{text_shadow}{Apply a shadow around the title.
+See <https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow> for options.
 Default is NULL.}
 
 \item{background_color}{Color of the title background.

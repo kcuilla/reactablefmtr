@@ -17,6 +17,7 @@ pill_buttons(
   brighten_text_color = "white",
   bold_text = FALSE,
   box_shadow = FALSE,
+  tooltip = FALSE,
   animation = "1s ease"
 )
 }
@@ -66,6 +67,9 @@ Default is white.}
 Default is FALSE.}
 
 \item{box_shadow}{Logical: add a box shadow to the buttons.
+Default is FALSE.}
+
+\item{tooltip}{Logical: hover tooltip.
 Default is FALSE.}
 
 \item{animation}{Control the duration and timing function of the animation
