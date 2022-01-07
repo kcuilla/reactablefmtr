@@ -10,31 +10,47 @@
 #' @param title A string to be displayed as the title.
 #'
 #' @param align The alignment of the table.
-#'      Options are "left", "right", "center".
-#'      Default is "left".
+#'     Options are "left", "right", "center".
+#'     Default is "left".
 #'
 #' @param font_color Color of the title text.
-#'      Default is #000.
+#'     Default is #000.
 #'
 #' @param font_size Numeric value representing the size of the font of the title (in px).
-#'      Default is 32.
+#'     Default is 32.
 #'
 #' @param font_style Style of the title font.
-#'      Options are "normal" or "italic".
-#'      Default is "normal".
+#'     Options are "normal" or "italic".
+#'     Default is "normal".
 #'
 #' @param font_weight The font weight of the title.
-#'      Options are "bold" or "normal".
-#'      Default is "bold".
+#'     Options are "bold" or "normal".
+#'     Default is "bold".
 #'
-#' @param text_decoration Optionally add an underline, overline, or line-through title.
-#'      Default is NULL.
+#' @param text_decoration Add an underline, overline, or line-through title.
+#'     Default is NULL.
+#'
+#' @param text_transform Specify how to capitalize the title.
+#'     Options are "uppercase", "lowercase", or "capitalize".
+#'     Default is NULL.
+#'
+#' @param letter_spacing Numeric value that adjusts the horizontal spacing between letters.
+#'     A number above 0 adds more spacing between letters, a number below 0 decreases the spacing.
+#'     Default is NULL.
+#'
+#' @param word_spacing Numeric value that adjusts the horizontal spacing between words.
+#'     A number above 0 adds more spacing between words, a number below 0 decreases the spacing.
+#'     Default is NULL.
+#'
+#' @param text_shadow Apply a shadow around the title.
+#'     See <https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow> for options.
+#'     Default is NULL.
 #'
 #' @param background_color Color of the title background.
-#'      Default is #FFFFFF.
+#'     Default is #FFFFFF.
 #'
 #' @param margin Use margin() to set the margin around the text (top, right, bottom, left).
-#'      Default is NULL.
+#'     Default is NULL.
 #'
 #' @return a function that adds a title above a reactable table.
 #'
@@ -62,6 +78,10 @@ add_title <- function(table = NULL,
                       font_style = "normal",
                       font_weight = "bold",
                       text_decoration = NULL,
+                      text_transform = NULL,
+                      letter_spacing = NULL,
+                      word_spacing = NULL,
+                      text_shadow = NULL,
                       background_color = "#FFFFFF",
                       margin = NULL) {
 
@@ -80,6 +100,11 @@ add_title <- function(table = NULL,
   if (font_weight %notin% c("normal", "bold") == TRUE) {
 
     stop("font_weight must be either 'normal' or 'bold'")
+  }
+
+  if (!is.null(text_transform) && text_transform %notin% c("uppercase", "lowercase", "capitalize") == TRUE) {
+
+    stop("text_transform must be either 'uppercase', 'lowercase', or 'capitalize'")
   }
 
   if (!is.null(margin) && length(margin)<4) {
@@ -103,6 +128,10 @@ add_title <- function(table = NULL,
                                       "font-style:", font_style, ";",
                                       "font-weight:", font_weight, ";",
                                       "text-decoration:", text_decoration, ";",
+                                      "letter-spacing:", letter_spacing, "px;",
+                                      "word-spacing:", word_spacing, "px;",
+                                      "text-transform:", text_transform, ";",
+                                      "text-shadow:", text_shadow, ";",
                                       "margin-top:", margin[[1]], "px;",
                                       "margin-right:", margin[[2]], "px;",
                                       "margin-bottom:", margin[[3]], "px;",
@@ -129,7 +158,7 @@ add_title <- function(table = NULL,
 #'      Default is "left".
 #'
 #' @param font_color Color of the subtitle text.
-#'      Default is #333.
+#'      Default is #000.
 #'
 #' @param font_size Numeric value representing the size of the font of the subtitle (in px).
 #'      Default is 24.
@@ -142,9 +171,25 @@ add_title <- function(table = NULL,
 #'      Options are "bold" or "normal".
 #'      Default is "bold".
 #'
-#' @param text_decoration Optionally add an underline, overline, or line-through subtitle.
+#' @param text_decoration Add an underline, overline, or line-through subtitle.
 #'      Options are "underline", "overline", "underline overline", or "line-through".
 #'      Default is NULL.
+#'
+#' @param text_transform Specify how to capitalize the title.
+#'     Options are "uppercase", "lowercase", or "capitalize".
+#'     Default is NULL.
+#'
+#' @param letter_spacing Numeric value that adjusts the horizontal spacing between letters.
+#'     A number above 0 adds more spacing between letters, a number below 0 decreases the spacing.
+#'     Default is NULL.
+#'
+#' @param word_spacing Numeric value that adjusts the horizontal spacing between words.
+#'     A number above 0 adds more spacing between words, a number below 0 decreases the spacing.
+#'     Default is NULL.
+#'
+#' @param text_shadow Apply a shadow around the title.
+#'     See <https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow> for options.
+#'     Default is NULL.
 #'
 #' @param background_color Color of the subtitle background.
 #'      Default is #FFFFFF.
@@ -178,11 +223,15 @@ add_title <- function(table = NULL,
 add_subtitle <- function(table = NULL,
                          subtitle = NULL,
                          align = "left",
-                         font_color = "#333",
+                         font_color = "#000",
                          font_size = 24,
                          font_style = "normal",
                          font_weight = "bold",
                          text_decoration = NULL,
+                         text_transform = NULL,
+                         letter_spacing = NULL,
+                         word_spacing = NULL,
+                         text_shadow = NULL,
                          background_color = "#FFFFFF",
                          margin = NULL) {
 
@@ -201,6 +250,11 @@ add_subtitle <- function(table = NULL,
   if (font_weight %notin% c("normal", "bold") == TRUE) {
 
     stop("font_weight must be either 'normal' or 'bold'")
+  }
+
+  if (!is.null(text_transform) && text_transform %notin% c("uppercase", "lowercase", "capitalize") == TRUE) {
+
+    stop("text_transform must be either 'uppercase', 'lowercase', or 'capitalize'")
   }
 
   if (!is.null(text_decoration) && text_decoration %notin% c("underline", "overline", "underline overline", "line-through") == TRUE) {
@@ -230,6 +284,10 @@ add_subtitle <- function(table = NULL,
                                       "font-style:", font_style, ";",
                                       "font-weight:", font_weight, ";",
                                       "text-decoration:", text_decoration, ";",
+                                      "letter-spacing:", letter_spacing, "px;",
+                                      "word-spacing:", word_spacing, "px;",
+                                      "text-transform:", text_transform, ";",
+                                      "text-shadow:", text_shadow, ";",
                                       "margin-top:", margin[[1]], "px;",
                                       "margin-right:", margin[[2]], "px;",
                                       "margin-bottom:", margin[[3]], "px;",
@@ -269,9 +327,25 @@ add_subtitle <- function(table = NULL,
 #'      Options are "bold" or "normal".
 #'      Default is "normal".
 #'
-#' @param text_decoration Optionally add an underline, overline, or line-through source.
+#' @param text_decoration Add an underline, overline, or line-through source.
 #'      Options are "underline", "overline", "underline overline", or "line-through".
 #'      Default is NULL.
+#'
+#' @param text_transform Specify how to capitalize the title.
+#'     Options are "uppercase", "lowercase", or "capitalize".
+#'     Default is NULL.
+#'
+#' @param letter_spacing Numeric value that adjusts the horizontal spacing between letters.
+#'     A number above 0 adds more spacing between letters, a number below 0 decreases the spacing.
+#'     Default is NULL.
+#'
+#' @param word_spacing Numeric value that adjusts the horizontal spacing between words.
+#'     A number above 0 adds more spacing between words, a number below 0 decreases the spacing.
+#'     Default is NULL.
+#'
+#' @param text_shadow Apply a shadow around the title.
+#'     See <https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow> for options.
+#'     Default is NULL.
 #'
 #' @param background_color Color of the source background.
 #'      Default is #FFFFFF.
@@ -305,6 +379,10 @@ add_source <- function(table = NULL,
                         font_style = "normal",
                         font_weight = "normal",
                         text_decoration = NULL,
+                        text_transform = NULL,
+                        letter_spacing = NULL,
+                        word_spacing = NULL,
+                        text_shadow = NULL,
                         background_color = "#FFFFFF",
                         margin = NULL) {
 
@@ -323,6 +401,11 @@ add_source <- function(table = NULL,
   if (font_weight %notin% c("normal", "bold") == TRUE) {
 
     stop("font_weight must be either 'normal' or 'bold'")
+  }
+
+  if (!is.null(text_transform) && text_transform %notin% c("uppercase", "lowercase", "capitalize") == TRUE) {
+
+    stop("text_transform must be either 'uppercase', 'lowercase', or 'capitalize'")
   }
 
   if (!is.null(text_decoration) && text_decoration %notin% c("underline", "overline", "underline overline", "line-through") == TRUE) {
@@ -351,6 +434,10 @@ add_source <- function(table = NULL,
                                      "font-style:", font_style, ";",
                                      "font-weight:", font_weight, ";",
                                      "text-decoration:", text_decoration, ";",
+                                     "letter-spacing:", letter_spacing, "px;",
+                                     "word-spacing:", word_spacing, "px;",
+                                     "text-transform:", text_transform, ";",
+                                     "text-shadow:", text_shadow, ";",
                                      "margin-top:", margin[[1]], "px;",
                                      "margin-right:", margin[[2]], "px;",
                                      "margin-bottom:", margin[[3]], "px;",
@@ -684,4 +771,55 @@ google_font <- function(table = NULL,
     htmltools::tags$style(css)
     )
 
+}
+
+
+#' Apply a tooltip to cells.
+#'
+#' @param data Null.
+#'
+#' @param number_fmt Optionally format numbers using formats from the scales package.
+#'     Default is NULL.
+#'
+#' @return a function that applies a tooltip to a reactable table.
+#'
+#' @import reactable
+#'
+#' @examples
+#' \dontrun{
+#' data <- iris[10:29, ]
+#'
+#' ## Apply a tooltip to color_scales()
+#' reactable(data,
+#'  columns = list(
+#'  Petal.Length = colDef(
+#'  cell = tooltip(),
+#'  style = color_scales(data))
+#'  ))
+#' }
+#' @export
+
+tooltip <- function(data,
+                    number_fmt = NULL) {
+
+  cell <- function(value, index, name) {
+
+    if (!is.numeric(value)) return(value)
+
+    if (is.null(number_fmt)) {
+
+      label <- value
+
+    } else {
+
+      label <- number_fmt(value)
+
+    }
+
+      tippy::tippy(label,
+                   animateFill = FALSE,
+                   followCursor = TRUE,
+                   arrow = "small",
+                   tooltip = label)
+  }
 }

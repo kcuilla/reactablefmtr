@@ -65,7 +65,7 @@
 #'     Default is left.
 #'
 #' @param bar_height Numeric height of the data bars in px.
-#'     Default is 19.
+#'     Default is 18.
 #'
 #' @param text_position Choose where to display the text labels relative to the filled data bars.
 #'     Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
@@ -162,6 +162,9 @@
 #' @param round_edges Logical: round the edges around the data bars.
 #'     Default is FALSE.
 #'
+#' @param tooltip Logical: hover tooltip.
+#'     Default is FALSE.
+#'
 #' @param animation Control the duration and timing function of the animation
 #'     when sorting/updating values shown on a page.
 #'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
@@ -223,7 +226,7 @@ data_bars <- function(data,
                       max_value = NULL,
                       min_value = NULL,
                       align_bars = "left",
-                      bar_height = 19,
+                      bar_height = 18,
                       text_position = "inside-end",
                       force_outside = NULL,
                       text_color = "black",
@@ -247,6 +250,7 @@ data_bars <- function(data,
                       img_width = 20,
                       box_shadow = FALSE,
                       round_edges = FALSE,
+                      tooltip = FALSE,
                       animation = "1s ease") {
 
   cell <- function(value, index, name) {
@@ -586,7 +590,13 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
-        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = font_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"), text_label, bar)
+        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = font_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    },
+                  bar)
         neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
       } else if (value < 0 & text_position == "inside-end") {
@@ -601,14 +611,25 @@ data_bars <- function(data,
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
           bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"), text_label, bar)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    },
+                  bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
                                 icon_label, img_label,
-                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    }))
           chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
         }
@@ -627,7 +648,12 @@ data_bars <- function(data,
                               "", icon_label, img_label,
                               htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center")))
         chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
-        bar_chart <- htmltools::div(style = list(display = "flex", alignItems = "center", color = font_color, fontSize = text_size, fontWeight = bold_text), chart, text_label)
+        bar_chart <- htmltools::div(style = list(display = "flex", alignItems = "center", color = font_color, fontSize = text_size, fontWeight = bold_text), chart,
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    })
         neg_chart <- htmltools::tagAppendChild(neg_chart, bar_chart)
 
       } else if (value < 0 & text_position == "inside-base") {
@@ -642,14 +668,25 @@ data_bars <- function(data,
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
           bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"), text_label, bar)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    },
+                      bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
                                 icon_label, img_label,
-                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, display = "flex", alignItems = "center", justifyContent = "flex-end", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, display = "flex", alignItems = "center", justifyContent = "flex-end", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    }))
           chart <-  htmltools::div(style = list(background = "transparent"), bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
         }
@@ -666,14 +703,25 @@ data_bars <- function(data,
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
           bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginLeft = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, textAlign = "left", display = "flex", alignItems = "center"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"), text_label, bar)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end", color = text_color, fontWeight = bold_text, fontSize = text_size, background = "transparent"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    },
+                      bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
                                 icon_label, img_label,
-                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "center", display = "flex", alignItems = "center", justifyContent = "center", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label))
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "center", display = "flex", alignItems = "center", justifyContent = "center", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontSize = text_size, fontWeight = bold_text, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    }))
           chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
         }
@@ -689,8 +737,15 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
-                              htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, display = "flex", alignItems = "center"), icon_label, img_label))
-        chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
+                              htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = "transparent", fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, display = "flex", alignItems = "center"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    },
+                    icon_label, img_label))
+        chart <-  htmltools::div(style = list(flexGrow = 1, background = "transparent"),
+                    bar)
         neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
 
         ### pos side
@@ -706,7 +761,13 @@ data_bars <- function(data,
         } else font_color <- font_color
 
         bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = font_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
+        chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = font_color, fontSize = text_size, fontWeight = bold_text),
+                                bar,
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    })
         pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
 
       } else if (value >= 0 & text_position == "inside-end") {
@@ -721,13 +782,24 @@ data_bars <- function(data,
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
           bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text),
+                                  bar,
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    })
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center"),
-                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "right", display = "flex", alignItems = "center", justifyContent = "flex-end", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label), icon_label, img_label)
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "right", display = "flex", alignItems = "center", justifyContent = "flex-end", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    }), icon_label, img_label)
           chart <- htmltools::div(style = list(background = "transparent"), bar)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
         }
@@ -746,7 +818,13 @@ data_bars <- function(data,
                               htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center"), ""),
                               icon_label, img_label)
         chart <- htmltools::div(style = list(flexGrow = 1, background = "transparent"), bar)
-        bar_chart <- htmltools::div(style = list(display = "flex", alignItems = "center", color = font_color, fontWeight = bold_text, fontSize = text_size, display = "flex", alignItems = "center"), text_label, chart)
+        bar_chart <- htmltools::div(style = list(display = "flex", alignItems = "center", color = font_color, fontWeight = bold_text, fontSize = text_size, display = "flex", alignItems = "center"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    },
+                    chart)
         pos_chart <- htmltools::tagAppendChild(pos_chart, bar_chart)
 
       } else if (value >= 0 & text_position == "inside-base") {
@@ -761,13 +839,24 @@ data_bars <- function(data,
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
           bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text),
+                                  bar,
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    })
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center"),
-                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label),
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "left", display = "flex", alignItems = "center", justifyContent = "flex-start", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    }),
                                 icon_label, img_label)
           chart <- htmltools::div(style = list(background = "transparent"), bar)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
@@ -785,13 +874,24 @@ data_bars <- function(data,
 
         if (!is.null(force_outside) && dplyr::between(value, force_outside[[1]], force_outside[[2]]) == TRUE) {
           bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, marginRight = "7px", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
-          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text), bar, text_label)
+          chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent", color = text_color, fontSize = text_size, fontWeight = bold_text),
+                                  bar,
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    })
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
 
         } else {
 
           bar <- htmltools::div(style = list(display = "flex", alignItems = "center"),
-                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "center", display = "flex", alignItems = "center", justifyContent = "center", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"), text_label), icon_label, img_label)
+                                htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "center", display = "flex", alignItems = "center", justifyContent = "center", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), color = font_color, fontWeight = bold_text, fontSize = text_size, width = width, height = height, transition = animation, textOverflow = "ellipsis", whiteSpace = "nowrap"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    }), icon_label, img_label)
           chart <- htmltools::div(style = list(background = "transparent"), bar)
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
         }
@@ -802,7 +902,13 @@ data_bars <- function(data,
           fill_color_pal <- fill_color[[2]]
         } else fill_color_pal <- fill_color_pal
 
-        bar <- htmltools::div(style = list(boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "right", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"), icon_label, img_label)
+        bar <- htmltools::div(style = list(color = "transparent", boxShadow = box_shadow, borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, textAlign = "right", background = fill_color_pal, backgroundImage = gradient, border = paste0("", border_width, " ", border_style, " ", border_color, ""), width = width, height = height, transition = animation, display = "flex", alignItems = "center", justifyContent = "flex-end"),
+                    if (tooltip == TRUE) {
+                      tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                    } else {
+                      text_label
+                    },
+                    icon_label, img_label)
         chart <- htmltools::div(style = list(display = "flex", alignItems = "center", background = "transparent"),
                                 bar)
         pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
@@ -834,7 +940,13 @@ data_bars <- function(data,
                 color = text_color,
                 fontSize = text_size,
                 fontWeight = bold_text),
-                text_label,
+
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                },
+
                 htmltools::div(style = list(
                   textAlign = "left",
                   boxShadow = box_shadow,
@@ -900,7 +1012,12 @@ data_bars <- function(data,
               fill_chart)
 
             htmltools::div(
-            htmltools::div(text_label,
+            htmltools::div(
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                },
                   style = list(display = "flex",
                                alignItems = "center",
                                justifyContent = "flex-end",
@@ -922,7 +1039,13 @@ data_bars <- function(data,
                 color = text_color,
                 fontSize = text_size,
                 fontWeight = bold_text),
-                text_label,
+
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                },
+
                 htmltools::div(style = list(
                   textAlign = "left",
                   boxShadow = box_shadow,
@@ -984,7 +1107,14 @@ data_bars <- function(data,
                     transition = animation,
                     textOverflow = "ellipsis",
                     whiteSpace = "nowrap"
-                  ), text_label))
+                  ),
+
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                }
+                ))
 
               back_chart <-
                 htmltools::div(style = list(
@@ -1012,7 +1142,11 @@ data_bars <- function(data,
                 color = text_color,
                 fontSize = text_size,
                 fontWeight = bold_text),
-                text_label,
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                },
                 htmltools::div(style = list(
                   textAlign = "left",
                   boxShadow = box_shadow,
@@ -1074,7 +1208,14 @@ data_bars <- function(data,
                     transition = animation,
                     textOverflow = "ellipsis",
                     whiteSpace = "nowrap"
-                  ), text_label))
+                  ),
+
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                }
+                ))
 
               back_chart <-
                 htmltools::div(style = list(
@@ -1136,7 +1277,11 @@ data_bars <- function(data,
                                         alignItems = "center",
                                         color = font_color),
                            back_chart,
-                           text_label)
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                })
 
           } else if (align_bars == "right" & text_position == "center") {
 
@@ -1150,7 +1295,11 @@ data_bars <- function(data,
                 color = text_color,
                 fontSize = text_size,
                 fontWeight = bold_text),
-                text_label,
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                },
                 htmltools::div(style = list(
                   textAlign = "left",
                   boxShadow = box_shadow,
@@ -1212,7 +1361,14 @@ data_bars <- function(data,
                     transition = animation,
                     textOverflow = "ellipsis",
                     whiteSpace = "nowrap"
-                  ), text_label))
+                  ),
+
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                }
+                ))
 
               back_chart <-
                 htmltools::div(style = list(
@@ -1221,7 +1377,6 @@ data_bars <- function(data,
                   borderBottomLeftRadius = radius,
                   borderTopRightRadius = radius,
                   borderBottomRightRadius = radius,
-                  # marginLeft = "7px",
                   background = background
                 ),
                 fill_chart)
@@ -1250,8 +1405,17 @@ data_bars <- function(data,
                   height = height,
                   transition = animation,
                   display = "flex",
-                  alignItems = "center"
-                ), icon_label, img_label))
+                  alignItems = "center",
+                  color = "transparent"
+                ),
+
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                },
+
+                icon_label, img_label))
 
             back_chart <-
               htmltools::div(style = list(
@@ -1260,7 +1424,6 @@ data_bars <- function(data,
                 borderTopRightRadius = radius,
                 borderBottomRightRadius = radius,
                 borderBottomLeftRadius = radius,
-                # marginLeft = "7px",
                 background = background
               ),
               fill_chart)
@@ -1297,7 +1460,13 @@ data_bars <- function(data,
                 ),
                 icon_label,
                 img_label),
-                text_label)
+
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  }
+                )
 
             back_chart <-
               htmltools::div(style = list(
@@ -1342,7 +1511,12 @@ data_bars <- function(data,
               fill_chart)
 
             htmltools::div(
-            htmltools::div(text_label,
+            htmltools::div(
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  },
                   style = list(display = "flex",
                                alignItems = "center",
                                justifyContent = "flex-start",
@@ -1383,7 +1557,13 @@ data_bars <- function(data,
                 ),
                 icon_label,
                 img_label),
-                text_label)
+
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  }
+                )
 
             back_chart <-
               htmltools::div(style = list(
@@ -1426,8 +1606,15 @@ data_bars <- function(data,
                     transition = animation,
                     textOverflow = "ellipsis",
                     whiteSpace = "nowrap"
-                    # marginRight = "7px"
-                  ), text_label),
+                  ),
+
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  }
+
+                  ),
                   icon_label,
                   img_label)
 
@@ -1476,7 +1663,13 @@ data_bars <- function(data,
                 ),
                 icon_label,
                 img_label),
-                text_label)
+
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  }
+                )
 
             back_chart <-
               htmltools::div(style = list(
@@ -1518,8 +1711,15 @@ data_bars <- function(data,
                     transition = animation,
                     textOverflow = "ellipsis",
                     whiteSpace = "nowrap"
-                    # marginRight = "6px"
-                  ), text_label),
+                  ),
+
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  }
+
+                  ),
                   icon_label,
                   img_label)
 
@@ -1579,8 +1779,12 @@ data_bars <- function(data,
                                         color = font_color,
                                         fontSize = text_size,
                                         fontWeight = bold_text),
-                           text_label,
-                           chart)
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  },
+                    chart)
 
           } else if (align_bars == "left" & text_position == "center") {
 
@@ -1613,7 +1817,13 @@ data_bars <- function(data,
                 ),
                 icon_label,
                 img_label),
-                text_label)
+
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  }
+                )
 
             back_chart <-
               htmltools::div(style = list(
@@ -1655,8 +1865,15 @@ data_bars <- function(data,
                     transition = animation,
                     textOverflow = "ellipsis",
                     whiteSpace = "nowrap"
-                    # marginRight = "6px"
-                  ), text_label),
+                  ),
+
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                  } else {
+                    text_label
+                  }
+
+                  ),
                   icon_label,
                   img_label)
 
@@ -1695,10 +1912,19 @@ data_bars <- function(data,
                   transition = animation,
                   display = "flex",
                   alignItems = "center",
-                  justifyContent = "flex-end"
+                  justifyContent = "flex-end",
+                  color = "transparent"
+                ),
+
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = text_label)
+                } else {
+                  text_label
+                }
+
                 ),
                 icon_label,
-                img_label))
+                img_label)
 
             back_chart <-
               htmltools::div(style = list(

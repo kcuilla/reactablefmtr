@@ -59,6 +59,9 @@
 #' @param box_shadow Logical: add a box shadow to the buttons.
 #'     Default is FALSE.
 #'
+#' @param tooltip Logical: hover tooltip.
+#'     Default is FALSE.
+#'
 #' @param animation Control the duration and timing function of the animation
 #'     when sorting/updating values shown on a page.
 #'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
@@ -121,18 +124,19 @@
 #' @export
 
 pill_buttons <- function(data,
-                        colors = "#15607A",
-                        color_ref = NULL,
-                        opacity = 1,
-                        number_fmt = NULL,
-                        text_color = "black",
-                        text_color_ref = NULL,
-                        show_text = TRUE,
-                        brighten_text = TRUE,
-                        brighten_text_color = "white",
-                        bold_text = FALSE,
-                        box_shadow = FALSE,
-                        animation = "1s ease") {
+                         colors = "#15607A",
+                         color_ref = NULL,
+                         opacity = 1,
+                         number_fmt = NULL,
+                         text_color = "black",
+                         text_color_ref = NULL,
+                         show_text = TRUE,
+                         brighten_text = TRUE,
+                         brighten_text_color = "white",
+                         bold_text = FALSE,
+                         box_shadow = FALSE,
+                         tooltip = FALSE,
+                         animation = "1s ease") {
 
   if (!is.logical(bold_text)) {
 
@@ -286,7 +290,12 @@ pill_buttons <- function(data,
 
     if (brighten_text == FALSE & show_text == TRUE) {
 
-      htmltools::div(label,
+      htmltools::div(
+                if (tooltip == TRUE) {
+                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                } else {
+                  label
+                },
                      style = list(background = cell_color,
                                   color = text_color,
                                   boxShadow = box_shadow,
@@ -298,7 +307,12 @@ pill_buttons <- function(data,
 
     } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
 
-      htmltools::div(label,
+      htmltools::div(
+                if (tooltip == TRUE) {
+                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                } else {
+                  label
+                },
                      style = list(background = cell_color,
                                   color = text_color,
                                   boxShadow = box_shadow,
@@ -309,7 +323,12 @@ pill_buttons <- function(data,
 
     } else if (brighten_text == FALSE & show_text == FALSE) {
 
-      htmltools::div(label,
+      htmltools::div(
+                if (tooltip == TRUE) {
+                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                } else {
+                  label
+                },
                      style = list(background = cell_color,
                                   color = "transparent",
                                   boxShadow = box_shadow,
@@ -320,7 +339,12 @@ pill_buttons <- function(data,
 
     } else if (brighten_text == TRUE & show_text == FALSE) {
 
-      htmltools::div(label,
+      htmltools::div(
+                if (tooltip == TRUE) {
+                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                } else {
+                  label
+                },
                      style = list(background = cell_color,
                                   color = "transparent",
                                   boxShadow = box_shadow,
@@ -331,7 +355,12 @@ pill_buttons <- function(data,
 
     } else {
 
-      htmltools::div(label,
+      htmltools::div(
+                if (tooltip == TRUE) {
+                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                } else {
+                  label
+                },
                      style = list(background = cell_color,
                                   color = font_color,
                                   boxShadow = box_shadow,

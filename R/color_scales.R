@@ -266,21 +266,21 @@ color_scales <- function(data,
 
     if (brighten_text == FALSE & show_text == TRUE) {
 
-      list(display = "flex", background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
+      list(background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
 
      } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
 
-      list(display = "flex", background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
+      list(background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
 
      } else if (brighten_text == FALSE & show_text == FALSE) {
 
-      list(display = "flex", background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0, transition = animation)
+      list(background = cell_color, color = "transparent", fontWeight = bold_text, transition = animation)
 
     } else if (brighten_text == TRUE & show_text == FALSE) {
 
-      list(display = "flex", background = cell_color, color = font_color, fontWeight = bold_text, fontSize = 0, transition = animation)
+      list(background = cell_color, color = "transparent", fontWeight = bold_text, transition = animation)
 
-    } else list(display = "flex", background = cell_color, color = font_color, fontWeight = bold_text, transition = animation)
+    } else list(background = cell_color, color = font_color, fontWeight = bold_text, transition = animation)
 
   }
 }

@@ -331,6 +331,7 @@ color_tiles <- function(data,
                         transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
+                     followCursor = TRUE,
                      arrow = "small",
                      tooltip = label)
       )
@@ -366,6 +367,7 @@ color_tiles <- function(data,
                         transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
+                     followCursor = TRUE,
                      arrow = "small",
                      tooltip = label)
       )
@@ -394,11 +396,12 @@ color_tiles <- function(data,
                         justifyContent = "center",
                         height = "18px",
                         borderRadius = "6px",
-                        fontSize = 0,
+                        color = "transparent",
                         boxShadow = box_shadow,
                         transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
+                     followCursor = TRUE,
                      arrow = "small",
                      tooltip = label)
       )
@@ -432,6 +435,7 @@ color_tiles <- function(data,
                         transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
+                     followCursor = TRUE,
                      arrow = "small",
                      tooltip = label)
       )
@@ -467,6 +471,7 @@ color_tiles <- function(data,
                        transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
+                     followCursor = TRUE,
                      arrow = "small",
                      tooltip = label)
       )
