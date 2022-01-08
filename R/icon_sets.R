@@ -293,7 +293,7 @@ icon_sets <- function(data,
 
          } else if (icon_assign == 2) {
 
-               square <- htmltools::tagAppendAttributes(shiny::icon("square"),
+               square <- htmltools::tagAppendAttributes(shiny::icon("square-full"),
                      style = paste0("font-size:", "16", "px", "; color:", "#0f75bc", sprintf("; transition: %s", "color 1s ease")))
 
          } else if (icon_assign == 3) {
