@@ -239,7 +239,8 @@ reactable(
   defaultSorted = "'52",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    maxWidth = 45,
+    align = "center",
+    maxWidth = 50,
     cell = tooltip(number_fmt = scales::comma),
     style = color_scales(population_data, show_text = FALSE, span = TRUE)
   ),
