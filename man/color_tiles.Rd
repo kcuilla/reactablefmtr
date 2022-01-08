@@ -11,6 +11,7 @@ color_tiles(
   opacity = 1,
   bias = 1,
   number_fmt = NULL,
+  text_size = 15,
   text_color = "black",
   text_color_ref = NULL,
   show_text = TRUE,
@@ -46,6 +47,9 @@ Default is 1.}
 
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is NULL.}
+
+\item{text_size}{Numeric value representing the size of the text labels.
+Default is 15.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
