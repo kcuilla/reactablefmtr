@@ -239,14 +239,15 @@ reactable(
   defaultSorted = "'52",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    align = "center",
     maxWidth = 50,
+    align = "center",
     cell = tooltip(number_fmt = scales::comma),
     style = color_scales(population_data, show_text = FALSE, span = TRUE)
   ),
   columns = list(
     country = colDef(
-      maxWidth = 160
+      maxWidth = 160,
+      align = "left"
     )
   )
 ) %>% 
