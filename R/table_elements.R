@@ -816,10 +816,11 @@ tooltip <- function(data,
 
     }
 
-      tippy::tippy(label,
-                   animateFill = FALSE,
-                   followCursor = TRUE,
-                   arrow = "small",
-                   tooltip = label)
+    tooltip_label <- sprintf('<span style="font-size:1.5em">%s</span>', label)
+
+    tippy::tippy(label,
+                 animateFill = FALSE,
+                 followCursor = TRUE,
+                 tooltip = tooltip_label)
   }
 }

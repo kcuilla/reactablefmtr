@@ -148,6 +148,8 @@ icon_sets <- function(data,
 
     } else label <- number_fmt(value)
 
+    tooltip_label <- sprintf('<span style="font-size:1.5em">%s</span>', label)
+
     icon_buckets <- dplyr::ntile(data[[name]], n = length(icons))
 
     icon_assign <- icon_buckets[index]
@@ -353,7 +355,7 @@ icon_sets <- function(data,
 
         htmltools::tagList(
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = tooltip_label)
                 } else {
                   label
                 },
@@ -368,7 +370,7 @@ icon_sets <- function(data,
                                       marginRight = "8px"),
                          icon_label),
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = tooltip_label)
                 } else {
                   label
                 }
@@ -380,7 +382,7 @@ icon_sets <- function(data,
           htmltools::div(style = list(display = "grid",
                                       position = "relative"),
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = tooltip_label)
                 } else {
                   label
                 }
@@ -396,7 +398,7 @@ icon_sets <- function(data,
           htmltools::div(style = list(display = "grid",
                                       position = "relative"),
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = tooltip_label)
                 } else {
                   label
                 }
@@ -413,7 +415,7 @@ icon_sets <- function(data,
                                       zIndex = "100",
                                       position = "relative"),
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = tooltip_label)
                 } else {
                   label
                 }

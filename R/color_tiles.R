@@ -35,6 +35,9 @@
 #' @param number_fmt Optionally format numbers using formats from the scales package.
 #'     Default is NULL.
 #'
+#' @param text_size Numeric value representing the size of the text labels.
+#'     Default is 15.
+#'
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
@@ -128,6 +131,7 @@ color_tiles <- function(data,
                         opacity = 1,
                         bias = 1,
                         number_fmt = NULL,
+                        text_size = 15,
                         text_color = "black",
                         text_color_ref = NULL,
                         show_text = TRUE,
@@ -222,6 +226,8 @@ color_tiles <- function(data,
       label <- number_fmt(value)
 
     }
+
+    tooltip_label <- sprintf('<span style="font-size:1.5em">%s</span>', label)
 
     if (is.logical(span)) {
 
@@ -328,12 +334,12 @@ color_tiles <- function(data,
                         borderRadius = "6px",
                         fontWeight = bold_text,
                         boxShadow = box_shadow,
+                        fontSize = text_size,
                         transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
                      followCursor = TRUE,
-                     arrow = "small",
-                     tooltip = label)
+                     tooltip = tooltip_label)
       )
 
       } else {
@@ -348,6 +354,7 @@ color_tiles <- function(data,
                        borderRadius = "6px",
                        fontWeight = bold_text,
                        boxShadow = box_shadow,
+                       fontSize = text_size,
                        transition = animation))
       }
 
@@ -364,12 +371,12 @@ color_tiles <- function(data,
                         height = "18px",
                         borderRadius = "6px",
                         boxShadow = box_shadow,
+                        fontSize = text_size,
                         transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
                      followCursor = TRUE,
-                     arrow = "small",
-                     tooltip = label)
+                     tooltip = tooltip_label)
       )
 
       } else {
@@ -382,6 +389,7 @@ color_tiles <- function(data,
                      height = "18px",
                      borderRadius = "6px",
                      boxShadow = box_shadow,
+                     fontSize = text_size,
                      transition = animation))
       }
 
@@ -398,12 +406,12 @@ color_tiles <- function(data,
                         borderRadius = "6px",
                         color = "transparent",
                         boxShadow = box_shadow,
+                        fontSize = text_size,
                         transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
                      followCursor = TRUE,
-                     arrow = "small",
-                     tooltip = label)
+                     tooltip = tooltip_label)
       )
 
       } else {
@@ -416,6 +424,7 @@ color_tiles <- function(data,
                        borderRadius = "6px",
                        fontSize = 0,
                        boxShadow = box_shadow,
+                       fontSize = text_size,
                        transition = animation))
       }
 
@@ -432,12 +441,12 @@ color_tiles <- function(data,
                         borderRadius = "6px",
                         color = "transparent",
                         boxShadow = box_shadow,
+                        fontSize = text_size,
                         transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
                      followCursor = TRUE,
-                     arrow = "small",
-                     tooltip = label)
+                     tooltip = tooltip_label)
       )
 
       } else {
@@ -450,6 +459,7 @@ color_tiles <- function(data,
                        borderRadius = "6px",
                        color = "transparent",
                        boxShadow = box_shadow,
+                       fontSize = text_size,
                        transition = animation))
       }
 
@@ -468,12 +478,12 @@ color_tiles <- function(data,
                        borderRadius = "6px",
                        boxShadow = box_shadow,
                        fontWeight = bold_text,
+                       fontSize = text_size,
                        transition = animation)),
         tippy::tippy(label,
                      animateFill = FALSE,
                      followCursor = TRUE,
-                     arrow = "small",
-                     tooltip = label)
+                     tooltip = tooltip_label)
       )
 
       } else {
@@ -488,6 +498,7 @@ color_tiles <- function(data,
                      borderRadius = "6px",
                      boxShadow = box_shadow,
                      fontWeight = bold_text,
+                     fontSize = text_size,
                      transition = animation))
 
       }
