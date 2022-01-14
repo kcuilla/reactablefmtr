@@ -145,6 +145,9 @@
     <li>
       <a href="../articles/nba_player_ratings.html">NBA Player Ratings</a>
     </li>
+    <li>
+      <a href="../articles/nfl_standings.html">NFL Standings</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -179,13 +182,25 @@
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h3>
-<div id="sparklines" class="section level4">
+<div id="add_icon_legend" class="section level4">
 <h4 class="hasAnchor">
-<a href="#sparklines" class="anchor"></a>sparklines</h4>
+<a href="#add_icon_legend" class="anchor"></a>add_icon_legend()</h4>
 <ul>
-<li>Interactive sparklines can now be added to reactable tables via <code>react_sparkline</code> and <code>react_sparkbar</code>
+<li>Place an icon legend either below or above a reactable table</li>
+<li>The legend can be used to display the icon set used within <code><a href="../reference/icon_sets.html">icon_sets()</a></code>
 </li>
-<li>In order to use the sparklines, one must download the {dataui} package from GitHub (<a href="https://github.com/timelyportfolio/dataui" class="uri">https://github.com/timelyportfolio/dataui</a>)</li>
+<li>The legend can be aligned to either the right, left, or center of the table</li>
+<li>Custom labels can be applied to each of icons of the legend.</li>
+</ul>
+</div>
+<div id="add_legend" class="section level4">
+<h4 class="hasAnchor">
+<a href="#add_legend" class="anchor"></a>add_legend()</h4>
+<ul>
+<li>Place a legend either below or above a reactable table</li>
+<li>The legend can be used to display the color scale of a color palette used within the table</li>
+<li>The legend can be aligned to either the right, left, or center of the table</li>
+<li>Custom labels can be applied to the upper and lower bounds of the legend</li>
 </ul>
 </div>
 <div id="animate" class="section level4">
@@ -223,15 +238,6 @@
 <li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the tiles</li>
 </ul>
 </div>
-<div id="column_stack" class="section level4">
-<h4 class="hasAnchor">
-<a href="#column_stack" class="anchor"></a>column_stack()</h4>
-<ul>
-<li>Merge two columns together and stack the values on top of each other</li>
-<li>Can be used with both numeric and non-numeric columns</li>
-<li>Control the appearance of both the top text and the bottom text with options such as text size, color, font weight, font style, and text decoration</li>
-</ul>
-</div>
 <div id="data_bars" class="section level4">
 <h4 class="hasAnchor">
 <a href="#data_bars" class="anchor"></a>data_bars()</h4>
@@ -250,6 +256,14 @@
 <li>The horizontal alignment within a cell can now be controlled with the <code>horizontal_align</code> option</li>
 </ul>
 </div>
+<div id="google_font" class="section level4">
+<h4 class="hasAnchor">
+<a href="#google_font" class="anchor"></a>google_font()</h4>
+<ul>
+<li>Apply any font from Google Fonts <a href="https://fonts.google.com/" class="uri">https://fonts.google.com/</a> to a reactable table using <code><a href="../reference/google_font.html">google_font()</a></code>
+</li>
+</ul>
+</div>
 <div id="html" class="section level4">
 <h4 class="hasAnchor">
 <a href="#html" class="anchor"></a>html()</h4>
@@ -264,6 +278,23 @@
 <li>The alignment of the icons within a column can now be changed to either left, right, or center with <code>align_icons</code>. Previously, icons could only be aligned to the left</li>
 </ul>
 </div>
+<div id="icon_sets" class="section level4">
+<h4 class="hasAnchor">
+<a href="#icon_sets" class="anchor"></a>icon_sets()</h4>
+<ul>
+<li>Custom pre-selected icon sets can be assigned to values via <code>icon_set</code>. Options are “ski rating”, “medals”, and “batteries”. Can be used with <code><a href="../reference/add_icon_legend.html">add_icon_legend()</a></code>
+</li>
+</ul>
+</div>
+<div id="merge_column" class="section level4">
+<h4 class="hasAnchor">
+<a href="#merge_column" class="anchor"></a>merge_column()</h4>
+<ul>
+<li>Merge and arrange two columns together</li>
+<li>Can be used with both numeric and non-numeric columns</li>
+<li>Control the appearance of both the established column and the merged text with options such as text size, color, font weight, font style, and text decoration</li>
+</ul>
+</div>
 <div id="pill_buttons" class="section level4">
 <h4 class="hasAnchor">
 <a href="#pill_buttons" class="anchor"></a>pill_buttons()</h4>
@@ -274,6 +305,19 @@
 </li>
 <li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the buttons</li>
 </ul>
+</div>
+<div id="sparklines" class="section level4">
+<h4 class="hasAnchor">
+<a href="#sparklines" class="anchor"></a>sparklines</h4>
+<ul>
+<li>Interactive sparklines can now be added to reactable tables via <code>react_sparkline</code> and <code>react_sparkbar</code>
+</li>
+<li>In order to use the sparklines, one must download the {dataui} package from GitHub (<a href="https://github.com/timelyportfolio/dataui" class="uri">https://github.com/timelyportfolio/dataui</a>)</li>
+</ul>
+</div>
+<div id="tooltip" class="section level4">
+<h4 class="hasAnchor">
+<a href="#tooltip" class="anchor"></a>tooltip</h4>
 </div>
 </div>
 <div id="other-modifications" class="section level3">
@@ -363,9 +407,9 @@
 </li>
 </ul>
 </div>
-<div id="icon_sets" class="section level4">
+<div id="icon_sets-1" class="section level4">
 <h4 class="hasAnchor">
-<a href="#icon_sets" class="anchor"></a>icon_sets()</h4>
+<a href="#icon_sets-1" class="anchor"></a>icon_sets()</h4>
 <ul>
 <li>Can now use any number of icons and colors to assign to data. Previously only three icons and colors could be used.</li>
 <li>Icons can be positioned to the right, left, above, below, or over the values with <code>icon_position</code>. Previously icons could only be positioned to the right of the values</li>
