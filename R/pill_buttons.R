@@ -67,7 +67,7 @@
 #'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
 #'     for available timing functions and examples.
 #'     Animation can be turned off by setting to "none".
-#'     Default is "1s ease".
+#'     Default is "background 1s ease".
 #'
 #' @return a function that surrounds text/values in a column
 #'     with a colored pill button.
@@ -136,7 +136,7 @@ pill_buttons <- function(data,
                          bold_text = FALSE,
                          box_shadow = FALSE,
                          tooltip = FALSE,
-                         animation = "1s ease") {
+                         animation = "background 1s ease") {
 
   if (!is.logical(bold_text)) {
 

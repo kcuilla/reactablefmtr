@@ -16,12 +16,12 @@
 #'     Default icons are circles.
 #'
 #' @param icon_set Apply a pre-selected set of icons to values.
-#'     Options are "ski rating", "medals", and "fire+ice".
+#'     Options are "ski rating", "medals", and "batteries".
 #'     Default is NULL.
 #'
-#' @param colors A vector of three colors to color the icons.
+#' @param colors The color(s) to assign to the icons.
 #'     Colors should be given in order from low values to high values.
-#'     Default colors provided are blue-grey-orange: c("#67a9cf","#808080","#ef8a62").
+#'     Default colors provided are blue-grey-orange: c("#15607A", "#B0B0B0", "#FA8C00").
 #'     Can use R's built-in colors or other color packages.
 #'
 #' @param opacity A value between 0 and 1 that adjusts the opacity in colors.
@@ -105,7 +105,7 @@
 icon_sets <- function(data,
                       icons = c("circle"),
                       icon_set = NULL,
-                      colors = c("#67a9cf", "#808080", "#ef8a62"),
+                      colors = c("#15607A", "#B0B0B0", "#FA8C00"),
                       opacity = 1,
                       icon_position = "right",
                       icon_ref = NULL,
@@ -115,12 +115,11 @@ icon_sets <- function(data,
                       tooltip = FALSE,
                       animation = "1s ease") {
 
-
   '%notin%' <- Negate('%in%')
 
-  if (!is.null(icon_set) && icon_set %notin% c("ski rating", "medals", "fire+ice") == TRUE) {
+  if (!is.null(icon_set) && icon_set %notin% c("ski rating", "medals", "batteries") == TRUE) {
 
-    stop("icon_set must be either 'ski rating', 'medals', or 'fire+ice'")
+    stop("icon_set must be either 'ski rating', 'medals', or 'batteries'")
   }
 
   if (icon_position %notin% c("left", "right", "above", "below", "over") == TRUE) {
@@ -140,7 +139,7 @@ icon_sets <- function(data,
 
   cell <- function(value, index, name) {
 
-    if (!is.numeric(value) | is.na(value)) return(value)
+    if (is.null(icon_ref) & (!is.numeric(value) | is.na(value))) return(value)
 
     if (is.null(number_fmt)) {
 
@@ -180,22 +179,22 @@ icon_sets <- function(data,
 
         colors <- grDevices::adjustcolor(colors, alpha.f = opacity)
 
-        if (is.null(icon_ref) & is.null(icon_color_ref)) {
+        if (is.null(icon_ref) & is.null(icon_color_ref) & is.null(icon_set)) {
 
           icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
                                                        style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]], sprintf("; transition: %s", animation)))
 
-        } else if (!is.null(icon_ref) & is.null(icon_color_ref)) {
+        } else if (!is.null(icon_ref) & is.null(icon_color_ref) & is.null(icon_set)) {
 
           icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
                                                        style = paste0("font-size:", icon_size, "px", "; color:", colors[[color_assign]], sprintf("; transition: %s", animation)))
 
-        } else if (is.null(icon_ref) & !is.null(icon_color_ref)) {
+        } else if (is.null(icon_ref) & !is.null(icon_color_ref) & is.null(icon_set)) {
 
           icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons[[icon_assign]]),
                                                        style = paste0("font-size:", icon_size, "px", "; color:", colors, sprintf("; transition: %s", animation)))
 
-        } else if (!is.null(icon_ref) & !is.null(icon_color_ref)) {
+        } else if (!is.null(icon_ref) & !is.null(icon_color_ref) & is.null(icon_set)) {
 
           icon_label <- htmltools::tagAppendAttributes(shiny::icon(icons),
                                                        style = paste0("font-size:", icon_size, "px", "; color:", colors, sprintf("; transition: %s", animation)))
@@ -309,21 +308,32 @@ icon_sets <- function(data,
                      style = paste0("transform: rotate(45deg); font-size:", "16", "px", "; color:", "#000000", sprintf("; transition: %s", "color 1s ease"))))
          }
 
-        } else if (icon_set == "fire+ice") {
+        } else if (icon_set == "batteries") {
 
-         icon_buckets <- dplyr::ntile(data[[name]], n = 2)
+         icon_buckets <- dplyr::ntile(data[[name]], n = 4)
 
          icon_assign <- icon_buckets[index]
 
          icon_label <- if (icon_assign == 1) {
 
-             ice <- htmltools::tagAppendAttributes(shiny::icon("icicles"),
-                   style = paste0("font-size:", "16", "px", "; color:", "#63e9ea", sprintf("; transition: %s", "color 1s ease")))
+             quarter <- htmltools::tagAppendAttributes(shiny::icon("battery-quarter"),
+                   style = paste0("font-size:16px; color:#d7191c"))
 
          } else if (icon_assign == 2) {
 
-             fire <- htmltools::tagAppendAttributes(shiny::icon("fire-alt"),
-                   style = paste0("font-size:", "16", "px", "; color:", "#ea6463", sprintf("; transition: %s", "color 1s ease")))
+             half <- htmltools::tagAppendAttributes(shiny::icon("battery-half"),
+                   style = paste0("font-size:16px; color:#fdae61"))
+
+         } else if (icon_assign == 3) {
+
+             three_quarters <- htmltools::tagAppendAttributes(shiny::icon("battery-three-quarters"),
+                   style = paste0("font-size:16px; color:#a6d96a"))
+
+         } else {
+
+             full <- htmltools::tagAppendAttributes(shiny::icon("battery-full"),
+                   style = paste0("font-size:16px; color:#1a9641"))
+
          }
 
         } else if (icon_set == "medals") {
