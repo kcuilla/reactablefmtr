@@ -110,6 +110,9 @@
 <li>
       <a href="articles/nba_player_ratings.html">NBA Player Ratings</a>
     </li>
+    <li>
+      <a href="articles/nfl_standings.html">NFL Standings</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -135,7 +138,7 @@
 
 <div id="reactablefmtr-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#reactablefmtr-" class="anchor"></a>reactablefmtr <a href="https://kcuilla.github.io/reactablefmtr/index.html"><img src="reference/figures/reactablefmtr_hex_logo.png" align="right" width="150" height="185"></a>
+<a href="#reactablefmtr-" class="anchor"></a>reactablefmtr <a href="https://kcuilla.github.io/reactablefmtr/index.html"><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/docs/reference/figures/reactablefmtr_hex_logo.png" align="right" width="150" height="185"></a>
 </h2>
 <!-- badges: start -->
 
@@ -170,24 +173,42 @@
 <h3 class="hasAnchor">
 <a href="#sparklines" class="anchor"></a>Sparklines</h3>
 <p>Use <code><a href="reference/react_sparkline.html">react_sparkline()</a></code> to create sparklines or <code><a href="reference/react_sparkbar.html">react_sparkbar()</a></code> to create sparkline bar charts. The sparklines are highly customizable and interactive. As you hover over each data point, the value will appear. The sparklines are imported from the <a href="https://timelyportfolio.github.io/dataui/index.html">{dataui}</a> package, so this package will need to be downloaded from GitHub in order to use this feature.</p>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/sparkline_line_ex1.png" algin="center"><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/sparkbar_ex1.png" algin="center"></p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/sparklinesgif1.gif" algin="center"><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/sparklinesgif2.gif" algin="center"></p>
 </div>
 <div id="color-scales" class="section level3">
 <h3 class="hasAnchor">
 <a href="#color-scales" class="anchor"></a>Color Scales</h3>
 <p>Use <code><a href="reference/color_scales.html">color_scales()</a></code> to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes. See the <a href="https://kcuilla.github.io/reactablefmtr/articles/color_scales.html">tutorial</a> for more examples.</p>
-<pre class="{r}"><code>dimnames &lt;- list(start(nottem)[1]:end(nottem)[1], month.abb)
-temps &lt;- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
-temps &lt;- as_tibble(temps, rownames = "Year")
+<pre class="{r}"><code><a href="https://kcuilla.github.io/reactablefmtr/">library(reactablefmtr)
+library(tidyverse)
+library(gapminder)
+ 
+population_data &lt;- gapminder %&gt;% 
+  filter(continent == "Americas") %&gt;%
+  mutate(country = as.character(country),
+         year = paste0("'", str_sub(year, 3, 4))) %&gt;% 
+  select(country, year, lifeExp) %&gt;%
+  pivot_wider(names_from = year, values_from = lifeExp) 
 
 reactable(
-  temps,
+  population_data,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = "desc",
   defaultColDef = colDef(
-    style = color_scales(temps, span = TRUE, colors = c("#1e90ff", "#ffffff", "#ff3030")),
-    minWidth = 50
+    maxWidth = 45,
+    style = color_scales(population_data, show_text = FALSE, span = TRUE)
+  ),
+  columns = list(
+    country = colDef(
+      maxWidth = 160
+    )
   )
-)</code></pre>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/C6731D97-6D37-4CD2-A93D-374352961F4A.png" align="center"></p>
+) %&gt;% 
+  add_title("Average Life Expectancy") %&gt;% 
+  add_source("Data sourced from the {gapminder} package") </a></code></pre>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/colorscales_heatmap2.gif" align="center"></p>
 </div>
 <div id="icon-sets" class="section level3">
 <h3 class="hasAnchor">
@@ -206,16 +227,8 @@ reactable(
 <h2 class="hasAnchor">
 <a href="#custom-themes" class="anchor"></a>Custom Themes</h2>
 <p>Within {reactablefmtr}, there are 24+ custom table themes. The themes include <a href="https://bootswatch.com/">bootstrap</a> themes, themes inspired by news/sports sites such as The New York Times, FiveThirtyEight, and ESPN, as well as other custom themes that can only be found within {reactablefmtr}. The themes can be applied easily to tables by simply referencing the theme name. Additional customization options, such as changing the font size, font color, etc. are also <a href="https://kcuilla.github.io/reactablefmtr/articles/themes.html">available</a>.</p>
-<pre class="{r}"><code>data &lt;- MASS::Cars93[1:20, c("Model", "MPG.city", "MPG.highway")]
-        
-data %&gt;%
-  reactable(.,
-    theme = slate(),
-    defaultColDef = colDef(
-      cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
-  )
-)</code></pre>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/43042890-A054-49D2-B066-8E329BE90ACA.jpeg" align="center"></p>
+<p>An example of the fivethirtyeight() theme:</p>
+<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/78A671F4-6705-4EE9-9B49-D29934FFE019.jpeg" align="center"></p>
 </div>
 <div id="add-a-title-subtitle-and-source" class="section level2">
 <h2 class="hasAnchor">
