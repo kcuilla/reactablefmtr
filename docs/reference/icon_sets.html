@@ -153,6 +153,9 @@
     <li>
       <a href="../articles/nba_player_ratings.html">NBA Player Ratings</a>
     </li>
+    <li>
+      <a href="../articles/nfl_standings.html">NFL Standings</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -195,13 +198,15 @@
     <pre class="usage"><span class='fu'>icon_sets</span><span class='op'>(</span>
   <span class='va'>data</span>,
   icons <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"circle"</span><span class='op'>)</span>,
-  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#67a9cf"</span>, <span class='st'>"#808080"</span>, <span class='st'>"#ef8a62"</span><span class='op'>)</span>,
+  icon_set <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colors <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#15607A"</span>, <span class='st'>"#B0B0B0"</span>, <span class='st'>"#FA8C00"</span><span class='op'>)</span>,
   opacity <span class='op'>=</span> <span class='fl'>1</span>,
   icon_position <span class='op'>=</span> <span class='st'>"right"</span>,
   icon_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   icon_size <span class='op'>=</span> <span class='fl'>16</span>,
   icon_color_ref <span class='op'>=</span> <span class='cn'>NULL</span>,
   number_fmt <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tooltip <span class='op'>=</span> <span class='cn'>FALSE</span>,
   animation <span class='op'>=</span> <span class='st'>"1s ease"</span>
 <span class='op'>)</span></pre>
 
@@ -219,10 +224,16 @@ Icons should be given in order from low values to high values.
 Default icons are circles.</p></td>
     </tr>
     <tr>
+      <th>icon_set</th>
+      <td><p>Apply a pre-selected set of icons to values.
+Options are "ski rating", "medals", and "batteries".
+Default is NULL.</p></td>
+    </tr>
+    <tr>
       <th>colors</th>
-      <td><p>A vector of three colors to color the icons.
+      <td><p>The color(s) to assign to the icons.
 Colors should be given in order from low values to high values.
-Default colors provided are blue-grey-orange: c("#67a9cf","#808080","#ef8a62").
+Default colors provided are blue-grey-orange: c("#15607A", "#B0B0B0", "#FA8C00").
 Can use R's built-in colors or other color packages.</p></td>
     </tr>
     <tr>
@@ -262,6 +273,11 @@ Default is NULL.</p></td>
 Default is set to NULL.</p></td>
     </tr>
     <tr>
+      <th>tooltip</th>
+      <td><p>Logical: hover tooltip.
+Default is FALSE.</p></td>
+    </tr>
+    <tr>
       <th>animation</th>
       <td><p>Control the duration and timing function of the animation
 when sorting/updating values shown on a page.
@@ -285,6 +301,11 @@ Default is "1s ease".</p></td>
 <span class='co'>## and orange to the top-third values</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
 defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_sets</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## Apply pre-set icon sets with icon_set:</span>
+<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
+defaultColDef <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>cell <span class='op'>=</span> <span class='fu'>icon_sets</span><span class='op'>(</span><span class='va'>data</span>,
+icon_set <span class='op'>=</span> <span class='st'>'ski rating'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Assign custom colors</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Theme sandstone — sandstone • reactablefmtr</title>
+<title>Apply a tooltip to cells. — tooltip • reactablefmtr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Theme sandstone — sandstone" />
-<meta property="og:description" content="Bootstrap-inspired sandstone theme" />
+<meta property="og:title" content="Apply a tooltip to cells. — tooltip" />
+<meta property="og:description" content="Apply a tooltip to cells." />
 
 
 
@@ -172,74 +172,47 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Theme sandstone</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/themes.R'><code>R/themes.R</code></a></small>
-    <div class="hidden name"><code>sandstone.Rd</code></div>
+    <h1>Apply a tooltip to cells.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kcuilla/reactablefmtr/blob/master/R/table_elements.R'><code>R/table_elements.R</code></a></small>
+    <div class="hidden name"><code>tooltip.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Bootstrap-inspired sandstone theme</p>
+    <p>Apply a tooltip to cells.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sandstone</span><span class='op'>(</span>
-  font_size <span class='op'>=</span> <span class='fl'>15</span>,
-  font_color <span class='op'>=</span> <span class='st'>"#3e3f3a"</span>,
-  header_font_size <span class='op'>=</span> <span class='fl'>16</span>,
-  header_font_color <span class='op'>=</span> <span class='st'>"#7c7a78"</span>,
-  cell_padding <span class='op'>=</span> <span class='fl'>6</span>,
-  centered <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>tooltip</span><span class='op'>(</span><span class='va'>data</span>, number_fmt <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>font_size</th>
-      <td><p>Numeric value representing the size of the font within the table (in px).
-Default is 15.</p></td>
+      <th>data</th>
+      <td><p>Null.</p></td>
     </tr>
     <tr>
-      <th>font_color</th>
-      <td><p>Color of the font for the text within the table and the group headers.
-Default is #3e3f3a.</p></td>
-    </tr>
-    <tr>
-      <th>header_font_size</th>
-      <td><p>Numeric value representing the size of the font within the table (in px).
-Default is 16.</p></td>
-    </tr>
-    <tr>
-      <th>header_font_color</th>
-      <td><p>Color of the font for the header text.
-Default is #7c7a78.</p></td>
-    </tr>
-    <tr>
-      <th>cell_padding</th>
-      <td><p>Numeric value representing the padding size between cells (in px).
-Default is 6.</p></td>
-    </tr>
-    <tr>
-      <th>centered</th>
-      <td><p>Logical: vertically center the contents of the table.
-Default is FALSE.</p></td>
+      <th>number_fmt</th>
+      <td><p>Optionally format numbers using formats from the scales package.
+Default is NULL.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>an object of class theme that is applied to a reactable table.</p>
+    <p>a function that applies a tooltip to a reactable table.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>29</span>, <span class='op'>]</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>iris</span><span class='op'>[</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>29</span>, <span class='op'>]</span>
 
-<span class='co'>## Standard sandstone theme</span>
+<span class='co'>## Apply a tooltip to color_scales()</span>
 <span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
-          theme <span class='op'>=</span> <span class='fu'>sandstone</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'>## Additional options applied</span>
-<span class='fu'>reactable</span><span class='op'>(</span><span class='va'>data</span>,
-          theme <span class='op'>=</span> <span class='fu'>sandstone</span><span class='op'>(</span>font_size <span class='op'>=</span> <span class='fl'>12</span>, font_color <span class='op'>=</span> <span class='st'>"grey"</span>, cell_padding <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-
+ columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+ Petal.Length <span class='op'>=</span> <span class='fu'>colDef</span><span class='op'>(</span>
+ cell <span class='op'>=</span> <span class='fu'>tooltip</span><span class='op'>(</span><span class='op'>)</span>,
+ style <span class='op'>=</span> <span class='fu'><a href='color_scales.html'>color_scales</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

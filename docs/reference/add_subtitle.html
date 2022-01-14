@@ -43,7 +43,7 @@
 <meta property="og:description" content="Use `add_subtitle()` to place a subtitle above a reactable or reactablefmtr table.
      The same options that are present in `add_title()` and `add_source()` are also available in `add_subtitle()`.
      The subtitle can be aligned to the left, right, or center with the align option.
-     The text properties of the subtitle, such as the font size, font family, and font style can be customized.
+     The text properties of the subtitle, such as the font size and font style can be customized.
      The background color of the subtitle can also be adjusted as well as the margin around the subtitle." />
 
 
@@ -150,6 +150,9 @@
     <li>
       <a href="../articles/nba_player_ratings.html">NBA Player Ratings</a>
     </li>
+    <li>
+      <a href="../articles/nfl_standings.html">NFL Standings</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -182,7 +185,7 @@
     <p>Use `add_subtitle()` to place a subtitle above a reactable or reactablefmtr table.
      The same options that are present in `add_title()` and `add_source()` are also available in `add_subtitle()`.
      The subtitle can be aligned to the left, right, or center with the align option.
-     The text properties of the subtitle, such as the font size, font family, and font style can be customized.
+     The text properties of the subtitle, such as the font size and font style can be customized.
      The background color of the subtitle can also be adjusted as well as the margin around the subtitle.</p>
     </div>
 
@@ -190,12 +193,15 @@
   table <span class='op'>=</span> <span class='cn'>NULL</span>,
   subtitle <span class='op'>=</span> <span class='cn'>NULL</span>,
   align <span class='op'>=</span> <span class='st'>"left"</span>,
-  font_color <span class='op'>=</span> <span class='st'>"#333"</span>,
-  font_family <span class='op'>=</span> <span class='st'>"-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif"</span>,
+  font_color <span class='op'>=</span> <span class='st'>"#000"</span>,
   font_size <span class='op'>=</span> <span class='fl'>24</span>,
   font_style <span class='op'>=</span> <span class='st'>"normal"</span>,
   font_weight <span class='op'>=</span> <span class='st'>"bold"</span>,
   text_decoration <span class='op'>=</span> <span class='cn'>NULL</span>,
+  text_transform <span class='op'>=</span> <span class='cn'>NULL</span>,
+  letter_spacing <span class='op'>=</span> <span class='cn'>NULL</span>,
+  word_spacing <span class='op'>=</span> <span class='cn'>NULL</span>,
+  text_shadow <span class='op'>=</span> <span class='cn'>NULL</span>,
   background_color <span class='op'>=</span> <span class='st'>"#FFFFFF"</span>,
   margin <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
@@ -220,12 +226,7 @@ Default is "left".</p></td>
     <tr>
       <th>font_color</th>
       <td><p>Color of the subtitle text.
-Default is #333.</p></td>
-    </tr>
-    <tr>
-      <th>font_family</th>
-      <td><p>Font family of the subtitle.
-Default is -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif.</p></td>
+Default is #000.</p></td>
     </tr>
     <tr>
       <th>font_size</th>
@@ -246,8 +247,32 @@ Default is "bold".</p></td>
     </tr>
     <tr>
       <th>text_decoration</th>
-      <td><p>Optionally add an underline, overline, or line-through subtitle.
+      <td><p>Add an underline, overline, or line-through subtitle.
 Options are "underline", "overline", "underline overline", or "line-through".
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>text_transform</th>
+      <td><p>Specify how to capitalize the title.
+Options are "uppercase", "lowercase", or "capitalize".
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>letter_spacing</th>
+      <td><p>Numeric value that adjusts the horizontal spacing between letters.
+A number above 0 adds more spacing between letters, a number below 0 decreases the spacing.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>word_spacing</th>
+      <td><p>Numeric value that adjusts the horizontal spacing between words.
+A number above 0 adds more spacing between words, a number below 0 decreases the spacing.
+Default is NULL.</p></td>
+    </tr>
+    <tr>
+      <th>text_shadow</th>
+      <td><p>Apply a shadow around the title.
+See &lt;https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow&gt; for options.
 Default is NULL.</p></td>
     </tr>
     <tr>
