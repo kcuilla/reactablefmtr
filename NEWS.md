@@ -2,10 +2,19 @@
 
 ### New Features
 
-#### sparklines
+#### add_icon_legend()
 
-* Interactive sparklines can now be added to reactable tables via `react_sparkline` and `react_sparkbar`
-* In order to use the sparklines, one must download the {dataui} package from GitHub (https://github.com/timelyportfolio/dataui)
+* Place an icon legend either below or above a reactable table
+* The legend can be used to display the icon set used within `icon_sets()`
+* The legend can be aligned to either the right, left, or center of the table
+* Custom labels can be applied to each of icons of the legend.
+
+#### add_legend()
+
+* Place a legend either below or above a reactable table
+* The legend can be used to display the color scale of a color palette used within the table
+* The legend can be aligned to either the right, left, or center of the table
+* Custom labels can be applied to the upper and lower bounds of the legend
 
 #### animate
 
@@ -25,12 +34,6 @@
 #### color_tiles()
 
 * Set `box_shadow` to TRUE to apply a box shadow to the tiles
-
-#### column_stack()
-
-* Merge two columns together and stack the values on top of each other
-* Can be used with both numeric and non-numeric columns
-* Control the appearance of both the top text and the bottom text with options such as text size, color, font weight, font style, and text decoration
 
 #### data_bars()
 
@@ -55,11 +58,28 @@
 
 * The alignment of the icons within a column can now be changed to either left, right, or center with `align_icons`. Previously, icons could only be aligned to the left
 
+#### icon_sets()
+
+* Custom pre-selected icon sets can be assigned to values via `icon_set`. Options are "ski rating", "medals", and "batteries". Can be used with `add_icon_legend()`
+
+#### merge_column()
+
+* Merge and arrange two columns together
+* Can be used with both numeric and non-numeric columns
+* Control the appearance of both the established column and the merged text with options such as text size, color, font weight, font style, and text decoration
+
 #### pill_buttons()
 
 * `pill_buttons()` can be used to surround text or numeric values in a colored pill button. It is similar to `color_tiles()` but is more condensed and round and the width of the pill dynamically adjusts based on the size of the text/values
 * As with `color_tiles()`, `color_scales()`, and `data_bars()`, colors can be conditionally assigned from another column in the dataset and many of the other options available in `color_tiles()` are available in `pill_buttons()`
 * Set `box_shadow` to TRUE to apply a box shadow to the buttons
+
+#### sparklines
+
+* Interactive sparklines can now be added to reactable tables via `react_sparkline` and `react_sparkbar`
+* In order to use the sparklines, one must download the {dataui} package from GitHub (https://github.com/timelyportfolio/dataui)
+
+#### tooltip
 
 ### Other Modifications
 

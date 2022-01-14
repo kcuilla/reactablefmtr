@@ -40,6 +40,8 @@ navbar:
       menu:
       - text: NBA Player Ratings
         href: articles/nba_player_ratings.html
+      - text: NFL Standings
+        href: articles/nfl_standings.html
     reference:
       text: Reference
       href: reference/index.html
