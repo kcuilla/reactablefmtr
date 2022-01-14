@@ -319,6 +319,7 @@ pill_buttons <- function(data,
                                   display = "inline-block",
                                   padding = "2px 12px",
                                   borderRadius = "15px",
+                                  fontWeight = bold_text,
                                   transition = animation))
 
     } else if (brighten_text == FALSE & show_text == FALSE) {
