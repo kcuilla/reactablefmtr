@@ -485,6 +485,7 @@ add_source <- function(table = NULL,
 #' @return a function that adds a source below a reactable table.
 #'
 #' @import reactable
+#' @import dplyr
 #'
 #' @examples
 #' \dontrun{
