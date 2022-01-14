@@ -21,7 +21,7 @@ color_tiles(
   span = FALSE,
   box_shadow = FALSE,
   tooltip = FALSE,
-  animation = "1s ease"
+  animation = "background 1s ease"
 )
 }
 \arguments{
@@ -88,7 +88,7 @@ when sorting/updating values shown on a page.
 See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
 for available timing functions and examples.
 Animation can be turned off by setting to "none".
-Default is "1s ease".}
+Default is "background 1s ease".}
 }
 \value{
 a function that applies conditional color tiles

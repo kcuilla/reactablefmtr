@@ -8,7 +8,7 @@ icon_sets(
   data,
   icons = c("circle"),
   icon_set = NULL,
-  colors = c("#67a9cf", "#808080", "#ef8a62"),
+  colors = c("#15607A", "#B0B0B0", "#FA8C00"),
   opacity = 1,
   icon_position = "right",
   icon_ref = NULL,
@@ -27,12 +27,12 @@ Icons should be given in order from low values to high values.
 Default icons are circles.}
 
 \item{icon_set}{Apply a pre-selected set of icons to values.
-Options are "ski rating", "medals", and "fire+ice".
+Options are "ski rating", "medals", and "batteries".
 Default is NULL.}
 
-\item{colors}{A vector of three colors to color the icons.
+\item{colors}{The color(s) to assign to the icons.
 Colors should be given in order from low values to high values.
-Default colors provided are blue-grey-orange: c("#67a9cf","#808080","#ef8a62").
+Default colors provided are blue-grey-orange: c("#15607A", "#B0B0B0", "#FA8C00").
 Can use R's built-in colors or other color packages.}
 
 \item{opacity}{A value between 0 and 1 that adjusts the opacity in colors.
