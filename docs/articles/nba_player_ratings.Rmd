@@ -13,7 +13,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 library(reactablefmtr)
 library(htmltools)
 library(crosstalk) # for control filters
-library(govdown) # used for unstrapping bootstrap theme from crosstalk
 
 ### load data from 538
 data <- read.csv(file = "RAPTOR_by_team_19-20.csv")
@@ -123,12 +122,11 @@ nba_table <-  reactable(
 )
 
 ### display crosstalk filters
-### unstrap was used to prevent the crosstalk filters from applying their own bootsrap theme on this site. It is generally not needed.
-div(unstrap(bscols(
-  widths = c(4, 4, 4),
-    unstrap(team_filter),
-    unstrap(conference_filter),
-    unstrap(minutes_filter)))
+div(bscols(
+  widths = c(4, NA, NA),
+    list(team_filter,
+         conference_filter,
+         minutes_filter))
 )
 
 ### display table

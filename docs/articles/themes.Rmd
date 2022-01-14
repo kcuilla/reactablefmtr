@@ -14,7 +14,7 @@ library(viridis)
 ```
 
 
-## Bootsrap Themes
+## Bootstrap Themes
 
 Within the {reactablefmtr} package, there are twelve different bootstrap-inspired themes that you can use to apply to any {reactable} table. Many of the themes available are included within the {shinythemes} [package](https://rstudio.github.io/shinythemes/) and pair well with those themes in Shiny apps.
 
@@ -45,12 +45,10 @@ data %>%
 )
 ```
 
-As you can see above, to apply a theme to a table, you just need to simply reference the theme name and included closed brackets at the end of the name. The reason why the closed brackets are necessary is because there are additional optional arguments that you can apply to the theme, such as the font family, size, and color. Below are the full options of optional arguments you can change to the theme:
+As you can see above, to apply a theme to a table, you just need to simply reference the theme name and included closed brackets at the end of the name. The reason why the closed brackets are necessary is because there are additional optional arguments that you can apply to the theme, such as the font size, and color. Below are the full options of optional arguments you can change to the theme:
 
-* font_family
 * font_size
 * font_color
-* header_font_family
 * header_font_size
 * header_font_color
 * cell_padding
@@ -58,7 +56,7 @@ As you can see above, to apply a theme to a table, you just need to simply refer
 ```{r}
 data %>%
   reactable(.,
-    theme = slate(font_family = "Courier New", font_size = 18, header_font_size = 20, header_font_color = "darkorange", cell_padding = 8),
+    theme = slate(font_size = 18, header_font_size = 20, header_font_color = "darkorange", cell_padding = 8),
     defaultColDef =
       colDef(
         cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
@@ -119,7 +117,7 @@ data %>%
 )
 ```
 
-Additional boostrap-inspired themes include:
+Additional bootstrap-inspired themes include:
 
 * cerulean
 * darkly
