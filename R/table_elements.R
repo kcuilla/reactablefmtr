@@ -634,6 +634,308 @@ add_legend <- function(table = NULL,
 }
 
 
+
+#' Add an icon legend to a reactable table
+#'
+#' Use `add_icon_legend()` to place a legend either below or above a {reactable} or {reactablefmtr} table.
+#'      The legend can be used to display the icon set used within `icon_sets()`.
+#'      The legend can be aligned to either the right, left, or center of the table.
+#'      Custom labels can be applied to the upper and lower bounds of the legend.
+#'
+#' @param table A reactable table.
+#'
+#' @param icon_set The icon set to be displayed in the legend.
+#'     Options are "ski rating", "medals", and "batteries".
+#'     Default is NULL.
+#'
+#' @param show_labels Logical. Show or hide the labels next to the legend.
+#'      Default is TRUE.
+#'
+#' @param labels Assign label to each icon in the specified icon set.
+#'      Number of labels must match the number of icons in the icon set.
+#'      Default is NULL.
+#'
+#' @param position The position of the legend in relation to the table.
+#'      Options are 'above' or 'below'.
+#'      Default is 'below'.
+#'
+#' @param align The horizontal alignment of the legend.
+#'      Options are 'left', 'right', or 'center'.
+#'      Default is 'right'.
+#'
+#' @param margin Use margin() to set the margin around the legend (top, right, bottom, left).
+#'      Default is NULL.
+#'
+#' @return a function that adds a source below a reactable table.
+#'
+#' @import reactable
+#'
+#' @examples
+#' \dontrun{
+#' ## Create the reactable table and then pipe in the legend
+#' library(dplyr)
+#' data <- iris[10:29, ]
+#' table <- reactable(data,
+#' columns = list(Petal.Length = colDef(
+#' cell = icon_sets(data, icon_set = "medals"))))
+#'
+#' table %>%
+#'   add_icon_legend(icon_set = "medals")
+#'
+#' ## The legend can be placed below or above the table
+#' ## and aligned either to the left, right, or center
+#' table %>%
+#'   add_icon_legend(icon_set = "medals", position = "above", align = "left")
+#'
+#' ## Add custom labels to each icon in the legend
+#' table %>%
+#'   add_icon_legend(icon_set = "medals", labels = c("Shortest Length","Avg Length","Longest Length"))
+#' }
+#' @export
+
+add_icon_legend <- function(table = NULL,
+                            icon_set = NULL,
+                            show_labels = TRUE,
+                            labels = NULL,
+                            position = "below",
+                            align = "right",
+                            margin = NULL) {
+
+  '%notin%' <- Negate('%in%')
+
+  if (!is.null(icon_set) && icon_set %notin% c("ski rating", "medals", "batteries") == TRUE) {
+
+    stop("icon_set must be either 'ski rating', 'medals', or 'batteries'")
+  }
+
+  if (align %notin% c("left", "right", "center") == TRUE) {
+
+    stop("`align` must be either 'left', 'right', or 'center'")
+  }
+
+  if (position %notin% c("above", "below") == TRUE) {
+
+    stop("`position` must be either 'above' or 'below'")
+  }
+
+  if (!is.logical(show_labels)) {
+
+    stop("`show_labels` must either be TRUE or FALSE.")
+  }
+
+  if (is.null(margin)) {
+
+    margin <- margin(t=0,r=0,b=0,l=0)
+
+  } else {margin <- margin}
+
+  if (!is.null(icon_set) && icon_set == "ski rating") {
+
+    if (!is.null(labels) && length(labels) != 4) {
+      stop("must provide four labels for ski rating. Ex: `labels = c('easy','moderate','difficult','most difficult')")
+    } else {
+
+        legend <- htmltools::tags$span(
+          htmltools::tagAppendAttributes(
+            shiny::icon("circle"),
+            style = paste0("font-size:16px; color:#39b54a;")
+          ),
+          if (show_labels == TRUE & is.null(labels)) {
+            "Easy"
+          } else if (show_labels == TRUE & !is.null(labels)) {
+            labels[[1]]
+          } else {
+            ""
+          },
+          htmltools::tagAppendAttributes(
+            shiny::icon("square-full"),
+            style = paste0("font-size:4px; color:", "transparent;")
+          ),
+          htmltools::tagAppendAttributes(
+            shiny::icon("square-full"),
+            style = paste0("font-size:16px; color:#0f75bc")
+          ),
+          if (show_labels == TRUE & is.null(labels)) {
+            "Moderate"
+          } else if (show_labels == TRUE & !is.null(labels)) {
+            labels[[2]]
+          } else {
+            ""
+          },
+          htmltools::tagAppendAttributes(
+            shiny::icon("square-full"),
+            style = paste0("font-size:4px; color:", "transparent;")
+          ),
+          htmltools::tagAppendAttributes(
+            shiny::icon("square"),
+            style = paste0("transform: rotate(45deg); font-size:16px; color:#000000")
+          ),
+          if (show_labels == TRUE & is.null(labels)) {
+            "Difficult"
+          } else if (show_labels == TRUE & !is.null(labels)) {
+            labels[[3]]
+          } else {
+            ""
+          },
+          htmltools::tagAppendAttributes(
+            shiny::icon("square-full"),
+            style = paste0("font-size:4px; color:", "transparent;")
+          ),
+          list(
+            htmltools::tagAppendAttributes(
+              shiny::icon("square"),
+              style = paste0("transform: rotate(45deg); font-size:16px; color:#000000")
+            ),
+            htmltools::tagAppendAttributes(
+              shiny::icon("square"),
+              style = paste0("transform: rotate(45deg); font-size:16px; color:#000000")
+            )
+          ),
+          if (show_labels == TRUE & is.null(labels)) {
+            "Most Difficult"
+          } else if (show_labels == TRUE & !is.null(labels)) {
+            labels[[4]]
+          } else {
+            ""
+          }
+        )
+    }
+
+} else if (!is.null(icon_set) && icon_set == "medals") {
+
+  if (!is.null(labels) && length(labels) != 3) {
+    stop("must provide three labels for medals. Ex: `labels = c('bronze','silver','gold')")
+  } else {
+
+    legend <- htmltools::tags$span(
+      htmltools::tagAppendAttributes(
+        shiny::icon("medal"),
+        style = paste0("font-size:16px; color:#A77044")
+      ),
+        if (show_labels == TRUE & is.null(labels)) {
+          "Bronze"
+        } else if (show_labels == TRUE & !is.null(labels)) {
+          labels[[1]]
+        } else {
+          ""
+        },
+      htmltools::tagAppendAttributes(
+        shiny::icon("medal"),
+        style = paste0("font-size:16px; color:#D7D7D7")
+      ),
+        if (show_labels == TRUE & is.null(labels)) {
+          "Silver"
+        } else if (show_labels == TRUE & !is.null(labels)) {
+          labels[[2]]
+        } else {
+          ""
+        },
+      htmltools::tagAppendAttributes(
+        shiny::icon("medal"),
+        style = paste0("font-size:16px; color:#D6AF36")
+      ),
+        if (show_labels == TRUE & is.null(labels)) {
+          "Gold"
+        } else if (show_labels == TRUE & !is.null(labels)) {
+          labels[[3]]
+        } else {
+          ""
+        }
+      )
+  }
+
+} else if (!is.null(icon_set) && icon_set == "batteries") {
+
+  if (!is.null(labels) && length(labels) != 4) {
+    stop("must provide three labels for batteries. Ex: `labels = c('one-quarter','half','three-quarters','full')")
+  } else {
+
+    legend <- htmltools::tags$span(
+      htmltools::tagAppendAttributes(
+        shiny::icon("battery-quarter"),
+        style = paste0("font-size:16px; color:#d7191c")
+      ),
+        if (show_labels == TRUE & is.null(labels)) {
+          "0-25%"
+        } else if (show_labels == TRUE & !is.null(labels)) {
+          labels[[1]]
+        } else {
+          ""
+        },
+      htmltools::tagAppendAttributes(
+        shiny::icon("square-full"),
+        style = paste0("font-size:1px; color:", "transparent;")
+      ),
+      htmltools::tagAppendAttributes(
+        shiny::icon("battery-half"),
+        style = paste0("font-size:16px; color:#fdae61")
+      ),
+        if (show_labels == TRUE & is.null(labels)) {
+          "25-50%"
+        } else if (show_labels == TRUE & !is.null(labels)) {
+          labels[[2]]
+        } else {
+          ""
+        },
+      htmltools::tagAppendAttributes(
+        shiny::icon("square-full"),
+        style = paste0("font-size:1px; color:", "transparent;")
+      ),
+      htmltools::tagAppendAttributes(
+        shiny::icon("battery-three-quarters"),
+        style = paste0("font-size:16px; color:#a6d96a")
+      ),
+        if (show_labels == TRUE & is.null(labels)) {
+          "50-75%"
+        } else if (show_labels == TRUE & !is.null(labels)) {
+          labels[[3]]
+        } else {
+          ""
+        },
+      htmltools::tagAppendAttributes(
+        shiny::icon("square-full"),
+        style = paste0("font-size:1px; color:", "transparent;")
+      ),
+      htmltools::tagAppendAttributes(
+        shiny::icon("battery-full"),
+        style = paste0("font-size:16px; color:#1a9641")
+      ),
+        if (show_labels == TRUE & is.null(labels)) {
+          "75-100%"
+        } else if (show_labels == TRUE & !is.null(labels)) {
+          labels[[4]]
+        } else {
+          ""
+        }
+      )
+  }
+}
+
+  if (position == "below") {
+
+    htmlwidgets::appendContent(
+    table,
+    htmltools::tags$p(legend,
+                      style = paste0("text-align:",align,";
+                                      font-size:13px;
+                                      word-spacing:1px;")
+    )
+  )
+
+  } else {
+
+    htmlwidgets::prependContent(
+    table,
+    htmltools::tags$p(legend,
+                      style = paste0("text-align:",align,";
+                                      font-size:13px;
+                                      word-spacing:1px;")
+    )
+  )
+  }
+}
+
+
 #' Add custom styles to cells
 #'
 #' Use `cell_style()` to customize the appearance of certain cells in a {reactable} or {reactablefmtr} table.
