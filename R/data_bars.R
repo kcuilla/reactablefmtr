@@ -170,7 +170,7 @@
 #'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
 #'     for available timing functions and examples.
 #'     Animation can be turned off by setting to "none".
-#'     Default is "background 1s ease".
+#'     Default is "width 1s ease".
 #'
 #' @return a function that applies data bars
 #'     to a column of numeric values.
@@ -215,7 +215,6 @@
 #'
 #' @export
 
-
 data_bars <- function(data,
                       fill_color = "#15607A",
                       fill_color_ref = NULL,
@@ -251,7 +250,7 @@ data_bars <- function(data,
                       box_shadow = FALSE,
                       round_edges = FALSE,
                       tooltip = FALSE,
-                      animation = "background 1s ease") {
+                      animation = "width 1s ease") {
 
   cell <- function(value, index, name) {
 
