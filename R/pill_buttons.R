@@ -35,6 +35,12 @@
 #' @param number_fmt Optionally format numbers using formats from the scales package.
 #'     Default is NULL.
 #'
+#' @param show_text Logical: show text or hide text.
+#'     Default is TRUE.
+#'
+#' @param text_size Numeric value representing the size of the text labels.
+#'     Default is 14.
+#'
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
@@ -42,9 +48,6 @@
 #'     by providing the name of the column containing the text colors in quotes.
 #'     Only one color can be provided per cell.
 #'     Default is NULL.
-#'
-#' @param show_text Logical: show text or hide text.
-#'     Default is TRUE.
 #'
 #' @param brighten_text Logical: automatically assign color to text based on background color of the pill button.
 #'     Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.
@@ -128,9 +131,10 @@ pill_buttons <- function(data,
                          color_ref = NULL,
                          opacity = 1,
                          number_fmt = NULL,
+                         show_text = TRUE,
+                         text_size = 14,
                          text_color = "black",
                          text_color_ref = NULL,
-                         show_text = TRUE,
                          brighten_text = TRUE,
                          brighten_text_color = "white",
                          bold_text = FALSE,
@@ -292,7 +296,7 @@ pill_buttons <- function(data,
 
       htmltools::div(
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = label)
                 } else {
                   label
                 },
@@ -303,13 +307,14 @@ pill_buttons <- function(data,
                                   padding = "2px 12px",
                                   borderRadius = "15px",
                                   fontWeight = bold_text,
+                                  fontSize = text_size,
                                   transition = animation))
 
     } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
 
       htmltools::div(
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = label)
                 } else {
                   label
                 },
@@ -320,13 +325,14 @@ pill_buttons <- function(data,
                                   padding = "2px 12px",
                                   borderRadius = "15px",
                                   fontWeight = bold_text,
+                                  fontSize = text_size,
                                   transition = animation))
 
     } else if (brighten_text == FALSE & show_text == FALSE) {
 
       htmltools::div(
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = label)
                 } else {
                   label
                 },
@@ -336,13 +342,14 @@ pill_buttons <- function(data,
                                   display = "inline-block",
                                   padding = "2px 12px",
                                   borderRadius = "15px",
+                                  fontSize = text_size,
                                   transition = animation))
 
     } else if (brighten_text == TRUE & show_text == FALSE) {
 
       htmltools::div(
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = label)
                 } else {
                   label
                 },
@@ -352,13 +359,14 @@ pill_buttons <- function(data,
                                   display = "inline-block",
                                   padding = "2px 12px",
                                   borderRadius = "15px",
+                                  fontSize = text_size,
                                   transition = animation))
 
     } else {
 
       htmltools::div(
                 if (tooltip == TRUE) {
-                  tippy::tippy(label, animateFill = FALSE, arrow = "small", followCursor = TRUE, tooltip = label)
+                  tippy::tippy(label, animateFill = FALSE, followCursor = TRUE, tooltip = label)
                 } else {
                   label
                 },
@@ -369,6 +377,7 @@ pill_buttons <- function(data,
                                   padding = "2px 12px",
                                   borderRadius = "15px",
                                   fontWeight = bold_text,
+                                  fontSize = text_size,
                                   transition = animation))
     }
   }
