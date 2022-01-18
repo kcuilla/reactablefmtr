@@ -13,12 +13,12 @@ merge_column(
   merged_weight = "normal",
   merged_style = "normal",
   merged_decoration = "normal",
-  existing_size = 14,
-  existing_color = NULL,
-  existing_weight = "bold",
-  existing_style = "normal",
-  existing_decoration = NULL,
-  spacing = 3
+  size = 14,
+  color = NULL,
+  weight = "bold",
+  style = "normal",
+  decoration = NULL,
+  spacing = 0
 )
 }
 \arguments{
@@ -51,6 +51,10 @@ Default is "normal".}
 For example, add an underline, overline, or line-through to the text.
 Default is NULL.}
 
+\item{spacing}{The spacing between the merged and existing columns.
+A value greater than 0 creates more space between, a value less than 0 creates less space.
+Default is 0.}
+
 \item{existing_size}{The size of the text displayed on right.
 Default is 12.}
 
@@ -68,10 +72,6 @@ Default is "normal".}
 \item{existing_decoration}{The decoration of the text displayed on right.
 For example, add an underline, overline, or line-through to the text.
 Default is NULL.}
-
-\item{spacing}{The spacing between the merged and existing columns.
-Default is 3.
-A value greater than 3 creates more space between, a value less than 3 creates less space.}
 }
 \value{
 a function that merges two columns together.
@@ -79,10 +79,12 @@ a function that merges two columns together.
 \description{
 The `merge_column()` function can be used to merge and style values from two columns within a reactable table.
     `merge_column()` works with both numeric and non-numeric columns.
-    The column in which you would like to be merged with an existing column has style properties that can be controlled with a preceding 'merged_'.
-    The existing column style properties can be controlled with a preceding 'existing_'.
-    The position of the column to be merged relative to the existing column can be controlled with `merged_position`.
-    When merging another column, you can place the values from that column above, below, left, or right to the existing column.
+    The style/format of both the current column and merged column can be controlled via size, color, weight, and text decoration.
+    Any style parameters that start with "merged_" will control the column that is being merged and specified by `merged_name`.
+    Any style parameters that do not start with "merged_" control the current column you are within.
+    The position of the column to be merged relative to the current column can be controlled with `merged_position`.
+    The position options for the merged column are above, below, left, or right to the current column.
+    The spacing between the current column and the merged column can be controlled with `spacing`.
     `merge_column()` needs to placed within the cell argument in reactable::colDef.
 }
 \examples{
@@ -92,10 +94,12 @@ data <- MASS::Cars93[20:49, c("Manufacturer", "Model", "MPG.city", "MPG.highway"
 reactable(
 data,
 columns = list(
-Manufacturer = colDef(cell = merge_column(data, merged_name = "Model")),
+Manufacturer = colDef(name = "Manufacturer/Model",
+                      cell = merge_column(data, merged_name = "Model"
+                      )),
 Model = colDef(show = FALSE)))
 
-## Control the appearance of both the existing and merged columns:
+## Control the appearance of both the current and merged columns:
 reactable(
 data,
 columns = list(
@@ -105,9 +109,9 @@ Manufacturer = colDef(name = "Manufacturer/Model",
                                           merged_size = 16,
                                           merged_color = "blue",
                                           merged_style = "italic",
-                                          existing_size = 18,
-                                          existing_color = "red"
-)),
+                                          size = 18,
+                                          color = "red"
+                                          )),
 Model = colDef(show = FALSE)))
 
 ## Combine both numeric and non-numeric columns together:
