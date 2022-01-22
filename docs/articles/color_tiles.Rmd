@@ -13,8 +13,6 @@ library(tidyverse)
 library(gapminder)
 ```
 
-## Default
-
 With `{reactablefmtr}`, we can easily apply color tiles to columns within a table by using `color_tiles()` within `cell` of `reactable::colDef()`.
 
 By default a normalized orange-white-blue color scale is applied to each column.
@@ -34,7 +32,7 @@ reactable(
 ```
 
 
-## Custom Color Palettes
+## Custom color palettes
 
 If we want to show a different color palette than the default, we can call them within the `colors` argument like so: 
 
@@ -77,7 +75,52 @@ reactable(
 ```
 
 
-## Formatting Numbers
+## Adding a legend
+
+If you would like to add a legend for the color palette used within `color_tiles()`, you can do so by including `add_legend()` below the table and listing the color palette used within `color_tiles()`. If no color palette is defined by the user within `add_legend()`, it will show the default blue-to-orange color palette used in `color_tiles()`. 
+
+```{r}
+reactable(
+  data,
+  defaultColDef = colDef(
+    cell = color_tiles(data, colors = viridis::mako(5))
+  )
+) %>% 
+  add_legend(colors = viridis::mako(5))
+```
+
+<br>
+
+By default, the labels next to the legend show as "Low" and "High". You can hide these labels by setting `show_labels` to FALSE or provide your own custom labels by providing one text label for the low values and one text label for the high values within `labels` as shown below: 
+
+```{r}
+reactable(
+  data,
+  defaultColDef = colDef(
+    cell = color_tiles(data, colors = viridis::mako(5))
+  )
+) %>% 
+  add_legend(colors = viridis::mako(5), labels = c("Low MPG", "High MPG"))
+```
+
+<br>
+
+The position of the legend can be either "above" or "below" the table as specified with `position`, and the horizontal alignment can be either "left", "right", or "center" with `align`.
+
+The margin around the legend can also be adjusted using `margin` and specifying the top, right, bottom, and left margin sizes in that order.
+
+```{r}
+reactable(
+  data,
+  defaultColDef = colDef(
+    cell = color_tiles(data, colors = viridis::mako(5))
+  )
+) %>% 
+  add_legend(colors = viridis::mako(5), labels = c("Low MPG", "High MPG"), position = "above", align = "left", margin = margin(10, 0, 10, 0))
+```
+
+
+## Formatting numbers
 
 Numbers can be formatted within the `number_fmt` argument in `color_tiles()`. One method of formatting the numbers is by utilizing the formatters from the `{scales}` package, and the numbers can be formatted in the same way as they are in `{ggplot2}`.
 
@@ -92,7 +135,7 @@ reactable(
 )
 ```
 
-## Adding a Box Shadow
+## Adding a box shadow
 
 Box shadows can be added to the tiles to create a "3-D" effect via `box_shadow`.
 
@@ -107,7 +150,7 @@ reactable(
 ```
 
 
-## Assigning Colors from Another Column
+## Assigning colors from another column
 
 Colors can be conditionally assigned to values based on another column by using `color_ref`.
 
@@ -178,7 +221,7 @@ reactable(
 
 
 
-## Row-wise Styling
+## Row-wise styling
 
 By default, `color_tiles()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month:
 
@@ -215,6 +258,8 @@ reactable(
 
 Lastly, if you wanted to completely hide the text, you could do this by setting `show_text = FALSE`, which displays the table as a heatmap as shown below:
 
+<i>Note: by setting `tooltip = TRUE`, the values are still visible on hover.</i>
+
 ```{r}
 population_data <- gapminder %>% 
   filter(continent == "Americas") %>%
@@ -225,17 +270,22 @@ population_data <- gapminder %>%
 
 reactable(
   population_data,
+  compact = TRUE,
   pagination = FALSE,
   showSortIcon = FALSE,
   defaultSorted = "'52",
   defaultSortOrder = "desc",
   defaultColDef = colDef(
-    maxWidth = 45,
-    cell = color_tiles(population_data, show_text = FALSE, span = TRUE)
+    maxWidth = 50,
+    cell = color_tiles(population_data,
+                       number_fmt = scales::comma,
+                       show_text = FALSE, 
+                       tooltip = TRUE, 
+                       span = TRUE)
   ),
   columns = list(
     country = colDef(
-      maxWidth = 150
+      maxWidth = 175
     )
   )
 ) %>% 

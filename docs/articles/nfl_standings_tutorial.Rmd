@@ -1,0 +1,787 @@
+---
+title: "Building the NFL Standings Table"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
+```
+
+```{r, echo=FALSE}
+library(reactablefmtr)
+library(tidyverse)
+library(rvest)
+library(nflfastR)
+
+# Function to pull data from PFR
+get_pfr_standings <- function(year) {
+
+  url <- paste0("https://www.pro-football-reference.com/years/",year,"/")
+  AFC_table <- url %>%
+    xml2::read_html() %>%
+    html_nodes(xpath = '//*[@id="AFC"]') %>%
+    html_table()
+  AFC_table <- AFC_table[[1]]
+  NFC_table <- url %>%
+    xml2::read_html() %>%
+    html_nodes(xpath = '//*[@id="NFC"]') %>%
+    html_table()
+  NFC_table <- NFC_table[[1]]
+  NFL_table <- rbind(AFC_table, NFC_table)
+  NFL_table_clean <- NFL_table %>%
+    mutate(Division = ifelse(str_detect(Tm, "FC"), Tm, NA)) %>%
+    fill(Division, .direction = "down") %>%
+    filter(str_detect(Tm, "FC", negate = TRUE)) %>%
+    mutate(Playoffs = ifelse(str_detect(Tm, "[*+]"), "Yes", "No")) %>%
+    mutate(Tm = gsub("[*+]", "", Tm)) %>%
+    rename(Record = `W-L%`) %>%
+    unite(Record, W, L, T, sep = "-") %>%
+    mutate(Team = word(Tm, -1)) %>%
+    mutate(
+      Team = case_when(
+        Team == "Team" ~ "Football Team",
+        TRUE ~ Team
+      )
+    ) %>%
+    mutate_at(c("SRS", "OSRS", "DSRS", "PF", "PA", "MoV", "SoS"),
+              as.numeric) %>%
+    mutate(SOS = ntile(SoS, 4)) %>%
+    select(
+      Division,
+      Team,
+      Record,
+      Playoffs,
+      SOS,
+      PF,
+      PA,
+      MoV,
+      OSRS,
+      DSRS,
+      SRS,
+    )
+}
+
+# Join to team logos from {nflfastR}
+data <- get_pfr_standings(2021) %>%
+  left_join(distinct(select(teams_colors_logos, team_nick, team_logo_espn)),
+            by = c('Team' = 'team_nick')) %>%
+  select(Division, team_logo_espn, everything())
+
+# Create table
+data %>%
+  mutate(
+    mov_cols = case_when(MoV >= 0 ~ "darkgreen",
+                         TRUE ~ "red"),
+    playoff_cols = case_when(Playoffs == "Yes" ~ "darkgreen",
+                             TRUE ~ "red")
+  ) %>%
+  reactable(
+    .,
+    theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+    pagination = FALSE,
+    showSortIcon = FALSE,
+    highlight = TRUE,
+    compact = TRUE,
+    defaultSorted = "SRS",
+    defaultSortOrder = "desc",
+    columnGroups = list(
+      colGroup(name = "Team Rating (SRS)",
+               columns = c("SRS", "OSRS", "DSRS")),
+      colGroup(name = "Team Scoring & Margin of Victory",
+               columns = c("PF", "PA", "MoV"))
+    ),
+    rowStyle = group_border_sort("Division"),
+    columns = list(
+      Division = colDef(name = "Div.",
+                        maxWidth = 50,
+                        style = group_merge_sort("Division")),
+      team_logo_espn = colDef(
+        name = "",
+        maxWidth = 62,
+        sortable = FALSE,
+        style = background_img(height = "200%", width = "125%")
+      ),
+      Team = colDef(
+        minWidth = 100,
+        align = "left",
+        cell = merge_column(., "Record", merged_position = "below"),
+        style = list(borderRight = "1px solid #777")
+      ),
+      Record = colDef(show = FALSE),
+      Playoffs = colDef(
+        maxWidth = 70,
+        align = "center",
+        cell = pill_buttons(., color_ref = "playoff_cols", opacity = 0.7),
+        style = list(borderRight = "1px solid #777")
+      ),
+      playoff_cols = colDef(show = FALSE),
+      SOS = colDef(
+        maxWidth = 47,
+        align = "center",
+        cell = icon_sets(., icon_set = "ski rating", icon_position = "over"),
+        style = list(borderRight = "1px solid #777")
+      ),
+      PF = colDef(maxWidth = 180,
+                  cell = data_bars(., text_size = 13, box_shadow = TRUE)),
+      PA = colDef(maxWidth = 180,
+                  cell = data_bars(., text_size = 13, box_shadow = TRUE)),
+      MoV = colDef(
+        maxWidth = 80,
+        cell = pill_buttons(., number_fmt = function(value) sprintf("%+0.1f", value), colors = "transparent", opacity = 0, bold_text = TRUE, text_color_ref = "mov_cols"
+        ),
+        style = list(borderRight = "1px solid #777")
+      ),
+      mov_cols = colDef(show = FALSE),
+      OSRS = colDef(
+        maxWidth = 55,
+        cell = color_tiles(., bias = 1.3, box_shadow = TRUE)
+      ),
+      DSRS = colDef(
+        maxWidth = 55,
+        cell = color_tiles(., bias = 0.6, box_shadow = TRUE)
+      ),
+      SRS = colDef(
+        maxWidth = 55,
+        cell = color_tiles(., bias = 0.7, box_shadow = TRUE)
+      )
+    )
+  ) %>%
+  add_title("2021 NFL Standings & Team Ratings", margin = margin(0, 0, 10, 0)) %>%
+  add_icon_legend(icon_set = "ski rating") %>%
+  add_source("Table created by: Kyle Cuilla @kc_analytics with {reactablefmtr} •  Data: Pro-Football-Reference.com", font_size = 12)
+```
+
+## Get the data
+
+The data was pulled from [Pro Football Reference](https://www.pro-football-reference.com/years/2021/index.htm). PFR has their own proprietary method of rating teams through their Simple Rating System (SRS). Each team has an offensive SRS, a defensive SRS, and an overall SRS. PFR also uses SRS to calculate each team's Strength of Schedule (SOS). Additional metrics that are in the dataset are the total points scored, total points allowed, and the average margin of victory.
+
+The data was pulled and tidied in a format that would be able to directly into the final table. The team logos were added to the dataset from the [{nflfastR}](https://www.nflfastr.com/) package. The code used to pull and tidy the data can be found in [`vignettes/nfl_standings.Rmd`](https://github.com/kcuilla/reactablefmtr/blob/main/vignettes/nfl_standings.Rmd).
+
+Here is how the data appears in a basic [{reactable}](https://glin.github.io/reactable/index.html) table:
+
+```{r}
+library(reactablefmtr)
+library(tidyverse)
+
+reactable(data)
+```
+
+
+## Apply a theme to the table
+
+There are over 20 built-in [themes](https://kcuilla.github.io/reactablefmtr/articles/themes.html) in {reactablefmtr}. To apply a theme to a {reactable} table, simply reference the name of the theme within `reactable::theme`.
+
+Below, we are applying the `fivethirtyeight()` theme, inspired by [538](https://fivethirtyeight.com/). Additional customization options are available within each theme, such as `centered` which vertically centers the content of each cell when set to TRUE.
+
+```{r}
+reactable(data,
+          theme = fivethirtyeight(centered = TRUE, header_font_size = 11)
+          )
+```
+
+
+## Merge cells and add borders to groups
+
+We will begin with the first column in the table, "Division", and work our way from left-to-right.
+
+If you sort on the Division column in the final table, you will notice that borders appear between each division and similar divisions are merged together. If you sort by any other column in the table, the borders disappear and the divisions become unmerged.
+
+To achieve this, we will need to use two built-in formatters from {reactablefmtr}. 
+
+The first is called `group_border_sort()` and needs to be placed within `rowStyle` parameter of {reactable}. With `group_border_sort()`, you just need to specify the name of the column you would like to merge on sort. You are able to specify up to four columns at a time. 
+
+The second is called `group_merge_sort()`. This merges similar values together when sorting and needs to be placed within the `style` parameter of `colDef()`. 
+
+<i>Note: Credit for both of these functions goes to Greg Lin, creator of the {reactable} package. Greg wrote the JavaScript version of these functions in the {reactable} [Demo Cookbook](https://glin.github.io/reactable/articles/cookbook/cookbook.html). The {reactablefmtr} version of these functions make them easy to use in R without needing to modify the JavaScript code.</i>
+
+```{r}
+data %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ))
+  )
+```
+
+## Render team logos
+
+There are two ways to render the team logos from their image address within {reactablefmtr}. The first way is outlined [here](https://kcuilla.github.io/reactablefmtr/articles/embed_img.html) by utilizing `embed_img()`. The way we will be using for this table will be with `background_img()`. The advantage to using `background_img()` is that we can adjust the aspect of the images without stretching the size of the cells of the table.
+
+
+```{r}
+data %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ),
+              team_logo_espn = colDef(
+                name = "",
+                maxWidth = 30,
+                sortable = FALSE,
+                # render team logos from their image address
+                style = background_img()
+              ))
+  )
+```
+
+By default, the height and width of the image is 100% and fits within the cell. However, we can create the effect of "zooming-in" on the images by providing a height and width greater than 100%: 
+
+<i>Note: you likely will need to adjust the `maxWidth` to achieve the image aspect you are looking for.</i>
+
+```{r}
+data %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ),
+              team_logo_espn = colDef(
+                name = "",
+                maxWidth = 50,
+                sortable = FALSE,
+                # render team logos from their image address and increase their size
+                style = background_img(height = "200%", width = "125%")
+              ))
+  )
+```
+
+
+## Merge and stack two columns together
+
+To combine the "Team" column with the "Record" column, we can use the `merge_column()` formatter. By default, the column that is being merged to the column you're operating in will be placed on the right-hand side. By changing the `merged_position` to "below", it'll be placed below. There are also a few options available to style each column individually.
+
+<i>Note: the merged column, "Record", will still appear in the table as it's own column. To hide this column, set `show = FALSE` within `colDef()`.</i>
+
+```{r}
+data %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ),
+              team_logo_espn = colDef(
+                name = "",
+                maxWidth = 62,
+                sortable = FALSE,
+                # render team logos from their image address and increase their size
+                style = background_img(height = "200%", width = "125%")
+              ),
+              Team = colDef(
+                minWidth = 100,
+                # merge the "Record" column with the "Team" column and place it below
+                cell = merge_column(., "Record", merged_position = "below"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              Record = colDef(show = FALSE)
+              )
+  )
+```
+
+
+## Conditionally style the playoffs column
+
+For the playoffs column, we can use the `pill_buttons()` formatter to conditionally assign the color red to teams that did not make the playoffs and the color green to teams that did make the playoffs. The method we will use to do that is by creating a new column within the dataset called "playoff_cols" which uses {dplyr}'s `case_when()` to conditionally assign the colors. Once this column is created, then we can reference this column within `pill_buttons()` by listing the name of the column in `color_ref`. The opacity of the colors can be adjusted by providing a value between 0 to 1 with a value of 0 being fully transparent and a value of 1 being fully opaque.
+
+<i>Note: since we added a new column, "playoff_cols", to the dataset, it will appear in the table unless we hide it with `show = FALSE`.</i>
+
+```{r}
+data %>%
+  mutate(
+    playoff_cols = case_when(Playoffs == "Yes" ~ "darkgreen",
+                             TRUE ~ "red")
+  ) %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ),
+              team_logo_espn = colDef(
+                name = "",
+                maxWidth = 62,
+                sortable = FALSE,
+                # render team logos from their image address and increase their size
+                style = background_img(height = "200%", width = "125%")
+              ),
+              Team = colDef(
+                minWidth = 100,
+                # merge the "Record" column with the "Team" column and place it below
+                cell = merge_column(., "Record", merged_position = "below"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              Record = colDef(show = FALSE),
+              Playoffs = colDef(
+                maxWidth = 70,
+                align = "center",
+                cell = pill_buttons(., color_ref = "playoff_cols", opacity = 0.7),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              playoff_cols = colDef(show = FALSE)
+            )
+  )
+```
+
+
+## Assign icons using {reactablefmtr}'s built-in icon sets
+
+For the Strength of Schedule (SOS) column, there are four levels of difficulty. To assign a unique icon to each level of difficulty, we can use the built-in icon sets within `icon_sets()` to do the work for us. The icon set we'll use is the "ski rating" set which is based off of the ski trail rating difficulties.
+
+There are multiple ways to [position](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html#icon-positioning) the icons within each cell. We will use the icon position "over", which hides the numbers within the column and displays the icons only.
+
+<i>Note: the alignment of the icons within the column can be controlled by setting `align` to either "left", "right", or "center".</i>
+
+```{r}
+data %>%
+  mutate(
+    playoff_cols = case_when(Playoffs == "Yes" ~ "darkgreen",
+                             TRUE ~ "red")
+  ) %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ),
+              team_logo_espn = colDef(
+                name = "",
+                maxWidth = 62,
+                sortable = FALSE,
+                # render team logos from their image address and increase their size
+                style = background_img(height = "200%", width = "125%")
+              ),
+              Team = colDef(
+                minWidth = 100,
+                # merge the "Record" column with the "Team" column and place it below
+                cell = merge_column(., "Record", merged_position = "below"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              Record = colDef(show = FALSE),
+              Playoffs = colDef(
+                maxWidth = 70,
+                align = "center",
+                # conditionally assign colors from pre-defined column
+                cell = pill_buttons(., color_ref = "playoff_cols", opacity = 0.7),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              playoff_cols = colDef(show = FALSE),
+              SOS = colDef(
+                maxWidth = 47,
+                align = "center",
+                # assign built-in icon set to values
+                cell = icon_sets(., icon_set = "ski rating", icon_position = "over"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ))
+  )
+```
+
+
+## Add bar charts
+
+For the points forward (PF) and points against (PA) columns, we can use `data_bars()` to add a bar chart to each column. There are many ways to [style](https://kcuilla.github.io/reactablefmtr/articles/data_bars.html) the bar charts. We will be using `box_shadow` to create a "3-D" effect on the bars:
+
+```{r}
+data %>%
+  mutate(
+    playoff_cols = case_when(Playoffs == "Yes" ~ "darkgreen",
+                             TRUE ~ "red")
+  ) %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ),
+              team_logo_espn = colDef(
+                name = "",
+                maxWidth = 62,
+                sortable = FALSE,
+                # render team logos from their image address and increase their size
+                style = background_img(height = "200%", width = "125%")
+              ),
+              Team = colDef(
+                minWidth = 100,
+                # merge the "Record" column with the "Team" column and place it below
+                cell = merge_column(., "Record", merged_position = "below"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              Record = colDef(show = FALSE),
+              Playoffs = colDef(
+                maxWidth = 70,
+                align = "center",
+                # conditionally assign colors from pre-defined column
+                cell = pill_buttons(., color_ref = "playoff_cols", opacity = 0.7),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              playoff_cols = colDef(show = FALSE),
+              SOS = colDef(
+                maxWidth = 47,
+                align = "center",
+                # assign built-in icon set to values
+                cell = icon_sets(., icon_set = "ski rating", icon_position = "over"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              PF = colDef(
+                maxWidth = 180,
+                # add data bars with a shadow
+                cell = data_bars(., text_size = 13, box_shadow = TRUE)
+              ),
+              PA = colDef(
+                maxWidth = 180,
+                # add data bars with a shadow
+                cell = data_bars(., text_size = 13, box_shadow = TRUE)
+              ))
+  )
+```
+
+
+## Conditionally assign colors to text
+
+Earlier, we conditionally assigned colors to the background of `pill_buttons()` within the "Playoffs" column. We can use a similar approach to conditionally assign colors to the text within `pill_buttons()` for the "MoV" column. 
+
+We first need to create a column with the color assignments by conditionally assigning a green color to any positive MoV values and a red color to any negative MoV values. We then can reference this column within `text_color_ref` of `pill_buttons()`. 
+
+The default background of `pill_buttons()` is a dark-blue color. Since we only want to show the text within the column, we can completely hide the background by setting the `colors = "transparent` and decreasing the opacity to 0 with `opacity = 0`.
+
+We can also assign a "+" sign to the positive values by creating a function within `number_fmt` to add the "+" sign and trim the decimal places to 1. 
+
+<i>Note: remember that since we created a new column ("mov_cols") containing the conditional text assignments, it will appear in our table unless we set it to `show = FALSE`.</i>
+
+```{r}
+data %>%
+  mutate(
+    mov_cols = case_when(MoV >= 0 ~ "darkgreen",
+                         TRUE ~ "red"),
+    playoff_cols = case_when(Playoffs == "Yes" ~ "darkgreen",
+                             TRUE ~ "red")
+  ) %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ),
+              team_logo_espn = colDef(
+                name = "",
+                maxWidth = 62,
+                sortable = FALSE,
+                # render team logos from their image address and increase their size
+                style = background_img(height = "200%", width = "125%")
+              ),
+              Team = colDef(
+                minWidth = 100,
+                # merge the "Record" column with the "Team" column and place it below
+                cell = merge_column(., "Record", merged_position = "below"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              Record = colDef(show = FALSE),
+              Playoffs = colDef(
+                maxWidth = 70,
+                align = "center",
+                # conditionally assign colors from pre-defined column
+                cell = pill_buttons(., color_ref = "playoff_cols", opacity = 0.7),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              playoff_cols = colDef(show = FALSE),
+              SOS = colDef(
+                maxWidth = 47,
+                align = "center",
+                # assign built-in icon set to values
+                cell = icon_sets(., icon_set = "ski rating", icon_position = "over"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              PF = colDef(
+                maxWidth = 180,
+                # add data bars with a shadow
+                cell = data_bars(., text_size = 13, box_shadow = TRUE)
+              ),
+              PA = colDef(
+                maxWidth = 180,
+                # add data bars with a shadow
+                cell = data_bars(., text_size = 13, box_shadow = TRUE)
+              ),
+              MoV = colDef(
+                maxWidth = 80,
+                # conditionally colored text
+                cell = pill_buttons(., number_fmt = function(value) sprintf("%+0.1f", value), colors = "transparent", opacity = 0, bold_text = TRUE, text_color_ref = "mov_cols"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              mov_cols = colDef(show = FALSE)
+             )
+  )
+```
+
+
+## Add color tiles
+
+For the final three columns ("OSRS", "DSRS", "SRS"), we can easily apply color tiles with a default blue-to-orange color palette using `color_tiles()` within the cell argument of `colDef`.  The `box_shadow` option that we used to create a "3-D" effect for the `data_bars()` is also available within `color_tiles()` and set to TRUE here.
+
+The `bias` option is related to the spacing of the color palette. The default bias value is set to 1 which assigns an equal spacing of blue-to-orange colors to low-to-high values. If we provide a number greater than 1, it will space out the colors at the higher end and shrink the color spacing at the lower end. A number less than 1 will give the opposite effect. A method of determining what value of bias to use would be to look at the distribution of data within that column. For the "OSRS" column, there is a wider range of positive values vs negative values, so setting the bias value to a number greater than 1 may better display the distribution of the data within that column since the higher values will be spaced out more than the lower values. 
+
+For additional customization options please see the `color_tiles()` tutorial [here](https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html).
+
+```{r}
+table <- data %>%
+  mutate(
+    mov_cols = case_when(MoV >= 0 ~ "darkgreen",
+                         TRUE ~ "red"),
+    playoff_cols = case_when(Playoffs == "Yes" ~ "darkgreen",
+                             TRUE ~ "red")
+  ) %>%
+  reactable(.,
+            theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+            defaultSorted = "Division",
+            # add border between groups when sorting by the Division column
+            rowStyle = group_border_sort("Division"),
+            columns = list(
+              Division = colDef(
+                name = "Div.",
+                # hide rows containing duplicate values on sort 
+                style = group_merge_sort("Division")
+              ),
+              team_logo_espn = colDef(
+                name = "",
+                maxWidth = 62,
+                sortable = FALSE,
+                # render team logos from their image address and increase their size
+                style = background_img(height = "200%", width = "125%")
+              ),
+              Team = colDef(
+                minWidth = 100,
+                # merge the "Record" column with the "Team" column and place it below
+                cell = merge_column(., "Record", merged_position = "below"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              Record = colDef(show = FALSE),
+              Playoffs = colDef(
+                maxWidth = 70,
+                align = "center",
+                # conditionally assign colors from pre-defined column
+                cell = pill_buttons(., color_ref = "playoff_cols", opacity = 0.7),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              playoff_cols = colDef(show = FALSE),
+              SOS = colDef(
+                maxWidth = 47,
+                align = "center",
+                # assign built-in icon set to values
+                cell = icon_sets(., icon_set = "ski rating", icon_position = "over"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              PF = colDef(
+                maxWidth = 180,
+                # add data bars with a shadow
+                cell = data_bars(., text_size = 13, box_shadow = TRUE)
+              ),
+              PA = colDef(
+                maxWidth = 180,
+                # add data bars with a shadow
+                cell = data_bars(., text_size = 13, box_shadow = TRUE)
+              ),
+              MoV = colDef(
+                maxWidth = 80,
+                # conditionally colored text
+                cell = pill_buttons(., number_fmt = function(value) sprintf("%+0.1f", value), colors = "transparent", opacity = 0, bold_text = TRUE, text_color_ref = "mov_cols"),
+                # add a solid border to the right-hand side of the column
+                style = list(borderRight = "1px solid #777")
+              ),
+              mov_cols = colDef(show = FALSE),
+              OSRS = colDef(
+                maxWidth = 55,
+                # add color tiles with a shadow
+                cell = color_tiles(., bias = 1.3, box_shadow = TRUE)
+              ),
+              DSRS = colDef(
+                maxWidth = 55,
+                # add color tiles with a shadow
+                cell = color_tiles(., bias = 0.6, box_shadow = TRUE)
+              ),
+              SRS = colDef(
+                maxWidth = 55,
+                # add color tiles with a shadow
+                cell = color_tiles(., bias = 0.7, box_shadow = TRUE)
+      )
+    )
+  )
+
+table
+```
+
+
+## Include a legend
+
+Now that we have each column of the table formatted and styled, we can work on adding a few final touches. 
+
+The first would be to add a legend for the icon set we used in the "SOS" column. This makes it easier to understand what each icon signifies. All we need to do is include `add_icon_legend()` below the table and specify the icon set that we used (ski rating). Each unique icon set within `icon_sets()` has their own legend within `add_icon_legend()`.
+
+By default, the labels next to each icon have already been written. If we wanted to change those labels to show some other text, we could do so by specifying the four labels within the `labels` option. Alternatively, we could choose to hide the text labels next to the icons by setting `show_labels` to FALSE.
+
+```{r}
+table %>% 
+  add_icon_legend(icon_set = "ski rating")
+```
+
+
+## Add a title and source
+
+To add a title above the table, we can simply include `add_title()` below the table with the title text we would like to display.
+
+To add a source below the table, we can follow a similar approach but use `add_source()` instead. There are multiple style options available in both `add_title()` and `add_source()`. For the title, we are using `margin` to increase the spacing between the title and the table, and in the source we changed the `font_size` to 12.
+
+```{r}
+table %>% 
+  add_title("2021 NFL Standings & Team Ratings", margin = margin(0, 0, 10, 0)) %>% 
+  add_icon_legend(icon_set = "ski rating") %>% 
+  add_source("Table created by: Kyle Cuilla @kc_analytics with {reactablefmtr} •  Data: Pro-Football-Reference.com", font_size = 12)
+```
+
+
+## Finishing touches
+
+We have finished making edits to the table via {reactablefmtr}. There are a few final touches we can add to the table through {reactable}'s options, such as setting the `pagination` to FALSE to show the entire table output, creating group headers above the columns with `columnGroups`, and adjusting the width of each column to get everything to fit as they should with `maxWidth` and `minWidth`. For additional options available in {reactable}, please see the {reactable} [tutorial](https://glin.github.io/reactable/articles/examples.html).
+
+```{r final}
+# Create table
+data %>%
+  mutate(
+    mov_cols = case_when(MoV >= 0 ~ "darkgreen",
+                         TRUE ~ "red"),
+    playoff_cols = case_when(Playoffs == "Yes" ~ "darkgreen",
+                             TRUE ~ "red")
+  ) %>%
+  reactable(
+    .,
+    theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
+    pagination = FALSE,
+    showSortIcon = FALSE,
+    highlight = TRUE,
+    compact = TRUE,
+    defaultSorted = "SRS",
+    defaultSortOrder = "desc",
+    columnGroups = list(
+      colGroup(name = "Team Rating (SRS)",
+               columns = c("SRS", "OSRS", "DSRS")),
+      colGroup(name = "Team Scoring & Margin of Victory",
+               columns = c("PF", "PA", "MoV"))
+    ),
+    rowStyle = group_border_sort("Division"),
+    columns = list(
+      Division = colDef(name = "Div.",
+                        maxWidth = 50,
+                        style = group_merge_sort("Division")),
+      team_logo_espn = colDef(
+        name = "",
+        maxWidth = 62,
+        sortable = FALSE,
+        style = background_img(height = "200%", width = "125%")
+      ),
+      Team = colDef(
+        minWidth = 100,
+        align = "left",
+        cell = merge_column(., "Record", merged_position = "below"),
+        style = list(borderRight = "1px solid #777")
+      ),
+      Record = colDef(show = FALSE),
+      Playoffs = colDef(
+        maxWidth = 70,
+        align = "center",
+        cell = pill_buttons(., color_ref = "playoff_cols", opacity = 0.7),
+        style = list(borderRight = "1px solid #777")
+      ),
+      playoff_cols = colDef(show = FALSE),
+      SOS = colDef(
+        maxWidth = 47,
+        align = "center",
+        cell = icon_sets(., icon_set = "ski rating", icon_position = "over"),
+        style = list(borderRight = "1px solid #777")
+      ),
+      PF = colDef(maxWidth = 180,
+                  cell = data_bars(., text_size = 13, box_shadow = TRUE)),
+      PA = colDef(maxWidth = 180,
+                  cell = data_bars(., text_size = 13, box_shadow = TRUE)),
+      MoV = colDef(
+        maxWidth = 80,
+        cell = pill_buttons(., number_fmt = function(value) sprintf("%+0.1f", value), colors = "transparent", opacity = 0, bold_text = TRUE, text_color_ref = "mov_cols"
+        ),
+        style = list(borderRight = "1px solid #777")
+      ),
+      mov_cols = colDef(show = FALSE),
+      OSRS = colDef(
+        maxWidth = 55,
+        cell = color_tiles(., bias = 1.3, box_shadow = TRUE)
+      ),
+      DSRS = colDef(
+        maxWidth = 55,
+        cell = color_tiles(., bias = 0.6, box_shadow = TRUE)
+      ),
+      SRS = colDef(
+        maxWidth = 55,
+        cell = color_tiles(., bias = 0.7, box_shadow = TRUE)
+      )
+    )
+  ) %>%
+  add_title("2021 NFL Standings & Team Ratings", margin = margin(0, 0, 10, 0)) %>%
+  add_icon_legend(icon_set = "ski rating") %>%
+  add_source("Table created by: Kyle Cuilla @kc_analytics with {reactablefmtr} •  Data: Pro-Football-Reference.com", font_size = 12)
+```

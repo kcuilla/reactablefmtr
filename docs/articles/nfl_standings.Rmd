@@ -75,7 +75,7 @@ data %>%
   ) %>%
   reactable(
     .,
-    theme = fivethirtyeight(centered = TRUE, header_font_size = 11, font_size = 12),
+    theme = fivethirtyeight(centered = TRUE, header_font_size = 11),
     pagination = FALSE,
     showSortIcon = FALSE,
     highlight = TRUE,
@@ -90,18 +90,19 @@ data %>%
     ),
     rowStyle = group_border_sort("Division"),
     columns = list(
-      Division = colDef(maxWidth = 68,
+      Division = colDef(name = "Div.",
+                        maxWidth = 50,
                         style = group_merge_sort("Division")),
       team_logo_espn = colDef(
         name = "",
-        maxWidth = 90,
+        maxWidth = 62,
         sortable = FALSE,
-        style = background_img(height = "210%", width = "95%")
+        style = background_img(height = "200%", width = "125%")
       ),
       Team = colDef(
-        minWidth = 115,
+        minWidth = 100,
         align = "left",
-        cell = merge_column(., "Record", merged_position = "below", existing_size = 13, spacing = 1),
+        cell = merge_column(., "Record", merged_position = "below"),
         style = list(borderRight = "1px solid #777")
       ),
       Record = colDef(show = FALSE),
@@ -113,17 +114,17 @@ data %>%
       ),
       playoff_cols = colDef(show = FALSE),
       SOS = colDef(
-        maxWidth = 55,
+        maxWidth = 47,
         align = "center",
         cell = icon_sets(., icon_set = "ski rating", icon_position = "over"),
         style = list(borderRight = "1px solid #777")
       ),
-      PF = colDef(maxWidth = 200,
-                  cell = data_bars(., text_size = 12, box_shadow = TRUE)),
-      PA = colDef(maxWidth = 200,
-                  cell = data_bars(., text_size = 12, box_shadow = TRUE)),
+      PF = colDef(maxWidth = 180,
+                  cell = data_bars(., text_size = 13, box_shadow = TRUE)),
+      PA = colDef(maxWidth = 180,
+                  cell = data_bars(., text_size = 13, box_shadow = TRUE)),
       MoV = colDef(
-        maxWidth = 75,
+        maxWidth = 80,
         cell = pill_buttons(., number_fmt = function(value) sprintf("%+0.1f", value), colors = "transparent", opacity = 0, bold_text = TRUE, text_color_ref = "mov_cols"
         ),
         style = list(borderRight = "1px solid #777")
@@ -131,23 +132,24 @@ data %>%
       mov_cols = colDef(show = FALSE),
       OSRS = colDef(
         maxWidth = 55,
-        cell = color_tiles(., bias = 1.3, text_size = 13, box_shadow = TRUE)
+        cell = color_tiles(., bias = 1.3, box_shadow = TRUE)
       ),
       DSRS = colDef(
         maxWidth = 55,
-        cell = color_tiles(., bias = 1.3, text_size = 13, box_shadow = TRUE)
+        cell = color_tiles(., bias = 0.6, box_shadow = TRUE)
       ),
       SRS = colDef(
         maxWidth = 55,
-        cell = color_tiles(., bias = 1.3, text_size = 13, box_shadow = TRUE)
+        cell = color_tiles(., bias = 0.7, box_shadow = TRUE)
       )
     )
   ) %>%
   add_title("2021 NFL Standings & Team Ratings", margin = margin(0, 0, 10, 0)) %>%
-  add_icon_legend(icon_set = "ski rating", show_labels = TRUE) %>%
-  add_source("Table created by: Kyle Cuilla @kc_analytics with {reactablefmtr} •  Data: Pro-Football-Reference.com", font_size = 12) %>%
-  google_font("Fira Mono")
+  add_icon_legend(icon_set = "ski rating") %>%
+  add_source("Table created by: Kyle Cuilla @kc_analytics with {reactablefmtr} •  Data: Pro-Football-Reference.com", font_size = 12)
 ```
+
+<br>
 
 ### Code
 
