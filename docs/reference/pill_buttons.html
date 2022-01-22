@@ -68,6 +68,12 @@
     <a class="dropdown-item" href="../articles/nfl_standings.html">NFL Standings</a>
   </div>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-tutorials">Tutorials</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
+    <a class="dropdown-item" href="../articles/nfl_standings_tutorial.html">Building the NFL Standings Table</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -114,9 +120,10 @@
   color_ref <span class="op">=</span> <span class="cn">NULL</span>,
   opacity <span class="op">=</span> <span class="fl">1</span>,
   number_fmt <span class="op">=</span> <span class="cn">NULL</span>,
+  show_text <span class="op">=</span> <span class="cn">TRUE</span>,
+  text_size <span class="op">=</span> <span class="fl">14</span>,
   text_color <span class="op">=</span> <span class="st">"black"</span>,
   text_color_ref <span class="op">=</span> <span class="cn">NULL</span>,
-  show_text <span class="op">=</span> <span class="cn">TRUE</span>,
   brighten_text <span class="op">=</span> <span class="cn">TRUE</span>,
   brighten_text_color <span class="op">=</span> <span class="st">"white"</span>,
   bold_text <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -151,6 +158,12 @@ Default is 1.</p></dd>
 <dt>number_fmt</dt>
 <dd><p>Optionally format numbers using formats from the scales package.
 Default is NULL.</p></dd>
+<dt>show_text</dt>
+<dd><p>Logical: show text or hide text.
+Default is TRUE.</p></dd>
+<dt>text_size</dt>
+<dd><p>Numeric value representing the size of the text labels.
+Default is 14.</p></dd>
 <dt>text_color</dt>
 <dd><p>Assigns text color to values.
 Default is black.</p></dd>
@@ -159,9 +172,6 @@ Default is black.</p></dd>
 by providing the name of the column containing the text colors in quotes.
 Only one color can be provided per cell.
 Default is NULL.</p></dd>
-<dt>show_text</dt>
-<dd><p>Logical: show text or hide text.
-Default is TRUE.</p></dd>
 <dt>brighten_text</dt>
 <dd><p>Logical: automatically assign color to text based on background color of the pill button.
 Text within dark-colored backgrounds will turn white, text within light-colored backgrounds will be black.
