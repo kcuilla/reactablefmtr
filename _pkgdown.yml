@@ -8,8 +8,8 @@ home:
 
 navbar:
   structure:
-    left: [home, examples, reference, articles, demos, news]
-    right: [search, github]
+    left: [home, reference, examples, articles, demos, tutorials, news]
+    right: [github]
   components:
     home:
       icon: fas fa-home fa-lg
@@ -42,6 +42,11 @@ navbar:
         href: articles/nba_player_ratings.html
       - text: NFL Standings
         href: articles/nfl_standings.html
+    tutorials:
+      text: Tutorials
+      menu:
+      - text: Building the NFL Standings Table
+        href: articles/nfl_standings_tutorial.html
     reference:
       text: Reference
       href: reference/index.html
