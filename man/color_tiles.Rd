@@ -12,7 +12,7 @@ color_tiles(
   opacity = 1,
   bias = 1,
   number_fmt = NULL,
-  text_size = 14,
+  text_size = NULL,
   text_color = "black",
   text_color_ref = NULL,
   show_text = TRUE,
@@ -55,7 +55,7 @@ Default is 1.}
 Default is NULL.}
 
 \item{text_size}{Numeric value representing the size of the text labels.
-Default is 14.}
+Default is NULL.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
