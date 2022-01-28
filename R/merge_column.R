@@ -39,21 +39,21 @@
 #'      For example, add an underline, overline, or line-through to the text.
 #'      Default is NULL.
 #'
-#' @param existing_size The size of the text displayed on right.
+#' @param size The size of the text displayed in the current column.
 #'     Default is 12.
 #'
-#' @param existing_color The color of the text displayed on right.
+#' @param color The color of the text displayed in the current column.
 #'     Default is NULL.
 #'
-#' @param existing_weight The font weight of the text displayed on right.
+#' @param weight The font weight of the text displayed in the current column.
 #'      Options are "bold" or "normal".
 #'      Default is "normal".
 #'
-#' @param existing_style The style of the text displayed on right.
+#' @param style The style of the text displayed in the current column.
 #'      Options are "normal" or "italic".
 #'      Default is "normal".
 #'
-#' @param existing_decoration The decoration of the text displayed on right.
+#' @param decoration The decoration of the text displayed in the current column.
 #'      For example, add an underline, overline, or line-through to the text.
 #'      Default is NULL.
 #'
@@ -124,6 +124,11 @@ merge_column <- function(data,
 
   '%notin%' <- Negate('%in%')
 
+  if (merged_position %notin% c("right", "left", "above", "below") == TRUE) {
+
+    stop("merged_position must be either 'right', 'left', 'above', or 'below'")
+  }
+
   if (style %notin% c("normal", "italic") == TRUE) {
 
     stop("style must be either 'normal' or 'italic'")
@@ -166,7 +171,7 @@ merge_column <- function(data,
                                     fontWeight = weight,
                                     textDecoration = decoration,
                                     fontStyle = style,
-                                    marginBottom = paste0(spacing,"px")), value),
+                                    marginBottom = paste0(spacing+3,"px")), value),
         htmltools::div(style = list(fontSize = merged_size,
                                     color = merged_color,
                                     fontWeight = merged_weight,
@@ -180,7 +185,7 @@ merge_column <- function(data,
                                       fontWeight = merged_weight,
                                       textDecoration = merged_decoration,
                                       fontStyle = merged_style,
-                                      marginBottom = paste0(spacing,"px")), col2_value),
+                                      marginBottom = paste0(spacing+3,"px")), col2_value),
           htmltools::div(style = list(fontSize = size,
                                       color = color,
                                       fontWeight = weight,
@@ -194,7 +199,7 @@ merge_column <- function(data,
                                       fontWeight = merged_weight,
                                       textDecoration = merged_decoration,
                                       fontStyle = merged_style,
-                                      marginRight = paste0(spacing,"px")), col2_value),
+                                      marginRight = paste0(spacing+3,"px")), col2_value),
           htmltools::span(style =
                             list(fontSize = size,
                                  color = color,
@@ -210,7 +215,7 @@ merge_column <- function(data,
                                  fontWeight = weight,
                                  textDecoration = decoration,
                                  fontStyle = style,
-                                 marginRight = paste0(spacing,"px")), value),
+                                 marginRight = paste0(spacing+3,"px")), value),
           htmltools::span(style = list(fontSize = merged_size,
                                        color = merged_color,
                                        fontWeight = merged_weight,

@@ -17,10 +17,14 @@
 #'     Default colors provided are blue-white-orange: c("#15607A", "#FFFFFF", "#FA8C00").
 #'     Can use R's built-in colors or other color packages.
 #'
-#' @param color_ref Optionally assign colors to from another column
-#'     by providing the name of the column containing the colors in quotes.
+#' @param color_ref Assign colors from another column that contains the colors for each row.
 #'     Only one color can be provided per row.
 #'     Default is NULL.
+#'
+#' @param color_by Assign colors to a column based on the values of another column.
+#'    The column in reference must contain numeric data.
+#'    The column in which the colors are being assigned to can be either numerical or character.
+#'    Default is NULL.
 #'
 #' @param opacity A value between 0 and 1 that adjusts the opacity in colors.
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
@@ -33,7 +37,7 @@
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
-#' @param text_color_ref Optionally assign text color from another column
+#' @param text_color_ref Assign text color from another column
 #'     by providing the name of the column containing the text colors in quotes.
 #'     Only one color can be provided per cell.
 #'     Default is NULL.
@@ -106,6 +110,7 @@
 color_scales <- function(data,
                          colors = c("#15607A", "#FFFFFF", "#FA8C00"),
                          color_ref = NULL,
+                         color_by = NULL,
                          opacity = 1,
                          bias = 1,
                          text_color = "black",
@@ -173,7 +178,7 @@ color_scales <- function(data,
 
   style <- function(value, index, name) {
 
-    if (is.null(color_ref) & !is.numeric(value)) return(value)
+    if (is.null(color_ref) & is.null(color_by) & !is.numeric(value)) return(value)
 
     if (is.logical(span)) {
 
@@ -187,16 +192,54 @@ color_scales <- function(data,
 
       } else {
 
-          ### normalization for color palette
+      ### color_by
+      if (is.character(color_by)) {
+
+        # color_by column must be numeric
+        if (all(color_by %in% names(which(sapply(data, is.numeric))))) {
+
+          if (is.character(color_by)) { color_by <- which(names(data) %in% color_by) }
+
+          # if there is no variance in the column, assign the same color to each value
+          if (is.numeric(data[[color_by]]) & mean((data[[color_by]] - mean(data[[color_by]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
+
+            normalized <- 1
+
+          } else {
+
+            normalized <- (data[[color_by]][index] - min(data[[color_by]], na.rm = TRUE)) / (max(data[[color_by]], na.rm = TRUE) - min(data[[color_by]], na.rm = TRUE))
+
+          }
+
+          cell_color <- color_pal(normalized)
+          cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
+          font_color <- assign_color(normalized)
+
+        } else {
+
+          stop("Attempted to select non-existing column or non-numeric column with color_by")
+        }
+
+      } else {
+
+          # standard normalization (no variance check)
           if (is.numeric(value) & mean((data[[name]] - mean(data[[name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
 
             normalized <- 1
 
           } else {
 
+            # standard normalization
             normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
 
           }
+
+        cell_color <- color_pal(normalized)
+        cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
+        font_color <- assign_color(normalized)
+
+        }
+
       }
 
       ### conditional text color
