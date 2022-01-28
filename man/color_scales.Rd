@@ -8,6 +8,7 @@ color_scales(
   data,
   colors = c("#15607A", "#FFFFFF", "#FA8C00"),
   color_ref = NULL,
+  color_by = NULL,
   opacity = 1,
   bias = 1,
   text_color = "black",
@@ -28,9 +29,13 @@ Colors should be given in order from low values to high values.
 Default colors provided are blue-white-orange: c("#15607A", "#FFFFFF", "#FA8C00").
 Can use R's built-in colors or other color packages.}
 
-\item{color_ref}{Optionally assign colors to from another column
-by providing the name of the column containing the colors in quotes.
+\item{color_ref}{Assign colors from another column that contains the colors for each row.
 Only one color can be provided per row.
+Default is NULL.}
+
+\item{color_by}{Assign colors to a column based on the values of another column.
+The column in reference must contain numeric data.
+The column in which the colors are being assigned to can be either numerical or character.
 Default is NULL.}
 
 \item{opacity}{A value between 0 and 1 that adjusts the opacity in colors.
@@ -44,7 +49,7 @@ Default is 1.}
 \item{text_color}{Assigns text color to values.
 Default is black.}
 
-\item{text_color_ref}{Optionally assign text color from another column
+\item{text_color_ref}{Assign text color from another column
 by providing the name of the column containing the text colors in quotes.
 Only one color can be provided per cell.
 Default is NULL.}

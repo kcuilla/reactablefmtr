@@ -8,6 +8,7 @@ color_tiles(
   data,
   colors = c("#15607A", "#FFFFFF", "#FA8C00"),
   color_ref = NULL,
+  color_by = NULL,
   opacity = 1,
   bias = 1,
   number_fmt = NULL,
@@ -35,6 +36,11 @@ Can use R's built-in colors or other color packages.}
 \item{color_ref}{Optionally assign colors to from another column
 by providing the name of the column containing the colors in quotes.
 Only one color can be provided per row.
+Default is NULL.}
+
+\item{color_by}{Assign colors to a column based on the values of another column.
+The column in reference must contain numeric data.
+The column in which the colors are being assigned to can be either numerical or character.
 Default is NULL.}
 
 \item{opacity}{A value between 0 and 1 that adjusts the opacity in colors.

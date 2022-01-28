@@ -51,27 +51,27 @@ Default is "normal".}
 For example, add an underline, overline, or line-through to the text.
 Default is NULL.}
 
-\item{spacing}{The spacing between the merged and existing columns.
-A value greater than 0 creates more space between, a value less than 0 creates less space.
-Default is 0.}
-
-\item{existing_size}{The size of the text displayed on right.
+\item{size}{The size of the text displayed in the current column.
 Default is 12.}
 
-\item{existing_color}{The color of the text displayed on right.
+\item{color}{The color of the text displayed in the current column.
 Default is NULL.}
 
-\item{existing_weight}{The font weight of the text displayed on right.
+\item{weight}{The font weight of the text displayed in the current column.
 Options are "bold" or "normal".
 Default is "normal".}
 
-\item{existing_style}{The style of the text displayed on right.
+\item{style}{The style of the text displayed in the current column.
 Options are "normal" or "italic".
 Default is "normal".}
 
-\item{existing_decoration}{The decoration of the text displayed on right.
+\item{decoration}{The decoration of the text displayed in the current column.
 For example, add an underline, overline, or line-through to the text.
 Default is NULL.}
+
+\item{spacing}{The spacing between the merged and existing columns.
+A value greater than 0 creates more space between, a value less than 0 creates less space.
+Default is 0.}
 }
 \value{
 a function that merges two columns together.
