@@ -41,7 +41,7 @@
 #'     Default is NULL.
 #'
 #' @param text_size Numeric value representing the size of the text labels.
-#'     Default is 14.
+#'     Default is NULL.
 #'
 #' @param text_color Assigns text color to values.
 #'     Default is black.
@@ -137,7 +137,7 @@ color_tiles <- function(data,
                         opacity = 1,
                         bias = 1,
                         number_fmt = NULL,
-                        text_size = 14,
+                        text_size = NULL,
                         text_color = "black",
                         text_color_ref = NULL,
                         show_text = TRUE,
