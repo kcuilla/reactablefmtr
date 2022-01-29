@@ -246,8 +246,7 @@ reactable(
 ## Color assignments by another column
 
 In the dev version of `reactable`, there is a `color_by` argument that allows for 
-color assignment based on the values in another column.  If desired, the `color_by`
-columns may be hidden.
+color assignment based on the values in another column.  
 
 ```{r}
 reactable(
