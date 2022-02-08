@@ -65,7 +65,7 @@
 #'     Default is left.
 #'
 #' @param bar_height Numeric height of the data bars in px.
-#'     Default is 18.
+#'     Default is NULL.
 #'
 #' @param text_position Choose where to display the text labels relative to the filled data bars.
 #'     Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
@@ -89,7 +89,7 @@
 #'     Default is NULL.
 #'
 #' @param text_size Numeric value representing the size of the text labels.
-#'     Default is 14.
+#'     Default is NULL.
 #'
 #' @param brighten_text Logical: automatically assign color to text labels based on filled color
 #'     when the text labels are positioned within the filled bars.
@@ -225,12 +225,12 @@ data_bars <- function(data,
                       max_value = NULL,
                       min_value = NULL,
                       align_bars = "left",
-                      bar_height = 18,
+                      bar_height = NULL,
                       text_position = "inside-end",
                       force_outside = NULL,
                       text_color = "black",
                       text_color_ref = NULL,
-                      text_size = 14,
+                      text_size = NULL,
                       brighten_text = TRUE,
                       brighten_text_color = "white",
                       bold_text = FALSE,
@@ -333,9 +333,17 @@ data_bars <- function(data,
 
     } else box_shadow <- NULL
 
+    ### height of data_bars
+    if (is.null(bar_height)) {
+
+      height <- 15
+
+    } else height <- bar_height
+
     if (round_edges == TRUE) {
 
-      radius <- "8px"
+      # auto adjust to height
+      radius <- height/2
 
     } else radius <- "0px"
 
@@ -535,9 +543,6 @@ data_bars <- function(data,
 
     } else img_label <- NULL
 
-    ### height of data_bars
-    height <- bar_height
-
     ### width of data_bars
     width <- if (is.numeric(value) & is.null(max_value) & is.null(min_value)) {
 
@@ -727,6 +732,45 @@ data_bars <- function(data,
           neg_chart <- htmltools::tagAppendChild(neg_chart, chart)
         }
 
+      } else if (value < 0 & text_position == "above") {
+
+        # use a smaller bar height so that rows don't expand
+        if (is.null(bar_height)) {
+          height <- 5
+        } else { height <- bar_height }
+
+        if (length(fill_color) == 2) {
+          fill_color_pal <- fill_color[[1]]
+        } else fill_color_pal <- fill_color_pal
+
+        if (is.null(brighten_text_color)) {
+          font_color <- "black"
+        } else font_color <- font_color
+
+        bar <- htmltools::div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"),
+                              htmltools::div(style = list(borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, boxShadow = box_shadow, border = paste0("", border_width, " ", border_style, " ", border_color, ""), background = fill_color_pal, backgroundImage = gradient, width = width, height = height, transition = animation),
+                 icon_label, img_label))
+        chart <- htmltools::div(style = list(borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, background = background),
+                                bar)
+
+        chart_append <- htmltools::div(
+            htmltools::div(
+                if (tooltip == TRUE) {
+                  tippy::tippy(text_label, animateFill = FALSE,  followCursor = TRUE, tooltip = tooltip_label)
+                } else {
+                  text_label
+                },
+                  style = list(display = "flex",
+                               alignItems = "center",
+                               justifyContent = "flex-end",
+                               textAlign = "right",
+                               color = text_color,
+                               fontWeight = bold_text,
+                               fontSize = text_size)),
+                  chart)
+
+        neg_chart <- htmltools::tagAppendChild(neg_chart, chart_append)
+
       } else if (value < 0 & text_position == "none") {
 
         if (length(fill_color) == 2) {
@@ -897,6 +941,42 @@ data_bars <- function(data,
           pos_chart <- htmltools::tagAppendChild(pos_chart, chart)
         }
 
+      } else if (value >= 0 & text_position == "above") {
+
+        # use a smaller bar height so that rows don't expand
+        if (is.null(bar_height)) {
+          height <- 5
+        } else { height <- bar_height }
+
+        if (length(fill_color) == 2) {
+          fill_color_pal <- fill_color[[2]]
+        } else fill_color_pal <- fill_color_pal
+
+        if (is.null(brighten_text_color)) {
+          font_color <- "black"
+        } else font_color <- font_color
+
+            fill_chart <-
+                htmltools::div(style = list(borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, boxShadow = box_shadow, border = paste0("", border_width, " ", border_style, " ", border_color, ""), background = fill_color_pal, backgroundImage = gradient, width = width, height = height, transition = animation),
+                icon_label,
+                img_label)
+
+            back_chart <-
+              htmltools::div(style = list(borderTopLeftRadius = radius, borderBottomLeftRadius = radius, borderTopRightRadius = radius, borderBottomRightRadius = radius, background = background),
+              fill_chart)
+
+          chart_append <- htmltools::div(
+            htmltools::div(
+                  if (tooltip == TRUE) {
+                    tippy::tippy(text_label, animateFill = FALSE,  followCursor = TRUE, tooltip = tooltip_label)
+                  } else {
+                    text_label
+                  },
+                  style = list(display = "flex", alignItems = "center", justifyContent = "flex-start", textAlign = "left", color = text_color, fontWeight = bold_text, fontSize = text_size)),
+                  back_chart)
+
+          pos_chart <- htmltools::tagAppendChild(pos_chart, chart_append)
+
       } else if (value >= 0 & text_position == "none") {
 
         if (length(fill_color) == 2) {
@@ -981,6 +1061,10 @@ data_bars <- function(data,
 
           } else if (align_bars == "right" & text_position == "above") {
 
+            if (is.null(bar_height)) {
+              height <- 5
+            } else { height <- bar_height }
+
             fill_chart <-
               htmltools::div(style = list(
                 display = "flex",
@@ -996,7 +1080,7 @@ data_bars <- function(data,
                   background = fill,
                   backgroundImage = gradient,
                   width = width,
-                  height = 5,
+                  height = height,
                   transition = animation
                 ),
                 icon_label,
@@ -1484,6 +1568,10 @@ data_bars <- function(data,
 
           } else if (align_bars == "left" & text_position == "above") {
 
+            if (is.null(bar_height)) {
+              height <- 5
+            } else { height <- bar_height }
+
             fill_chart <-
                 htmltools::div(style = list(
                   borderTopLeftRadius = radius,
@@ -1495,7 +1583,7 @@ data_bars <- function(data,
                   background = fill,
                   backgroundImage = gradient,
                   width = width,
-                  height = 5,
+                  height = height,
                   transition = animation
                 ),
                 icon_label,
