@@ -15,12 +15,12 @@ data_bars(
   max_value = NULL,
   min_value = NULL,
   align_bars = "left",
-  bar_height = 18,
+  bar_height = NULL,
   text_position = "inside-end",
   force_outside = NULL,
   text_color = "black",
   text_color_ref = NULL,
-  text_size = 14,
+  text_size = NULL,
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
@@ -83,7 +83,7 @@ Options are "left" or "right".
 Default is left.}
 
 \item{bar_height}{Numeric height of the data bars in px.
-Default is 18.}
+Default is NULL.}
 
 \item{text_position}{Choose where to display the text labels relative to the filled data bars.
 Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
@@ -107,7 +107,7 @@ Only one color can be provided per cell.
 Default is NULL.}
 
 \item{text_size}{Numeric value representing the size of the text labels.
-Default is 14.}
+Default is NULL.}
 
 \item{brighten_text}{Logical: automatically assign color to text labels based on filled color
 when the text labels are positioned within the filled bars.
