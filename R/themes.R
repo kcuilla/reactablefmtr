@@ -2094,6 +2094,112 @@ hoverlight <- function(font_size = 15,
 }
 
 
+#' Theme dark
+#'
+#' dark table theme
+#'
+#' @param font_size Numeric value representing the size of the font within the table (in px).
+#'      Default is 15.
+#'
+#' @param font_color Color of the font for the text within the table and the group headers.
+#'      Default is #FFFFFF.
+#'
+#' @param header_font_size Numeric value representing the size of the font within the table (in px).
+#'      Default is 16.
+#'
+#' @param header_font_color Color of the font for the header text.
+#'      Default is #FFFFFF.
+#'
+#' @param cell_padding Numeric value representing the padding size between cells (in px).
+#'      Default is 6.
+#'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
+#' @return an object of class theme that is applied to a reactable table.
+#'
+#' @import reactable
+#'
+#' @examples
+#' data <- iris[10:29, ]
+#'
+#' ## Standard dark theme
+#' reactable(data,
+#'           theme = dark())
+#'
+#' ## Additional options applied
+#' reactable(data,
+#'           theme = dark(font_size = 12, font_color = "red", cell_padding = 3))
+#'
+#' @export
+
+dark <- function(font_size = 15,
+                 font_color = "#FFFFFF",
+                 header_font_size = 16,
+                 header_font_color = "#FFFFFF",
+                 cell_padding = 6,
+                 centered = FALSE) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+  centered_content <- list(display = "flex", flexDirection = "column", justifyContent = "center")
+
+  } else {
+
+  centered_content <- list(display = "flex")
+  }
+
+  reactableTheme(
+    color = font_color,
+    backgroundColor = "#252525",
+    borderWidth = "1px",
+    borderColor = "#434343",
+    stripedColor = "#303030",
+    highlightColor = "#303030",
+    cellPadding = cell_padding,
+    style = list(backgroundColor = "#252525"),
+    tableStyle = list(fontSize = font_size),
+    cellStyle = centered_content,
+    headerStyle = list(
+      borderWidth = "2px",
+      backgroundColor = "#252525",
+      color = header_font_color,
+      borderColor = "#ececec",
+      fontSize = header_font_size
+    ),
+    groupHeaderStyle = list(
+      backgroundColor = "#252525",
+      fontSize = header_font_size,
+      color = font_color
+    ),
+    searchInputStyle = list(
+      backgroundColor = "#ffffff",
+      color = "#252525"
+    ),
+    inputStyle = list(backgroundColor = "#ffffff", color = "#252525"),
+    rowSelectedStyle = list(backgroundImage = "linear-gradient(#191919, #252525)"),
+    selectStyle = list(
+      backgroundImage = "linear-gradient(#191919, #252525)",
+      backgroundColor = "#999999",
+      borderColor = "#ffffff",
+      outlineColor = "#ffffff"
+    ),
+    pageButtonStyle = list(
+      backgroundImage = "linear-gradient(#191919, #252525)"
+    ),
+    pageButtonHoverStyle = list(color = "#ffffff"),
+    pageButtonActiveStyle = list(color = "#ffffff"),
+    pageButtonCurrentStyle = list(color = "#ffffff"),
+    paginationStyle = list(backgroundImage = "linear-gradient(#191919, #252525)")
+  )
+}
+
+
 #' Theme midnight
 #'
 #' midnight table theme
@@ -2188,11 +2294,11 @@ midnight <- function(font_size = 15,
         borderBottomColor = "#ffffff",
         borderWidth = "1px"
       ),
-      fonSize = header_font_size
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       backgroundColor = "#000000",
-      fonSize = header_font_size,
+      fontSize = header_font_size,
       color = font_color,
       "&:hover" = list(
         fontWeight = "bold",
@@ -2322,11 +2428,11 @@ midnightblue <- function(font_size = 15,
         borderBottomColor = "#ffffff",
         borderWidth = "1px"
       ),
-      fonSize = header_font_size
+      fontSize = header_font_size
     ),
     groupHeaderStyle = list(
       backgroundColor = "#001021",
-      fonSize = header_font_size,
+      fontSize = header_font_size,
       color = font_color,
       "&:hover" = list(
         fontWeight = "bold",
