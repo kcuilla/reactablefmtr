@@ -5,81 +5,105 @@
 \title{Add a legend to a reactable table}
 \usage{
 add_legend(
-  table = NULL,
+  table,
+  data = NULL,
+  col_name = NULL,
+  bins = 5,
   colors = NULL,
   bias = 1,
-  show_labels = TRUE,
-  labels = NULL,
-  position = "below",
-  align = "right",
-  margin = NULL
+  labels = TRUE,
+  number_fmt = NULL,
+  title = NULL,
+  footer = NULL,
+  align = "right"
 )
 }
 \arguments{
 \item{table}{A reactable table.}
 
+\item{data}{Dataset containing at least one numeric column.}
+
+\item{col_name}{The name of a column containing numeric data within the dataset.}
+
+\item{bins}{The number of bins for the legend.
+Default is 5.}
+
 \item{colors}{The color palette to be displayed in the legend.
 By default, the colors are shown to match the default colors used in
-`color_tiles()`, `color_scales()`, and `data_bars()`.}
+`color_tiles()` and v`color_scales()`.}
 
 \item{bias}{A positive value that determines the spacing between multiple colors.
 A higher value spaces out the colors at the higher end more than a lower number.
 Default is 1.}
 
-\item{show_labels}{Logical. Show or hide the labels next to the legend.
+\item{labels}{Logical. Show or hide the labels next to the legend.
 Default is TRUE.}
 
-\item{labels}{Assign a label to the lower and upper bounds of the legend.
-Must provide two values for the labels.
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is NULL.}
 
-\item{position}{The position of the legend in relation to the table.
-Options are 'above' or 'below'.
-Default is 'below'.}
+\item{title}{The title above the legend.
+Default is NULL.}
+
+\item{footer}{The footer below the legend.
+Default is NULL.}
 
 \item{align}{The horizontal alignment of the legend.
-Options are 'left', 'right', or 'center'.
+Options are 'left' or 'right'.
 Default is 'right'.}
-
-\item{margin}{Use margin() to set the margin around the legend (top, right, bottom, left).
-Default is NULL.}
 }
 \value{
-a function that adds a source below a reactable table.
+a function that adds a legend below a reactable table.
 }
 \description{
-Use `add_legend()` to place a legend either below or above a {reactable} or {reactablefmtr} table.
+Use `add_legend()` to place a legend either below a {reactable} table.
      The legend can be used to display the color scale of a color palette used within the table.
-     The legend can be aligned to either the right, left, or center of the table.
-     Custom labels can be applied to the upper and lower bounds of the legend.
+     Supply the name of the dataset used with `data` and the name of the column you would like to show a legend for with `col_name`.
+     By default, the colors within `colors` are the default color palette used in `color_tiles()` and `color_scales()`,
+     but can be modified to match the color palette used in the column of the reactable table.
+     The number of bins for the legend can be changed to any number. By default, label bins are given.
+     The labels under the bins can be formatted with `number_fmt` or hidden by setting `labels` to FALSE.
+     Use `title` to place a title above the legend, and `footer` to place a footer below the legend.
+     The legend can be aligned to either the bottom-left or bottom-right of the table.
 }
 \examples{
-\dontrun{
+library(magrittr)
 ## Create the reactable table and then pipe in the legend
-library(dplyr)
 data <- iris[10:29, ]
 table <- reactable(data,
-columns = list(Petal.Length = colDef(
+columns = list(Sepal.Length = colDef(
 cell = color_tiles(data))))
 
 table \%>\%
-  add_legend()
+  add_legend(data = data,
+             col_name = "Sepal.Length")
 
-## The legend can be placed below or above the table
-## and aligned either to the left, right, or center
+## The legend can be aligned to either the left or right side
 table \%>\%
-  add_legend(position = "above", align = "left")
+  add_legend(data = data,
+             col_name = "Sepal.Length",
+             align = "left")
 
-## Display custom color palettes:
+## Change the number of bins within the legend
+table \%>\%
+  add_legend(data = data,
+             col_name = "Sepal.Length",
+             bins = 9)
+
+## Add a title and footer to the legend
+table \%>\%
+  add_legend(data = data,
+             col_name = "Sepal.Length",
+             title = "Sepal Length",
+             footer = "measured in cm")
+
+## If custom colors are used in the table, you can assign those to the legend as well
 table <- reactable(data,
-columns = list(Petal.Length = colDef(
-cell = color_tiles(data, colors = c("red","white","darkgreen")))))
+columns = list(Sepal.Length = colDef(
+style = color_scales(data, colors = c("red","white","blue")))))
 
 table \%>\%
-  add_legend(colors = c("red","white","darkgreen"))
-
-## Add custom labels to the upper and lower bounds of the legend
-table \%>\%
-  add_legend(labels = c("Shorter Length","Longer Length"), colors = c("red","white","darkgreen"))
-}
+  add_legend(data = data,
+             col_name = "Sepal.Length",
+             colors = c("red","white","blue"))
 }
