@@ -342,7 +342,7 @@ data_bars <- function(data,
     ### height of data_bars
     if (is.null(bar_height)) {
 
-      height <- 15
+      height <- 18
 
     } else height <- bar_height
 

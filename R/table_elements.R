@@ -449,106 +449,125 @@ add_source <- function(table = NULL,
 
 #' Add a legend to a reactable table
 #'
-#' Use `add_legend()` to place a legend either below or above a {reactable} or {reactablefmtr} table.
+#' Use `add_legend()` to place a legend either below a {reactable} table.
 #'      The legend can be used to display the color scale of a color palette used within the table.
-#'      The legend can be aligned to either the right, left, or center of the table.
-#'      Custom labels can be applied to the upper and lower bounds of the legend.
+#'      Supply the name of the dataset used with `data` and the name of the column you would like to show a legend for with `col_name`.
+#'      By default, the colors within `colors` are the default color palette used in `color_tiles()` and `color_scales()`,
+#'      but can be modified to match the color palette used in the column of the reactable table.
+#'      The number of bins for the legend can be changed to any number. By default, label bins are given.
+#'      The labels under the bins can be formatted with `number_fmt` or hidden by setting `labels` to FALSE.
+#'      Use `title` to place a title above the legend, and `footer` to place a footer below the legend.
+#'      The legend can be aligned to either the bottom-left or bottom-right of the table.
 #'
 #' @param table A reactable table.
 #'
+#' @param data Dataset containing at least one numeric column.
+#'
+#' @param col_name The name of a column containing numeric data within the dataset.
+#'
+#' @param bins The number of bins for the legend.
+#'     Default is 5.
+#'
 #' @param colors The color palette to be displayed in the legend.
-#'      By default, the colors are shown to match the default colors used in
-#'      `color_tiles()`, `color_scales()`, and `data_bars()`.
+#'     By default, the colors are shown to match the default colors used in
+#'     `color_tiles()` and v`color_scales()`.
 #'
 #' @param bias A positive value that determines the spacing between multiple colors.
-#'      A higher value spaces out the colors at the higher end more than a lower number.
-#'      Default is 1.
+#'     A higher value spaces out the colors at the higher end more than a lower number.
+#'     Default is 1.
 #'
-#' @param show_labels Logical. Show or hide the labels next to the legend.
-#'      Default is TRUE.
+#' @param labels Logical. Show or hide the labels next to the legend.
+#'     Default is TRUE.
 #'
-#' @param labels Assign a label to the lower and upper bounds of the legend.
-#'      Must provide two values for the labels.
-#'      Default is NULL.
+#' @param number_fmt Optionally format numbers using formats from the scales package.
+#'     Default is NULL.
 #'
-#' @param position The position of the legend in relation to the table.
-#'      Options are 'above' or 'below'.
-#'      Default is 'below'.
+#' @param title The title above the legend.
+#'     Default is NULL.
+#'
+#' @param footer The footer below the legend.
+#'     Default is NULL.
 #'
 #' @param align The horizontal alignment of the legend.
-#'      Options are 'left', 'right', or 'center'.
-#'      Default is 'right'.
+#'     Options are 'left' or 'right'.
+#'     Default is 'right'.
 #'
-#' @param margin Use margin() to set the margin around the legend (top, right, bottom, left).
-#'      Default is NULL.
-#'
-#' @return a function that adds a source below a reactable table.
+#' @return a function that adds a legend below a reactable table.
 #'
 #' @import reactable
-#' @import dplyr
+#' @importFrom stats quantile
+#' @importFrom magrittr %>%
 #'
 #' @examples
-#' \dontrun{
+#' library(magrittr)
 #' ## Create the reactable table and then pipe in the legend
-#' library(dplyr)
 #' data <- iris[10:29, ]
 #' table <- reactable(data,
-#' columns = list(Petal.Length = colDef(
+#' columns = list(Sepal.Length = colDef(
 #' cell = color_tiles(data))))
 #'
 #' table %>%
-#'   add_legend()
+#'   add_legend(data = data,
+#'              col_name = "Sepal.Length")
 #'
-#' ## The legend can be placed below or above the table
-#' ## and aligned either to the left, right, or center
+#' ## The legend can be aligned to either the left or right side
 #' table %>%
-#'   add_legend(position = "above", align = "left")
+#'   add_legend(data = data,
+#'              col_name = "Sepal.Length",
+#'              align = "left")
 #'
-#' ## Display custom color palettes:
+#' ## Change the number of bins within the legend
+#' table %>%
+#'   add_legend(data = data,
+#'              col_name = "Sepal.Length",
+#'              bins = 9)
+#'
+#' ## Add a title and footer to the legend
+#' table %>%
+#'   add_legend(data = data,
+#'              col_name = "Sepal.Length",
+#'              title = "Sepal Length",
+#'              footer = "measured in cm")
+#'
+#' ## If custom colors are used in the table, you can assign those to the legend as well
 #' table <- reactable(data,
-#' columns = list(Petal.Length = colDef(
-#' cell = color_tiles(data, colors = c("red","white","darkgreen")))))
+#' columns = list(Sepal.Length = colDef(
+#' style = color_scales(data, colors = c("red","white","blue")))))
 #'
 #' table %>%
-#'   add_legend(colors = c("red","white","darkgreen"))
-#'
-#' ## Add custom labels to the upper and lower bounds of the legend
-#' table %>%
-#'   add_legend(labels = c("Shorter Length","Longer Length"), colors = c("red","white","darkgreen"))
-#' }
+#'   add_legend(data = data,
+#'              col_name = "Sepal.Length",
+#'              colors = c("red","white","blue"))
 #' @export
 
-add_legend <- function(table = NULL,
+add_legend <- function(table,
+                       data = NULL,
+                       col_name = NULL,
+                       bins = 5,
                        colors = NULL,
                        bias = 1,
-                       show_labels = TRUE,
-                       labels = NULL,
-                       position = "below",
-                       align = "right",
-                       margin = NULL) {
+                       labels = TRUE,
+                       number_fmt = NULL,
+                       title = NULL,
+                       footer = NULL,
+                       align = "right") {
 
   '%notin%' <- Negate('%in%')
 
-  if (align %notin% c("left", "right", "center") == TRUE) {
+  if (align %notin% c("left", "right") == TRUE) {
 
-    stop("`align` must be either 'left', 'right', or 'center'")
+    stop("`align` must be either 'left' or 'right'")
   }
 
-  if (position %notin% c("above", "below") == TRUE) {
+  if (!is.logical(labels)) {
 
-    stop("`position` must be either 'above' or 'below'")
+    stop("`labels` must either be TRUE or FALSE.")
   }
 
-  if (!is.logical(show_labels)) {
+  if (!is.numeric(bins)) {
 
-    stop("`show_labels` must either be TRUE or FALSE.")
+    stop("`bins` must numeric.")
   }
-
-  if (is.null(margin)) {
-
-    margin <- margin(t=0,r=0,b=0,l=0)
-
-  } else {margin <- margin}
 
   if (is.null(colors)) {
     cols <- c("#15607A", "#FFFFFF", "#FA8C00")
@@ -560,80 +579,113 @@ add_legend <- function(table = NULL,
     rgb(colorRamp(c(cols), bias = bias)(x), maxColorValue = 255)
   }
 
-  palette <- c(0,.20,.40,.60,.80,1) %>% purrr::map(colassign)
+  ### conditional fill color and font color
+  if (is.character(col_name)) {
 
-  if (!is.null(labels) && length(labels) != 2) {
-    stop("must provide two labels for legend. Ex: `labels = c('Low','High')`")
-  } else {
+    if (all(col_name %in% names(which(sapply(data, is.numeric))))) {
 
-  legend <- htmltools::tags$span(
-    if (show_labels == TRUE & is.null(labels)) {
-      htmltools::tags$span("Low")
-    } else if (show_labels == TRUE & !is.null(labels)) {
-      htmltools::tags$span(labels[[1]],
-                           style = "word-spacing:0px;")
+          calc_bins <- function(x) {
+            as.numeric(format(stats::quantile(data[[col_name]], na.rm = TRUE, seq(0, 1, by=1/(x-1))), digits = 2))
+          }
+
+          buckets <- calc_bins(bins)
+
+          if (!is.null(number_fmt)) {
+
+            legend_labels <- number_fmt(buckets)
+
+          } else legend_labels <- buckets
+
+          normalization <- function(x) {
+              x <- as.numeric(x)
+              (x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+            }
+
+          # standard normalization (no variance check)
+          if (mean((data[[col_name]] - mean(data[[col_name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
+
+            normalized <- 1
+
+          } else {
+
+            # standard normalization
+            normalized <- normalization(buckets)
+
+          }
+
+          # assign colors to normalized bins
+          palette <- normalized %>% purrr::map(colassign)
+
     } else {
-      htmltools::tags$span("")
-    },
-    htmltools::tagAppendAttributes(shiny::icon("square-full"),
-      style = paste0("font-size:6px; color:", "transparent;")),
-    htmltools::tagAppendAttributes(shiny::icon("square-full"),
-      style = paste0("font-size:16px; color:", palette[[1]],";")),
-    htmltools::tagAppendAttributes(shiny::icon("square-full"),
-      style = paste0("font-size:16px; color:", palette[[2]],";")),
-    htmltools::tagAppendAttributes(shiny::icon("square-full"),
-      style = paste0("font-size:16px; color:", palette[[3]],";")),
-    htmltools::tagAppendAttributes(shiny::icon("square-full"),
-      style = paste0("font-size:16px; color:", palette[[4]],";")),
-    htmltools::tagAppendAttributes(shiny::icon("square-full"),
-      style = paste0("font-size:16px; color:", palette[[5]],";")),
-    htmltools::tagAppendAttributes(shiny::icon("square-full"),
-      style = paste0("font-size:16px; color:", palette[[6]],";")),
-    htmltools::tagAppendAttributes(shiny::icon("square-full"),
-      style = paste0("font-size:6px; color:transparent;")),
-    if (show_labels == TRUE & is.null(labels)) {
-      htmltools::tags$span("High")
-    } else if (show_labels == TRUE & !is.null(labels)) {
-      htmltools::tags$span(labels[[2]],
-                           style = "word-spacing:0px;")
-    } else {
-      htmltools::tags$span("")
+
+      stop("Attempted to select non-existing column or non-numeric column with `col_name`")
     }
-  )
 
-  if (position == "below") {
+  }
 
-    htmlwidgets::appendContent(
-    table,
-    htmltools::tags$p(legend,
-                      style = paste0("text-align:",align,";
-                                      margin-top:", margin[[1]], "px;",
-                                      "margin-right:", margin[[2]], "px;",
-                                      "margin-bottom:", margin[[3]], "px;",
-                                      "margin-left:", margin[[4]], "px",
-                                      "font-size:13px;
-                                      word-spacing:-6px;")
-      )
+  legend_bins_l <- function(x, y) {
+    htmltools::tags$ul(
+          style = "list-style: none; margin: 0; padding: 0;",
+          htmltools::tags$li(style = "display: block; float: left; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;",
+                             htmltools::tags$span(
+                               style = paste0(
+                                 "display: block; float: left; height: 14px; width: 30px; background:",
+                                 x,
+                                 ";"
+                               )
+                             ), if (labels == TRUE) { y } else { })
+        )
+  }
+
+  if (align == "left") {
+
+  legend <- htmltools::tagList(
+      htmltools::tags$div(title,
+                          style = "text-align: left; margin-bottom: 8px; font-weight: bold; font-size: 90%"),
+      htmltools::tags$div(
+        style = "margin: 0;, padding: 0;, float: left; list-style: none;",
+
+        purrr::map2(palette, legend_labels, legend_bins_l)
+      ),
+      htmltools::tags$div(footer,
+                          style = "text-align: left; clear: both; font-size: 70%; color: #999")
     )
 
-    } else {
+  } else {
 
-    htmlwidgets::prependContent(
-    table,
-    htmltools::tags$p(legend,
-                      style = paste0("text-align:",align,";
-                                      margin-top:", margin[[1]], "px;",
-                                      "margin-right:", margin[[2]], "px;",
-                                      "margin-bottom:", margin[[3]], "px;",
-                                      "margin-left:", margin[[4]], "px",
-                                      "font-size:13px;
-                                      word-spacing:-6px;")
+  legend_bins_r <- function(x, y) {
+    htmltools::tags$ul(
+          style = "list-style: none; margin: 0; padding: 0;",
+          htmltools::tags$li(style = "display: block; float: right; width: 30px; margin-bottom: 6px; text-align: center; font-size: 80%; list-style: none;",
+                             htmltools::tags$span(
+                               style = paste0(
+                                 "display: block; float: left; height: 14px; width: 30px; background:",
+                                 x,
+                                 ";"
+                               )
+                             ), if (labels == TRUE) { y } else { })
         )
-      )
-    }
   }
-}
 
+  legend <- htmltools::tagList(
+      htmltools::tags$div(title,
+                          style = "text-align: right; margin-bottom: 8px; font-weight: bold; font-size: 90%"),
+      htmltools::tags$div(
+        style = "margin: 0;, padding: 0;, float: left; list-style: none;",
+
+        purrr::map2(rev(palette), rev(legend_labels), legend_bins_r)
+      ),
+      htmltools::tags$div(footer,
+                          style = "text-align: right; clear: both; font-size: 70%; color: #999")
+
+    )
+  }
+
+  htmlwidgets::appendContent(
+    table,
+    htmltools::tags$div(legend)
+    )
+}
 
 
 #' Add an icon legend to a reactable table
