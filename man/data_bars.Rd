@@ -8,6 +8,7 @@ data_bars(
   data,
   fill_color = "#15607A",
   fill_color_ref = NULL,
+  fill_by = NULL,
   fill_opacity = 1,
   fill_gradient = FALSE,
   background = "#EEEEEE",
@@ -54,6 +55,11 @@ Default is #15607A.}
 \item{fill_color_ref}{Optionally assign fill_color to from another column
 by providing the name of the column containing the fill colors in quotes.
 Only one color can be provided per row, and therefore will not work with fill_gradient.
+Default is NULL.}
+
+\item{fill_by}{Assign data bars to a column based on the values of another column.
+The column in reference must contain numeric data.
+The column in which the colors are being assigned to can be either numerical or character.
 Default is NULL.}
 
 \item{fill_opacity}{A value between 0 and 1 that adjusts the opacity in fill_color.
