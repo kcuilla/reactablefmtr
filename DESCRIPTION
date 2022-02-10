@@ -31,9 +31,11 @@ Imports:
     grDevices,
     htmltools,
     htmlwidgets,
+    magrittr,
     purrr,
     sass,
     shiny,
+    stats,
     stringr,
     tippy,
     tools
