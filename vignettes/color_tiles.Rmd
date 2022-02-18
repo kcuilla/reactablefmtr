@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
-```{r, include=FALSE}
+```{r}
 library(reactablefmtr)
 library(tidyverse)
 library(gapminder)
@@ -18,17 +18,64 @@ With `{reactablefmtr}`, we can easily apply color tiles to columns within a tabl
 By default a normalized orange-white-blue color scale is applied to each column.
 
 ```{r}
-data <- MASS::Cars93 %>% 
-  filter(Type %in% c("Compact", "Sporty", "Van")) %>% 
-  select(c("Make", "Type", "Horsepower", "MPG.city", "MPG.highway")) %>% 
-  tail(10)
 
-reactable(
-  data,
-  defaultColDef = colDef(
-    cell = color_tiles(data)
+df <- gapminder %>%  
+ filter(year == 2007) %>%
+ select(-year) %>% 
+ relocate(lifeExp, .after = last_col())
+
+df %>%
+  reactable(
+    defaultColDef = colDef(
+      cell = color_tiles(.)
+      )
   )
-)
+```
+
+
+## `color_tiles()` customization options
+
+| Parameter             | Description                                   | Default Value                    |
+|:----------------------|:----------------------------------------------|:---------------------------------|
+| `data`                | name of dataset                               | NULL                             |
+| `colors`              | color palette                                 | c('#15607A','#FFFFFF','#FA8C00') |
+| `color_ref`           | column containing color assignments           | NULL                             |
+| `color_by`            | column containing value assigments            | NULL                             |
+| `opacity`             | opaqueness of color palette                   | 1                                |
+| `bias`                | the spacing between colors                    | 1                                |
+| `number_fmt`          | the format of the values                      | NULL                             |
+| `text_size`           | the size of the text                          | NULL                             |
+| `text_color`          | the color of the text                         | 'black'                          |
+| `text_color_ref`      | column containing text color assignments      | NULL                             |
+| `show_text`           | show or hide text                             | TRUE                             |
+| `brighten_text`       | auto-adjust text color based on color of cell | TRUE                             |
+| `brighten_text_color` | color of the auto-adjusted text color         | 'white'                          |
+| `bold_text`           | bold format text                              | FALSE                            |
+| `span`                | show as row-wise instead of column-wise       | FALSE                            |
+| `box_shadow`          | add a box shadow around tiles                 | FALSE                            |
+| `tooltip`             | enable hover tooltip                          | FALSE                            |
+| `animation`           | animation of color transitions on sort        | 'background 1s ease'             |
+
+
+## Formatting numbers
+
+Numbers can be formatted within the `number_fmt` argument in `color_tiles()`. One method of formatting the numbers is by utilizing the formatters from the `{scales}` package, and the numbers can be formatted in the same way as they are in `{ggplot2}`.
+
+```{r}
+df %>%
+  reactable(
+    columns = list(
+      pop = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number_si(accuracy = 0.1))
+      ),
+      gdpPercap = colDef(
+        cell = color_tiles(., number_fmt = scales::comma)
+      ),
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1))
+      )
+    )
+  )
 ```
 
 
@@ -37,116 +84,140 @@ reactable(
 If we want to show a different color palette than the default, we can call them within the `colors` argument like so: 
 
 ```{r}
-my_color_pal = c("#e5f5e0", "#a1d99b", "#31a354")
-
-reactable(
-  data,
-  defaultColDef = colDef(
-    cell = color_tiles(data, colors = my_color_pal)
-  )
-)
-```
-
-The opacity of the colors can be controlled by assigning a value between 0 (fully transparent) and 1 (fully opaque).
-
-```{r}
-reactable(
-  data,
-  defaultColDef = colDef(
-    cell = color_tiles(data, colors = my_color_pal, opacity = 0.5)
-  )
-)
-```
-
-
-The order of the color palette matters. In the example above, the color purple is assigned to the lowest values, lightgrey is assigned to middle values, and green is assigned to highest values. 
-
-We may also use color palettes from other packages, such as the "Mako" color palette from the `{viridis}` package:
-
-```{r}
+library(RColorBrewer)
 library(viridis)
 
-reactable(
-  data,
-  defaultColDef = colDef(
-    cell = color_tiles(data, colors = viridis::mako(5))
+df %>%
+  reactable(
+    defaultSorted = 'pop',
+    defaultSortOrder = 'desc',
+    columns = list(
+      pop = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number_si(accuracy = 0.1), colors = viridis::viridis(5))
+      ),
+      gdpPercap = colDef(
+        cell = color_tiles(., number_fmt = scales::comma, colors = RColorBrewer::brewer.pal(7, 'Greens'))
+      ),
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1), colors = c('tomato','white','dodgerblue'))
+      )
+    )
   )
-)
 ```
 
 
 ## Adding a legend
 
+## `add_legend()` customization options
+
+| Parameter    | Description                              | Default Value                    |
+|:-------------|:-----------------------------------------|:---------------------------------|
+| `data`       | name of dataset                          | NULL                             |
+| `col_name`   | name of column containing numeric values | NULL                             |
+| `bins`       | number of bins to be displayed           | 5                                |
+| `colors`     | color palette                            | c('#15607A','#FFFFFF','#FA8C00') |
+| `bias`       | opaqueness of color palette              | 1                                |
+| `labels`     | show or hide value labels                | TRUE                             |
+| `number_fmt` | the format of the values                 | NULL                             |
+| `title`      | the title above the legend               | NULL                             |
+| `footer`     | the footer below the legend              | NULL                             |
+| `align`      | align to the left or right of the table  | 'right'                          |
+
+
 If you would like to add a legend for the color palette used within `color_tiles()`, you can do so by including `add_legend()` below the table and listing the color palette used within `color_tiles()`. If no color palette is defined by the user within `add_legend()`, it will show the default blue-to-orange color palette used in `color_tiles()`. 
 
 ```{r}
-reactable(
-  data,
-  defaultColDef = colDef(
-    cell = color_tiles(data, colors = viridis::mako(5))
-  )
-) %>% 
-  add_legend(colors = viridis::mako(5))
+df %>%
+  reactable(
+    columns = list(
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::comma)
+      )
+    )
+  ) %>% 
+  add_legend(df, col_name = "lifeExp")
 ```
 
-<br>
-
-By default, the labels next to the legend show as "Low" and "High". You can hide these labels by setting `show_labels` to FALSE or provide your own custom labels by providing one text label for the low values and one text label for the high values within `labels` as shown below: 
+You can add a title and a footer to the legend with `title` and `footer` respectively: 
 
 ```{r}
-reactable(
-  data,
-  defaultColDef = colDef(
-    cell = color_tiles(data, colors = viridis::mako(5))
-  )
-) %>% 
-  add_legend(colors = viridis::mako(5), labels = c("Low MPG", "High MPG"))
+df %>%
+  reactable(
+    columns = list(
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1))
+        )
+      )
+  ) %>% 
+  add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', footer = 'Reported as of 2007')
 ```
 
-<br>
 
-The position of the legend can be either "above" or "below" the table as specified with `position`, and the horizontal alignment can be either "left", "right", or "center" with `align`.
-
-The margin around the legend can also be adjusted using `margin` and specifying the top, right, bottom, and left margin sizes in that order.
+By default, the color palette is broken into 5 distinct bins. However, we can increase or decrease the number of color bins we would like to show in the legend by providing a number within `bins`:
 
 ```{r}
-reactable(
-  data,
-  defaultColDef = colDef(
-    cell = color_tiles(data, colors = viridis::mako(5))
-  )
-) %>% 
-  add_legend(colors = viridis::mako(5), labels = c("Low MPG", "High MPG"), position = "above", align = "left", margin = margin(10, 0, 10, 0))
+df %>%
+  reactable(
+    columns = list(
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1))
+        )
+      )
+  ) %>% 
+  add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', footer = 'Reported as of 2007', bins = 9)
 ```
 
+If you are using a different color palette than the default one provided, you can specify the color palette in the same way that you did within `color_tiles()`:
 
-## Formatting numbers
-
-Numbers can be formatted within the `number_fmt` argument in `color_tiles()`. One method of formatting the numbers is by utilizing the formatters from the `{scales}` package, and the numbers can be formatted in the same way as they are in `{ggplot2}`.
 
 ```{r}
-reactable(
-  data,
-  columns = list(
-    Horsepower = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " hp"))),
-    MPG.city = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " mpg"))),
-    MPG.highway = colDef(cell = color_tiles(data, number_fmt = scales::number_format(suffix = " mpg")))
-  )
-)
+df %>%
+  reactable(
+    columns = list(
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1), colors = viridis::viridis(5))
+        )
+      )
+  ) %>% 
+  add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', footer = 'Reported as of 2007', colors = viridis::viridis(5))
 ```
+
+
+If the data within your column is not evenly distributed, you can set the color bias to lean more towards the higher values or lower values within the column with `bias`. Changing the bias within the legend is a good visual gauge of how the bias affects the distribution of colors within the column:
+
+
+```{r}
+df %>%
+  reactable(
+    columns = list(
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1), colors = viridis::viridis(5), bias = 3)
+        )
+      )
+  ) %>% 
+  add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', footer = 'Reported as of 2007', colors = viridis::viridis(5), bias = 3)
+```
+
 
 ## Adding a box shadow
 
 Box shadows can be added to the tiles to create a "3-D" effect via `box_shadow`.
 
 ```{r}
-reactable(
-  data,
-  defaultColDef = colDef(
-    cell = color_tiles(data,
-                       box_shadow = TRUE)
+df %>%
+  reactable(
+    columns = list(
+      pop = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number_si(accuracy = 0.1), box_shadow = TRUE)
+      ),
+      gdpPercap = colDef(
+        cell = color_tiles(., number_fmt = scales::comma, box_shadow = TRUE)
+      ),
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1), box_shadow = TRUE)
+      )
+    )
   )
-)
 ```
 
 
@@ -159,90 +230,112 @@ In the example below, we assigned a blue color to Compact cars, a red color to S
 Then within `color_tiles()`, we reference the name of the conditional column we just created to apply the colors to the values in MPG.city and MPG.highway.
 
 ```{r}
-car_data <- data %>% 
-  mutate(car_colors = dplyr::case_when(
-  Type == "Compact" ~ "dodgerblue",
-  Type == "Sporty" ~ "tomato",
-  Type == "Van" ~ "gold",
-  TRUE ~ "other"
-  ))
-
-reactable(
-  car_data,
-  columns = list(
-    Make = colDef(minWidth = 150),
-    car_colors = colDef(show = FALSE),
-    Horsepower = colDef(cell = color_tiles(car_data, color_ref = "car_colors")),
-    MPG.city = colDef(cell = color_tiles(car_data, color_ref = "car_colors")),
-    MPG.highway = colDef(cell = color_tiles(car_data, color_ref = "car_colors"))
+df_continents <- df %>%
+  mutate(
+    continent_cols = dplyr::case_when(
+      continent == 'Africa' ~ 'orange',
+      continent == 'Americas' ~ 'pink',
+      continent == 'Asia' ~ 'violet',
+      continent == 'Europe' ~ 'gold',
+      continent == 'Oceania' ~ 'skyblue',
+      TRUE ~ 'grey'
+    )
   )
-)
+
+df_continents %>%
+  reactable(
+    defaultSorted = 'continent',
+    defaultSortOrder = 'desc',
+    columns = list(
+      continent_cols = colDef(show = FALSE),
+      pop = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number_si(accuracy = 0.1), color_ref = 'continent_cols')
+      ),
+      gdpPercap = colDef(
+        cell = color_tiles(., number_fmt = scales::comma, color_ref = 'continent_cols')
+      ),
+      lifeExp = colDef(
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1), color_ref = 'continent_cols')
+      )
+    )
+  )
 ```
 
 We can further apply the conditional colors to the entire dataset by setting the style within `defaultColDef`:
 
 ```{r}
-reactable(
-  car_data,
+df_continents %>%
+  reactable(
+    defaultSorted = 'continent',
+    defaultSortOrder = 'desc',
     defaultColDef = colDef(
-    cell = color_tiles(car_data, color_ref = "car_colors")
-  ),
-  columns = list(
-    Make = colDef(minWidth = 150),
-    car_colors = colDef(show = FALSE)
+        cell = color_tiles(., color_ref = 'continent_cols')
+        ),
+    columns = list(
+      continent_cols = colDef(
+        show = FALSE
+      )
+    )
   )
-)
 ```
 
 
-The same conditional coloring can be applied based on numeric conditions as well. For example, if we wanted to highlight which cars have an MPG.city value of 23 or greater, we could use the same method as above but apply the conditions based on the MPG.city column instead of the Type column.  
+The same conditional coloring can be applied based on numeric conditions as well. For example, if we wanted to highlight which cars have an MPG.city value of 23 or greater, we could use the same method as above but apply the conditions based on the MPG.city column instead of the Type column.
 
 
 ```{r}
-car_data <- car_data %>% 
-  mutate(mpg_colors = dplyr::case_when(
-  MPG.city >= 23 ~ "darkgreen",
-  TRUE ~ "grey"
-  ))
+df_lifexp <- df %>%
+  mutate(
+    lifexp_cols = dplyr::case_when(
+      lifeExp >= 80 ~ "orange",
+      TRUE ~ "lightgrey"
+    )
+  )
 
-reactable(
-  car_data,
-  defaultSorted = "MPG.city",
-  defaultSortOrder = "desc",
-  defaultColDef = colDef(
-    cell =color_tiles(car_data, color_ref = "mpg_colors")
-    ),
-  columns = list(
-    Make = colDef(minWidth = 150),
-    car_colors = colDef(show = FALSE),
-    mpg_colors = colDef(show = FALSE))
-)
+df_lifexp %>%
+  reactable(
+    defaultSorted = 'continent',
+    defaultSortOrder = 'desc',
+    defaultColDef = colDef(
+        cell = color_tiles(., color_ref = 'lifexp_cols')
+        ),
+    columns = list(
+      lifexp_cols = colDef(
+        show = FALSE
+      )
+    )
+  )
 ```
 
 ## Color assignments by another column
 
-In the dev version of `{reactablefmtr}`, there is a `color_by` argument that allows for 
-color assignment based on the values in another column.  
+In the dev version of `{reactablefmtr}`, there is a `color_by` argument that allows for
+color assignment based on the values in another column.
 
 ```{r}
-reactable(
-  data,
-  columns = list(
-    Type = colDef(cell = color_tiles(data, color_by = "Horsepower"))
+df %>%
+  reactable(
+    columns = list(
+      country = colDef(
+        cell = color_tiles(., color_by = 'lifeExp')
+      )
+    )
   )
-)
 ```
 
-If desired, the `color_by` columns may be hidden.
+
 
 ```{r}
-reactable(
-  data,
-  columns = list(
-    Type = colDef(cell = color_tiles(data, color_by = "Horsepower")),
-    Horsepower = colDef(show = FALSE)
+df %>%
+  mutate(`country | lifeExp` = paste0(country, " | ", lifeExp)) %>% 
+  reactable(
+    columns = list(
+      `country | lifeExp` = colDef(
+        minWidth = 150,
+        cell = color_tiles(., color_by = 'lifeExp')
+      )
+    )
   )
-)
 ```
 
 ## Row-wise styling
@@ -262,10 +355,10 @@ temppal <- c("#36a1d6", "#76b8de", "#a0bfd9", "#ffffff", "#d88359", "#d65440", "
 reactable(
   temps,
   defaultColDef = colDef(
-    cell =color_tiles(temps, span = TRUE, colors = temppal),
-    minWidth = 50
+    minWidth = 50,
+    cell = color_tiles(temps, span = TRUE, colors = temppal)
     )
-)
+  )
 ```
 
 
@@ -275,8 +368,10 @@ If we only wanted to apply color tiles to some of the months, we can do so by re
 reactable(
   temps,
   defaultColDef = colDef(
-    cell =color_tiles(temps, span = 4:7, colors = temppal),
-    minWidth = 50))
+    minWidth = 50,
+    cell = color_tiles(temps, span = 4:7, colors = temppal),
+    )
+  )
 ```
 
 
@@ -285,12 +380,12 @@ Lastly, if you wanted to completely hide the text, you could do this by setting 
 <i>Note: by setting `tooltip = TRUE`, the values are still visible on hover.</i>
 
 ```{r}
-population_data <- gapminder %>% 
+population_data <- gapminder %>%
   filter(continent == "Americas") %>%
   mutate(country = as.character(country),
-         year = paste0("'", str_sub(year, 3, 4))) %>% 
+         year = paste0("'", str_sub(year, 3, 4))) %>%
   select(country, year, lifeExp) %>%
-  pivot_wider(names_from = year, values_from = lifeExp) 
+  pivot_wider(names_from = year, values_from = lifeExp)
 
 reactable(
   population_data,
@@ -301,19 +396,55 @@ reactable(
   defaultSortOrder = "desc",
   defaultColDef = colDef(
     maxWidth = 50,
-    cell = color_tiles(population_data,
-                       number_fmt = scales::comma,
-                       show_text = FALSE, 
-                       tooltip = TRUE, 
-                       span = TRUE)
-  ),
-  columns = list(
-    country = colDef(
-      maxWidth = 175
+    cell = color_tiles(population_data, number_fmt = scales::comma, show_text = FALSE, tooltip = TRUE, span = TRUE)
+    ),
+    columns = list(
+      country = colDef(maxWidth = 175)
     )
-  )
-) %>% 
-  add_title("Average Life Expectancy") %>% 
-  add_source("Data sourced from the {gapminder} package") 
+  ) %>%
+  add_title("Average Life Expectancy") %>%
+  add_source("Data sourced from the {gapminder} package")
+```
+
+## Text options
+
+```{r}
+reactable(
+  population_data,
+  compact = TRUE,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    maxWidth = 50,
+    cell = color_tiles(population_data, number_fmt = scales::comma, brighten_text = FALSE, text_color = 'grey', bold_text = TRUE, span = TRUE)
+    ),
+    columns = list(
+      country = colDef(maxWidth = 175)
+    )
+  ) %>%
+  add_title("Average Life Expectancy") %>%
+  add_source("Data sourced from the {gapminder} package")
+```
+
+```{r}
+reactable(
+  population_data,
+  compact = TRUE,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(
+    maxWidth = 50,
+    cell = color_tiles(population_data, number_fmt = scales::comma, text_size = 24, span = TRUE)
+    ),
+    columns = list(
+      country = colDef(maxWidth = 175)
+    )
+  ) %>%
+  add_title("Average Life Expectancy") %>%
+  add_source("Data sourced from the {gapminder} package")
 ```
 
