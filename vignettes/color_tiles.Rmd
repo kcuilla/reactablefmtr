@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with Color Tiles"
+title: 'Getting Started with Color Tiles'
 output: html_document
 ---
 
@@ -18,7 +18,6 @@ With `{reactablefmtr}`, we can easily apply color tiles to columns within a tabl
 By default a normalized orange-white-blue color scale is applied to each column.
 
 ```{r}
-
 df <- gapminder %>%  
  filter(year == 2007) %>%
  select(-year) %>% 
@@ -31,7 +30,6 @@ df %>%
       )
   )
 ```
-
 
 ## `color_tiles()` customization options
 
@@ -78,7 +76,6 @@ df %>%
   )
 ```
 
-
 ## Custom color palettes
 
 If we want to show a different color palette than the default, we can call them within the `colors` argument like so: 
@@ -104,7 +101,6 @@ df %>%
     )
   )
 ```
-
 
 ## Adding a legend
 
@@ -135,8 +131,10 @@ df %>%
       )
     )
   ) %>% 
-  add_legend(df, col_name = "lifeExp")
+  add_legend(df, col_name = 'lifeExp')
 ```
+
+<br>
 
 You can add a title and a footer to the legend with `title` and `footer` respectively: 
 
@@ -152,6 +150,7 @@ df %>%
   add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', footer = 'Reported as of 2007')
 ```
 
+<br>
 
 By default, the color palette is broken into 5 distinct bins. However, we can increase or decrease the number of color bins we would like to show in the legend by providing a number within `bins`:
 
@@ -167,8 +166,9 @@ df %>%
   add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', footer = 'Reported as of 2007', bins = 9)
 ```
 
-If you are using a different color palette than the default one provided, you can specify the color palette in the same way that you did within `color_tiles()`:
+<br>
 
+If you are using a different color palette than the default one provided, you can specify the color palette in the same way that you did within `color_tiles()`:
 
 ```{r}
 df %>%
@@ -182,9 +182,9 @@ df %>%
   add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', footer = 'Reported as of 2007', colors = viridis::viridis(5))
 ```
 
+<br>
 
 If the data within your column is not evenly distributed, you can set the color bias to lean more towards the higher values or lower values within the column with `bias`. Changing the bias within the legend is a good visual gauge of how the bias affects the distribution of colors within the column:
-
 
 ```{r}
 df %>%
@@ -198,10 +198,11 @@ df %>%
   add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', footer = 'Reported as of 2007', colors = viridis::viridis(5), bias = 3)
 ```
 
+<br>
 
 ## Adding a box shadow
 
-Box shadows can be added to the tiles to create a "3-D" effect via `box_shadow`.
+Box shadows can be added to the tiles to create a '3-D' effect via `box_shadow`.
 
 ```{r}
 df %>%
@@ -219,7 +220,6 @@ df %>%
     )
   )
 ```
-
 
 ## Assigning colors from another column
 
@@ -279,16 +279,14 @@ df_continents %>%
   )
 ```
 
-
 The same conditional coloring can be applied based on numeric conditions as well. For example, if we wanted to highlight which cars have an MPG.city value of 23 or greater, we could use the same method as above but apply the conditions based on the MPG.city column instead of the Type column.
-
 
 ```{r}
 df_lifexp <- df %>%
   mutate(
     lifexp_cols = dplyr::case_when(
-      lifeExp >= 80 ~ "orange",
-      TRUE ~ "lightgrey"
+      lifeExp >= 80 ~ 'orange',
+      TRUE ~ 'lightgrey'
     )
   )
 
@@ -323,20 +321,21 @@ df %>%
   )
 ```
 
-
+To help clarify what values the colors represent, you can add a legend below the table: 
 
 ```{r}
 df %>%
-  mutate(`country | lifeExp` = paste0(country, " | ", lifeExp)) %>% 
   reactable(
     columns = list(
-      `country | lifeExp` = colDef(
-        minWidth = 150,
+      country = colDef(
         cell = color_tiles(., color_by = 'lifeExp')
       )
     )
-  )
+  ) %>% 
+  add_legend(df, col_name = 'lifeExp', title = 'Life Expectancy (yrs)', align = 'left')
 ```
+
+<br>
 
 ## Row-wise styling
 
@@ -349,8 +348,8 @@ By including `span = TRUE` within our `color_tiles()` formatter, we can conditio
 ```{r}
 dimnames <- list(start(nottem)[1]:end(nottem)[1], month.abb)
 temps <- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
-temps <- as_tibble(temps, rownames = "Year")
-temppal <- c("#36a1d6", "#76b8de", "#a0bfd9", "#ffffff", "#d88359", "#d65440", "#c62c34")
+temps <- as_tibble(temps, rownames = 'Year')
+temppal <- c('#36a1d6', '#76b8de', '#a0bfd9', '#ffffff', '#d88359', '#d65440', '#c62c34')
 
 reactable(
   temps,
@@ -360,7 +359,6 @@ reactable(
     )
   )
 ```
-
 
 If we only wanted to apply color tiles to some of the months, we can do so by referencing either the numeric positions of the columns or the column names within `span`:
 
@@ -374,14 +372,13 @@ reactable(
   )
 ```
 
-
 Lastly, if you wanted to completely hide the text, you could do this by setting `show_text = FALSE`, which displays the table as a heatmap as shown below:
 
 <i>Note: by setting `tooltip = TRUE`, the values are still visible on hover.</i>
 
 ```{r}
 population_data <- gapminder %>%
-  filter(continent == "Americas") %>%
+  filter(continent == 'Americas') %>%
   mutate(country = as.character(country),
          year = paste0("'", str_sub(year, 3, 4))) %>%
   select(country, year, lifeExp) %>%
@@ -393,7 +390,7 @@ reactable(
   pagination = FALSE,
   showSortIcon = FALSE,
   defaultSorted = "'52",
-  defaultSortOrder = "desc",
+  defaultSortOrder = 'desc',
   defaultColDef = colDef(
     maxWidth = 50,
     cell = color_tiles(population_data, number_fmt = scales::comma, show_text = FALSE, tooltip = TRUE, span = TRUE)
@@ -402,11 +399,15 @@ reactable(
       country = colDef(maxWidth = 175)
     )
   ) %>%
-  add_title("Average Life Expectancy") %>%
-  add_source("Data sourced from the {gapminder} package")
+  add_title('Average Life Expectancy') %>%
+  add_source('Data sourced from the {gapminder} package')
 ```
 
+<br>
+
 ## Text options
+
+By default, the color of the text will auto-adjust based on the background color of the cell. To turn this feature off and set the text color to your own color, you can do so by setting `brighten_text` to FALSE and then setting the text color within `text_color`. You may also display the text in bold with `bold_text`.
 
 ```{r}
 reactable(
@@ -415,7 +416,7 @@ reactable(
   pagination = FALSE,
   showSortIcon = FALSE,
   defaultSorted = "'52",
-  defaultSortOrder = "desc",
+  defaultSortOrder = 'desc',
   defaultColDef = colDef(
     maxWidth = 50,
     cell = color_tiles(population_data, number_fmt = scales::comma, brighten_text = FALSE, text_color = 'grey', bold_text = TRUE, span = TRUE)
@@ -424,9 +425,13 @@ reactable(
       country = colDef(maxWidth = 175)
     )
   ) %>%
-  add_title("Average Life Expectancy") %>%
-  add_source("Data sourced from the {gapminder} package")
+  add_title('Average Life Expectancy') %>%
+  add_source('Data sourced from the {gapminder} package')
 ```
+
+<br>
+
+To change the size of the text, you can do so with `text_size`. 
 
 ```{r}
 reactable(
@@ -435,7 +440,7 @@ reactable(
   pagination = FALSE,
   showSortIcon = FALSE,
   defaultSorted = "'52",
-  defaultSortOrder = "desc",
+  defaultSortOrder = 'desc',
   defaultColDef = colDef(
     maxWidth = 50,
     cell = color_tiles(population_data, number_fmt = scales::comma, text_size = 24, span = TRUE)
@@ -444,7 +449,7 @@ reactable(
       country = colDef(maxWidth = 175)
     )
   ) %>%
-  add_title("Average Life Expectancy") %>%
-  add_source("Data sourced from the {gapminder} package")
+  add_title('Average Life Expectancy') %>%
+  add_source('Data sourced from the {gapminder} package')
 ```
 
