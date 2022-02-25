@@ -11,6 +11,7 @@ color_scales(
   color_by = NULL,
   opacity = 1,
   bias = 1,
+  text_size = NULL,
   text_color = "black",
   text_color_ref = NULL,
   show_text = TRUE,
@@ -45,6 +46,9 @@ Default is 1.}
 \item{bias}{A positive value that determines the spacing between multiple colors.
 A higher value spaces out the colors at the higher end more than a lower number.
 Default is 1.}
+
+\item{text_size}{Numeric value representing the size of the text labels.
+Default is NULL.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
