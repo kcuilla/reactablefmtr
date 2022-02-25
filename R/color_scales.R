@@ -34,6 +34,9 @@
 #'     A higher value spaces out the colors at the higher end more than a lower number.
 #'     Default is 1.
 #'
+#' @param text_size Numeric value representing the size of the text labels.
+#'     Default is NULL.
+#'
 #' @param text_color Assigns text color to values.
 #'     Default is black.
 #'
@@ -113,6 +116,7 @@ color_scales <- function(data,
                          color_by = NULL,
                          opacity = 1,
                          bias = 1,
+                         text_size = NULL,
                          text_color = "black",
                          text_color_ref = NULL,
                          show_text = TRUE,
@@ -309,11 +313,11 @@ color_scales <- function(data,
 
     if (brighten_text == FALSE & show_text == TRUE) {
 
-      list(background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
+      list(background = cell_color, color = text_color, fontSize = text_size, fontWeight = bold_text, transition = animation)
 
      } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
 
-      list(background = cell_color, color = text_color, fontWeight = bold_text, transition = animation)
+      list(background = cell_color, color = text_color, fontSize = text_size, fontWeight = bold_text, transition = animation)
 
      } else if (brighten_text == FALSE & show_text == FALSE) {
 
@@ -323,7 +327,8 @@ color_scales <- function(data,
 
       list(background = cell_color, color = "transparent", fontWeight = bold_text, transition = animation)
 
-    } else list(background = cell_color, color = font_color, fontWeight = bold_text, transition = animation)
+    } else list(background = cell_color, color = font_color, fontSize = text_size, fontWeight = bold_text, transition = animation)
 
   }
 }
+
