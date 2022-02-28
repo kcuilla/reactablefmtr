@@ -129,7 +129,6 @@
 #'
 #' @export
 
-
 color_tiles <- function(data,
                         colors = c("#15607A", "#FFFFFF", "#FA8C00"),
                         color_ref = NULL,
@@ -267,7 +266,7 @@ color_tiles <- function(data,
           }
 
           cell_color <- color_pal(normalized)
-          cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
+          cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
           font_color <- assign_color(normalized)
 
         } else {
@@ -290,7 +289,7 @@ color_tiles <- function(data,
           }
 
         cell_color <- color_pal(normalized)
-        cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
+        cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
         font_color <- assign_color(normalized)
 
         }
@@ -325,7 +324,7 @@ color_tiles <- function(data,
           if (is.character(color_ref)) { color_ref <- which(names(data) %in% color_ref) }
 
           cell_color <- data[[color_ref]][index]
-          cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
+          cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
 
           rgb_sum <- rowSums(grDevices::colorRamp(c(cell_color), bias = bias)(1))
 
@@ -339,7 +338,7 @@ color_tiles <- function(data,
       } else {
 
         cell_color <- color_pal(normalized)
-        cell_color <- grDevices::adjustcolor(cell_color, alpha.f = opacity)
+        cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
         font_color <- assign_color(normalized)
 
       }
@@ -351,7 +350,7 @@ color_tiles <- function(data,
         if (is.character(span)) { span <- which(names(data) %in% span) }
 
         normalized <- (value - min(dplyr::select(data, !!span), na.rm = TRUE)) / (max(dplyr::select(data, !!span), na.rm = TRUE) - min(dplyr::select(data, !!span), na.rm = TRUE))
-        cell_color <- if (name %in% colnames(data)[span]) { grDevices::adjustcolor(color_pal(normalized), alpha.f = opacity) }
+        cell_color <- if (name %in% colnames(data)[span]) { suppressWarnings(grDevices::adjustcolor(color_pal(normalized), alpha.f = opacity)) }
         font_color <- if (name %in% colnames(data)[span]) { assign_color(normalized) }
 
       } else {
