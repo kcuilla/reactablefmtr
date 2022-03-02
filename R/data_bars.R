@@ -426,7 +426,7 @@ data_bars <- function(data,
         }
 
         fill_color_pal <- color_pal(normalized)
-        fill_color_pal <- grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity)
+        fill_color_pal <- suppressWarnings(grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity))
 
       if (brighten_text == TRUE & is.null(text_color_ref) & text_position == "inside-end" | brighten_text == TRUE & is.null(text_color_ref) & text_position == "inside-base" | brighten_text == TRUE & is.null(text_color_ref) & text_position == "center") {
 
@@ -479,7 +479,7 @@ data_bars <- function(data,
     }
 
       fill_color_pal <- color_pal(normalized)
-      fill_color_pal <- grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity)
+      fill_color_pal <- suppressWarnings(grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity))
 
         if (brighten_text == TRUE & is.null(text_color_ref) & text_position == "inside-end" | brighten_text == TRUE & is.null(text_color_ref) & text_position == "inside-base" | brighten_text == TRUE & is.null(text_color_ref) & text_position == "center") {
 
@@ -517,7 +517,7 @@ data_bars <- function(data,
         if (is.character(fill_color_ref)) { fill_color_ref <- which(names(data) %in% fill_color_ref) }
 
         fill_color_pal <- data[[fill_color_ref]][index]
-        fill_color_pal <- grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity)
+        fill_color_pal <- suppressWarnings(grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity))
 
         rgb_sum <- rowSums(grDevices::colorRamp(c(fill_color_pal), bias = bias)(1))
 
@@ -535,7 +535,7 @@ data_bars <- function(data,
     } else {
 
       fill_color_pal <- color_pal(normalized)
-      fill_color_pal <- grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity)
+      fill_color_pal <- suppressWarnings(grDevices::adjustcolor(fill_color_pal, alpha.f = fill_opacity))
 
       if (brighten_text == TRUE & is.null(text_color_ref) & text_position == "inside-end" | brighten_text == TRUE & is.null(text_color_ref) & text_position == "inside-base" | brighten_text == TRUE & is.null(text_color_ref) & text_position == "center") {
 
@@ -547,7 +547,7 @@ data_bars <- function(data,
     ### fill_gradient fill_color
     if (fill_gradient == TRUE & length(fill_color) > 1) {
 
-      fill_color <- grDevices::adjustcolor(fill_color, alpha.f = fill_opacity)
+      fill_color <- suppressWarnings(grDevices::adjustcolor(fill_color, alpha.f = fill_opacity))
 
       gradient <- paste0("linear-gradient(to right,", paste(fill_color, collapse = ", "))
 
@@ -669,7 +669,7 @@ data_bars <- function(data,
     if ((min(data[[name]], na.rm = TRUE) < 0) | suppressWarnings(min(as.numeric(fill_by_data), na.rm = TRUE) < 0)) {
 
       ### add opacity to fill
-      fill_color <- grDevices::adjustcolor(fill_color, alpha.f = fill_opacity)
+      fill_color <- suppressWarnings(grDevices::adjustcolor(fill_color, alpha.f = fill_opacity))
 
       if (value < 0 & text_position == "outside-end") {
 
