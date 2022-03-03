@@ -39,7 +39,7 @@
 #'     Default is TRUE.
 #'
 #' @param text_size Numeric value representing the size of the text labels.
-#'     Default is 14.
+#'     Default is NULL.
 #'
 #' @param text_color Assigns text color to values.
 #'     Default is black.
@@ -132,7 +132,7 @@ pill_buttons <- function(data,
                          opacity = 1,
                          number_fmt = NULL,
                          show_text = TRUE,
-                         text_size = 14,
+                         text_size = NULL,
                          text_color = "black",
                          text_color_ref = NULL,
                          brighten_text = TRUE,

@@ -141,6 +141,11 @@ color_scales <- function(data,
     stop("`opacity` must be numeric")
   }
 
+  if (!is.numeric(bias)) {
+
+    stop("`bias` must be numeric")
+  }
+
   if (opacity < 0 | opacity > 1) {
 
     stop("`opacity` must be a value between 0 and 1")

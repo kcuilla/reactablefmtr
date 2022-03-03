@@ -288,9 +288,19 @@ data_bars <- function(data,
       stop("`brighten_text` must be TRUE or FALSE")
     }
 
+    if (!is.null(min_value) & !is.numeric(min_value)) {
+
+      stop("`min_value` must be numeric")
+    }
+
     if (!is.null(max_value) & !is.numeric(max_value)) {
 
       stop("`max_value` must be numeric")
+    }
+
+    if (!is.numeric(bias)) {
+
+      stop("`bias` must be numeric")
     }
 
     if (!is.numeric(fill_opacity)) {

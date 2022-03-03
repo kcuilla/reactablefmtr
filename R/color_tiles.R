@@ -168,6 +168,11 @@ color_tiles <- function(data,
     stop("`tooltip` must be TRUE or FALSE")
   }
 
+  if (!is.numeric(bias)) {
+
+    stop("`bias` must be numeric")
+  }
+
   if (!is.numeric(opacity)) {
 
     stop("`opacity` must be numeric")
