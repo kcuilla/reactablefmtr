@@ -449,7 +449,7 @@ add_source <- function(table = NULL,
 
 #' Add a legend to a reactable table
 #'
-#' Use `add_legend()` to place a legend either below a {reactable} table.
+#' Use `add_legend()` to place a legend below a {reactable} table.
 #'      The legend can be used to display the color scale of a color palette used within the table.
 #'      Supply the name of the dataset used with `data` and the name of the column you would like to show a legend for with `col_name`.
 #'      By default, the colors within `colors` are the default color palette used in `color_tiles()` and `color_scales()`,
@@ -690,9 +690,9 @@ add_legend <- function(table,
 
 #' Add an icon legend to a reactable table
 #'
-#' Use `add_icon_legend()` to place a legend either below or above a {reactable} or {reactablefmtr} table.
+#' Use `add_icon_legend()` to place a legend below a reactable table.
 #'      The legend can be used to display the icon set used within `icon_sets()`.
-#'      The legend can be aligned to either the right, left, or center of the table.
+#'      The legend can be aligned to the right or left of the table.
 #'      Custom labels can be applied to the upper and lower bounds of the legend.
 #'
 #' @param table A reactable table.
@@ -708,13 +708,15 @@ add_legend <- function(table,
 #'      Number of labels must match the number of icons in the icon set.
 #'      Default is NULL.
 #'
-#' @param position The position of the legend in relation to the table.
-#'      Options are 'above' or 'below'.
-#'      Default is 'below'.
-#'
 #' @param align The horizontal alignment of the legend.
-#'      Options are 'left', 'right', or 'center'.
+#'      Options are 'left' or 'right'.
 #'      Default is 'right'.
+#'
+#' @param title The title above the legend.
+#'     Default is NULL.
+#'
+#' @param footer The footer below the legend.
+#'     Default is NULL.
 #'
 #' @param margin Use margin() to set the margin around the legend (top, right, bottom, left).
 #'      Default is NULL.
@@ -735,14 +737,17 @@ add_legend <- function(table,
 #' table %>%
 #'   add_icon_legend(icon_set = "medals")
 #'
-#' ## The legend can be placed below or above the table
-#' ## and aligned either to the left, right, or center
+#' ## The legend can be aligned to the left or right of the table
 #' table %>%
-#'   add_icon_legend(icon_set = "medals", position = "above", align = "left")
+#'   add_icon_legend(icon_set = "medals", align = "left")
 #'
 #' ## Add custom labels to each icon in the legend
 #' table %>%
 #'   add_icon_legend(icon_set = "medals", labels = c("Shortest Length","Avg Length","Longest Length"))
+#'
+#' ## Add a title and footer to the legend
+#' table %>%
+#'   add_icon_legend(icon_set = "medals", title = "Icon Legend Title", footer = "Icon Legend Footer")
 #' }
 #' @export
 
@@ -750,8 +755,9 @@ add_icon_legend <- function(table = NULL,
                             icon_set = NULL,
                             show_labels = TRUE,
                             labels = NULL,
-                            position = "below",
                             align = "right",
+                            title = NULL,
+                            footer = NULL,
                             margin = NULL) {
 
   '%notin%' <- Negate('%in%')
@@ -761,14 +767,9 @@ add_icon_legend <- function(table = NULL,
     stop("icon_set must be either 'ski rating', 'medals', or 'batteries'")
   }
 
-  if (align %notin% c("left", "right", "center") == TRUE) {
+  if (align %notin% c("left", "right") == TRUE) {
 
-    stop("`align` must be either 'left', 'right', or 'center'")
-  }
-
-  if (position %notin% c("above", "below") == TRUE) {
-
-    stop("`position` must be either 'above' or 'below'")
+    stop("`align` must be either 'left' or 'right'")
   }
 
   if (!is.logical(show_labels)) {
@@ -785,7 +786,7 @@ add_icon_legend <- function(table = NULL,
   if (!is.null(icon_set) && icon_set == "ski rating") {
 
     if (!is.null(labels) && length(labels) != 4) {
-      stop("must provide four labels for ski rating. Ex: `labels = c('easy','moderate','difficult','most difficult')")
+      stop("must provide four labels for ski rating. Ex: `labels` = c('easy','moderate','difficult','most difficult')")
     } else {
 
         legend <- htmltools::tags$span(
@@ -857,7 +858,7 @@ add_icon_legend <- function(table = NULL,
 } else if (!is.null(icon_set) && icon_set == "medals") {
 
   if (!is.null(labels) && length(labels) != 3) {
-    stop("must provide three labels for medals. Ex: `labels = c('bronze','silver','gold')")
+    stop("must provide three labels for medals. Ex: `labels` = c('bronze','silver','gold')")
   } else {
 
     legend <- htmltools::tags$span(
@@ -900,7 +901,7 @@ add_icon_legend <- function(table = NULL,
 } else if (!is.null(icon_set) && icon_set == "batteries") {
 
   if (!is.null(labels) && length(labels) != 4) {
-    stop("must provide three labels for batteries. Ex: `labels = c('one-quarter','half','three-quarters','full')")
+    stop("must provide three labels for batteries. Ex: `labels` = c('one-quarter','half','three-quarters','full')")
   } else {
 
     legend <- htmltools::tags$span(
@@ -964,27 +965,37 @@ add_icon_legend <- function(table = NULL,
   }
 }
 
-  if (position == "below") {
+  if (align == "right") {
 
     htmlwidgets::appendContent(
     table,
-    htmltools::tags$p(legend,
-                      style = paste0("text-align:",align,";
-                                      font-size:13px;
-                                      word-spacing:1px;")
-    )
-  )
+    htmltools::tagList(
+      htmltools::tags$div(title,
+                          style = "text-align: right; margin-bottom: 8px; font-weight: bold; font-size: 90%"),
+      htmltools::tags$p(legend,
+                        style = paste0("text-align:",align,";
+                                        font-size:13px;
+                                        word-spacing:1px;")
+    ),
+      htmltools::tags$div(footer,
+                          style = "text-align: right; clear: both; font-size: 70%; color: #999")
+    ))
 
   } else {
 
-    htmlwidgets::prependContent(
+    htmlwidgets::appendContent(
     table,
-    htmltools::tags$p(legend,
-                      style = paste0("text-align:",align,";
-                                      font-size:13px;
-                                      word-spacing:1px;")
-    )
-  )
+    htmltools::tagList(
+      htmltools::tags$div(title,
+                          style = "text-align: left; margin-bottom: 8px; font-weight: bold; font-size: 90%"),
+      htmltools::tags$p(legend,
+                        style = paste0("text-align:",align,";
+                                        font-size:13px;
+                                        word-spacing:1px;")
+    ),
+      htmltools::tags$div(footer,
+                          style = "text-align: left; clear: both; font-size: 70%; color: #999")
+    ))
   }
 }
 
