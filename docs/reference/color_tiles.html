@@ -118,10 +118,11 @@
   <span class="va">data</span>,
   colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#15607A"</span>, <span class="st">"#FFFFFF"</span>, <span class="st">"#FA8C00"</span><span class="op">)</span>,
   color_ref <span class="op">=</span> <span class="cn">NULL</span>,
+  color_by <span class="op">=</span> <span class="cn">NULL</span>,
   opacity <span class="op">=</span> <span class="fl">1</span>,
   bias <span class="op">=</span> <span class="fl">1</span>,
   number_fmt <span class="op">=</span> <span class="cn">NULL</span>,
-  text_size <span class="op">=</span> <span class="fl">14</span>,
+  text_size <span class="op">=</span> <span class="cn">NULL</span>,
   text_color <span class="op">=</span> <span class="st">"black"</span>,
   text_color_ref <span class="op">=</span> <span class="cn">NULL</span>,
   show_text <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -149,6 +150,11 @@ Can use R's built-in colors or other color packages.</p></dd>
 by providing the name of the column containing the colors in quotes.
 Only one color can be provided per row.
 Default is NULL.</p></dd>
+<dt>color_by</dt>
+<dd><p>Assign colors to a column based on the values of another column.
+The column in reference must contain numeric data.
+The column in which the colors are being assigned to can be either numerical or character.
+Default is NULL.</p></dd>
 <dt>opacity</dt>
 <dd><p>A value between 0 and 1 that adjusts the opacity in colors.
 A value of 0 is fully transparent, a value of 1 is fully opaque.
@@ -162,7 +168,7 @@ Default is 1.</p></dd>
 Default is NULL.</p></dd>
 <dt>text_size</dt>
 <dd><p>Numeric value representing the size of the text labels.
-Default is 14.</p></dd>
+Default is NULL.</p></dd>
 <dt>text_color</dt>
 <dd><p>Assigns text color to values.
 Default is black.</p></dd>
@@ -232,19 +238,6 @@ Default is "background 1s ease".</p></dd>
 <span class="r-in">defaultColDef <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">color_tiles</span><span class="op">(</span><span class="va">data</span>, span <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co">## Use number_fmt to format numbers using the scales package</span></span>
-<span class="r-in"><span class="va">car_prices</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/Cars93.html" class="external-link">Cars93</a></span><span class="op">[</span><span class="fl">20</span><span class="op">:</span><span class="fl">49</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Make"</span>, <span class="st">"Price"</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">car_prices</span>,</span>
-<span class="r-in">defaultColDef <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">color_tiles</span><span class="op">(</span><span class="va">car_prices</span>,</span>
-<span class="r-in">number_fmt <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_dollar.html" class="external-link">dollar</a></span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Use span to apply colors to values in relation to the entire dataset</span></span>
-<span class="r-in"><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">data</span>,</span>
-<span class="r-in">defaultColDef <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">color_tiles</span><span class="op">(</span><span class="va">data</span>, span <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
-<span class="r-in"></span>
 <span class="r-in"><span class="co">## Span can take column names</span></span>
 <span class="r-in"><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">data</span>,</span>
 <span class="r-in">defaultColDef <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">color_tiles</span><span class="op">(</span><span class="va">data</span>, span <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -255,6 +248,13 @@ Default is "background 1s ease".</p></dd>
 <span class="r-in">defaultColDef <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">color_tiles</span><span class="op">(</span><span class="va">data</span>, span <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
+<span class="r-in"><span class="co">## Use number_fmt to format numbers using the scales package</span></span>
+<span class="r-in"><span class="va">car_prices</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/MASS/man/Cars93.html" class="external-link">Cars93</a></span><span class="op">[</span><span class="fl">20</span><span class="op">:</span><span class="fl">49</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Make"</span>, <span class="st">"Price"</span><span class="op">)</span><span class="op">]</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">car_prices</span>,</span>
+<span class="r-in">defaultColDef <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">color_tiles</span><span class="op">(</span><span class="va">car_prices</span>,</span>
+<span class="r-in">number_fmt <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_dollar.html" class="external-link">dollar</a></span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
