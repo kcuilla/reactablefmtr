@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">reactablefmtr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,31 +78,30 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.1.0" id="reactablefmtr-110---development-version">reactablefmtr 1.1.0 - development version<a class="anchor" aria-label="anchor" href="#reactablefmtr-110---development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.0.0" id="reactablefmtr-200---development-version">reactablefmtr 2.0.0 - development version<a class="anchor" aria-label="anchor" href="#reactablefmtr-200---development-version"></a></h2>
 <div class="section level4">
-<h4 id="new-features-1-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-1-1-0"></a></h4>
+<h4 id="new-features-2-0-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-0-0"></a></h4>
 <div class="section level5">
-<h5 id="add_icon_legend-1-1-0">add_icon_legend()<a class="anchor" aria-label="anchor" href="#add_icon_legend-1-1-0"></a></h5>
-<ul><li>Place an icon legend either below or above a reactable table</li>
-<li>The legend can be used to display the icon set used within <code><a href="../reference/icon_sets.html">icon_sets()</a></code>
+<h5 id="add_legend--add_icon_legend-2-0-0">add_legend() &amp; add_icon_legend()<a class="anchor" aria-label="anchor" href="#add_legend--add_icon_legend-2-0-0"></a></h5>
+<ul><li>Place a legend below a reactable table</li>
+<li>
+<code><a href="../reference/add_legend.html">add_legend()</a></code> can be used to display the color palette used within the table</li>
+<li>
+<code><a href="../reference/add_icon_legend.html">add_icon_legend()</a></code> can be used to display the icon set used within <code><a href="../reference/icon_sets.html">icon_sets()</a></code>
 </li>
-<li>The legend can be aligned to either the right, left, or center of the table</li>
-<li>Custom labels can be applied to each of icons of the legend.</li>
+<li>The legends can be aligned to either the right or left of the table</li>
+<li>A title and/or footer can be added to the legend with <code>title</code> or <code>footer</code>
+</li>
+<li>The number of bins displayed within <code><a href="../reference/add_legend.html">add_legend()</a></code> can be adjusted with <code>bins</code>
+</li>
 </ul></div>
 <div class="section level5">
-<h5 id="add_legend-1-1-0">add_legend()<a class="anchor" aria-label="anchor" href="#add_legend-1-1-0"></a></h5>
-<ul><li>Place a legend either below or above a reactable table</li>
-<li>The legend can be used to display the color scale of a color palette used within the table</li>
-<li>The legend can be aligned to either the right, left, or center of the table</li>
-<li>Custom labels can be applied to the upper and lower bounds of the legend</li>
-</ul></div>
-<div class="section level5">
-<h5 id="animate-1-1-0">animate<a class="anchor" aria-label="anchor" href="#animate-1-1-0"></a></h5>
+<h5 id="animate-2-0-0">animate<a class="anchor" aria-label="anchor" href="#animate-2-0-0"></a></h5>
 <ul><li>The animation of <code><a href="../reference/data_bars.html">data_bars()</a></code> can now be controlled with <code>animate</code>. The <code>animate</code> parameter has also been added to <code><a href="../reference/color_scales.html">color_scales()</a></code>, <code><a href="../reference/color_tiles.html">color_tiles()</a></code>, <code><a href="../reference/icon_sets.html">icon_sets()</a></code>, and <code><a href="../reference/icon_assign.html">icon_assign()</a></code>. The duration and timing function of the animation can be changed within <code>animate</code> or the animation can be turned off by setting it to ‘none’. For available timing functions, see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition" class="external-link">CSS Transitions</a>
 </li>
 </ul></div>
 <div class="section level5">
-<h5 id="background_img-1-1-0">background_img()<a class="anchor" aria-label="anchor" href="#background_img-1-1-0"></a></h5>
+<h5 id="background_img-2-0-0">background_img()<a class="anchor" aria-label="anchor" href="#background_img-2-0-0"></a></h5>
 <ul><li>Embed an image from the web into the background of a cell</li>
 <li>Unlike <code><a href="../reference/embed_img.html">embed_img()</a></code>, an image within <code><a href="../reference/background_img.html">background_img()</a></code> will take up the entire contents of a cell</li>
 <li>
@@ -110,17 +109,24 @@
 </li>
 </ul></div>
 <div class="section level5">
-<h5 id="cell_style-1-1-0">cell_style()<a class="anchor" aria-label="anchor" href="#cell_style-1-1-0"></a></h5>
+<h5 id="bubble_grid-2-0-0">bubble_grid()<a class="anchor" aria-label="anchor" href="#bubble_grid-2-0-0"></a></h5>
+<ul><li>Build a customizable bubble grid chart</li>
+<li>The size of the bubbles are in relation to the values within each column - the bigger the value, the bigger the size of the bubble</li>
+<li>The shapes of the bubble can either be circles or squares specified by <code>shape</code>
+</li>
+</ul></div>
+<div class="section level5">
+<h5 id="cell_style-2-0-0">cell_style()<a class="anchor" aria-label="anchor" href="#cell_style-2-0-0"></a></h5>
 <ul><li>
 <code><a href="../reference/cell_style.html">cell_style()</a></code> can be used to customize the appearance of certain cells within a table. For example, if you wanted to display a particular value or set of values in a column as bold and in red text, you can do so by specifying either the row number or values themselves</li>
 <li>Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, the vertical and horizontal alignment within the cell, and the background color of the cell. Animation is also applied to <code><a href="../reference/cell_style.html">cell_style()</a></code> by default, but can be turned off by setting to ‘none’</li>
 </ul></div>
 <div class="section level5">
-<h5 id="color_tiles-1-1-0">color_tiles()<a class="anchor" aria-label="anchor" href="#color_tiles-1-1-0"></a></h5>
+<h5 id="color_tiles-2-0-0">color_tiles()<a class="anchor" aria-label="anchor" href="#color_tiles-2-0-0"></a></h5>
 <ul><li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the tiles</li>
 </ul></div>
 <div class="section level5">
-<h5 id="data_bars-1-1-0">data_bars()<a class="anchor" aria-label="anchor" href="#data_bars-1-1-0"></a></h5>
+<h5 id="data_bars-2-0-0">data_bars()<a class="anchor" aria-label="anchor" href="#data_bars-2-0-0"></a></h5>
 <ul><li>Optionally force a range of values to display their text labels on the outside-end of the filled bars when the text_position is set to either “inside-end”, “inside-base”, or “center”. This can be useful when the length of the filled data bars is too short to the text labels on the inside of the filled bars</li>
 <li>Control the size of the text labels with <code>text_size</code>
 </li>
@@ -128,35 +134,52 @@
 <li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the bars</li>
 </ul></div>
 <div class="section level5">
-<h5 id="embed_img-1-1-0">embed_img()<a class="anchor" aria-label="anchor" href="#embed_img-1-1-0"></a></h5>
+<h5 id="embed_img-2-0-0">embed_img()<a class="anchor" aria-label="anchor" href="#embed_img-2-0-0"></a></h5>
 <ul><li>The horizontal alignment within a cell can now be controlled with the <code>horizontal_align</code> option</li>
 </ul></div>
 <div class="section level5">
-<h5 id="google_font-1-1-0">google_font()<a class="anchor" aria-label="anchor" href="#google_font-1-1-0"></a></h5>
+<h5 id="gauge_chart-2-0-0">gauge_chart()<a class="anchor" aria-label="anchor" href="#gauge_chart-2-0-0"></a></h5>
+<ul><li>Build a customizable gauge chart</li>
+<li>Show the minimum and maximum values of the column on the gauge by setting <code>show_min_max</code> to TRUE</li>
+<li>Many options that are available in <code><a href="../reference/data_bars.html">data_bars()</a></code> are available in <code><a href="../reference/gauge_chart.html">gauge_chart()</a></code>
+</li>
+</ul></div>
+<div class="section level5">
+<h5 id="google_font-2-0-0">google_font()<a class="anchor" aria-label="anchor" href="#google_font-2-0-0"></a></h5>
 <ul><li>Apply any font from Google Fonts <a href="https://fonts.google.com/" class="external-link uri">https://fonts.google.com/</a> to a reactable table using <code><a href="../reference/google_font.html">google_font()</a></code>
 </li>
 </ul></div>
 <div class="section level5">
-<h5 id="html-1-1-0">html()<a class="anchor" aria-label="anchor" href="#html-1-1-0"></a></h5>
+<h5 id="group_border_sort-2-0-0">group_border_sort()<a class="anchor" aria-label="anchor" href="#group_border_sort-2-0-0"></a></h5>
+<ul><li>Add a styled border beneath rows of specified groups on sort</li>
+<li>Credit to Greg Lin, creator of {reactable} for writing the JS function</li>
+</ul></div>
+<div class="section level5">
+<h5 id="group_merge_sort-2-0-0">group_merge_sort()<a class="anchor" aria-label="anchor" href="#group_merge_sort-2-0-0"></a></h5>
+<ul><li>Hide rows containing duplicate values on sort</li>
+<li>Credit to Greg Lin, creator of {reactable} for writing the JS function</li>
+</ul></div>
+<div class="section level5">
+<h5 id="html-2-0-0">html()<a class="anchor" aria-label="anchor" href="#html-2-0-0"></a></h5>
 <ul><li>Apply HTML attributes to to text within <code><a href="../reference/add_title.html">add_title()</a></code>, <code><a href="../reference/add_subtitle.html">add_subtitle()</a></code>, and <code><a href="../reference/add_source.html">add_source()</a></code> with the <code><a href="../reference/html.html">html()</a></code> helper function</li>
 </ul></div>
 <div class="section level5">
-<h5 id="icon_assign-1-1-0">icon_assign()<a class="anchor" aria-label="anchor" href="#icon_assign-1-1-0"></a></h5>
+<h5 id="icon_assign-2-0-0">icon_assign()<a class="anchor" aria-label="anchor" href="#icon_assign-2-0-0"></a></h5>
 <ul><li>The alignment of the icons within a column can now be changed to either left, right, or center with <code>align_icons</code>. Previously, icons could only be aligned to the left</li>
 </ul></div>
 <div class="section level5">
-<h5 id="icon_sets-1-1-0">icon_sets()<a class="anchor" aria-label="anchor" href="#icon_sets-1-1-0"></a></h5>
+<h5 id="icon_sets-2-0-0">icon_sets()<a class="anchor" aria-label="anchor" href="#icon_sets-2-0-0"></a></h5>
 <ul><li>Custom pre-selected icon sets can be assigned to values via <code>icon_set</code>. Options are “ski rating”, “medals”, and “batteries”. Can be used with <code><a href="../reference/add_icon_legend.html">add_icon_legend()</a></code>
 </li>
 </ul></div>
 <div class="section level5">
-<h5 id="merge_column-1-1-0">merge_column()<a class="anchor" aria-label="anchor" href="#merge_column-1-1-0"></a></h5>
+<h5 id="merge_column-2-0-0">merge_column()<a class="anchor" aria-label="anchor" href="#merge_column-2-0-0"></a></h5>
 <ul><li>Merge and arrange two columns together</li>
 <li>Can be used with both numeric and non-numeric columns</li>
 <li>Control the appearance of both the established column and the merged text with options such as text size, color, font weight, font style, and text decoration</li>
 </ul></div>
 <div class="section level5">
-<h5 id="pill_buttons-1-1-0">pill_buttons()<a class="anchor" aria-label="anchor" href="#pill_buttons-1-1-0"></a></h5>
+<h5 id="pill_buttons-2-0-0">pill_buttons()<a class="anchor" aria-label="anchor" href="#pill_buttons-2-0-0"></a></h5>
 <ul><li>
 <code><a href="../reference/pill_buttons.html">pill_buttons()</a></code> can be used to surround text or numeric values in a colored pill button. It is similar to <code><a href="../reference/color_tiles.html">color_tiles()</a></code> but is more condensed and round and the width of the pill dynamically adjusts based on the size of the text/values</li>
 <li>As with <code><a href="../reference/color_tiles.html">color_tiles()</a></code>, <code><a href="../reference/color_scales.html">color_scales()</a></code>, and <code><a href="../reference/data_bars.html">data_bars()</a></code>, colors can be conditionally assigned from another column in the dataset and many of the other options available in <code><a href="../reference/color_tiles.html">color_tiles()</a></code> are available in <code><a href="../reference/pill_buttons.html">pill_buttons()</a></code>
@@ -164,17 +187,20 @@
 <li>Set <code>box_shadow</code> to TRUE to apply a box shadow to the buttons</li>
 </ul></div>
 <div class="section level5">
-<h5 id="sparklines-1-1-0">sparklines<a class="anchor" aria-label="anchor" href="#sparklines-1-1-0"></a></h5>
+<h5 id="sparklines-2-0-0">sparklines<a class="anchor" aria-label="anchor" href="#sparklines-2-0-0"></a></h5>
 <ul><li>Interactive sparklines can now be added to reactable tables via <code>react_sparkline</code> and <code>react_sparkbar</code>
 </li>
 <li>In order to use the sparklines, one must download the {dataui} package from GitHub (<a href="https://github.com/timelyportfolio/dataui" class="external-link uri">https://github.com/timelyportfolio/dataui</a>)</li>
 </ul></div>
 <div class="section level5">
-<h5 id="tooltip-1-1-0">tooltip<a class="anchor" aria-label="anchor" href="#tooltip-1-1-0"></a></h5>
-</div>
+<h5 id="tooltip-2-0-0">tooltip<a class="anchor" aria-label="anchor" href="#tooltip-2-0-0"></a></h5>
+<ul><li>Add a tooltip to cells (used with <code><a href="../reference/color_scales.html">color_scales()</a></code>)</li>
+<li>Used within <code>cell</code> of <code><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">reactable::colDef</a></code>
+</li>
+</ul></div>
 </div>
 <div class="section level4">
-<h4 id="other-modifications-1-1-0">Other Modifications<a class="anchor" aria-label="anchor" href="#other-modifications-1-1-0"></a></h4>
+<h4 id="other-modifications-2-0-0">Other Modifications<a class="anchor" aria-label="anchor" href="#other-modifications-2-0-0"></a></h4>
 <ul><li>The default color of <code>fill_color</code> within <code><a href="../reference/data_bars.html">data_bars()</a></code> and <code><a href="../reference/icon_assign.html">icon_assign()</a></code> has been changed to <a href="https://github.com/kcuilla/reactablefmtr/issues/67" class="external-link">#67</a>a9cf</li>
 <li>The default position of <code>text_position</code> within <code><a href="../reference/data_bars.html">data_bars()</a></code> has been changed from “outside-end” to “inside-end”</li>
 <li>Text is now centered vertically within <code><a href="../reference/data_bars.html">data_bars()</a></code> by default</li>
