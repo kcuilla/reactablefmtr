@@ -35,10 +35,10 @@ df %>%
 
 | Parameter             | Description                                   | Default Value                    |
 |:----------------------|:----------------------------------------------|:---------------------------------|
-| `data`                | name of dataset                               | NULL                             |
+| `data`                | name of data set                              | NULL                             |
 | `colors`              | color palette                                 | c('#15607A','#FFFFFF','#FA8C00') |
 | `color_ref`           | column containing color assignments           | NULL                             |
-| `color_by`            | column containing value assigments            | NULL                             |
+| `color_by`            | column containing value assignments           | NULL                             |
 | `opacity`             | opaqueness of color palette                   | 1                                |
 | `bias`                | the spacing between colors                    | 1                                |
 | `number_fmt`          | the format of the values                      | NULL                             |
@@ -55,7 +55,7 @@ df %>%
 | `animation`           | animation of color transitions on sort        | 'background 1s ease'             |
 
 
-## Formatting numbers
+## Format numbers
 
 Numbers can be formatted within the `number_fmt` argument in `color_tiles()`. One method of formatting the numbers is by utilizing the formatters from the `{scales}` package, and the numbers can be formatted in the same way as they are in `{ggplot2}`.
 
@@ -102,7 +102,7 @@ df %>%
   )
 ```
 
-## Adding a legend
+## Add a legend
 
 ## `add_legend()` customization options
 
@@ -200,7 +200,7 @@ df %>%
 
 <br>
 
-## Adding a box shadow
+## Add a box shadow
 
 Box shadows can be added to the tiles to create a '3-D' effect via `box_shadow`.
 
@@ -221,7 +221,7 @@ df %>%
   )
 ```
 
-## Assigning colors from another column
+## Assign colors from another column
 
 Colors can be conditionally assigned to values based on another column by using `color_ref`.
 

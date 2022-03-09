@@ -40,10 +40,10 @@ reactable(
 
 | Parameter             | Description                                   | Default Value                    |
 |:----------------------|:----------------------------------------------|:---------------------------------|
-| `data`                | name of dataset                               | NULL                             |
+| `data`                | name of data set                              | NULL                             |
 | `colors`              | color palette                                 | c('#15607A','#FFFFFF','#FA8C00') |
 | `color_ref`           | column containing color assignments           | NULL                             |
-| `color_by`            | column containing value assigments            | NULL                             |
+| `color_by`            | column containing value assignments           | NULL                             |
 | `opacity`             | opaqueness of color palette                   | 1                                |
 | `bias`                | the spacing between colors                    | 1                                |
 | `text_size`           | the size of the text                          | NULL                             |
@@ -118,7 +118,7 @@ reactable(
 ```
 
 
-## Adding a legend
+## Add a legend
 
 ## `add_legend()` customization options
 
@@ -226,7 +226,7 @@ reactable(
 
 <br>
 
-## Formatting numbers
+## Format numbers
 
 To format the numbers within columns containing `color_scales()`, you can use any of the [formats](https://glin.github.io/reactable/articles/examples.html#column-formatting-1) within reactable's `colFormat()` argument:
 

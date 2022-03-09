@@ -16,8 +16,47 @@ library(purrr)
 library(nflfastR)
 ```
 
+## `data_bars()` customization options
 
-## Position Text
+| Parameter             | Description                                   | Default Value                    |
+|:----------------------|:----------------------------------------------|:---------------------------------|
+| `data`                | name of data set                              | NULL                             |
+| `text_position`       | position of the values relative to bars       | 'inside-end'                     |
+| `number_fmt`          | the format of the values                      | NULL                             |
+| `fill_color`          | color of the filled portion of the bars       | '#15607A'                        |
+| `fill_color_ref`      | column containing color assignments           | NULL                             |
+| `fill_by`             | column containing value assignments           | NULL                             |
+| `fill_opacity`        | opaqueness of the fill color                  | 1                                |
+| `bias`                | the spacing between colors                    | 1                                |
+| `min_value`           | the minimum value for the width of the bars   | NULL (0)                         |
+| `max_value`           | the maximum value for the width of the bars   | NULL (max value of the column)   |
+| `align_bars`          | the alignment of the bars within the column   | 'left'                           |
+| `bar_height`          | the height of the bars                        | NULL                             |
+| `force_outside`       | convert a range of values to 'outside-end'    | NULL                             |
+| `text_size`           | the size of the text                          | NULL                             |
+| `text_color`          | the color of the text                         | 'black'                          |
+| `text_color_ref`      | column containing text color assignments      | NULL                             |
+| `brighten_text`       | auto-adjust text color based on fill color    | TRUE                             |
+| `brighten_text_color` | color of the auto-adjusted text color         | 'white'                          |
+| `bold_text`           | bold format text                              | FALSE                            |
+| `border_style`        | the style of the border around the bars       | NULL                             |
+| `border_width`        | the width of the border around the bars       | NULL                             |
+| `border_color`        | the color of the border around the bars       | NULL                             |
+| `icon`                | add an icon to the bars                       | NULL                             |
+| `icon_ref`            | column containing icon assignments            | NULL                             |
+| `icon_size`           | the size of the icons                         | NULL                             |
+| `icon_color`          | the color of the icons                        | NULL                             |
+| `icon_color_ref`      | column containing icon color assignments      | NULL                             |
+| `img`                 | add an image to the bars                      | NULL                             |
+| `img_ref`             | column containing image assignments           | NULL                             |
+| `img_height`          | the height of the images                      | NULL                             |
+| `img_width`           | the width of the images                       | NULL                             |
+| `box_shadow`          | add a box shadow around the bars              | NULL                             |
+| `round_edges`         | round the edges around the bars               | FALSE                            |
+| `tooltip`             | enable hover tooltip                          | FALSE                            |
+| `animation`           | animation of color transitions on sort        | 'width 1s ease'                  |
+
+## Position text
 
 By default, the values are positioned on the "inside-end" of the filled bars:
 
@@ -33,7 +72,6 @@ data <- data.frame(
            .84, .72, .61, .48, .77,
            .21, .39, .60, .55, .81)
 )
-
 reactable(
   data,
   pagination = FALSE,
@@ -128,7 +166,7 @@ reactable(
 ```
 
 
-## Force Text Outside
+## Force text outside
 
 If the values are difficult to see inside the bars since they are small relative to other values in the column, you can "force" them to show outside of the data bars by providing a range of values within `force_outside`:
 
@@ -147,59 +185,7 @@ reactable(
 ```
 
 
-
-## Change Color of Text
-
-The default text color for the values is black, but it can be changed with `text_color`:
-
-```{r}
-reactable(
-  data,
-  pagination = FALSE,
-  defaultColDef = colDef(
-    cell = data_bars(data, 
-                     text_color = "red", 
-                     number_fmt = scales::percent)
-  )
-)
-```
-
-When dark color palettes are used and text are placed inside the filled bars, the text will automatically show as white in dark-colored bars and black in light-colored bars in order to improve visibility as shown below:
-
-```{r}
-reactable(
-  data,
-  pagination = FALSE,
-  defaultColDef = colDef(
-    cell = data_bars(data, 
-                     fill_color = viridis(5), 
-                     text_position = "inside-end",
-                     number_fmt = scales::percent)
-  )
-)
-```
-
-Note: This feature can be turned off by setting `brighten_text` = FALSE. 
-
-The color of the labels that appear within dark-filled bars can be changed with `brighten_text_color` if you prefer to use another color other than the default white:
-
-```{r}
-reactable(
-  data,
-  pagination = FALSE,
-  defaultColDef = colDef(
-    cell = data_bars(data, 
-                     fill_color = viridis(5),
-                     text_position = "inside-end", 
-                     brighten_text_color = "gold", 
-                     number_fmt = scales::percent)
-  )
-)
-```
-
-
-
-## Aligning Data Bars
+## Aligning data bars
 
 By default, the filled bars are aligned from left-to-right, but can be aligned from right-to-left by setting `align_bars = "right"`:
 
@@ -239,7 +225,7 @@ reactable(
 ```
 
 
-## Adding a Box Shadow
+## Add a box shadow
 
 Box shadows can be added to the bars to create a "3-D" effect via `box_shadow`.
 
@@ -256,7 +242,7 @@ reactable(
 ```
 
 
-## Round Edges
+## Round edges
 
 The edges of the bars can be rounded by setting `round_edges` to TRUE.
 
@@ -273,7 +259,27 @@ reactable(
 ```
 
 
-## Set a Maximum Width
+## Add borders
+
+Borders can be placed around the bars by setting the border properties within `border_style`, `border_color`, and `border_width`:
+
+
+```{r}
+reactable(
+  data,
+  pagination = FALSE,
+  defaultColDef = colDef(
+    cell = data_bars(data, 
+                     border_style = "solid",
+                     border_color = "gold", 
+                     border_width = "2px",
+                     number_fmt = scales::percent)
+  )
+)
+```
+
+
+## Set a maximum width
 
 By default, the width of the filled data bars is equal to the maximum value within that particular column. In most cases, this is what we want to display, but sometimes it's better to extend the range. For example, in the percentages below, if we want to extend the width to show the values out of 100%, we could do so by setting the `max_value` to 1:
 
@@ -295,7 +301,7 @@ reactable(
 Now when you look at the 82% value above, there is 18% empty space filled by the background showing that the value is out of 100% and not 82%.
 
 
-## Adjusting the Vertical Height of the Bars
+## Adjust the height of the bars
 
 The default height of the data bars is set to 19px but can be adjusted within `bar_height`.
 
@@ -330,7 +336,7 @@ reactable(
 ```
 
 
-## Color Reference
+## Reference colors from another column
 
 You can now conditionally assign colors to rows based on values within another column with the `fill_color_ref` argument. This allows you to assign colors to groups such as shown below:
 
@@ -384,8 +390,7 @@ reactable(.,
 ```
 
 
-
-## Gradient Colors
+## Gradient colors
 
 `data_bars_gradient()` is now depreciated and has been replaced with the `gradient` argument within `data_bars()`. Set `fill_gradient = TRUE` to change any multi-color palette to a left-to-right gradient to be used as the fill for the bars:
 
@@ -399,14 +404,100 @@ reactable(
                      fill_gradient = TRUE, 
                      background = "lightgrey", 
                      max_value = 1, 
+                     brighten_text = FALSE,
+                     text_color = "white",
                      number_fmt = scales::percent)
   )
 )
 ```
 
 
+## Fill assignments by another column
 
-## Positive and Negative Values
+With `fill_by`, you can apply data bars to a non-numeric column by referencing values contained within another column.
+
+<i>Note: this only works with columns of character-type, not for factors.</i>
+
+```{r}
+car_data <- MASS::Cars93 %>% 
+  filter(Type %in% c('Compact', 'Sporty', 'Van')) %>% 
+  select(c('Make', 'Type', 'MPG.city')) %>% 
+  mutate(Make = as.character(Make)) %>% 
+  tail(10)
+
+reactable(
+  car_data,
+  columns = list(
+    Make = colDef(
+      cell = data_bars(car_data, fill_by = "MPG.city")
+    )
+  )
+)
+```
+
+You are still able to control the position of the text relative to the bars with `text_position`:
+
+```{r}
+car_data <- MASS::Cars93 %>% 
+  filter(Type %in% c('Compact', 'Sporty', 'Van')) %>% 
+  select(c('Make', 'Type', 'MPG.city')) %>% 
+  mutate(Make = as.character(Make)) %>% 
+  tail(10)
+
+reactable(
+  car_data,
+  defaultSorted = "MPG.city",
+  defaultSortOrder = "desc",
+  columns = list(
+    Make = colDef(
+      cell = data_bars(car_data, fill_by = "MPG.city", text_position = "above")
+    )
+  )
+)
+```
+
+
+## Add a legend
+
+## `add_legend()` customization options
+
+| Parameter    | Description                              | Default Value                    |
+|:-------------|:-----------------------------------------|:---------------------------------|
+| `data`       | name of dataset                          | NULL                             |
+| `col_name`   | name of column containing numeric values | NULL                             |
+| `bins`       | number of bins to be displayed           | 5                                |
+| `colors`     | color palette                            | c('#15607A','#FFFFFF','#FA8C00') |
+| `bias`       | opaqueness of color palette              | 1                                |
+| `labels`     | show or hide value labels                | TRUE                             |
+| `number_fmt` | the format of the values                 | NULL                             |
+| `title`      | the title above the legend               | NULL                             |
+| `footer`     | the footer below the legend              | NULL                             |
+| `align`      | align to the left or right of the table  | 'right'                          |
+
+
+If you would like to add a legend below the table, you can do so by including `add_legend()`. The two things you will need within `add_legend()`, are the name of the column from which the legend is to be displayed for, and the color palette used within the table. 
+
+Since we used a custom color palette for the `fill_color` of `data_bars` in the example below, we will need to match that color palette within `colors` of the legend.
+
+Adding a legend is useful when using the `fill_by` option in `data_bars` since the values aren't directly displayed on the bars as they would be if they were used in a numeric column.
+
+```{r}
+reactable(
+  car_data,
+  defaultSorted = "MPG.city",
+  defaultSortOrder = "desc",
+  columns = list(
+    Make = colDef(
+      cell = data_bars(car_data, fill_by = "MPG.city", text_position = "above", fill_color = c("#22577A","#38A3A5","#57CC99","#80ED99","#C7F9CC"))
+    )
+  )
+) %>% 
+add_legend(car_data, col_name = 'MPG.city', title = 'MPG City', align = 'left', colors = c("#22577A","#38A3A5","#57CC99","#80ED99","#C7F9CC"))
+```
+
+<br>
+
+## Positive and negative values
 
 `data_bars_pos_neg()` is also now depreciated and has been replaced with the default setting of `data_bars()` which automatically detects if there are negative values within a column and adjusts the bars to go in opposite directions rather than one.
 
@@ -448,7 +539,7 @@ reactable(.,
 ```
 
 
-## Add Icons to Bars
+## Add icons
 
 Now within the `data_bars()` formatter, you can directly add icons to your tables!
 
@@ -460,7 +551,6 @@ data <- data.frame(
   Primary = c("#4267B2", "#1DA1F2", "#0E76A8", "#FF4500", "#FF0000", "#833AB4", "#E60023", "#FFFC00"),
   Values = c(75, 120, 90, 100, 80, 70, 60, 40)
 )
-
 reactable(
   data,
   defaultSorted = "Values",
@@ -553,7 +643,7 @@ reactable(
 
 
 
-## Add Images to Bars
+## Add images
 
 Similarly, you can now assign images to your data bars!
 
@@ -571,7 +661,6 @@ pbp <- map_df(seasons, function(x) {
     )
   ))
 })
-
 ## figures with QB stats
 qbs <- pbp %>%
   filter(week <= 17,!is.na(epa)) %>%
@@ -585,7 +674,6 @@ qbs <- pbp %>%
   ) %>%
   ungroup() %>%
   filter(n_dropbacks > 100 & n_plays > 1000)
-
 ## join team logos to dataset
 qbs <- qbs %>%
   left_join(teams_colors_logos, by = c('team' = 'team_abbr')) %>% 
@@ -627,4 +715,3 @@ reactable(
   )
 )
 ```
-
