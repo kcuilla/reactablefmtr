@@ -56,7 +56,7 @@ Default is 'right'.}
 a function that adds a legend below a reactable table.
 }
 \description{
-Use `add_legend()` to place a legend either below a {reactable} table.
+Use `add_legend()` to place a legend below a {reactable} table.
      The legend can be used to display the color scale of a color palette used within the table.
      Supply the name of the dataset used with `data` and the name of the column you would like to show a legend for with `col_name`.
      By default, the colors within `colors` are the default color palette used in `color_tiles()` and `color_scales()`,

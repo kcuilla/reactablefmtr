@@ -9,8 +9,9 @@ add_icon_legend(
   icon_set = NULL,
   show_labels = TRUE,
   labels = NULL,
-  position = "below",
   align = "right",
+  title = NULL,
+  footer = NULL,
   margin = NULL
 )
 }
@@ -28,13 +29,15 @@ Default is TRUE.}
 Number of labels must match the number of icons in the icon set.
 Default is NULL.}
 
-\item{position}{The position of the legend in relation to the table.
-Options are 'above' or 'below'.
-Default is 'below'.}
-
 \item{align}{The horizontal alignment of the legend.
-Options are 'left', 'right', or 'center'.
+Options are 'left' or 'right'.
 Default is 'right'.}
+
+\item{title}{The title above the legend.
+Default is NULL.}
+
+\item{footer}{The footer below the legend.
+Default is NULL.}
 
 \item{margin}{Use margin() to set the margin around the legend (top, right, bottom, left).
 Default is NULL.}
@@ -43,9 +46,9 @@ Default is NULL.}
 a function that adds a source below a reactable table.
 }
 \description{
-Use `add_icon_legend()` to place a legend either below or above a {reactable} or {reactablefmtr} table.
+Use `add_icon_legend()` to place a legend below a reactable table.
      The legend can be used to display the icon set used within `icon_sets()`.
-     The legend can be aligned to either the right, left, or center of the table.
+     The legend can be aligned to the right or left of the table.
      Custom labels can be applied to the upper and lower bounds of the legend.
 }
 \examples{
@@ -60,13 +63,16 @@ cell = icon_sets(data, icon_set = "medals"))))
 table \%>\%
   add_icon_legend(icon_set = "medals")
 
-## The legend can be placed below or above the table
-## and aligned either to the left, right, or center
+## The legend can be aligned to the left or right of the table
 table \%>\%
-  add_icon_legend(icon_set = "medals", position = "above", align = "left")
+  add_icon_legend(icon_set = "medals", align = "left")
 
 ## Add custom labels to each icon in the legend
 table \%>\%
   add_icon_legend(icon_set = "medals", labels = c("Shortest Length","Avg Length","Longest Length"))
+
+## Add a title and footer to the legend
+table \%>\%
+  add_icon_legend(icon_set = "medals", title = "Icon Legend Title", footer = "Icon Legend Footer")
 }
 }
