@@ -2666,6 +2666,84 @@ clean <- function(font_size = 14,
 }
 
 
+#' Theme no_lines
+#'
+#' A table style with no lines or borders
+#'
+#' @param font_size Numeric value representing the size of the font within the table (in px).
+#'      Default is 14.
+#'
+#' @param font_color Color of the font for the text within the table.
+#'      Default is #222222.
+#'
+#' @param header_font_size Numeric value representing the size of the font within the table (in px).
+#'      Default is 15.
+#'
+#' @param header_font_color Color of the font for the header text.
+#'      Default is transparent
+#'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
+#' @param cell_padding Numeric value representing the padding size between cells (in px).
+#'      Default is 6.
+#'
+#' @return an object of class theme that is applied to a reactable table.
+#'
+#' @import reactable
+#'
+#' @examples
+#' data <- iris[10:29, ]
+#'
+#' ## Standard no_lines theme
+#' reactable(data,
+#'           theme = no_lines())
+#'
+#' ## Additional options applied
+#' reactable(data,
+#'           theme = no_lines(font_size = 12, font_color = "grey", cell_padding = 3))
+#'
+#' @export
+
+no_lines <- function(font_size = 14,
+                 font_color = "#222222",
+                 header_font_size = 15,
+                 header_font_color = "#222222",
+                 centered = FALSE,
+                 cell_padding = 6) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex",
+                            flexDirection = "column",
+                            justifyContent = "center",
+                            borderColor = "transparent")
+
+  } else { centered_content = list(borderColor = "transparent") }
+
+  reactableTheme(
+    color = font_color,
+    backgroundColor = "transparent",
+    stripedColor = "lightgrey",
+    highlightColor = "lightgrey",
+    cellPadding = cell_padding,
+    cellStyle = centered_content,
+    tableStyle = list(fontSize = font_size),
+    headerStyle = list(color = header_font_color,
+                       borderColor = "transparent",
+                       fontSize = header_font_size),
+    selectStyle = list(color = "transparent"),
+    paginationStyle = list(color = "transparent",
+                           borderColor = "transparent")
+  )
+}
+
+
 #' Theme void
 #'
 #' A table style completely void of borders and headers
@@ -2682,9 +2760,6 @@ clean <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is transparent
 #'
-#' @param cell_padding Numeric value representing the padding size between cells (in px).
-#'      Default is 6.
-#'
 #' @param border_color Color of the borders between cells.
 #'      Default is transparent.
 #'
@@ -2696,6 +2771,12 @@ clean <- function(font_size = 14,
 #'
 #' @param header_border_width Numeric value representing the bottom border width of the header (in px).
 #'      Default is 0.
+#'
+#' @param centered Logical: vertically center the contents of the table.
+#'     Default is FALSE.
+#'
+#' @param cell_padding Numeric value representing the padding size between cells (in px).
+#'      Default is 6.
 #'
 #' @return an object of class theme that is applied to a reactable table.
 #'
@@ -2722,7 +2803,24 @@ void <- function(font_size = 14,
                  border_width = 0,
                  header_border_color = "transparent",
                  header_border_width = 0,
+                 centered = FALSE,
                  cell_padding = 6) {
+
+  if (!is.logical(centered)) {
+
+    stop("`centered` must be TRUE or FALSE")
+  }
+
+  if (centered == TRUE) {
+
+    centered_content = list(display = "flex",
+                            flexDirection = "column",
+                            justifyContent = "center",
+                            borderColor = border_color,
+                            borderWidth = border_width)
+
+  } else { centered_content = list(borderColor = border_color,
+                                   borderWidth = border_width) }
 
   reactableTheme(
     color = font_color,
@@ -2730,8 +2828,7 @@ void <- function(font_size = 14,
     stripedColor = "lightgrey",
     highlightColor = "lightgrey",
     cellPadding = cell_padding,
-    cellStyle = list(borderColor = border_color,
-                     borderWidth = border_width),
+    cellStyle = centered_content,
     tableStyle = list(fontSize = font_size),
     headerStyle = list(color = header_font_color,
                        borderBottom = paste0("", header_border_width, "px solid ", header_border_color, ""),

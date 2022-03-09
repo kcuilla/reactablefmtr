@@ -1,20 +1,31 @@
-#' Add color tiles to cells in a column
+#'  Build a customizable bubble grid chart
 #'
-#' The `color_tiles()` function conditionally colors the background of each cell similarly to color_scales().
-#'     The difference is that color_tiles() uses round colored tiles around values instead of the entire background of the cell.
-#'     Another difference is color_tiles() allows number formatting with number_fmt whereas color_scales() does not.
+#' The `bubble_grid()` function creates a customizable bubble grid chart within a reactable table.
+#'     The size of the bubbles are in relation to the values within each column - the bigger the value, the bigger the size of the bubble.
+#'     There are two shapes available for the bubble grid: circles and squares, which can be specified with `shape`.
 #'     The colors can be provided within a vector in `colors` or via another column in the dataset by referencing the column by name with `color_ref`.
+#'     If more than one color is provided in `colors`, the colors will be assigned to the values from low to high within the palette.
+#'     This is the default setting of `bubble_grid()`, which applies a blue-to-orange color palette to the bubbles. However, a singular color can be provided instead if desired.
+#'     `bubble_grid()` can be applied to columns containing character data by referencing another column with numeric values in it with `color_by`.
 #'     The opacity of the colors provided can be adjusted by providing a value between 0 and 1 in `opacity`.
-#'     `text_color` can be used to change the color of the values.
+#'     `text_color` can be used to change the color of the values displayed within the bubbles.
 #'     If values are displayed within a dark-colored background, `brighten_text` will display the values in white text so they are more visible.
-#'     The color of `brighten_text_color` can be changed to a color other than white if desired.
+#'     For smaller values with a dark-colored background, the values may not be visible.
+#'     If you would like these numbers to be visible, you could do so by either:
+#'     A) setting `brighten_text` to FALSE and assigning a universal color to the text within `text_color`.
+#'     B) leaving `brighten_text` as TRUE and setting `brighten_text_color` to a darker color other than the default white color.
 #'     If the user wants to assign colors row-wise instead of column-wise, set `span` equal to TRUE to apply across all columns.
 #'     Or can provide the names of the columns by either column name or column position number to apply to only a subset of the columns.
-#'     `color_tiles()` needs to placed within the cell argument in reactable::colDef.
+#'     The format of the numbers within the bubbles can be changed by defining the format from a package such as the {scales} package within `number_fmt`.
+#'     `bubble_grid()` needs to placed within the cell argument in reactable::colDef.
 #'
 #' @param data Dataset containing at least one numeric column.
 #'
-#' @param colors A vector of colors to color the cells.
+#' @param shape The shape of the bubbles.
+#'     Options are 'circles' or 'squares'.
+#'     Default is 'circles'.
+#'
+#' @param colors A vector of colors to color the bubbles.
 #'     Colors should be given in order from low values to high values.
 #'     Default colors provided are blue-white-orange: c("#15607A", "#FFFFFF", "#FA8C00").
 #'     Can use R's built-in colors or other color packages.
@@ -28,6 +39,13 @@
 #'    The column in reference must contain numeric data.
 #'    The column in which the colors are being assigned to can be either numerical or character.
 #'    Default is NULL.
+#'
+#' @param min_value A value to use as the minimum value for the size of the bubbles.
+#'     Default is NULL.
+#'
+#' @param max_value A value to use as the maximum value for the size of the bubbles.
+#'     The default maximum value is the maximum value in the column.
+#'     Default is NULL.
 #'
 #' @param opacity A value between 0 and 1 that adjusts the opacity in colors.
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
@@ -80,10 +98,11 @@
 #'     See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
 #'     for available timing functions and examples.
 #'     Animation can be turned off by setting to "none".
+#'     Animation can be applied to the size of the bubbles by setting it to "all 1s ease".
 #'     Default is "background 1s ease".
 #'
-#' @return a function that applies conditional color tiles
-#'     to a column of numeric values.
+#' @return a function that builds a bubble grid chart
+#'     to a column of values.
 #'
 #' @importFrom grDevices rgb
 #' @importFrom grDevices colorRamp
@@ -92,42 +111,76 @@
 #' @examples
 #' data <- iris[10:29, ]
 #'
-#' ## By default, the colors_tiles() function uses a blue-white-orange three-color pattern
-#' reactable(data,
-#'  columns = list(
-#'  Petal.Length = colDef(cell = color_tiles(data))))
+#' ## By default, the bubble_grid() function uses a blue-white-orange three-color pattern:
+#' reactable(
+#'   data,
+#'   columns = list(
+#'     Petal.Length = colDef(
+#'       align = "center",
+#'       cell = bubble_grid(data))))
 #'
-#' ## If only two colors are desired,
-#' ## you can specify them with colors = 'c(color1, color2)';
-#' reactable(data,
-#'  columns = list(
-#'  Petal.Length = colDef(cell = color_tiles(data,
-#'  colors = c("red", "green")))))
+#' ## You can specify your own color palette or a single color across all values with `colors`;
+#' reactable(
+#'   data,
+#'   columns = list(
+#'     Petal.Length = colDef(
+#'       align = "center",
+#'       cell = bubble_grid(data,
+#'                          colors = c("orange")))))
 #'
-#' ## Use span to apply colors to values in relation to the entire dataset
-#' reactable(data,
-#' defaultColDef = colDef(cell = color_tiles(data, span = TRUE)))
+#' ## Use squares instead of circles:
+#' reactable(
+#'   data,
+#'   columns = list(
+#'     Petal.Length = colDef(
+#'       align = "center",
+#'       cell = bubble_grid(data,
+#'                          shape = "squares"))))
 #'
-#' ## Span can take column names
-#' reactable(data,
-#' defaultColDef = colDef(cell = color_tiles(data, span = c("Sepal.Length", "Sepal.Width"))))
+#' ## Hide text and show on hover by enabling the tooltip:
+#' reactable(
+#'   data,
+#'   columns = list(
+#'     Petal.Length = colDef(
+#'       align = "center",
+#'       cell = bubble_grid(data,
+#'                          show_text = FALSE,
+#'                          tooltip = TRUE))))
 #'
-#' ## Or it can also take column positions instead
-#' reactable(data,
-#' defaultColDef = colDef(cell = color_tiles(data, span = 1:2)))
+#' ## Control the scale of the circles by adjusting the min and max values:
+#' reactable(
+#'   data,
+#'   columns = list(
+#'     Petal.Length = colDef(
+#'       align = "center",
+#'       cell = bubble_grid(data,
+#'                          min_value = 1,
+#'                          max_value = 2))))
 #'
-#' ## Use number_fmt to format numbers using the scales package
+#' ## Use span to apply bubbles to values in relation to the entire data set:
+#' reactable(
+#'   data,
+#'   defaultColDef = colDef(
+#'     cell = bubble_grid(data,
+#'                        span = TRUE)))
+#'
+#' ## Use number_fmt to format numbers using the scales package:
 #' car_prices <- MASS::Cars93[20:49, c("Make", "Price")]
 #'
 #' reactable(car_prices,
-#' defaultColDef = colDef(cell = color_tiles(car_prices,
-#' number_fmt = scales::dollar)))
+#'   defaultColDef = colDef(
+#'     align = "center",
+#'     cell = bubble_grid(car_prices,
+#'                        number_fmt = scales::dollar)))
 #' @export
 
-color_tiles <- function(data,
+bubble_grid <- function(data,
+                        shape = "circles",
                         colors = c("#15607A", "#FFFFFF", "#FA8C00"),
                         color_ref = NULL,
                         color_by = NULL,
+                        min_value = NULL,
+                        max_value = NULL,
                         opacity = 1,
                         bias = 1,
                         number_fmt = NULL,
@@ -142,6 +195,13 @@ color_tiles <- function(data,
                         box_shadow = FALSE,
                         tooltip = FALSE,
                         animation = "background 1s ease") {
+
+  '%notin%' <- Negate('%in%')
+
+  if (!is.null(shape) && shape %notin% c("circles", "squares") == TRUE) {
+
+    stop("`shape` must be either 'circles' or 'squares'")
+  }
 
   if (!is.logical(bold_text)) {
 
@@ -240,6 +300,31 @@ color_tiles <- function(data,
 
         normalized <- (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
 
+        ### width of data_bars
+        size <- if (is.numeric(value) & is.null(max_value) & is.null(min_value)) {
+
+          paste0(abs(value) / max(dplyr::select_if(data, is.numeric), na.rm = TRUE) * 100, "px")
+
+          ### min_value provided
+        } else if (is.numeric(value) & is.null(max_value) & !is.null(min_value)) {
+
+          paste0((abs(value) - min_value) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min_value) * 100, "px")
+
+          ### max_value provided
+        } else if (is.numeric(value) & !is.null(max_value) & is.null(min_value)) {
+
+          paste0((abs(value) / max_value) * 100, "px")
+
+          ### min and max provided
+        } else if (is.numeric(value) & !is.null(max_value) & !is.null(min_value)) {
+
+          paste0((abs(value) - min_value) / (max_value - min_value) * 100, "px")
+
+        } else if (!is.numeric(value)) {
+
+          return(value)
+        }
+
       } else if (!is.null(color_ref)) {
 
         normalized <- dplyr::ntile(data[[name]], n = length(colors))
@@ -269,6 +354,28 @@ color_tiles <- function(data,
           cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
           font_color <- assign_color(normalized)
 
+          ### width of data_bars
+          size <- if (is.numeric(data[[color_by]][index]) & is.null(max_value) & is.null(min_value)) {
+
+            paste0(abs(data[[color_by]][index]) / max(abs(data[[color_by]]), na.rm = TRUE) * 100, "px")
+
+            ### min_value provided
+          } else if (is.numeric(data[[color_by]][index]) & is.null(max_value) & !is.null(min_value)) {
+
+            paste0((abs(data[[color_by]][index]) - min_value) / (max(abs(data[[color_by]]), na.rm = TRUE) - min_value) * 100, "px")
+
+            ### max_value provided
+          } else if (is.numeric(data[[color_by]][index]) & !is.null(max_value) & is.null(min_value)) {
+
+            paste0((abs(data[[color_by]][index]) / max_value) * 100, "px")
+
+            ### min and max provided
+          } else if (is.numeric(data[[color_by]][index]) & !is.null(max_value) & !is.null(min_value)) {
+
+            paste0((abs(data[[color_by]][index]) - min_value) / (max_value - min_value) * 100, "px")
+
+          }
+
         } else {
 
           stop("Attempted to select non-existing column or non-numeric column with color_by")
@@ -291,6 +398,28 @@ color_tiles <- function(data,
         cell_color <- color_pal(normalized)
         cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
         font_color <- assign_color(normalized)
+
+        ### width of data_bars
+        size <- if (is.numeric(value) & is.null(max_value) & is.null(min_value)) {
+
+          paste0(abs(value) / max(abs(data[[name]]), na.rm = TRUE) * 100, "px")
+
+          ### min_value provided
+        } else if (is.numeric(value) & is.null(max_value) & !is.null(min_value)) {
+
+          paste0((abs(value) - min_value) / (max(abs(data[[name]]), na.rm = TRUE) - min_value) * 100, "px")
+
+          ### max_value provided
+        } else if (is.numeric(value) & !is.null(max_value) & is.null(min_value)) {
+
+          paste0((abs(value) / max_value) * 100, "px")
+
+          ### min and max provided
+        } else if (is.numeric(value) & !is.null(max_value) & !is.null(min_value)) {
+
+          paste0((abs(value) - min_value) / (max_value - min_value) * 100, "px")
+
+          }
 
         }
 
@@ -361,6 +490,11 @@ color_tiles <- function(data,
 
     }
 
+    # adjust border radius based on shape
+    if (shape == "circles") {
+      radius <- "50%"
+    } else radius <- NULL
+
     if (brighten_text == FALSE & show_text == TRUE) {
 
       if (tooltip == TRUE) {
@@ -369,11 +503,13 @@ color_tiles <- function(data,
         htmltools::div(
            style = list(background = cell_color,
                         color = text_color,
-                        display = "flex",
-                        flexDirection = "column",
+                        display = "inline-flex",
                         justifyContent = "center",
                         alignItems = "center",
-                        borderRadius = "6px",
+                        textAlign = "center",
+                        height = size,
+                        width = size,
+                        borderRadius = radius,
                         fontWeight = bold_text,
                         boxShadow = box_shadow,
                         fontSize = text_size,
@@ -389,11 +525,13 @@ color_tiles <- function(data,
         htmltools::div(label,
           style = list(background = cell_color,
                        color = text_color,
-                       display = "flex",
-                       flexDirection = "column",
+                       display = "inline-flex",
                        justifyContent = "center",
                        alignItems = "center",
-                       borderRadius = "6px",
+                       textAlign = "center",
+                       height = size,
+                       width = size,
+                       borderRadius = radius,
                        fontWeight = bold_text,
                        boxShadow = box_shadow,
                        fontSize = text_size,
@@ -408,10 +546,13 @@ color_tiles <- function(data,
         htmltools::div(
            style = list(background = cell_color,
                         color = text_color,
-                        display = "flex",
+                        display = "inline-flex",
                         justifyContent = "center",
-                        height = "18px",
-                        borderRadius = "6px",
+                        alignItems = "center",
+                        textAlign = "center",
+                        height = size,
+                        width = size,
+                        borderRadius = radius,
                         boxShadow = box_shadow,
                         fontSize = text_size,
                         transition = animation)),
@@ -426,10 +567,13 @@ color_tiles <- function(data,
       htmltools::div(label,
         style = list(background = cell_color,
                      color = text_color,
-                     display = "flex",
+                     display = "inline-flex",
                      justifyContent = "center",
-                     height = "18px",
-                     borderRadius = "6px",
+                     alignItems = "center",
+                     textAlign = "center",
+                     height = size,
+                     width = size,
+                     borderRadius = radius,
                      boxShadow = box_shadow,
                      fontSize = text_size,
                      transition = animation))
@@ -442,10 +586,13 @@ color_tiles <- function(data,
       htmltools::tagAppendChild(
         htmltools::div(
            style = list(background = cell_color,
-                        display = "flex",
+                        display = "inline-flex",
                         justifyContent = "center",
-                        height = "18px",
-                        borderRadius = "6px",
+                        alignItems = "center",
+                        textAlign = "center",
+                        height = size,
+                        width = size,
+                        borderRadius = radius,
                         color = "transparent",
                         boxShadow = box_shadow,
                         fontSize = text_size,
@@ -460,10 +607,13 @@ color_tiles <- function(data,
 
         htmltools::div(label,
           style = list(background = cell_color,
-                       display = "flex",
+                       display = "inline-flex",
                        justifyContent = "center",
-                       height = "18px",
-                       borderRadius = "6px",
+                       alignItems = "center",
+                       textAlign = "center",
+                       height = size,
+                       width = size,
+                       borderRadius = radius,
                        fontSize = 0,
                        boxShadow = box_shadow,
                        fontSize = text_size,
@@ -477,10 +627,13 @@ color_tiles <- function(data,
       htmltools::tagAppendChild(
         htmltools::div(
            style = list(background = cell_color,
-                        display = "flex",
+                        display = "inline-flex",
                         justifyContent = "center",
-                        height = "18px",
-                        borderRadius = "6px",
+                        alignItems = "center",
+                        textAlign = "center",
+                        height = size,
+                        width = size,
+                        borderRadius = radius,
                         color = "transparent",
                         boxShadow = box_shadow,
                         fontSize = text_size,
@@ -495,10 +648,13 @@ color_tiles <- function(data,
 
         htmltools::div(label,
           style = list(background = cell_color,
-                       display = "flex",
+                       display = "inline-flex",
                        justifyContent = "center",
-                       height = "18px",
-                       borderRadius = "6px",
+                       alignItems = "center",
+                       textAlign = "center",
+                       height = size,
+                       width = size,
+                       borderRadius = radius,
                        color = "transparent",
                        boxShadow = box_shadow,
                        fontSize = text_size,
@@ -513,11 +669,13 @@ color_tiles <- function(data,
         htmltools::div(
           style = list(background = cell_color,
                        color = font_color,
-                       display = "flex",
-                       flexDirection = "column",
+                       display = "inline-flex",
                        justifyContent = "center",
                        alignItems = "center",
-                       borderRadius = "6px",
+                       textAlign = "center",
+                       height = size,
+                       width = size,
+                       borderRadius = radius,
                        boxShadow = box_shadow,
                        fontWeight = bold_text,
                        fontSize = text_size,
@@ -533,11 +691,13 @@ color_tiles <- function(data,
       htmltools::div(label,
         style = list(background = cell_color,
                      color = font_color,
-                     display = "flex",
-                     flexDirection = "column",
+                     display = "inline-flex",
                      justifyContent = "center",
                      alignItems = "center",
-                     borderRadius = "6px",
+                     textAlign = "center",
+                     height = size,
+                     width = size,
+                     borderRadius = radius,
                      boxShadow = box_shadow,
                      fontWeight = bold_text,
                      fontSize = text_size,
