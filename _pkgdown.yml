@@ -1,7 +1,6 @@
 template:
   bootstrap: 5
   bootswatch: lumen
-  ganalytics: UA-155982987-1
 
 home:
   title: reactablefmtr package

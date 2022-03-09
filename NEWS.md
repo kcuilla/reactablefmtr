@@ -1,20 +1,15 @@
-# reactablefmtr 1.1.0 - development version
+# reactablefmtr 2.0.0 - development version
 
 ### New Features
 
-#### add_icon_legend()
+#### add_legend() & add_icon_legend()
 
-* Place an icon legend either below or above a reactable table
-* The legend can be used to display the icon set used within `icon_sets()`
-* The legend can be aligned to either the right, left, or center of the table
-* Custom labels can be applied to each of icons of the legend.
-
-#### add_legend()
-
-* Place a legend either below or above a reactable table
-* The legend can be used to display the color scale of a color palette used within the table
-* The legend can be aligned to either the right, left, or center of the table
-* Custom labels can be applied to the upper and lower bounds of the legend
+* Place a legend below a reactable table
+* `add_legend()` can be used to display the color palette used within the table
+* `add_icon_legend()` can be used to display the icon set used within `icon_sets()`
+* The legends can be aligned to either the right or left of the table
+* A title and/or footer can be added to the legend with `title` or `footer`
+* The number of bins displayed within `add_legend()` can be adjusted with `bins`
 
 #### animate
 
@@ -25,6 +20,12 @@
 * Embed an image from the web into the background of a cell
 * Unlike `embed_img()`, an image within `background_img()` will take up the entire contents of a cell
 * `background_img()` can also be used in conjunction with `embed_img()`
+
+#### bubble_grid()
+
+* Build a customizable bubble grid chart
+* The size of the bubbles are in relation to the values within each column - the bigger the value, the bigger the size of the bubble
+* The shapes of the bubble can either be circles or squares specified by `shape`
 
 #### cell_style()
 
@@ -46,9 +47,25 @@
 
 * The horizontal alignment within a cell can now be controlled with the `horizontal_align` option 
 
+#### gauge_chart()
+
+* Build a customizable gauge chart
+* Show the minimum and maximum values of the column on the gauge by setting `show_min_max` to TRUE
+* Many options that are available in `data_bars()` are available in `gauge_chart()`
+
 #### google_font()
 
 * Apply any font from Google Fonts <https://fonts.google.com/> to a reactable table using `google_font()`
+
+#### group_border_sort()
+
+* Add a styled border beneath rows of specified groups on sort
+* Credit to Greg Lin, creator of {reactable} for writing the JS function
+
+#### group_merge_sort()
+
+* Hide rows containing duplicate values on sort
+* Credit to Greg Lin, creator of {reactable} for writing the JS function
 
 #### html()
 
@@ -80,6 +97,9 @@
 * In order to use the sparklines, one must download the {dataui} package from GitHub (https://github.com/timelyportfolio/dataui)
 
 #### tooltip
+
+* Add a tooltip to cells (used with `color_scales()`)
+* Used within `cell` of `reactable::colDef`
 
 ### Other Modifications
 

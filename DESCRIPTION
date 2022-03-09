@@ -1,7 +1,7 @@
 Package: reactablefmtr
 Type: Package
 Title: Easily Customize Interactive Tables Made with Reactable
-Version: 1.1.0
+Version: 2.0.0
 Authors@R: c(
     person("Kyle", "Cuilla", role = c("aut", "cre", "cph"), email = "kyle.cuilla@gmail.com"),
     person("Greg", "Lin", role = c("ctb")),
