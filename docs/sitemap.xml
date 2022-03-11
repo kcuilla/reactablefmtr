@@ -73,6 +73,9 @@
     <loc>/reference/background_img.html</loc>
   </url>
   <url>
+    <loc>/reference/bubble_grid.html</loc>
+  </url>
+  <url>
     <loc>/reference/cell_style.html</loc>
   </url>
   <url>
@@ -95,6 +98,9 @@
   </url>
   <url>
     <loc>/reference/cyborg.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dark.html</loc>
   </url>
   <url>
     <loc>/reference/darkly.html</loc>
@@ -122,6 +128,9 @@
   </url>
   <url>
     <loc>/reference/flatly.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gauge_chart.html</loc>
   </url>
   <url>
     <loc>/reference/google_font.html</loc>
@@ -185,6 +194,9 @@
   </url>
   <url>
     <loc>/reference/minty.html</loc>
+  </url>
+  <url>
+    <loc>/reference/no_lines.html</loc>
   </url>
   <url>
     <loc>/reference/nytimes.html</loc>
