@@ -2,12 +2,11 @@
 % Please edit documentation in R/react_spark.R
 \name{react_sparkbar}
 \alias{react_sparkbar}
-\title{Add a sparkline bar chart to rows of a reactable table}
+\title{Add a sparkline bar chart to a reactable table}
 \usage{
 react_sparkbar(
   data,
   height = 22,
-  margin = NULL,
   fill_color = "slategray",
   fill_color_ref = NULL,
   fill_opacity = 1,
@@ -16,19 +15,21 @@ react_sparkbar(
   outline_width = 1,
   highlight_bars = NULL,
   labels = "none",
-  label_color = "black",
-  label_size = "0.75em",
+  label_size = "0.8em",
   decimals = 0,
   max_value = NULL,
   min_value = NULL,
   statline = NULL,
   statline_color = "red",
-  statline_label_color = "red",
-  statline_label_size = "0.75em",
+  statline_label_size = "0.8em",
   bandline = NULL,
   bandline_color = "red",
   bandline_opacity = 0.2,
-  tooltip = TRUE
+  tooltip = TRUE,
+  tooltip_type = 1,
+  tooltip_color = NULL,
+  tooltip_size = "1.1em",
+  margin = NULL
 )
 }
 \arguments{
@@ -36,9 +37,6 @@ react_sparkbar(
 
 \item{height}{Height of the sparkbar.
 Default is 22.}
-
-\item{margin}{The four-sided margin around the sparkbar.
-Use margin() to assign the top, right, bottom, and left margins.}
 
 \item{fill_color}{The color of the bar fill.
 Default is slategray.}
@@ -71,11 +69,8 @@ By default, transparent colors are assigned to each bars.}
 Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
 Default is 'none'.}
 
-\item{label_color}{The color of the labels.
-Default is black.}
-
 \item{label_size}{The size of the labels.
-Default is 0.75em.}
+Default is 0.8em.}
 
 \item{decimals}{Numeric: The number of decimals displayed in the labels and tooltip.
 Default is 0.}
@@ -94,11 +89,8 @@ Default is NULL.}
 \item{statline_color}{The color of the horizontal dotted statline.
 Default is red.}
 
-\item{statline_label_color}{The color of the label to the right of the statline.
-Default is red.}
-
 \item{statline_label_size}{The size of the label to the right of the statline.
-Default is 0.75em.}
+Default is 0.8em.}
 
 \item{bandline}{Inserts a horizontal bandline to render ranges of interest.
 Options are 'innerquartiles' or 'range' (min to max).
@@ -113,10 +105,23 @@ Default is 0.2.}
 
 \item{tooltip}{Logical: turn the tooltip on or off.
 Default is TRUE.}
+
+\item{tooltip_type}{The tooltip type.
+Options are 1 or 2.
+Default is 1.}
+
+\item{tooltip_color}{The color of the tooltip labels.
+Default is NULL.}
+
+\item{tooltip_size}{The size of the tooltip labels.
+Default is '1.1em'.}
+
+\item{margin}{The four-sided margin around the sparkbar.
+Use margin() to assign the top, right, bottom, and left margins.}
 }
 \value{
-a function that applies conditional colors
-    to a column of numeric values.
+a function that creates a sparkline bar chart
+    from a column containing a list of values.
 }
 \description{
 The `react_sparkbar()` function utilizes the {dataui} package <https://github.com/timelyportfolio/dataui> to create an interactive sparkline bar chart.
@@ -127,11 +132,11 @@ The `react_sparkbar()` function utilizes the {dataui} package <https://github.co
     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
     The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
-    The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
+    The appearance of the statline and statline labels can be controlled with `statline_color` and `statline_label_size`.
     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
     By default, `react_sparkbar()` is interactive and data points will be shown when hovering over the sparkbars. This can be turned off by setting `tooltip` to FALSE.
+    There are two tooltip types available within `tooltip_type`. The size and color of the tooltip labels can be adjusted with `tooltip_size` and `tooltip_color`.
     Also by default, there are no labels on the bars themselves. However, one could add labels to the first, last, min, max, or all values within `labels`.
-    The label color and label size can also be adjusted with `label_color` and `label_size` respectively.
     The labels that are shown on the sparkbar and in the tooltip are automatically rounded to the nearest whole integer. But decimals can be shown by providing the number of decimal places in `decimals`.
     The minimum value of a data series is the minimum value shown for a sparkbar, but this can be adjusted with `min_value` and the max can be adjusted with `max_value`.
     `react_sparkline()` should be placed within the cell argument in reactable::colDef.
