@@ -17,7 +17,7 @@ highlight_points <- function(all = "transparent",
 }
 
 
-#' Add a sparkline line chart to rows of a reactable table
+#' Add a sparkline line chart a reactable table
 #'
 #' The `react_sparkline()` function utilizes the {dataui} package <https://github.com/timelyportfolio/dataui> to create an interactive sparkline line chart.
 #'     The data provided must be in a list format.
@@ -28,11 +28,11 @@ highlight_points <- function(all = "transparent",
 #'     The line color, line width, and line curve can be controlled with `line_color`, `line_width`, and `line_curve` respectively.
 #'     The filled area beneath the line can be shown by setting `show_area` to TRUE. When the area is shown, the area color can be controlled with `area_color` or `area_color_ref` and opacity can be controlled with `area_opacity`.
 #'     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
-#'     The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
+#'     The appearance of the statline and statline labels can be controlled with `statline_color` and `statline_label_size`.
 #'     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
 #'     By default, `react_sparkline()` is interactive and data points will be shown when hovering over the sparklines. This can be turned off by setting `tooltip` to FALSE.
+#'     There are two tooltip types available within `tooltip_type`. The size and color of the tooltip labels can be adjusted with `tooltip_size` and `tooltip_color`.
 #'     Also by default, there are no labels on the line itself. However, one could add labels to the first, last, min, max, or all values within `labels`.
-#'     The label color and label size can also be adjusted with `label_color` and `label_size` respectively.
 #'     The labels that are shown on the sparkline and in the tooltip are automatically rounded to the nearest whole integer. But decimals can be shown by providing the number of decimal places in `decimals`.
 #'     The minimum value of a data series is the minimum value shown for a sparkline, but this can be adjusted with `min_value` and the max can be adjusted with `max_value`.
 #'     `react_sparkline()` should be placed within the cell argument in reactable::colDef.
@@ -41,9 +41,6 @@ highlight_points <- function(all = "transparent",
 #'
 #' @param height Height of the sparkline.
 #'     Default is 22.
-#'
-#' @param margin The four-sided margin around the sparkline.
-#'      Use margin() to assign the top, right, bottom, and left margins.
 #'
 #' @param show_line Logical: show or hide the line.
 #'     Default is TRUE.
@@ -75,11 +72,8 @@ highlight_points <- function(all = "transparent",
 #'     Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
 #'     Default is 'none'.
 #'
-#' @param label_color Color of the labels.
-#'     Default is black.
-#'
 #' @param label_size Size of the labels.
-#'     Default is 0.8em.
+#'     Default is '0.8em'.
 #'
 #' @param decimals The number of decimals displayed in the labels and tooltip.
 #'     Default is 0.
@@ -115,11 +109,8 @@ highlight_points <- function(all = "transparent",
 #' @param statline_color The color of the horizontal dotted statline.
 #'     Default is red.
 #'
-#' @param statline_label_color The color of the label to the right of the statline.
-#'     Default is red.
-#'
 #' @param statline_label_size The size of the label to the right of the statline.
-#'     Default is 0.8em.
+#'     Default is '0.8em'.
 #'
 #' @param bandline Inserts a horizontal bandline to render ranges of interest.
 #'     Options are 'innerquartiles' or 'range' (min to max).
@@ -135,11 +126,22 @@ highlight_points <- function(all = "transparent",
 #' @param tooltip Logical: turn the tooltip on or off.
 #'     Default is TRUE.
 #'
-#' @return a function that applies conditional colors
-#'     to a column of numeric values.
+#' @param tooltip_type The tooltip type.
+#'     Options are 1 or 2.
+#'     Default is 1.
 #'
-#' @importFrom grDevices rgb
-#' @importFrom grDevices colorRamp
+#' @param tooltip_color The color of the tooltip labels.
+#'     Default is NULL.
+#'
+#' @param tooltip_size The size of the tooltip labels.
+#'     Default is '1.1em'.
+#'
+#' @param margin The four-sided margin around the sparkline.
+#'      Use margin() to assign the top, right, bottom, and left margins.
+#'
+#' @return a function that creates a sparkline chart
+#'     from a column containing a list of values.
+#'
 #' @import reactable
 #'
 #' @examples
@@ -226,7 +228,6 @@ highlight_points <- function(all = "transparent",
 #'  decimals = 1,
 #'  highlight_points = highlight_points(max="red"),
 #'  labels = c("max"),
-#'  label_color = "red",
 #'  bandline = "innerquartiles",
 #'  bandline_color = "darkgreen"))))
 #'
@@ -258,7 +259,6 @@ highlight_points <- function(all = "transparent",
 
 react_sparkline <- function(data,
                             height = 22,
-                            margin = NULL,
                             show_line = TRUE,
                             line_color = "slategray",
                             line_color_ref = NULL,
@@ -267,7 +267,6 @@ react_sparkline <- function(data,
                             highlight_points = NULL,
                             point_size = 1.1,
                             labels = "none",
-                            label_color = "black",
                             label_size = "0.8em",
                             decimals = 0,
                             min_value = NULL,
@@ -278,12 +277,15 @@ react_sparkline <- function(data,
                             area_opacity = 0.1,
                             statline = NULL,
                             statline_color = "red",
-                            statline_label_color = "red",
                             statline_label_size = "0.8em",
                             bandline = NULL,
                             bandline_color = "red",
                             bandline_opacity = 0.2,
-                            tooltip = TRUE) {
+                            tooltip = TRUE,
+                            tooltip_type = 1,
+                            tooltip_color = NULL,
+                            tooltip_size = "1.1em",
+                            margin = NULL) {
 
   cell <- function(value, index, name) {
 
@@ -317,6 +319,11 @@ react_sparkline <- function(data,
       stop("`tooltip` must either be TRUE or FALSE.")
     }
 
+    if (!is.null(tooltip_type) && !any(tooltip_type %in% c(1,2))) {
+
+      stop("`tooltip_type` must be either 1 or 2")
+    }
+
     if (!is.logical(show_area)) {
 
       stop("`show_area` must either be TRUE or FALSE.")
@@ -342,8 +349,11 @@ react_sparkline <- function(data,
       stop("`statline` must be either mean, median, min, or max")
     }
 
-    ### find last index
+    ### find last index and min, max, and mean values
     last_index <- lapply(data[[name]], function(x) length(x)-1)
+    value_max <- lapply(data[[name]], function(x) x[which.max(abs(x))])
+    value_min <- lapply(data[[name]], function(x) x[which.min(abs(x))])
+    value_mean <- lapply(data[[name]], mean)
 
     ### create a statline with a bold label to the right
     if (!is.null(statline) && statline %in% c("mean","median","min","max")) {
@@ -355,7 +365,7 @@ react_sparkline <- function(data,
         strokeOpacity = 0.75,
         reference = statline,
         renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
-          "(d) => React.createElement('tspan', {fill: '",statline_label_color,"', fontWeight: 'bold', fontSize: '",statline_label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
+          "(d) => React.createElement('tspan', {fill: '",statline_color,"', fontWeight: 'bold', fontSize: '",statline_label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
         labelPosition = "right",
         labelOffset = 5)
 
@@ -522,38 +532,65 @@ react_sparkline <- function(data,
       area_color <- area_color
     }
 
-    if (tooltip == FALSE) {
+     ### tooltip options
+     tooltip_position <- htmlwidgets::JS(paste0("{(yVal, i) => ((i === 0 ) ? 'right'
+           : (i === ",last_index[index],") ? 'left'
+           : (yVal > ",value_mean[index],") ? 'bottom'
+           : 'top')}"))
 
-      tooltip <- NULL
-      refline <- dataui::dui_tooltip(components = list(
-        dataui::dui_sparkverticalrefline(
-          stroke = "transparent"
-        )
-      ))
+     tooltip_offset <- 4
 
-    } else {
+     if (is.null(tooltip_color)) {
 
-      tooltip <- htmlwidgets::JS(htmltools::HTML(paste0("
-          function (_ref) {
-            var datum = _ref.datum;
-            return React.createElement(
-                  'tspan',
-                  {style: {fontSize: '0.9em', color: '",line_color,"'}},
-                  datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
-                )
-          }
-      ")))
+       tooltip_color <- line_color
 
-      refline <- dataui::dui_tooltip(
-        components = list(
-          dataui::dui_sparkpointseries(
-            key = "ref-point",
-            fill = line_color,
-            size = point_size*2.5
-          )
-        )
-      )
-    }
+     } else { tooltip_color <- tooltip_color }
+
+     if (tooltip == TRUE) {
+
+       if (tooltip_type == 1) {
+
+       # tooltip == 1
+       tooltip_1 <- dataui::dui_tooltip(components = list(
+            dataui::dui_sparkpointseries(
+              size = 0,
+              renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
+              "(d) => React.createElement('tspan', {fill: '",tooltip_color,"', fontSize: '",tooltip_size,"', fontWeight: 'bold', stroke: 'white'}, d.toFixed(",decimals,"))"))),
+              labelPosition = tooltip_position,
+              labelOffset = tooltip_offset
+            )))
+
+       tooltip_2 <- NULL
+
+       } else {
+
+       tooltip_1 <- dataui::dui_tooltip(components = list(
+            dataui::dui_sparkpointseries(
+              size = 0
+            )))
+
+       # tooltip == 2
+       tooltip_2 <- htmlwidgets::JS(htmltools::HTML(paste0("
+            function (_ref) {
+              var datum = _ref.datum;
+              return React.createElement(
+                    'tspan',
+                    {style: {fontSize: '",tooltip_size,"', color: '",tooltip_color,"', fontWeight: 'bold', stroke: 'transparent'}},
+                    datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
+                  )
+            }
+        ")))
+       }
+
+     } else {
+
+       tooltip_1 <- dataui::dui_tooltip(components = list(
+            dataui::dui_sparkpointseries(
+              size = 0
+            )))
+       tooltip_2 <- NULL
+     }
+
 
     dataui::dui_sparkline(
       data = value,
@@ -566,7 +603,8 @@ react_sparkline <- function(data,
         bottom = margin[[3]],
         left = margin[[4]]
       ),
-      renderTooltip = tooltip,
+      ### tooltip_type == 2
+      renderTooltip = tooltip_2,
       components = list(
         dataui::dui_sparklineseries(
           curve = line_curve,
@@ -608,19 +646,20 @@ react_sparkline <- function(data,
           fill = highlight_points[[5]],
           size = point_size
         ),
-        labels <- dataui::dui_sparkpointseries(
+        dataui::dui_sparkpointseries(
           points = as.list(labels),
           fill = "transparent",
           stroke = "transparent",
           renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
-            "(d) => React.createElement('tspan', {fill: '",label_color,"', fontSize: '",label_size,"', stroke: 'white'}, d.toFixed(",decimals,"))"))),
+            "(d) => React.createElement('tspan', {fill: '",line_color,"', fontSize: '",label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
           labelPosition = label_position,
           labelOffset = label_offset
         ),
         statline,
         bandline_pattern,
         bandline,
-        refline
+        ### tooltip_type == 1
+        tooltip_1
       )
     )
   }
@@ -645,7 +684,7 @@ highlight_bars <- function(first = "transparent",
 }
 
 
-#' Add a sparkline bar chart to rows of a reactable table
+#' Add a sparkline bar chart to a reactable table
 #'
 #' The `react_sparkbar()` function utilizes the {dataui} package <https://github.com/timelyportfolio/dataui> to create an interactive sparkline bar chart.
 #'     The data provided must be in a list format.
@@ -655,11 +694,11 @@ highlight_bars <- function(first = "transparent",
 #'     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
 #'     The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
 #'     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
-#'     The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
+#'     The appearance of the statline and statline labels can be controlled with `statline_color` and `statline_label_size`.
 #'     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
 #'     By default, `react_sparkbar()` is interactive and data points will be shown when hovering over the sparkbars. This can be turned off by setting `tooltip` to FALSE.
+#'     There are two tooltip types available within `tooltip_type`. The size and color of the tooltip labels can be adjusted with `tooltip_size` and `tooltip_color`.
 #'     Also by default, there are no labels on the bars themselves. However, one could add labels to the first, last, min, max, or all values within `labels`.
-#'     The label color and label size can also be adjusted with `label_color` and `label_size` respectively.
 #'     The labels that are shown on the sparkbar and in the tooltip are automatically rounded to the nearest whole integer. But decimals can be shown by providing the number of decimal places in `decimals`.
 #'     The minimum value of a data series is the minimum value shown for a sparkbar, but this can be adjusted with `min_value` and the max can be adjusted with `max_value`.
 #'     `react_sparkline()` should be placed within the cell argument in reactable::colDef.
@@ -668,9 +707,6 @@ highlight_bars <- function(first = "transparent",
 #'
 #' @param height Height of the sparkbar.
 #'     Default is 22.
-#'
-#' @param margin The four-sided margin around the sparkbar.
-#'      Use margin() to assign the top, right, bottom, and left margins.
 #'
 #' @param fill_color The color of the bar fill.
 #'     Default is slategray.
@@ -703,9 +739,6 @@ highlight_bars <- function(first = "transparent",
 #'     Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
 #'     Default is 'none'.
 #'
-#' @param label_color The color of the labels.
-#'     Default is black.
-#'
 #' @param label_size The size of the labels.
 #'     Default is 0.8em.
 #'
@@ -726,9 +759,6 @@ highlight_bars <- function(first = "transparent",
 #' @param statline_color The color of the horizontal dotted statline.
 #'     Default is red.
 #'
-#' @param statline_label_color The color of the label to the right of the statline.
-#'     Default is red.
-#'
 #' @param statline_label_size The size of the label to the right of the statline.
 #'     Default is 0.8em.
 #'
@@ -746,11 +776,22 @@ highlight_bars <- function(first = "transparent",
 #' @param tooltip Logical: turn the tooltip on or off.
 #'     Default is TRUE.
 #'
-#' @return a function that applies conditional colors
-#'     to a column of numeric values.
+#' @param tooltip_type The tooltip type.
+#'     Options are 1 or 2.
+#'     Default is 1.
 #'
-#' @importFrom grDevices rgb
-#' @importFrom grDevices colorRamp
+#' @param tooltip_color The color of the tooltip labels.
+#'     Default is NULL.
+#'
+#' @param tooltip_size The size of the tooltip labels.
+#'     Default is '1.1em'.
+#'
+#' @param margin The four-sided margin around the sparkbar.
+#'      Use margin() to assign the top, right, bottom, and left margins.
+#'
+#' @return a function that creates a sparkline bar chart
+#'     from a column containing a list of values.
+#'
 #' @import reactable
 #'
 #' @examples
@@ -824,7 +865,6 @@ highlight_bars <- function(first = "transparent",
 
 react_sparkbar <- function(data,
                            height = 22,
-                           margin = NULL,
                            fill_color = "slategray",
                            fill_color_ref = NULL,
                            fill_opacity = 1,
@@ -833,19 +873,21 @@ react_sparkbar <- function(data,
                            outline_width = 1,
                            highlight_bars = NULL,
                            labels = "none",
-                           label_color = "black",
                            label_size = "0.8em",
                            decimals = 0,
                            max_value = NULL,
                            min_value = NULL,
                            statline = NULL,
                            statline_color = "red",
-                           statline_label_color = "red",
                            statline_label_size = "0.8em",
                            bandline = NULL,
                            bandline_color = "red",
                            bandline_opacity = 0.2,
-                           tooltip = TRUE) {
+                           tooltip = TRUE,
+                           tooltip_type = 1,
+                           tooltip_color = NULL,
+                           tooltip_size = "1.1em",
+                           margin = NULL) {
 
   cell <- function(value, index, name) {
 
@@ -857,6 +899,11 @@ react_sparkbar <- function(data,
     if (!is.logical(tooltip)) {
 
       stop("`tooltip` must either be TRUE or FALSE.")
+    }
+
+    if (!is.null(tooltip_type) && !any(tooltip_type %in% c(1,2))) {
+
+      stop("`tooltip_type` must be either 1 or 2")
     }
 
     if (!is.null(highlight_bars) && length(highlight_bars)<4) {
@@ -879,6 +926,12 @@ react_sparkbar <- function(data,
       stop("`statline` must be either mean, median, min, or max")
     }
 
+    ### find last index and min, max, and mean values
+    last_index <- lapply(data[[name]], function(x) length(x)-1)
+    value_max <- lapply(data[[name]], function(x) x[which.max(abs(x))])
+    value_min <- lapply(data[[name]], function(x) x[which.min(abs(x))])
+    value_mean <- lapply(data[[name]], mean)
+
     if (!is.null(statline) && statline %in% c("mean","median","min","max")) {
 
       statline <- dataui::dui_sparkhorizontalrefline(
@@ -888,7 +941,7 @@ react_sparkbar <- function(data,
         strokeOpacity = 0.75,
         reference = statline,
         renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
-          "(d) => React.createElement('tspan', {fill: '",statline_label_color,"', fontWeight: 'bold', fontSize: '",statline_label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
+          "(d) => React.createElement('tspan', {fill: '",statline_color,"', fontWeight: 'bold', fontSize: '",statline_label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
         labelPosition = "right",
         labelOffset = 10)
 
@@ -1017,10 +1070,6 @@ react_sparkbar <- function(data,
 
       highlight_bars <- replace(highlight_bars, highlight_bars=="transparent", fill_color)
 
-      value_max <- lapply(data[[name]], function(x) x[which.max(abs(x))])
-      value_min <- lapply(data[[name]], function(x) x[which.min(abs(x))])
-      last_index <- lapply(data[[name]], function(x) length(x)-1)
-
       ### logic for highlighting. if min/max is located in the first/last bars, they will superseed the first/last colors
       if ((highlight_bars[[1]] != fill_color ||
            highlight_bars[[2]] != fill_color) &&
@@ -1080,43 +1129,63 @@ react_sparkbar <- function(data,
 
     } else { fill_condition <- fill_color }
 
-    if (tooltip == FALSE) {
+     ### tooltip options
+     tooltip_position <- htmlwidgets::JS(paste0("{(yVal, i) => ((yVal > ",value_mean[index],") ? 'bottom'
+       : 'top')}"))
 
-      tooltip <- NULL
-      refline <- dataui::dui_tooltip(components = list(
-        dataui::dui_sparkverticalrefline(
-          stroke = "transparent"
-        )
-      ))
+     tooltip_offset <- 6
 
-    } else {
+     if (is.null(tooltip_color)) {
 
-      if (fill_color == "transparent" | fill_color == "white") {
-        text_color <- outline_color
-      } else { text_color <- fill_color }
+       tooltip_color <- fill_color
 
-      tooltip <- htmlwidgets::JS(htmltools::HTML(paste0("
-          function (_ref) {
-            var datum = _ref.datum;
-            return React.createElement(
-                  'tspan',
-                  {style: {fontSize: '0.9em', color: '",text_color,"'}},
-                  datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
-                )
-          }
-      ")))
+     } else { tooltip_color <- tooltip_color }
 
-      refline <- dataui::dui_tooltip(
-        components = list(
-          dataui::dui_sparkverticalrefline(
-            strokeDasharray = "3, 3",
-            stroke = fill_color,
-            strokeWidth = 1.5,
-            strokeLinecap = "square"
-          )
-        )
-      )
-    }
+     if (tooltip == TRUE) {
+
+       if (tooltip_type == 1) {
+
+       # tooltip == 1
+       tooltip_1 <- dataui::dui_tooltip(components = list(
+            dataui::dui_sparkpointseries(
+              size = 0,
+              renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
+              "(d) => React.createElement('tspan', {fill: '",tooltip_color,"', fontSize: '",tooltip_size,"', fontWeight: 'bold', stroke: 'white'}, d.toFixed(",decimals,"))"))),
+              labelPosition = tooltip_position,
+              labelOffset = tooltip_offset
+            )))
+
+       tooltip_2 <- NULL
+
+       } else {
+
+       tooltip_1 <- dataui::dui_tooltip(components = list(
+            dataui::dui_sparkpointseries(
+              size = 0
+            )))
+
+       # tooltip == 2
+       tooltip_2 <- htmlwidgets::JS(htmltools::HTML(paste0("
+            function (_ref) {
+              var datum = _ref.datum;
+              return React.createElement(
+                    'tspan',
+                    {style: {fontSize: '",tooltip_size,"', color: '",tooltip_color,"', fontWeight: 'bold', stroke: 'transparent'}},
+                    datum.y ? datum.y.toLocaleString(undefined, {maximumFractionDigits: ",decimals,"}) : \"--\"
+                  )
+            }
+        ")))
+       }
+
+     } else {
+
+       tooltip_1 <- dataui::dui_tooltip(components = list(
+            dataui::dui_sparkpointseries(
+              size = 0
+            )))
+       tooltip_2 <- NULL
+     }
+
 
     dataui::dui_sparkline(
       data = value,
@@ -1129,7 +1198,8 @@ react_sparkbar <- function(data,
         bottom = margin[[3]],
         left = margin[[4]]
       ),
-      renderTooltip = tooltip,
+      ### tooltip == 2
+      renderTooltip = tooltip_2,
       components = list(
         dataui::dui_sparkbarseries(
           stroke = outline_color,
@@ -1142,14 +1212,15 @@ react_sparkbar <- function(data,
           fill = "transparent",
           stroke = "transparent",
           renderLabel = htmlwidgets::JS(htmltools::HTML(paste0(
-            "(d) => React.createElement('tspan', {fill: '",label_color,"', fontSize: '",label_size,"', stroke: 'white'}, d.toFixed(",decimals,"))"))),
+            "(d) => React.createElement('tspan', {fill: '",fill_color,"', fontSize: '",label_size,"', stroke: 'transparent'}, d.toFixed(",decimals,"))"))),
           labelPosition = "top",
           labelOffset = 6.5
         ),
         bandline_pattern,
         bandline,
         statline,
-        refline
+        ### tooltip_type == 1
+        tooltip_1
       )
     )
   }
