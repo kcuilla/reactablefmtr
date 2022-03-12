@@ -583,46 +583,28 @@ Another difference in `react_sparkbar` is if we want to highlight particular dat
 
 The height of the bars auto-starts at the minimum value in each series. Therefore, if we assign a color to the minimum value within `highlight_bars`, we will be unable to see it unless we declare the minimum value as a number less than the minimum value present in the dataset.
 
-Note: you can control the minimum and maximum value of the bars with `min_value` and `max_value`, respectively.
+Note: you can control the minimum and maximum value of the bars with `min_value` and `max_value`, respectively. Here is an example of all labels applied (species and sex columns hidden to better show labels):
 
 ```{r}
+df %>% 
+  filter(species == "Chinstrap") %>% 
 reactable(
-  df,
+  .,
   columns = list(
-    species = colDef(maxWidth = 90),
-    sex = colDef(maxWidth = 85),
+    species = colDef(show = FALSE),
+    sex = colDef(show = FALSE),
     cols = colDef(show = FALSE),
     flipper_length = colDef(
+      name = "Chinstrap Penguin Flipper Length (min and max values highlighted)",
       cell = react_sparkbar(
-        df,
-        height = 80,
-        min_value = 160,
-        fill_color = "lightgrey",
+        .,
+        height = 140,
+        min_value = 150,
+        max_value = 225,
+        fill_color = "#9f9f9f",
+        labels = c("all"),
+        label_size = "0.8em",
         highlight_bars =  highlight_bars(min = "red", max = "blue"),
-        tooltip_type = 2
-      )
-    )
-  )
-)
-```
-
-We can also assign labels using the same method we did with `react_sparkline()` above:
-
-```{r}
-reactable(
-  df,
-  columns = list(
-    species = colDef(maxWidth = 90),
-    sex = colDef(maxWidth = 85),
-    cols = colDef(show = FALSE),
-    flipper_length = colDef(
-      cell = react_sparkbar(
-        df,
-        height = 80,
-        fill_color = "lightgrey",
-        labels = c("first", "last"),
-        label_size = "1em",
-        highlight_bars = highlight_bars(first = "green", last = "purple"),
         tooltip_type = 2
       )
     )
