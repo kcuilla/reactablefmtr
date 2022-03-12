@@ -11,7 +11,7 @@ pill_buttons(
   opacity = 1,
   number_fmt = NULL,
   show_text = TRUE,
-  text_size = 14,
+  text_size = NULL,
   text_color = "black",
   text_color_ref = NULL,
   brighten_text = TRUE,
@@ -50,7 +50,7 @@ Default is NULL.}
 Default is TRUE.}
 
 \item{text_size}{Numeric value representing the size of the text labels.
-Default is 14.}
+Default is NULL.}
 
 \item{text_color}{Assigns text color to values.
 Default is black.}
@@ -97,7 +97,7 @@ The `pill_buttons()` function surrounds text or numeric values in a column in a 
     The color of the text/values can be changed using `text_color`.
     If text/values are displayed within a dark-colored background, `brighten_text` will display the text/values in white so they are more visible.
     The color of `brighten_text_color` can be changed to a color other than white if desired.
-    The horizontal alignment of `pill_buttons()` can be controled using reactable::colDef(align = "center").
+    The horizontal alignment of `pill_buttons()` can be controlled using reactable::colDef(align = "center").
     `pill_buttons()` needs to placed within the cell argument in reactable::colDef.
 }
 \examples{

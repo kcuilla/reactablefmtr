@@ -58,7 +58,7 @@ Default is 1.}
 
 \item{line_curve}{The curvature of the line.
 Options are 'cardinal', 'linear', 'basis', or 'monotoneX'.
-Default is 'cardlinal'.}
+Default is 'cardinal'.}
 
 \item{highlight_points}{Use `highlight_points()` to assign colors to particular points.
 Colors can be assigned to all, min, max, first, or last points.
