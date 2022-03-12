@@ -58,7 +58,7 @@ highlight_points <- function(all = "transparent",
 #'
 #' @param line_curve The curvature of the line.
 #'     Options are 'cardinal', 'linear', 'basis', or 'monotoneX'.
-#'     Default is 'cardlinal'.
+#'     Default is 'cardinal'.
 #'
 #' @param highlight_points Use `highlight_points()` to assign colors to particular points.
 #'     Colors can be assigned to all, min, max, first, or last points.
@@ -372,7 +372,7 @@ react_sparkline <- function(data,
         ### assign margins based on labeling
         if (any(labels %in% "none") && is.null(margin)) {
 
-          margin <- margin(t=4,r=28,b=3,l=5)
+          margin <- margin(t=4,r=28,b=3,l=13)
 
         ### if labels are first/last but not min, max, or all
         } else if (any(labels %in% c("first","last")) && (!any(stringr::str_detect(labels, "min")) && !any(stringr::str_detect(labels, "max")) && !any(stringr::str_detect(labels, "all"))) && is.null(margin)) {
@@ -382,7 +382,7 @@ react_sparkline <- function(data,
         ### this applies to min, max, and/or all labels
         } else if (is.null(margin)) {
 
-          margin <- margin(t=14,r=28,b=10,l=8)
+          margin <- margin(t=14,r=28,b=10,l=13)
 
           ### the default height needs to be increased to show all labels
           if (height == 22) {
@@ -400,7 +400,8 @@ react_sparkline <- function(data,
     ### assign margins based on labeling
     if (any(labels %in% "none") && is.null(margin)) {
 
-      margin <- margin(t=2,r=5,b=2,l=5)
+      # margin <- margin(t=2,r=5,b=2,l=5)
+      margin <- margin(t=3,r=13,b=2,l=13)
 
     ### if labels are first/last but not min, max, or all
     } else if (any(labels %in% c("first","last")) && (!any(stringr::str_detect(labels, "min")) && !any(stringr::str_detect(labels, "max")) && !any(stringr::str_detect(labels, "all"))) && is.null(margin)) {
@@ -410,7 +411,7 @@ react_sparkline <- function(data,
     ### this applies to min, max, and/or all labels
     } else if (is.null(margin)) {
 
-      margin <- margin(t=14,r=8,b=10,l=8)
+      margin <- margin(t=14,r=13,b=10,l=13)
 
       ### the default height needs to be increased to show all labels
       if (height == 22) {
@@ -533,12 +534,15 @@ react_sparkline <- function(data,
     }
 
      ### tooltip options
-     tooltip_position <- htmlwidgets::JS(paste0("{(yVal, i) => ((i === 0 ) ? 'right'
-           : (i === ",last_index[index],") ? 'left'
-           : (yVal > ",value_mean[index],") ? 'bottom'
-           : 'top')}"))
+     # tooltip_position <- htmlwidgets::JS(paste0("{(yVal, i) => ((i === 0 ) ? 'right'
+     #       : (i === ",last_index[index],") ? 'left'
+     #       : (yVal > ",value_mean[index],") ? 'bottom'
+     #       : 'top')}"))
 
-     tooltip_offset <- 4
+     tooltip_position <- htmlwidgets::JS(paste0("{(yVal, i) => ((yVal > ",value_mean[index],") ? 'bottom'
+       : 'top')}"))
+
+     tooltip_offset <- 5
 
      if (is.null(tooltip_color)) {
 

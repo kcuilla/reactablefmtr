@@ -9,7 +9,7 @@
 #'     The color of the text/values can be changed using `text_color`.
 #'     If text/values are displayed within a dark-colored background, `brighten_text` will display the text/values in white so they are more visible.
 #'     The color of `brighten_text_color` can be changed to a color other than white if desired.
-#'     The horizontal alignment of `pill_buttons()` can be controled using reactable::colDef(align = "center").
+#'     The horizontal alignment of `pill_buttons()` can be controlled using reactable::colDef(align = "center").
 #'     `pill_buttons()` needs to placed within the cell argument in reactable::colDef.
 #'
 #' @param data Dataset containing either a text or numeric column.
