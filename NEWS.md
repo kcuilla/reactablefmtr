@@ -11,10 +11,6 @@
 * A title and/or footer can be added to the legend with `title` or `footer`
 * The number of bins displayed within `add_legend()` can be adjusted with `bins`
 
-#### animate
-
-* The animation of `data_bars()` can now be controlled with `animate`. The `animate` parameter has also been added to `color_scales()`, `color_tiles()`, `icon_sets()`, and `icon_assign()`. The duration and timing function of the animation can be changed within `animate` or the animation can be turned off by setting it to 'none'. For available timing functions, see [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
-
 #### background_img()
 
 * Embed an image from the web into the background of a cell
@@ -31,21 +27,6 @@
 
 * `cell_style()` can be used to customize the appearance of certain cells within a table. For example, if you wanted to display a particular value or set of values in a column as bold and in red text, you can do so by specifying either the row number or values themselves
 * Custom styling options include: the color, size, style, and weight of the font within the cell, the color, width, and style of the border around the cell, the vertical and horizontal alignment within the cell, and the background color of the cell. Animation is also applied to `cell_style()` by default, but can be turned off by setting to 'none'
-
-#### color_tiles()
-
-* Set `box_shadow` to TRUE to apply a box shadow to the tiles
-
-#### data_bars()
-
-* Optionally force a range of values to display their text labels on the outside-end of the filled bars when the text_position is set to either "inside-end", "inside-base", or "center". This can be useful when the length of the filled data bars is too short to the text labels on the inside of the filled bars
-* Control the size of the text labels with `text_size`
-* Borders around the filled data bars can now be adjusted with the `border_style`, `border_width`, and `border_color` options
-* Set `box_shadow` to TRUE to apply a box shadow to the bars
-
-#### embed_img()
-
-* The horizontal alignment within a cell can now be controlled with the `horizontal_align` option 
 
 #### gauge_chart()
 
@@ -71,14 +52,6 @@
 
 * Apply HTML attributes to to text within `add_title()`, `add_subtitle()`, and `add_source()` with the `html()` helper function
 
-#### icon_assign()
-
-* The alignment of the icons within a column can now be changed to either left, right, or center with `align_icons`. Previously, icons could only be aligned to the left
-
-#### icon_sets()
-
-* Custom pre-selected icon sets can be assigned to values via `icon_set`. Options are "ski rating", "medals", and "batteries". Can be used with `add_icon_legend()`
-
 #### merge_column()
 
 * Merge and arrange two columns together
@@ -93,7 +66,7 @@
 
 #### sparklines
 
-* Interactive sparklines can now be added to reactable tables via `react_sparkline` and `react_sparkbar`
+* Interactive sparklines can now be added to reactable tables via `react_sparkline()` and `react_sparkbar()`
 * In order to use the sparklines, one must download the {dataui} package from GitHub (https://github.com/timelyportfolio/dataui)
 
 #### tooltip
@@ -101,13 +74,54 @@
 * Add a tooltip to cells (used with `color_scales()`)
 * Used within `cell` of `reactable::colDef`
 
+
+### Enhancements
+
+#### add_title(), add_subtitle(), add_source()
+
+* Added the ability to control the margin around each with `margin()`
+
+#### animate
+
+* The animation of `data_bars()` can now be controlled with `animate`. The `animate` parameter has also been added to `color_scales()`, `color_tiles()`, `icon_sets()`, and `icon_assign()`. The duration and timing function of the animation can be changed within `animate` or the animation can be turned off by setting it to 'none'. For available timing functions, see [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
+
+#### color_tiles()
+
+* Set `box_shadow` to TRUE to apply a box shadow to the tiles
+
+#### data_bars()
+
+* Optionally force a range of values to display their text labels on the outside-end of the filled bars when the text_position is set to either "inside-end", "inside-base", or "center". This can be useful when the length of the filled data bars is too short to the text labels on the inside of the filled bars
+* Control the size of the text labels with `text_size`
+* Borders around the filled data bars can now be adjusted with the `border_style`, `border_width`, and `border_color` options
+* Set `box_shadow` to TRUE to apply a box shadow to the bars
+
+#### embed_img()
+
+* The horizontal alignment within a cell can now be controlled with the `horizontal_align` option 
+
+#### icon_assign()
+
+* The alignment of the icons within a column can now be changed to either left, right, or center with `align_icons`. Previously, icons could only be aligned to the left
+
+#### icon_sets()
+
+* Custom pre-selected icon sets can be assigned to values via `icon_set`. Options are "ski rating", "medals", and "batteries". Can be used with `add_icon_legend()`
+
+
+### Bug Fixes
+
+* Fixed a bug that would not assign colors to values within `color_scales()`, `color_tiles()`, and `data_bars()` if there was no variance within the column
+* Fixed the sparkline tooltip to allow all values to show clearly on hover
+
+
 ### Other Modifications
 
 * The default color of `fill_color` within `data_bars()` and `icon_assign()` has been changed to #67a9cf
 * The default position of `text_position` within  `data_bars()` has been changed from "outside-end" to "inside-end"
 * Text is now centered vertically within `data_bars()` by default
 * The size of the text within `data_bars()` can now be changed with `text_size`
-* The four-sided margin dimensions can now be assigned within `margin()` in `add_title()`, `add_subtitle()`, and `add_source()` 
+* Added two additional themes: sanfran and no_lines
 * The entire contents of a table can be vertically centered by setting `centered` to TRUE within any of the {reactablefmtr} themes 
 
 

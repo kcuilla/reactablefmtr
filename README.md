@@ -182,3 +182,4 @@ save_reactable("table.png")
 * Thank you to June Chao for contributing to the span option in `color_scales()` and `color_tiles()`!
 
 * Thank you to Kent Russell for putting together the wonderful [{dataui}](https://timelyportfolio.github.io/dataui/index.html) package and suggesting integrating the code with {reactablefmtr} to allow interactive sparkline customization in reactable tables.
+

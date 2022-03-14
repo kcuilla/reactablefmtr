@@ -1,6 +1,6 @@
 Package: reactablefmtr
 Type: Package
-Title: Easily Customize Interactive Tables Made with Reactable
+Title: Streamlined Table Styling And Formatting For Reactable
 Version: 2.0.0
 Authors@R: c(
     person("Kyle", "Cuilla", role = c("aut", "cre", "cph"), email = "kyle.cuilla@gmail.com"),
@@ -9,16 +9,17 @@ Authors@R: c(
     person("Kent", "Russell", role = c("ctb"))
     )
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
-Description: Enhance the styling of interactive reactable tables with easy-to-use
-    and highly-customizable functions. Apply conditional formatting to cells with
-    data bars, color scales, and icon sets. Utilize custom table themes inspired by
-    popular websites and bootstrap themes. Increase the portability and reproducibility
-    of reactable tables by embedding images from the web directly into cells.
-    Apply sparkline line & bar charts (note this feature requires the 'dataui' package
-    which can be downloaded from <https://github.com/timelyportfolio/dataui>).
-    Save the final table output as a static image or interactive file
-    (note this feature requires the 'webshot2' package which can 
-    be downloaded from <https://github.com/rstudio/webshot2>).
+Description: Provides various features to streamline and enhance the styling of interactive 
+    reactable tables with easy-to-use and highly-customizable functions and themes. 
+    Apply conditional formatting to cells with data bars, color scales, color tiles,
+    and icon sets. Utilize custom table themes inspired by popular websites such 
+    and bootstrap themes. Apply sparkline line & bar charts 
+    (note this feature requires the 'dataui' package which can be downloaded from
+    <https://github.com/timelyportfolio/dataui>).
+    Increase the portability and reproducibility of reactable tables by embedding images 
+    from the web directly into cells. Save the final table output as a static image or 
+    interactive file (note this feature requires the 'webshot2' package which can be 
+    downloaded from <https://github.com/rstudio/webshot2>).
 URL: https://kcuilla.github.io/reactablefmtr/, https://github.com/kcuilla/reactablefmtr
 BugReports: https://github.com/kcuilla/reactablefmtr/issues
 License: MIT + file LICENSE
@@ -30,17 +31,17 @@ Imports:
     dplyr,
     grDevices,
     htmltools,
-    htmlwidgets,
+    htmlwidgets (>= 1.5.3),
     magrittr,
     purrr,
-    sass,
+    sass (>= 0.4.0),
     shiny,
     stats,
-    stringr,
-    tippy,
+    stringr (>= 1.4.0),
+    tippy (>= 0.1.0),
     tools
 Suggests:
-    dataui,
+    dataui (>= 0.0.1),
     MASS,
     scales,
     webshot2
