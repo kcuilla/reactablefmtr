@@ -142,20 +142,21 @@ The `react_sparkbar()` function utilizes the {dataui} package <https://github.co
     `react_sparkline()` should be placed within the cell argument in reactable::colDef.
 }
 \examples{
+\dontrun{
 library(dplyr)
 ## Default sparkline bar chart
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkbar(.))))
+ columns = list(sepal_length = colDef(cell = react_sparkbar(.))))
 
 ## Highlight particular bars
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkbar(.,
+ columns = list(sepal_length = colDef(cell = react_sparkbar(.,
  decimals = 1,
  min_value = 0,
  highlight_bars = highlight_bars(min="red",max="blue")))))
@@ -163,7 +164,7 @@ iris \%>\%
 ## Conditionally assign fill colors to groups
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  mutate(flower_cols = case_when(
    Species == "setosa" ~ "purple",
    Species == "versicolor" ~ "darkgreen",
@@ -172,16 +173,16 @@ iris \%>\%
  )) \%>\%
  reactable(.,
  columns = list(flower_cols = colDef(show=FALSE),
- petal_width = colDef(cell = react_sparkbar(.,
+ sepal_length = colDef(cell = react_sparkbar(.,
  height = 80,
  fill_color_ref = "flower_cols"))))
 
 ## Add labels to particular bars
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkbar(.,
+ columns = list(sepal_length = colDef(cell = react_sparkbar(.,
  height = 80,
  decimals = 1,
  highlight_bars = highlight_bars(first="blue",last="red"),
@@ -190,9 +191,9 @@ iris \%>\%
 ## Add statline to show the mean for each sparkbar
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkbar(.,
+ columns = list(sepal_length = colDef(cell = react_sparkbar(.,
  height = 80,
  decimals = 1,
  statline = "mean"))))
@@ -200,12 +201,12 @@ iris \%>\%
 ## Combine multiple elements together
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkbar(.,
+ columns = list(sepal_length = colDef(cell = react_sparkbar(.,
  height = 80,
  decimals = 1,
  statline = "mean",
  bandline = "innerquartiles"))))
-
+}
 }

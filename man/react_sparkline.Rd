@@ -163,30 +163,31 @@ The `react_sparkline()` function utilizes the {dataui} package <https://github.c
     `react_sparkline()` should be placed within the cell argument in reactable::colDef.
 }
 \examples{
+\dontrun{
 ## Default sparkline line chart
 library(dplyr)
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkline(.))))
+ columns = list(sepal_length = colDef(cell = react_sparkline(.))))
 
 ## Highlight min and max data points
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
  columns = list(
- petal_width = colDef(cell = react_sparkline(.,
+ sepal_length = colDef(cell = react_sparkline(.,
  decimals = 1,
  highlight_points = highlight_points(min="red",max="blue")))))
 
 ## Add labels to data points and change curvature of line
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkline(.,
+ columns = list(sepal_length = colDef(cell = react_sparkline(.,
  line_curve = "linear",
  decimals = 1,
  highlight_points = highlight_points(first="orange",last="blue"),
@@ -195,7 +196,7 @@ iris \%>\%
 ## Conditionally assign line colors to groups
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  mutate(flower_cols = case_when(
    Species == "setosa" ~ "purple",
    Species == "versicolor" ~ "darkgreen",
@@ -204,16 +205,16 @@ iris \%>\%
  )) \%>\%
  reactable(.,
  columns = list(flower_cols = colDef(show=FALSE),
- petal_width = colDef(cell = react_sparkline(.,
+ sepal_length = colDef(cell = react_sparkline(.,
  height = 80,
  line_color_ref = "flower_cols"))))
 
 ## Show area beneath the line
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkline(.,
+ columns = list(sepal_length = colDef(cell = react_sparkline(.,
  height = 80,
  line_color = "dodgerblue",
  show_area = TRUE))))
@@ -221,7 +222,7 @@ iris \%>\%
 ## Conditionally assign colors to the area below the line
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  mutate(flower_cols = case_when(
    Species == "setosa" ~ "purple",
    Species == "versicolor" ~ "darkgreen",
@@ -230,7 +231,7 @@ iris \%>\%
  )) \%>\%
  reactable(.,
  columns = list(flower_cols = colDef(show=FALSE),
- petal_width = colDef(cell = react_sparkline(.,
+ sepal_length = colDef(cell = react_sparkline(.,
  height = 80,
  show_area = TRUE,
  line_color_ref = "flower_cols",
@@ -239,9 +240,9 @@ iris \%>\%
 ## Add bandline to show innerquartile range
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkline(.,
+ columns = list(sepal_length = colDef(cell = react_sparkline(.,
  height = 80,
  decimals = 1,
  highlight_points = highlight_points(max="red"),
@@ -252,9 +253,9 @@ iris \%>\%
 ## Add statline to show the mean for each sparkline
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkline(.,
+ columns = list(sepal_length = colDef(cell = react_sparkline(.,
  height = 80,
  decimals = 1,
  statline = "mean",
@@ -263,14 +264,14 @@ iris \%>\%
 ## Combine multiple elements together
 iris \%>\%
  group_by(Species) \%>\%
- summarize(petal_width = list(Petal.Width)) \%>\%
+ summarize(sepal_length = list(Sepal.Length)) \%>\%
  reactable(.,
- columns = list(petal_width = colDef(cell = react_sparkline(.,
+ columns = list(sepal_length = colDef(cell = react_sparkline(.,
  height = 80,
  decimals = 1,
  statline = "mean",
  statline_color = "red",
  bandline = "innerquartiles",
  bandline_color = "darkgreen"))))
-
+}
 }
