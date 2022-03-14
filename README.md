@@ -1,14 +1,14 @@
-## reactablefmtr <a href='https://kcuilla.github.io/reactablefmtr/index.html'><img src="man/figures/reactablefmtr_hex_logo.png" align="right" width="150" height="185"/>
+## reactablefmtr <a href='https://kcuilla.github.io/reactablefmtr/index.html'><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/docs/reference/figures/reactablefmtr_hex_logo.png" align="right" width="150" height="185"/>
 
 <!-- badges: start -->
 [![CRAN Status](https://www.r-pkg.org/badges/version/reactablefmtr?color=blue)](https://cran.r-project.org/package=reactablefmtr?color=blue)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/reactablefmtr?color=brightgreen)](https://cranlogs.r-pkg.org/badges/grand-total/reactablefmtr?color=brightgreen)
 <!-- badges: end -->
 
-The {reactablefmtr} package simplifies and enhances the styling and formatting of tables built with the {reactable} **R** package. The {reactablefmtr} package provides many conditional formatters that are highly customizable and easy to use.
+The {reactablefmtr} package streamlines and enhances the styling and formatting of tables built with the {reactable} **R** package. The {reactablefmtr} package provides many conditional formatters that are highly customizable and easy to use.
 
 * **Conditionally format tables** with [color scales](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html), [color tiles](https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html), and [data bars](https://kcuilla.github.io/reactablefmtr/articles/data_bars.html). Assign icons from [Font Awesome](https://fontawesome.com/icons?d=gallery&p=2) with [icon assign](https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html) and [icon sets](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html).
-  
+
 * **Interactive sparklines** that are highly [customizable](https://kcuilla.github.io/reactablefmtr/articles/sparklines.html) and available in line or bar format.
   
 * **Custom table themes** that can [easily](https://kcuilla.github.io/reactablefmtr/articles/themes.html) be applied to any {reactablefmtr} or {reactable} table.
@@ -16,8 +16,6 @@ The {reactablefmtr} package simplifies and enhances the styling and formatting o
 * **Embed images** directly from the web into your [table](https://kcuilla.github.io/reactablefmtr/articles/embed_img.html).
   
 * **Save tables** as static PNG files or as interactive HTML files.
-
-The {reactablefmtr} package was built using a combination of **R**, **CSS**, and **HTML** in order to allow any level of **R** user to build highly customizable and stylish tables without having to learn additional programming languages.
 
 For more examples, check out the [vignettes](https://kcuilla.github.io/reactablefmtr/articles/). To stay up to date with the latest upgrades to the development version, be sure to follow the package [news](https://kcuilla.github.io/reactablefmtr/news/index.html).
 
@@ -34,6 +32,50 @@ Or install the development version of {reactablefmtr} with:
 ```{r}
 remotes::install_github("kcuilla/reactablefmtr")
 ```
+
+## Why reactablefmtr?
+
+The {reactable} package allows for the creation of interactive data tables in R. However, styling tables within {reactable} requires a lot of code, can be difficult for many R users (due to the need to understand HTML and CSS), and not scalable. For example, here is the current method of creating bar charts within {reactable}:
+
+```{r}
+library(reactable)
+library(htmltools)
+
+data <- MASS::Cars93[20:49, c("Make", "MPG.city", "MPG.highway")]
+
+bar_chart <- function(label, width = "100%", height = "16px", fill = "#15607A", background = "#EEEEEE") {
+  bar <- div(style = list(background = fill, width = width, height = height))
+  chart <- div(style = list(flexGrow = 1, marginLeft = "8px", background = background), bar)
+  div(style = list(display = "flex", alignItems = "center"), label, chart)
+}
+
+reactable(
+  data,
+  columns = list(
+    MPG.city = colDef(align = "left", cell = function(value) {
+      width <- paste0(value / max(data$MPG.city) * 100, "%")
+      bar_chart(value, width = width)
+    }),
+    MPG.highway = colDef(align = "left", cell = function(value) {
+      width <- paste0(value / max(data$MPG.highway) * 100, "%")
+      bar_chart(value, width = width)
+    })
+  )
+)
+```
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/reactable_example.JPG" align="center" />
+
+The {reactablefmtr} package presents a much simpler method of creating bar charts with the `data_bars()` function. In addition to needing far less code, there are also a multitude of customization options available to easily change the appearance of the bar charts.
+
+```{r}
+reactable(
+  data,
+  defaultColDef = colDef(
+    cell = data_bars(data, text_position = "outside-base")
+  )
+)
+```
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/reactablefmtr_example.JPG" align="center" />
 
 ## Examples
 
@@ -54,38 +96,6 @@ Use `react_sparkline()` to create sparklines or `react_sparkbar()` to create spa
 ### Color Scales
 
 Use `color_scales()` to assign conditional colors to cells based on their relative values. The color of the text in the cells automatically adjusts based on the shade of the cell color, allowing the use of dark-colored palettes. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/color_scales.html) for more examples.
-
-```{r}
-library(reactablefmtr)
-library(tidyverse)
-library(gapminder)
- 
-population_data <- gapminder %>% 
-  filter(continent == "Americas") %>%
-  mutate(country = as.character(country),
-         year = paste0("'", str_sub(year, 3, 4))) %>% 
-  select(country, year, lifeExp) %>%
-  pivot_wider(names_from = year, values_from = lifeExp) 
-
-reactable(
-  population_data,
-  pagination = FALSE,
-  showSortIcon = FALSE,
-  defaultSorted = "'52",
-  defaultSortOrder = "desc",
-  defaultColDef = colDef(
-    maxWidth = 45,
-    style = color_scales(population_data, show_text = FALSE, span = TRUE)
-  ),
-  columns = list(
-    country = colDef(
-      maxWidth = 160
-    )
-  )
-) %>% 
-  add_title("Average Life Expectancy") %>% 
-  add_source("Data sourced from the {gapminder} package") 
-```
 
 <img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/colorscales_heatmap2.gif" align="center"/>
 
@@ -172,4 +182,3 @@ save_reactable("table.png")
 * Thank you to June Chao for contributing to the span option in `color_scales()` and `color_tiles()`!
 
 * Thank you to Kent Russell for putting together the wonderful [{dataui}](https://timelyportfolio.github.io/dataui/index.html) package and suggesting integrating the code with {reactablefmtr} to allow interactive sparkline customization in reactable tables.
-
