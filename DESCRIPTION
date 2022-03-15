@@ -1,6 +1,6 @@
 Package: reactablefmtr
 Type: Package
-Title: Streamlined Table Styling And Formatting For Reactable
+Title: Streamlined Table Styling and Formatting for Reactable
 Version: 2.0.0
 Authors@R: c(
     person("Kyle", "Cuilla", role = c("aut", "cre", "cph"), email = "kyle.cuilla@gmail.com"),
@@ -45,5 +45,8 @@ Suggests:
     MASS,
     scales,
     webshot2
+Additional_repositories:
+    https://github.com/timelyportfolio/dataui,
+    https://github.com/rstudio/webshot2
 RoxygenNote: 7.1.1
 Language: en-US
