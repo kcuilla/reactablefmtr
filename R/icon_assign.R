@@ -101,7 +101,6 @@
 #'
 #' @export
 
-
 icon_assign <- function(data,
                         icon = "circle",
                         fill_color = "#67a9cf",
@@ -192,10 +191,20 @@ icon_assign <- function(data,
 
       value_rounded <- floor(value + 0.5)
 
-      icon_seq <- lapply(seq(1, max_value, by = seq_by), function(i) {
+      if (max_value != 0) {
 
-        if (i <= value_rounded) icons() else icons(empty = TRUE)
-      })
+        icon_seq <- lapply(seq(1, max_value, by = seq_by), function(i) {
+
+          if (i <= value_rounded) icons() else icons(empty = TRUE)
+        })
+
+      } else {
+
+        icon_seq <- lapply(seq(0, max_value, by = seq_by), function(i) {
+
+          if (i < value_rounded) icons() else icons(empty = TRUE)
+        })
+      }
 
       label <- sprintf("%s out of %s", value, max_value)
 
