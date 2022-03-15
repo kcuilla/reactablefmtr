@@ -46,7 +46,6 @@ Suggests:
     scales,
     webshot2
 Additional_repositories:
-    https://github.com/timelyportfolio/dataui,
-    https://github.com/rstudio/webshot2
+    https://kcuilla.github.io/drat/
 RoxygenNote: 7.1.1
 Language: en-US
