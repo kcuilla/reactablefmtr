@@ -6,15 +6,13 @@
 #'     If the reactable table is located within an .Rmd file and has additional CSS styles provided,
 #'     specify the name of the .Rmd file as the input.
 #'     Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.
-#'     `save_reactable()` depends on the `{webshot2}` package which can be downloaded from https://github.com/rstudio/webshot2.
-#'     Additional parameters available within webshot2::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
-#'     The zoom value within webshot2::webshot has already been set to 2 which uses a higher pixel rate.
+#'     Additional parameters available within webshot::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
 #'
 #' @param input A reactable table, .html file, or .Rmd file
 #'
 #' @param output A .png or .html file name for the saved image
 #'
-#' @param ... Optional additional parameters passed from webshot2::webshot
+#' @param ... Optional additional parameters passed from webshot::webshot
 #'
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tools file_ext
@@ -27,7 +25,7 @@
 #' @examples
 #' \dontrun{
 #' ## Save reactable table as a png file:
-#' iris_table <- reactable(data)
+#' iris_table <- reactable(iris)
 #' save_reactable(iris_table, "iris_table.png")
 #'
 #' ## Also works with a pipe
@@ -47,7 +45,7 @@
 #' }
 #' @export
 
-save_reactable <- function(input,
+save_reactable_test <- function(input,
                            output,
                            ...) {
 
@@ -82,14 +80,7 @@ save_reactable <- function(input,
 
     htmlwidgets::saveWidget(widget = input, file = temp_html, selfcontained = TRUE)
 
-    if (!requireNamespace("webshot2", quietly = TRUE)) {
-
-      stop("The `webshot2` package is required to use `save_reactable()`.",
-           call. = FALSE)
-
-    } else {
-
-    webshot2::webshot(url = temp_html,
+    webshot::webshot(url = temp_html,
                      file = output,
                      zoom = 2,
                      delay = 1,
@@ -99,50 +90,29 @@ save_reactable <- function(input,
 
     message("image saved to ", getwd(), "/", output)
 
-    }
-
   } else if (tools::file_ext(input) == "Rmd") {
 
     message("Knitting R Markdown document...")
 
-    if (!requireNamespace("webshot2", quietly = TRUE)) {
-
-      stop("The `webshot2` package is required to use `save_reactable()`.",
-           call. = FALSE)
-
-    } else {
-
-    webshot2::rmdshot(doc = input,
+    webshot::rmdshot(doc = input,
                      file = output,
                      zoom = 2,
                      delay = 1,
                      ...)
 
     message("image saved to ", getwd(), "/", output)
-
-    }
 
   } else if (tools::file_ext(input) == "html" && tools::file_ext(output) == "png") {
 
-    if (!requireNamespace("webshot2", quietly = TRUE)) {
-
-      stop("The `webshot2` package is required to use `save_reactable()`.",
-           call. = FALSE)
-
-    } else {
-
-    webshot2::webshot(url = input,
+    webshot::webshot(url = input,
                      file = output,
                      zoom = 2,
                      delay = 1,
                      ...)
 
     message("image saved to ", getwd(), "/", output)
-
-    }
 
   } else stop("please make sure input is either a reactable table, .html file, or .Rmd file,
               and output is either a .png or .html file")
 
 }
-
