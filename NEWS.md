@@ -113,6 +113,7 @@
 
 * Fixed a bug that would not assign colors to values within `color_scales()`, `color_tiles()`, and `data_bars()` if there was no variance within the column
 * Fixed the sparkline tooltip to allow all values to show clearly on hover
+* Fixed issue with `icon_assign()` that displayed an error for columns containing all zeros 
 
 
 ### Other Modifications
@@ -122,6 +123,7 @@
 * Text is now centered vertically within `data_bars()` by default
 * The size of the text within `data_bars()` can now be changed with `text_size`
 * Added two additional themes: sanfran and no_lines
+* Changed the underlying package in `save_reactable()` from {webshot2} to {webshot}. The {webshot} package is available on CRAN, so there is no need for users to manually download {webshot2} from GitHub
 * The entire contents of a table can be vertically centered by setting `centered` to TRUE within any of the {reactablefmtr} themes 
 
 
