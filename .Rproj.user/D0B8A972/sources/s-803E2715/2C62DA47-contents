@@ -1,3 +1,0 @@
-exportPattern("^[[:alpha:]]+")
-
-importFrom("grDevices", "colorRamp", "rgb")

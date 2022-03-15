@@ -10,7 +10,10 @@
 #' @param bold optional argument to bold values.
 #'     Default is set to NULL or not bold.
 #'
-#' @export
+#' @import reactable
+#'
+#' @return a function that applies a color
+#'     to the positive and negative values of numeric column.
 #'
 #' @examples
 #' data <- data.frame(
@@ -19,22 +22,26 @@
 #' Change = c(4.14, 1.51, -19.45, 5.32, -12.45))
 #'
 #' ## Assign the color red to negative values and green to positive values
-#' reactable(data, columns = list(Change = colDef(
+#' reactable(data,
+#' columns = list(
+#' Change = colDef(
 #' style = pos_neg_colors("red", "green"))))
 #'
 #' ## Bold values
-#' reactable(data, columns = list(Change = colDef(
+#' reactable(data,
+#' columns = list(
+#' Change = colDef(
 #' style = pos_neg_colors("red", "green", bold = TRUE))))
 #'
-#' ## Can be used in conjunction with add_plus_sign()
-#' reactable(data, columns = list(Change = colDef(
-#' cell = add_plus_sign,
-#' style = pos_neg_colors("red", "green", bold = TRUE))))
+#' @export
 
 
 pos_neg_colors <- function(neg_col, pos_col, bold = NULL) {
 
   colors <- function(value) {
+
+    if (!is.numeric(value)) return(value)
+
     color <- if (!is.na(value) & value > 0) {
       pos_col
 

@@ -1,0 +1,639 @@
+---
+title: "Getting Started with Sparklines"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Sparklines
+
+In order to use the sparkline functions within {reactablefmtr}, one must first download the [{dataui}](https://timelyportfolio.github.io/dataui/index.html) package from GitHub.
+
+Once installed, users of the development version of {reactablefmtr} will have the ability to create highly customizable interactive sparkline line charts and bar charts.
+
+In order to download the development version, please use `remotes::install_github("kcuilla/reactablefmtr")`.
+
+## `react_sparkline()`
+
+We will start off with an example of `react_sparkline()` using data from the [{palmerpenguins}](https://allisonhorst.github.io/palmerpenguins/index.html) package.
+
+The first thing we need to do is convert the `flipper_length_mm` column to a list format:
+
+```{r}
+# Load packages
+library(reactablefmtr)
+library(tidyverse)
+library(palmerpenguins)
+```
+
+```{r}
+df <- penguins %>%
+  filter(!is.na(sex)) %>%
+  group_by(species, sex) %>%
+  summarize(flipper_length = list(flipper_length_mm))
+```
+
+Then, we can call `react_sparkline()` within the cell of {reactable}:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    flipper_length = colDef(
+      cell = react_sparkline(df)
+    )
+  )
+)
+```
+
+## Tooltip options
+
+| Parameter             | Description                         | Default Value       |
+|:----------------------|:------------------------------------|:--------------------|
+| `tooltip`             | turn the tooltip on or off          | TRUE                |
+| `tooltip_type`        | the tooltip type (1 or 2)           | 1                   |
+| `tooltip_color`       | the color of the tooltip            | NULL                |
+| `tooltip_size`        | the size of the tooltip labels      | '1.1em'             |                     
+
+By default, the color of the tooltip matches the color of the corresponding line. However, you can change the color of the tooltip with `tooltip_color`:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        tooltip_color = 'red'
+      )
+    )
+  )
+)
+```
+
+You may also increase of decrease the size of the tooltip labels with `tooltip_size`:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        tooltip_size = '2em'
+      )
+    )
+  )
+)
+```
+
+There are two different tooltips available to choose from within `tooltip_type`. Below is the 2nd tooltip option which is recommended to show the values more clearly if you are displaying larger sparklines:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+You may also turn off the interactive tooltip by setting the `tooltip` to FALSE:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        tooltip = FALSE
+      )
+    )
+  )
+)
+```
+
+
+## Line appearance options
+
+| Parameter             | Description                                   | Default Value                    |
+|:----------------------|:----------------------------------------------|:---------------------------------|
+| `line_color`          | the color of the sparkline                    | 'slategray'                      |
+| `line_color_ref`      | column containing sparkline color assignments | NULL                             |
+| `line_width`          | the width of the sparkline                    | 1                                |
+| `line_curve`          | the curvature of the sparkline                | 'cardinal'                       |
+| `height`              | height of the sparkline                       | 22                               |
+| `show_line`           | show or hide sparkline                        | TRUE                             |
+
+We can change the color of the line with `line_color` and the width of the line by adjusting the `line_width`: 
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        line_color = "red",
+        line_width = 3
+      )
+    )
+  )
+)
+```
+
+If we want to assign line colors to specific groups, we can do so by creating a columns with the color assignments and calling that column name within `line_color_ref`:
+
+```{r}
+# Assign colors to each species of penguins
+df <- df %>%
+  mutate(
+    cols = case_when(
+      species == "Adelie" ~ "#f5a24b",
+      species == "Chinstrap" ~ "#af52d5",
+      species == "Gentoo" ~ "#4c9b9b",
+      TRUE ~ "grey"
+    )
+  )
+
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        line_color_ref = "cols"
+      )
+    )
+  )
+)
+```
+
+<i>Note that the color of the tooltip will automatically match the color of the line.</i>
+
+By default, the curvature of the line is of type "cardinal", but we have the option to change it to "linear" as well as "monotoneX", or "basis" within `line_curve`:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        line_color_ref = "cols",
+        line_curve = "linear"
+      )
+    )
+  )
+)
+```
+
+To change the height of the sparklines, you can set a value within the `height` parameter. By default, this value is 22.
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        line_color_ref = "cols",
+        height = 80,
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+
+## Add area beneath sparkline
+
+| Parameter             | Description                                   | Default Value                     |
+|:----------------------|:----------------------------------------------|:----------------------------------|
+| `show_area`           | show or hide the area beneath the sparkline   | FALSE                             |
+| `area_color`          | the color of the area                         | NULL (inherited from `line_color`)|
+| `area_color_ref`      | column containing area color assignments      | 1                                 |
+| `area_opacity`        | the opacity of the area                       | 0.1                               |
+
+By setting `show_area` to TRUE, we can show the filled area beneath the line, and by default, the color of the area will automatically be inherited from the `line_color`.
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        show_area = TRUE,
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+We can use the "cols" column we used earlier to conditionally assign colors to each of the penguin species and the color of the area will automatically be inherited from those color assignments:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        show_area = TRUE,
+        line_color_ref = "cols",
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+The color of the filled area is 90% transparent, but we are able to darken the colors by increasing the opacity within `area_opacity`: 
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        show_area = TRUE,
+        area_opacity = 1,
+        line_color_ref = "cols",
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+Alternatively, we can conditionally assign colors to just the area using `area_color_ref`. 
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        show_area = TRUE,
+        line_width = 2,
+        area_color_ref = "cols",
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+
+## Add points and labels
+
+| Parameter             | Description                                        | Default Value                    |
+|:----------------------|:---------------------------------------------------|:---------------------------------|
+| `highlight_points`    | highlight min, max, first, last, and/or all points | NULL                             |
+| `point_size`          | the size of the points                             | 1.1                              |
+| `labels`              | show labels for min, max, first, last, all points  | 'none'                           |
+| `label_size`          | the size of the labels                             | '0.8em'                          |
+| `decimals`            | the number of decimals displayed in the labels     | 0                                |
+
+If we wanted to add points to particular data points on the sparkline, we could do so using `highlight_points`. Within `highlight_points`, we can call a helper function, which is also called `highlight_points`, and assign colors to either the min, max, first, last, and/or all data points.
+
+Below, we are assigning the color red to the minimum values on the sparkline and the color blue to the maximum values: 
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        highlight_points = highlight_points(min = "red", max = "blue")
+      )
+    )
+  )
+)
+```
+
+We may also apply the labels directly to the sparkline by specifying which values we would like to display with `labels`. The label options are the same as `highlight_points` where we can label either the first, last, min, max, or all values. Note that the `labels` option will work with or without the `highlight_points` option:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        highlight_points = highlight_points(first = "green", last = "purple"),
+        labels = c("first", "last")
+      )
+    )
+  )
+)
+```
+
+## Add a statline
+
+| Parameter             | Description                                            | Default Value                    |
+|:----------------------|:-------------------------------------------------------|:---------------------------------|
+| `statline`            | insert a dotted line for the mean, median, min, or max | NULL                             |
+| `statline_color`      | the color of the statline                              | 'red'                            |
+| `statline_label_size` | the size of the label next to the statline             | '0.8em'                          |
+
+We may want to display summary statistics about each sparkline series and can do this by using the `statline` option. The statistical summary options that are available are mean, median, min, or max. 
+
+The example below adds a mean reference line to each of the sparklines and displays the mean value to the right of each line:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      minWidth = 200,
+      cell = react_sparkline(
+        df,
+        height = 80,
+        statline = "mean",
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+There are additional options to control the appearance of the dotted line and label as well:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        statline = "mean",
+        statline_color = "orange",
+        statline_label_size = "1.1em",
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+
+## Add a bandline
+
+| Parameter             | Description                                            | Default Value                    |
+|:----------------------|:-------------------------------------------------------|:---------------------------------|
+| `bandline`            | insert a bandline for the inner-quartile or full range | NULL                             |
+| `bandline_color`      | the color of the bandline                              | 'red'                            |
+| `bandline_opacity`    | the opacity of the bandline                            | 0.2                              |
+
+To add a bandline to each of the sparklines, we can use the `bandline` option as shown below. The options within `bandline` are "innerquartiles" which shows the inner-quartile range of each series, and "range" which will show the full range of the sparkline from the minimum value to the maximum value.
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        line_width = 1,
+        line_color_ref = "cols",
+        bandline = "innerquartiles",
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+The color and opacity of the bandline can also be adjusted as shown below:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        line_color_ref = "cols",
+        bandline = "innerquartiles",
+        bandline_color = "green",
+        bandline_opacity = 0.4,
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+We may also stack multiple elements together, such as showing the bandline with a mean statline:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkline(
+        df,
+        height = 80,
+        line_color_ref = "cols",
+        highlight_points = highlight_points(min = "red", max = "blue"),
+        labels = c("min", "max"),
+        statline = "mean",
+        bandline = "innerquartiles",
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+## `react_sparkbar()`
+
+To display the sparkline chart as a bar chart rather than a line chart, we can use `react_sparkbar()`:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkbar(df)
+    )
+  )
+)
+```
+
+## Bar appearance options
+
+| Parameter             | Description                                   | Default Value                    |
+|:----------------------|:----------------------------------------------|:---------------------------------|
+| `fill_color`          | the color of the bars                         | 'slategray'                      |
+| `fill_color_ref`      | column containing bar color assignments       | NULL                             |
+| `fill_opacity`        | the opacity of the bar color                  | 1                                |
+| `outline_color`       | the color of the outline around the bars      | 'transparent'                    |
+| `outline_color_ref`   | column containing outline color assignments   | NULL                             |
+| `outline_width`       | the width of the outline around the bars      | 1                                |
+
+Many of the options that are available within `react_sparkline()` are also available within `react_sparkbar()` with some few minor differences. For example, if we wanted to assign custom colors to each of the bars, we could use `fill_color_ref`:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkbar(
+        df,
+        fill_color_ref = "cols")
+    )
+  )
+)
+```
+
+## Add labels and highlight particular bars
+
+| Parameter             | Description                                        | Default Value                    |
+|:----------------------|:---------------------------------------------------|:---------------------------------|
+| `highlight_bars`      | highlight min, max, first, last, and/or all bars   | NULL                             |
+| `labels`              | show labels for min, max, first, last, all bars    | 'none'                           |
+| `label_size`          | the size of the labels                             | '0.8em'                          |
+| `decimals`            | the number of decimals displayed in the labels     | 0                                |
+
+Another difference in `react_sparkbar` is if we want to highlight particular data points, we would use `highlight_bars` instead of `highlight_points`. The options in which data points to highlight are the same (first, last, min, max, or all).
+
+The height of the bars auto-starts at the minimum value in each series. Therefore, if we assign a color to the minimum value within `highlight_bars`, we will be unable to see it unless we declare the minimum value as a number less than the minimum value present in the dataset.
+
+Note: you can control the minimum and maximum value of the bars with `min_value` and `max_value`, respectively. Here is an example of all labels applied (species and sex columns hidden to better show labels):
+
+```{r}
+df %>% 
+  filter(species == "Chinstrap") %>% 
+reactable(
+  .,
+  columns = list(
+    species = colDef(show = FALSE),
+    sex = colDef(show = FALSE),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      name = "Chinstrap Penguin Flipper Length (min and max values highlighted)",
+      cell = react_sparkbar(
+        .,
+        height = 140,
+        min_value = 150,
+        max_value = 225,
+        fill_color = "#9f9f9f",
+        labels = c("all"),
+        label_size = "0.8em",
+        highlight_bars =  highlight_bars(min = "red", max = "blue"),
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+
+## Add a statline and bandline
+
+Just like with `react_sparkline()`, statlines and bandlines can be layered onto `react_sparkbar` using the same options outlined above:
+
+```{r}
+reactable(
+  df,
+  columns = list(
+    species = colDef(maxWidth = 90),
+    sex = colDef(maxWidth = 85),
+    cols = colDef(show = FALSE),
+    flipper_length = colDef(
+      cell = react_sparkbar(
+        df,
+        height = 80,
+        fill_color_ref = "cols",
+        bandline = "innerquartiles",
+        statline = "mean",
+        tooltip_type = 2
+      )
+    )
+  )
+)
+```
+

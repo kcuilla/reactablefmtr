@@ -10,22 +10,32 @@
 #'
 #' @param highlighter color to assign the background of a cell containing maximum value in a column.
 #'
-#' @export
+#' @return a function that applies a color
+#'     to the maximum value in a column of numeric values.
+#'
+#' @import reactable
 #'
 #' @examples
 #' data <- MASS::road[11:17, ]
 #'
 #' ## By default, the maximum value is bold with a green font color
-#' reactable(data, defaultColDef = colDef(
+#' reactable(data,
+#' defaultColDef = colDef(
 #'     style = highlight_max(data)))
 #'
 #' ## Assign a different font color
-#' reactable(data, defaultColDef = colDef(
-#'     style = highlight_max(data, font_color = "red")))
+#' reactable(data,
+#' defaultColDef = colDef(
+#'     style = highlight_max(data,
+#'     font_color = "red")))
 #'
 #' ## Highlight the background of the cell for the maximum value in each column
-#' reactable(data, defaultColDef = colDef(
-#'     style = highlight_max(data, highlighter = "yellow")))
+#' reactable(data,
+#' defaultColDef = colDef(
+#'     style = highlight_max(data,
+#'     highlighter = "yellow")))
+#'
+#' @export
 
 
 highlight_max <- function(data, font_color = "green", highlighter = NULL) {
@@ -33,6 +43,7 @@ highlight_max <- function(data, font_color = "green", highlighter = NULL) {
   style <- function(value, index, name) {
 
     if (!is.numeric(value)) {
+
       return(value)
 
     } else if (!is.na(value) && value == max(data[[name]], na.rm = TRUE)) {

@@ -1,0 +1,51 @@
+template:
+  bootstrap: 5
+  bootswatch: lumen
+
+home:
+  title: reactablefmtr package
+
+navbar:
+  structure:
+    left: [home, reference, examples, articles, demos, tutorials, news]
+    right: [github]
+  components:
+    home:
+      icon: fas fa-home fa-lg
+      href: index.html
+    articles:
+      text: Examples
+      menu:
+      - text: Color Scales
+        href: articles/color_scales.html
+      - text: Color Tiles
+        href: articles/color_tiles.html
+      - text: Data Bars
+        href: articles/data_bars.html
+      - text: Embed Images
+        href: articles/embed_img.html
+      - text: Highlight Min & Max
+        href: articles/highlight_min_max.html
+      - text: Icon Assign
+        href: articles/icon_assign.html
+      - text: Icon Sets
+        href: articles/icon_sets.html
+      - text: Sparklines
+        href: articles/sparklines.html
+      - text: Themes
+        href: articles/themes.html
+    demos:
+      text: Demos
+      menu:
+      - text: NBA Player Ratings
+        href: articles/nba_player_ratings.html
+      - text: NFL Standings
+        href: articles/nfl_standings.html
+    tutorials:
+      text: Tutorials
+      menu:
+      - text: Building the NFL Standings Table
+        href: articles/nfl_standings_tutorial.html
+    reference:
+      text: Reference
+      href: reference/index.html

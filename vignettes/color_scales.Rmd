@@ -1,0 +1,466 @@
+---
+title: 'Getting Started with Color Scales'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+With `{reactablefmtr}`, we can easily apply color scales to columns within a table by using `color_scales()` within `style` of `reactable::colDef()`.
+
+By default a normalized orange-white-blue color scale is applied to the column.
+
+```{r}
+library(reactablefmtr)
+library(tidyverse)
+
+data <- MASS::Cars93 %>% 
+  filter(Type %in% c('Compact', 'Sporty', 'Van')) %>% 
+  select(c('Make', 'Type', 'MPG.city', 'MPG.highway')) %>% 
+  tail(10)
+
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.city = colDef(
+      style = color_scales(data)
+    ),
+    MPG.highway = colDef(
+      style = color_scales(data)
+    )
+  )
+)
+```
+
+
+## `color_scales()` customization options
+
+| Parameter             | Description                                   | Default Value                    |
+|:----------------------|:----------------------------------------------|:---------------------------------|
+| `data`                | name of data set                              | NULL                             |
+| `colors`              | color palette                                 | c('#15607A','#FFFFFF','#FA8C00') |
+| `color_ref`           | column containing color assignments           | NULL                             |
+| `color_by`            | column containing value assignments           | NULL                             |
+| `opacity`             | opaqueness of color palette                   | 1                                |
+| `bias`                | the spacing between colors                    | 1                                |
+| `text_size`           | the size of the text                          | NULL                             |
+| `text_color`          | the color of the text                         | 'black'                          |
+| `text_color_ref`      | column containing text color assignments      | NULL                             |
+| `show_text`           | show or hide text                             | TRUE                             |
+| `brighten_text`       | auto-adjust text color based on color of cell | TRUE                             |
+| `brighten_text_color` | color of the auto-adjusted text color         | 'white'                          |
+| `bold_text`           | bold format text                              | FALSE                            |
+| `span`                | show as row-wise instead of column-wise       | FALSE                            |
+| `animation`           | animation of color transitions on sort        | 'background 1s ease'             |
+
+
+## Custom color palettes
+
+If we want to show a different color palette than the default, we can call them within the `colors` argument like so: 
+
+```{r}
+my_color_pal = c('#e5f5e0', '#a1d99b', '#31a354')
+
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.city = colDef(
+      style = color_scales(data, colors = my_color_pal)
+      ),
+    MPG.highway = colDef(
+      style = color_scales(data, colors = my_color_pal)
+      )
+  )
+)
+```
+
+The opacity of the colors can be controlled by assigning a value between 0 (fully transparent) and 1 (fully opaque).
+
+```{r}
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.city = colDef(
+      style = color_scales(data, colors = my_color_pal, opacity = 0.5)
+      ),
+    MPG.highway = colDef(
+      style = color_scales(data, colors = my_color_pal, opacity = 0.5)
+      )
+  )
+)
+```
+
+We may also use color palettes from other packages, such as the 'Mako' color palette from the `{viridis}` package:
+
+```{r}
+library(viridis)
+
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.city = colDef(
+      style = color_scales(data, colors = viridis::mako(5))
+      ),
+    MPG.highway = colDef(
+      style = color_scales(data, colors = viridis::mako(5))
+      )
+  )
+)
+```
+
+
+## Add a legend
+
+## `add_legend()` customization options
+
+| Parameter    | Description                              | Default Value                    |
+|:-------------|:-----------------------------------------|:---------------------------------|
+| `data`       | name of dataset                          | NULL                             |
+| `col_name`   | name of column containing numeric values | NULL                             |
+| `bins`       | number of bins to be displayed           | 5                                |
+| `colors`     | color palette                            | c('#15607A','#FFFFFF','#FA8C00') |
+| `bias`       | opaqueness of color palette              | 1                                |
+| `labels`     | show or hide value labels                | TRUE                             |
+| `number_fmt` | the format of the values                 | NULL                             |
+| `title`      | the title above the legend               | NULL                             |
+| `footer`     | the footer below the legend              | NULL                             |
+| `align`      | align to the left or right of the table  | 'right'                          |
+
+
+If you would like to add a legend for the color palette used within `color_scales()`, you can do so by including `add_legend()` below the table and listing the color palette used within `color_scales()`. If no color palette is defined by the user within `add_legend()`, it will show the default blue-to-orange color palette used in `color_scales()`. 
+
+```{r}
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.highway = colDef(
+      style = color_scales(data)
+    )
+  )
+) %>% 
+  add_legend(data, col_name = 'MPG.highway')
+```
+
+<br>
+
+You can add a title and a footer to the legend with `title` and `footer` respectively: 
+
+```{r}
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.highway = colDef(
+      style = color_scales(data)
+    )
+  )
+) %>% 
+  add_legend(data, col_name = 'MPG.highway', title = 'MPG Highway', footer = 'Reported as of 1993')
+```
+
+<br>
+
+By default, the color palette is broken into 5 distinct bins. However, we can increase or decrease the number of color bins we would like to show in the legend by providing a number within `bins`:
+
+```{r}
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.highway = colDef(
+      style = color_scales(data)
+    )
+  )
+) %>% 
+  add_legend(data, col_name = 'MPG.highway', title = 'MPG Highway', footer = 'Reported as of 1993', bins = 9)
+```
+
+<br>
+
+If you are using a different color palette than the default one provided, you can specify the color palette in the same way that you did within `color_tiles()`:
+
+```{r}
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.highway = colDef(
+      style = color_scales(data, colors = viridis::viridis(5))
+    )
+  )
+) %>% 
+  add_legend(data, col_name = 'MPG.highway', title = 'MPG Highway', footer = 'Reported as of 1993', colors = viridis::viridis(5))
+```
+
+<br>
+
+If the data within your column is not evenly distributed, you can set the color bias to lean more towards the higher values or lower values within the column with `bias`. Changing the bias within the legend is a good visual gauge of how the bias affects the distribution of colors within the column:
+
+```{r}
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.highway = colDef(
+      style = color_scales(data, colors = viridis::viridis(5))
+    )
+  )
+) %>% 
+  add_legend(data, col_name = 'MPG.highway', title = 'MPG Highway', footer = 'Reported as of 1993', colors = viridis::viridis(5))
+```
+
+<br>
+
+## Format numbers
+
+To format the numbers within columns containing `color_scales()`, you can use any of the [formats](https://glin.github.io/reactable/articles/examples.html#column-formatting-1) within reactable's `colFormat()` argument:
+
+```{r}
+reactable(
+  data,
+  defaultSorted = 'MPG.highway',
+  defaultSortOrder = 'desc',
+  columns = list(
+    MPG.highway = colDef(
+      format = colFormat(suffix = ' mpg'),
+      style = color_scales(data)
+    )
+  )
+)
+```
+
+## Conditional color assignments
+
+Colors can be conditionally assigned to values based on another column by using `color_ref`.
+
+In the example below, we assigned a blue color to Compact cars, a red color to Sporty cars, and a gold color to Vans using `dplyr::case_when()`.
+
+Then within `color_scales()`, we reference the name of the conditional column we just created to apply the colors to the values in MPG.city and MPG.highway.
+
+```{r}
+car_data <- data %>% 
+  mutate(car_colors = dplyr::case_when(
+  Type == 'Compact' ~ 'dodgerblue',
+  Type == 'Sporty' ~ 'tomato',
+  Type == 'Van' ~ 'gold',
+  TRUE ~ 'other'
+  ))
+
+reactable(
+  car_data,
+  defaultSorted = 'Type',
+  columns = list(
+    MPG.city = colDef(style = color_scales(car_data, color_ref = 'car_colors')),
+    MPG.highway = colDef(style = color_scales(car_data, color_ref = 'car_colors')),
+    car_colors = colDef(show = FALSE))
+)
+```
+
+We can further apply the conditional colors to the entire dataset by setting the style within `defaultColDef`:
+
+```{r}
+reactable(
+  car_data,
+  defaultSorted = 'Type',
+  defaultColDef = colDef(
+    style = color_scales(car_data, color_ref = 'car_colors')
+    ),
+  columns = list(car_colors = colDef(show = FALSE))
+)
+```
+
+The same conditional coloring can be applied based on numeric conditions as well. For example, if we wanted to highlight which cars have an MPG.city value of 23 or greater, we could use the same method as above but apply the conditions based on the MPG.city column instead of the Type column.  
+
+```{r}
+car_data <- car_data %>% 
+  mutate(mpg_colors = dplyr::case_when(
+  MPG.city >= 23 ~ 'darkgreen',
+  TRUE ~ 'grey'
+  ))
+
+reactable(
+  car_data,
+  defaultSorted = 'MPG.city',
+  defaultSortOrder = 'desc',
+  defaultColDef = colDef(
+    style = color_scales(car_data, color_ref = 'mpg_colors')
+    ),
+  columns = list(
+    car_colors = colDef(show = FALSE),
+    mpg_colors = colDef(show = FALSE))
+)
+```
+
+## Color assignments by another column
+
+In the dev version of `{reactablefmtr}`, there is a `color_by` argument that allows for 
+color assignment based on the values in another column.  
+
+```{r}
+reactable(
+  data,
+  columns = list(
+    Make = colDef(style = color_scales(data, color_by = 'MPG.highway'))
+  )
+)
+```
+
+To help clarify what values the colors represent, you can add a legend below the table: 
+
+```{r}
+reactable(
+  data,
+  columns = list(
+    Make = colDef(style = color_scales(data, color_by = 'MPG.highway'))
+  )
+) %>% 
+  add_legend(data, col_name = 'MPG.highway', title = 'MPG Highway', align = 'left')
+```
+
+<br>
+
+## Row-wise styling
+
+By default, `color_scales()` conditionally assigns colors to values based on their relation to other values within that particular column. However, if the table you're showing is row-wise data, such as average temperatures by month for each year, then it will be difficult to compare how temperatures compare in each month:
+
+By including `span = TRUE` within our `color_scales()` formatter, we can conditionally assign colors to the values based on their relation to other values within the entire dataset, instead of within each column. Now our table displaying temperatures is much easier to read when comparing temperatures across months:
+
+<i>Note: the dataset for this example is sourced from the reactable [demo cookbook](https://glin.github.io/reactable/articles/cookbook/cookbook.html#conditional-formatting-1)</i>
+
+```{r}
+dimnames <- list(start(nottem)[1]:end(nottem)[1], month.abb)
+temps <- matrix(nottem, ncol = 12, byrow = TRUE, dimnames = dimnames)
+temps <- as_tibble(temps, rownames = 'Year')
+temppal <- c('#36a1d6', '#76b8de', '#a0bfd9', '#ffffff', '#d88359', '#d65440', '#c62c34')
+
+reactable(
+  temps,
+  defaultColDef = colDef(
+    style = color_scales(temps, span = TRUE, colors = temppal),
+    minWidth = 50
+    )
+)
+```
+
+If we only wanted to apply color scales to some of the months, we can do so by referencing either the numeric positions of the columns or the column names within `span`:
+
+```{r}
+reactable(
+  temps,
+  defaultColDef = colDef(
+    style = color_scales(temps, span = 4:7, colors = temppal),
+    minWidth = 50))
+```
+
+Lastly, if you wanted to completely hide the text, you could do this by setting `show_text = FALSE`, which displays the table as a heatmap as shown below:
+
+<i>Note: by including `cell = tooltip()`, the values are still visible on hover and the format of the numbers can be specified with `number_fmt`.</i>
+
+```{r}
+library(gapminder)
+
+population_data <- gapminder %>% 
+  filter(continent == 'Americas') %>%
+  mutate(country = as.character(country),
+         year = paste0("'", str_sub(year, 3, 4))) %>% 
+  select(country, year, lifeExp) %>%
+  pivot_wider(names_from = year, values_from = lifeExp) 
+
+reactable(
+  population_data,
+  compact = TRUE,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = 'desc',
+  defaultColDef = colDef(
+    maxWidth = 50,
+    align = 'center',
+    cell = tooltip(number_fmt = scales::comma),
+    style = color_scales(population_data, show_text = FALSE, span = TRUE)
+  ),
+  columns = list(
+    country = colDef(
+      maxWidth = 175,
+      align = 'left'
+    )
+  )
+) %>% 
+  add_title('Average Life Expectancy') %>% 
+  add_source('Data sourced from the {gapminder} package') 
+```
+
+<br>
+
+## Text options
+
+By default, the color of the text will auto-adjust based on the background color of the cell. To turn this feature off and set the text color to your own color, you can do so by setting `brighten_text` to FALSE and then setting the text color within `text_color`. You may also display the text in bold with `bold_text`.
+
+```{r}
+reactable(
+  population_data,
+  compact = TRUE,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = 'desc',
+  defaultColDef = colDef(
+    maxWidth = 50,
+    align = 'center',
+    cell = tooltip(number_fmt = scales::comma),
+    style = color_scales(population_data, brighten_text = FALSE, text_color = 'grey', bold_text = TRUE, span = TRUE)
+  ),
+  columns = list(
+    country = colDef(
+      maxWidth = 175,
+      align = 'left'
+    )
+  )
+) %>% 
+  add_title('Average Life Expectancy') %>% 
+  add_source('Data sourced from the {gapminder} package') 
+```
+
+<br>
+
+To change the size of the text, you can do so with `text_size`. 
+
+```{r}
+reactable(
+  population_data,
+  compact = TRUE,
+  pagination = FALSE,
+  showSortIcon = FALSE,
+  defaultSorted = "'52",
+  defaultSortOrder = 'desc',
+  defaultColDef = colDef(
+    maxWidth = 50,
+    align = 'center',
+    cell = tooltip(number_fmt = scales::comma),
+    style = color_scales(population_data, text_size = 24, span = TRUE)
+  ),
+  columns = list(
+    country = colDef(
+      maxWidth = 175,
+      align = 'left'
+    )
+  )
+) %>% 
+  add_title('Average Life Expectancy') %>% 
+  add_source('Data sourced from the {gapminder} package') 
+```

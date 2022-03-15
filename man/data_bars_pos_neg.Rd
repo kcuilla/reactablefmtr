@@ -4,7 +4,7 @@
 \alias{data_bars_pos_neg}
 \title{Add horizontal bars to rows in a column containing positive and negative values}
 \usage{
-data_bars_pos_neg(data, colors = c("red", "green"), percent = NULL)
+data_bars_pos_neg(data, colors = c("red", "green"), number_fmt = NULL)
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
@@ -13,45 +13,49 @@ data_bars_pos_neg(data, colors = c("red", "green"), percent = NULL)
 Colors should be given in order from negative values to positive values.
 Can use R's built-in colors or other color packages.}
 
-\item{percent}{Optionally format numbers as percentages.}
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
+Default is set to NULL.}
+}
+\value{
+a function that applies positive and negative data bars
+    to a column of numeric values.
 }
 \description{
-The `data_bars_pos_neg()` function conditionally adds a negative horizontal bar to each row of a column containing negative values, and a positive horizontal bar to each row containing positive values.
-    The length of the bars are relative to the value of the row in relation to other values within the same column.
-    It should be placed within the cell argument in reactable::colDef.
+The `data_bars_pos_neg()` function is depreciated.
+    The new version of `data_bars()` can handle both positive and negative values now.
+    Please use `data_bars()` instead.
 }
 \examples{
 data <- data.frame(
 company = sprintf("Company\%02d", 1:10),
 profit_chg = c(0.2, 0.685, 0.917, 0.284, 0.105, -0.701, -0.528, -0.808, -0.957, -0.11))
 
-## By default, the negative values are assigned a red bar, and the positive values are assigned a green bar
-reactable(data, bordered = TRUE, columns = list(
- company = colDef(name = "Company", minWidth = 100),
+## By default, the negative values are assigned a red bar,
+## and the positive values are assigned a green bar
+reactable(data,
+bordered = TRUE,
+columns = list(
+ company = colDef(name = "Company",
+ minWidth = 100),
  profit_chg = colDef(
    name = "Change in Profit",
    defaultSortOrder = "desc",
    align = "center",
    minWidth = 400,
-   cell = data_bars_pos_neg(data))))
+   cell = data_bars(data))))
 
 ## You can apply a relative color scale to the bars by assigning three or more colors
-reactable(data, bordered = TRUE, columns = list(
-  company = colDef(name = "Company", minWidth = 100),
+reactable(data,
+bordered = TRUE,
+columns = list(
+  company = colDef(name = "Company",
+  minWidth = 100),
   profit_chg = colDef(
   name = "Change in Profit",
   defaultSortOrder = "desc",
   align = "center",
   minWidth = 400,
-  cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff")))))
+  cell = data_bars(data,
+  fill_color = c("#ff3030", "#ffffff", "#1e90ff")))))
 
-## Set 'percent = TRUE' to format the numbers as percentages
-reactable(data, bordered = TRUE, columns = list(
-  company = colDef(name = "Company", minWidth = 100),
-  profit_chg = colDef(
-  name = "Change in Profit",
-  defaultSortOrder = "desc",
-  align = "center",
-  minWidth = 400,
-  cell = data_bars_pos_neg(data, colors = c("#ff3030", "#ffffff", "#1e90ff"), percent = TRUE))))
 }

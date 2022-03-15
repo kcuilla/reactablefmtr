@@ -1,17 +1,52 @@
 Package: reactablefmtr
 Type: Package
-Title: Simplifies the formatting and styling while creating tables using 'reactable' 
-Version: 0.1.0
-Author: Kyle Cuilla
+Title: Streamlined Table Styling and Formatting for Reactable
+Version: 2.0.0
+Authors@R: c(
+    person("Kyle", "Cuilla", role = c("aut", "cre", "cph"), email = "kyle.cuilla@gmail.com"),
+    person("Greg", "Lin", role = c("ctb")),
+    person("June", "Choe", role = c("ctb")),
+    person("Kent", "Russell", role = c("ctb"))
+    )
 Maintainer: Kyle Cuilla <kyle.cuilla@gmail.com>
-Description: Streamlines the process of applying formats and styles to tables using 'reactable'.
-    Style your reactable table with conditional formatting, color scales, data bars, and icons. 
+Description: Provides various features to streamline and enhance the styling of interactive 
+    reactable tables with easy-to-use and highly-customizable functions and themes. 
+    Apply conditional formatting to cells with data bars, color scales, color tiles,
+    and icon sets. Utilize custom table themes inspired by popular websites such 
+    and bootstrap themes. Apply sparkline line & bar charts 
+    (note this feature requires the 'dataui' package which can be downloaded from
+    <https://github.com/timelyportfolio/dataui>).
+    Increase the portability and reproducibility of reactable tables by embedding images 
+    from the web directly into cells. Save the final table output as a static image or 
+    interactive file (note this feature requires the 'webshot2' package which can be 
+    downloaded from <https://github.com/rstudio/webshot2>).
+URL: https://kcuilla.github.io/reactablefmtr/, https://github.com/kcuilla/reactablefmtr
+BugReports: https://github.com/kcuilla/reactablefmtr/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+Depends: 
+    R (>= 3.5.0),
+    reactable (>= 0.2.0)
 Imports: 
-    dplyr (>= 1.0.0.0),
+    dplyr,
+    grDevices,
+    htmltools,
+    htmlwidgets (>= 1.5.3),
     magrittr,
-    reactable,
-    htmltools
+    purrr,
+    sass (>= 0.4.0),
+    shiny,
+    stats,
+    stringr (>= 1.4.0),
+    tippy (>= 0.1.0),
+    tools
+Suggests:
+    dataui (>= 0.0.1),
+    MASS,
+    scales,
+    webshot2
+Additional_repositories:
+    https://kcuilla.github.io/drat/,
+    https://github.com/rstudio/webshot2
 RoxygenNote: 7.1.1
+Language: en-US

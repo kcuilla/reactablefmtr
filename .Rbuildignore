@@ -1,5 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
+^pkgdown.yml$
 ^docs$
 ^pkgdown$
+^vignettes$
+^CRAN-RELEASE$
+^cran-comments\.md$

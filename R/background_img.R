@@ -1,0 +1,136 @@
+#' Embed a background image from web to rows of a reactable table
+#'
+#' The `background_img()` function fills the background of a cell with an image from the web.
+#'     The image must be provided with a http or https address.
+#'     The difference between `background_img()` and `embed_img()` is the image in `background_img()` takes up the entire contents of a cell whereas `embed_img()` does not.
+#'     `background_img()` can be used in conjunction with `embed_img()` and the image will be placed behind the image from `embed_img()`.
+#'     `background_img()` will also directly accept a singular image URL within `img` that does not come from the column itself.
+#'     Additionally, images can be assigned from another column by providing the name of the column containing the img URL's in quotes within `img_ref`.
+#'     `background_img()` should be placed within the style argument of reactable::colDef.
+#'
+#' @param data Dataset containing URL's to images
+#'
+#' @param height A value given for the height of the image.
+#'     Can provide a percentage of the cell height or a value in px.
+#'     Default height is 100 percent.
+#'
+#' @param width A value given for the width of the image.
+#'     Can provide a percentage of the cell width or a value in px.
+#'     Default width is 100 percent.
+#'
+#' @param position The alignment of the image within a cell.
+#'     Options are "center", "top", "bottom", "left", "right".
+#'     Default is "center".
+#'
+#' @param img Optionally provide a direct link to an image URL.
+#'     Only one image can be provided using this option.
+#'     Default is NULL.
+#'
+#' @param img_ref Optionally assign images from another column
+#'     by referencing the name of the column in quotes.
+#'     Default is NULL.
+#'
+#' @return a function that renders a background image
+#'     to a column containing a valid web link.
+#'
+#' @import reactable
+#'
+#' @examples
+#' ## If no image links are in the original dataset, you need to assign them like so:
+#' library(dplyr)
+#' data <- iris %>%
+#'  mutate(
+#'  img = case_when(
+#'  Species == "setosa" ~
+#'  "https://upload.wikimedia.org/wikipedia/commons/d/d9/Wild_iris_flower_iris_setosa.jpg",
+#'  Species == "versicolor" ~
+#'  "https://upload.wikimedia.org/wikipedia/commons/7/7a/Iris_versicolor.jpg",
+#'  Species == "virginica" ~
+#'  "https://upload.wikimedia.org/wikipedia/commons/9/9f/Iris_virginica.jpg",
+#'  TRUE ~ "NA"))
+#'
+#' reactable(data,
+#'  columns = list(
+#'   img = colDef(style = background_img())))
+#'
+#' ## By default, images are given a size of 100% to fill the entire cell,
+#' ## but you can adjust the size using height and width:
+#' reactable(data,
+#'  columns = list(
+#'   img = colDef(style = background_img(height = "50%", width = "50%"))))
+#'
+#' ## An image can be applied directly over an existing column using img:
+#' reactable(data,
+#'  columns = list(
+#'   Species = colDef(
+#'   style = background_img(
+#'   img = "https://upload.wikimedia.org/wikipedia/commons/2/26/Colored_flowers_e.jpg"))))
+#'
+#' ## Conditionally assigned images can be applied directly over an existing column using img_ref:
+#' reactable(data,
+#'  columns = list(
+#'   Species = colDef(style = background_img(data, img_ref = "img"))))
+#'
+#' @export
+
+
+background_img <- function(data,
+                           height = "100%",
+                           width = "100%",
+                           position = "center",
+                           img = NULL,
+                           img_ref = NULL) {
+
+  '%notin%' <- Negate('%in%')
+
+  if (position %notin% c("center", "top", "bottom", "left", "right") == TRUE) {
+
+    stop("position must be either 'center', 'top', 'bottom', 'left', 'right'")
+  }
+
+  image <- function(value, index, name) {
+
+    if (is.null(value) || is.na(value) || value == "NA" || value == "na" || stringr::str_detect(value, " ")) return("")
+
+    if (is.null(img) && is.null(img_ref) && grepl("https|http", value) == FALSE) {
+
+      stop("must provide valid link to image.")
+    }
+
+    if (!is.null(img) && grepl("https|http", img) == FALSE) {
+
+      stop("must provide valid link to image.")
+    }
+
+    if (is.null(img) && is.null(img_ref)) {
+
+      img_url <- value
+
+    } else { img_url <- img }
+
+      ### img ref from another column
+      if (!is.null(img_ref) && is.character(img_ref)) {
+
+        if (all(img_ref %in% names(which(sapply(data, is.character))))) {
+
+          if (is.character(img_ref)) { img_ref <- which(names(data) %in% img_ref) }
+
+          img_url <- data[[img_ref]][index]
+
+        } else {
+
+          stop("Attempted to select non-existing column or non-character column with img_ref")
+        }
+
+      }
+
+      list(
+        display = "flex",
+        backgroundSize = paste(width, height),
+        backgroundRepeat = "no-repeat",
+        backgroundPosition = position,
+        fontSize = "0px",
+        backgroundImage = paste0("url(",img_url,")")
+        )
+  }
+}
