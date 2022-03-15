@@ -18,8 +18,7 @@ Description: Provides various features to streamline and enhance the styling of 
     <https://github.com/timelyportfolio/dataui>).
     Increase the portability and reproducibility of reactable tables by embedding images 
     from the web directly into cells. Save the final table output as a static image or 
-    interactive file (note this feature requires the 'webshot2' package which can be 
-    downloaded from <https://github.com/rstudio/webshot2>).
+    interactive file.
 URL: https://kcuilla.github.io/reactablefmtr/, https://github.com/kcuilla/reactablefmtr
 BugReports: https://github.com/kcuilla/reactablefmtr/issues
 License: MIT + file LICENSE
@@ -39,12 +38,12 @@ Imports:
     stats,
     stringr (>= 1.4.0),
     tippy (>= 0.1.0),
-    tools
+    tools,
+    webshot
 Suggests:
     dataui (>= 0.0.1),
     MASS,
-    scales,
-    webshot2
+    scales
 Additional_repositories:
     https://kcuilla.github.io/drat/
 RoxygenNote: 7.1.1
