@@ -1,4 +1,4 @@
-# reactablefmtr 2.0.0 - development version
+# reactablefmtr 2.0.0
 
 ### New Features
 
