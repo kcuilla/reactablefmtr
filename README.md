@@ -99,7 +99,13 @@ Use `color_scales()` to assign conditional colors to cells based on their relati
 
 <img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/colorscales_heatmap2.gif" align="center"/>
 
+### Bubble Grids
+  
+Bubble grid tables can be created using `bubble_grid()`. Bubbles can be shown as circles or squares using the `shape` parameter.
 
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/bubble_grid.JPG" align="center"/>
+
+  
 ### Icon Sets
 
 Use `icon_sets()` to conditionally assign icons to values from the [Font Awesome](https://fontawesome.com/icons?d=gallery&p=2) library based on their relative values. Any number of icons and/or colors can be applied to values within each column. Customization options such as number formatting and positioning of icons are also available. See the [tutorial](https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html) for more options.
