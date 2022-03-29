@@ -105,6 +105,13 @@ Bubble grid tables can be created using `bubble_grid()`. Bubbles can be shown as
 
 <img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/bubble_grid.JPG" align="center"/>
 
+ 
+### Gauge Charts
+  
+Gauge charts aka speedometer charts, can be created using `gauge_chart()`. You may choose to display the min and max underneath the gauge chart by setting `show_min_max` to TRUE:
+  
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/gauge_charts.JPG" align="center"/>
+  
   
 ### Icon Sets
 
