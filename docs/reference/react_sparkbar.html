@@ -7,14 +7,14 @@
     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
     The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
-    The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
+    The appearance of the statline and statline labels can be controlled with `statline_color` and `statline_label_size`.
     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
     By default, `react_sparkbar()` is interactive and data points will be shown when hovering over the sparkbars. This can be turned off by setting `tooltip` to FALSE.
+    There are two tooltip types available within `tooltip_type`. The size and color of the tooltip labels can be adjusted with `tooltip_size` and `tooltip_color`.
     Also by default, there are no labels on the bars themselves. However, one could add labels to the first, last, min, max, or all values within `labels`.
-    The label color and label size can also be adjusted with `label_color` and `label_size` respectively.
     The labels that are shown on the sparkbar and in the tooltip are automatically rounded to the nearest whole integer. But decimals can be shown by providing the number of decimal places in `decimals`.
     The minimum value of a data series is the minimum value shown for a sparkbar, but this can be adjusted with `min_value` and the max can be adjusted with `max_value`.
-    `react_sparkline()` should be placed within the cell argument in reactable::colDef."><title>Add a sparkline bar chart to rows of a reactable table — react_sparkbar • reactablefmtr</title><script src="../deps/jquery-3.5.1/jquery-3.5.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Add a sparkline bar chart to rows of a reactable table — react_sparkbar"><meta property="og:description" content="The `react_sparkbar()` function utilizes the dataui package &amp;lt;https://github.com/timelyportfolio/dataui&amp;gt; to create an interactive sparkline bar chart.
+    `react_sparkline()` should be placed within the cell argument in reactable::colDef."><title>Add a sparkline bar chart to a reactable table — react_sparkbar • reactablefmtr</title><script src="../deps/jquery-3.5.1/jquery-3.5.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Add a sparkline bar chart to a reactable table — react_sparkbar"><meta property="og:description" content="The `react_sparkbar()` function utilizes the dataui package &amp;lt;https://github.com/timelyportfolio/dataui&amp;gt; to create an interactive sparkline bar chart.
     The data provided must be in a list format.
     The vertical height of the sparkbar can be adjusted with `height`. By default, the height is matched to the height of a cell in a reactable table. However, the height can be increased to better see the patterns in the data.
     The four-sided margin around the sparkbar can be controlled with `margin()`. When labels are added to the sparkbars, the margin will auto-adjust (in most instances) to be able to display those labels.
@@ -22,11 +22,11 @@
     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
     The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
-    The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
+    The appearance of the statline and statline labels can be controlled with `statline_color` and `statline_label_size`.
     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
     By default, `react_sparkbar()` is interactive and data points will be shown when hovering over the sparkbars. This can be turned off by setting `tooltip` to FALSE.
+    There are two tooltip types available within `tooltip_type`. The size and color of the tooltip labels can be adjusted with `tooltip_size` and `tooltip_color`.
     Also by default, there are no labels on the bars themselves. However, one could add labels to the first, last, min, max, or all values within `labels`.
-    The label color and label size can also be adjusted with `label_color` and `label_size` respectively.
     The labels that are shown on the sparkbar and in the tooltip are automatically rounded to the nearest whole integer. But decimals can be shown by providing the number of decimal places in `decimals`.
     The minimum value of a data series is the minimum value shown for a sparkbar, but this can be adjusted with `min_value` and the max can be adjusted with `max_value`.
     `react_sparkline()` should be placed within the cell argument in reactable::colDef."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">reactablefmtr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,7 +103,7 @@
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Add a sparkline bar chart to rows of a reactable table</h1>
+      <img src="" class="logo" alt=""><h1>Add a sparkline bar chart to a reactable table</h1>
       <small class="dont-index">Source: <a href="https://github.com/kcuilla/reactablefmtr/blob/HEAD/R/react_spark.R" class="external-link"><code>R/react_spark.R</code></a></small>
       <div class="d-none name"><code>react_sparkbar.Rd</code></div>
     </div>
@@ -117,11 +117,11 @@
     The fill color and fill width can be controlled with `fill_color`, `fill_color_ref`, and `fill_opacity`.
     The outline color and width of the filled bars can be controlled with `outline_color`, `outline_color_ref`, and `outline_width`.
     `statline` can be used to show a horizontal dotted line that represents either the mean, median, min, or max (your choice).
-    The appearance of the statline and statline labels can be controlled with `statline_color`, `statline_label_color`, and `statline_label_size`.
+    The appearance of the statline and statline labels can be controlled with `statline_color` and `statline_label_size`.
     A bandline can be added by using `bandline`. The options are innerquartiles which highlights the innerquartiles of the data or range which highlights the full range of the data.
     By default, `react_sparkbar()` is interactive and data points will be shown when hovering over the sparkbars. This can be turned off by setting `tooltip` to FALSE.
+    There are two tooltip types available within `tooltip_type`. The size and color of the tooltip labels can be adjusted with `tooltip_size` and `tooltip_color`.
     Also by default, there are no labels on the bars themselves. However, one could add labels to the first, last, min, max, or all values within `labels`.
-    The label color and label size can also be adjusted with `label_color` and `label_size` respectively.
     The labels that are shown on the sparkbar and in the tooltip are automatically rounded to the nearest whole integer. But decimals can be shown by providing the number of decimal places in `decimals`.
     The minimum value of a data series is the minimum value shown for a sparkbar, but this can be adjusted with `min_value` and the max can be adjusted with `max_value`.
     `react_sparkline()` should be placed within the cell argument in reactable::colDef.</p>
@@ -132,7 +132,6 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">react_sparkbar</span><span class="op">(</span>
   <span class="va">data</span>,
   height <span class="op">=</span> <span class="fl">22</span>,
-  margin <span class="op">=</span> <span class="cn">NULL</span>,
   fill_color <span class="op">=</span> <span class="st">"slategray"</span>,
   fill_color_ref <span class="op">=</span> <span class="cn">NULL</span>,
   fill_opacity <span class="op">=</span> <span class="fl">1</span>,
@@ -141,19 +140,21 @@
   outline_width <span class="op">=</span> <span class="fl">1</span>,
   highlight_bars <span class="op">=</span> <span class="cn">NULL</span>,
   labels <span class="op">=</span> <span class="st">"none"</span>,
-  label_color <span class="op">=</span> <span class="st">"black"</span>,
   label_size <span class="op">=</span> <span class="st">"0.8em"</span>,
   decimals <span class="op">=</span> <span class="fl">0</span>,
   max_value <span class="op">=</span> <span class="cn">NULL</span>,
   min_value <span class="op">=</span> <span class="cn">NULL</span>,
   statline <span class="op">=</span> <span class="cn">NULL</span>,
   statline_color <span class="op">=</span> <span class="st">"red"</span>,
-  statline_label_color <span class="op">=</span> <span class="st">"red"</span>,
   statline_label_size <span class="op">=</span> <span class="st">"0.8em"</span>,
   bandline <span class="op">=</span> <span class="cn">NULL</span>,
   bandline_color <span class="op">=</span> <span class="st">"red"</span>,
   bandline_opacity <span class="op">=</span> <span class="fl">0.2</span>,
-  tooltip <span class="op">=</span> <span class="cn">TRUE</span>
+  tooltip <span class="op">=</span> <span class="cn">TRUE</span>,
+  tooltip_type <span class="op">=</span> <span class="fl">1</span>,
+  tooltip_color <span class="op">=</span> <span class="cn">NULL</span>,
+  tooltip_size <span class="op">=</span> <span class="st">"1.1em"</span>,
+  margin <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -164,9 +165,6 @@
 <dt>height</dt>
 <dd><p>Height of the sparkbar.
 Default is 22.</p></dd>
-<dt>margin</dt>
-<dd><p>The four-sided margin around the sparkbar.
-Use margin() to assign the top, right, bottom, and left margins.</p></dd>
 <dt>fill_color</dt>
 <dd><p>The color of the bar fill.
 Default is slategray.</p></dd>
@@ -198,9 +196,6 @@ By default, transparent colors are assigned to each bars.</p></dd>
 <dd><p>Show labels for points of interest.
 Options are 'min', 'max', 'first', 'last', 'all', or 'none'.
 Default is 'none'.</p></dd>
-<dt>label_color</dt>
-<dd><p>The color of the labels.
-Default is black.</p></dd>
 <dt>label_size</dt>
 <dd><p>The size of the labels.
 Default is 0.8em.</p></dd>
@@ -221,9 +216,6 @@ Default is NULL.</p></dd>
 <dt>statline_color</dt>
 <dd><p>The color of the horizontal dotted statline.
 Default is red.</p></dd>
-<dt>statline_label_color</dt>
-<dd><p>The color of the label to the right of the statline.
-Default is red.</p></dd>
 <dt>statline_label_size</dt>
 <dd><p>The size of the label to the right of the statline.
 Default is 0.8em.</p></dd>
@@ -241,39 +233,51 @@ Default is 0.2.</p></dd>
 <dt>tooltip</dt>
 <dd><p>Logical: turn the tooltip on or off.
 Default is TRUE.</p></dd>
+<dt>tooltip_type</dt>
+<dd><p>The tooltip type.
+Options are 1 or 2.
+Default is 1.</p></dd>
+<dt>tooltip_color</dt>
+<dd><p>The color of the tooltip labels.
+Default is NULL.</p></dd>
+<dt>tooltip_size</dt>
+<dd><p>The size of the tooltip labels.
+Default is '1.1em'.</p></dd>
+<dt>margin</dt>
+<dd><p>The four-sided margin around the sparkbar.
+Use margin() to assign the top, right, bottom, and left margins.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a function that applies conditional colors
-    to a column of numeric values.</p>
+    <p>a function that creates a sparkline bar chart
+    from a column containing a list of values.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="co">## Default sparkline bar chart</span></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">.</span>,</span>
-<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
+<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Highlight particular bars</span></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">.</span>,</span>
-<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
+<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
 <span class="r-in"> decimals <span class="op">=</span> <span class="fl">1</span>,</span>
 <span class="r-in"> min_value <span class="op">=</span> <span class="fl">0</span>,</span>
 <span class="r-in"> highlight_bars <span class="op">=</span> <span class="fu"><a href="highlight_bars.html">highlight_bars</a></span><span class="op">(</span>min<span class="op">=</span><span class="st">"red"</span>,max<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Conditionally assign fill colors to groups</span></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>flower_cols <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span class="r-in">   <span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span> <span class="op">~</span> <span class="st">"purple"</span>,</span>
 <span class="r-in">   <span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span> <span class="op">~</span> <span class="st">"darkgreen"</span>,</span>
@@ -282,46 +286,42 @@ Default is TRUE.</p></dd>
 <span class="r-in"> <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">.</span>,</span>
 <span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>flower_cols <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>show<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span class="r-in"> petal_width <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
+<span class="r-in"> sepal_length <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
 <span class="r-in"> height <span class="op">=</span> <span class="fl">80</span>,</span>
 <span class="r-in"> fill_color_ref <span class="op">=</span> <span class="st">"flower_cols"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Add labels to particular bars</span></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">.</span>,</span>
-<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
+<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
 <span class="r-in"> height <span class="op">=</span> <span class="fl">80</span>,</span>
 <span class="r-in"> decimals <span class="op">=</span> <span class="fl">1</span>,</span>
 <span class="r-in"> highlight_bars <span class="op">=</span> <span class="fu"><a href="highlight_bars.html">highlight_bars</a></span><span class="op">(</span>first<span class="op">=</span><span class="st">"blue"</span>,last<span class="op">=</span><span class="st">"red"</span><span class="op">)</span>,</span>
 <span class="r-in"> labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>,<span class="st">"last"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Add statline to show the mean for each sparkbar</span></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">.</span>,</span>
-<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
+<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
 <span class="r-in"> height <span class="op">=</span> <span class="fl">80</span>,</span>
 <span class="r-in"> decimals <span class="op">=</span> <span class="fl">1</span>,</span>
 <span class="r-in"> statline <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Combine multiple elements together</span></span>
 <span class="r-in"><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in"> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in"> <span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">.</span>,</span>
-<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>petal_width <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
+<span class="r-in"> columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>sepal_length <span class="op">=</span> <span class="fu"><a href="https://glin.github.io/reactable/reference/colDef.html" class="external-link">colDef</a></span><span class="op">(</span>cell <span class="op">=</span> <span class="fu">react_sparkbar</span><span class="op">(</span><span class="va">.</span>,</span>
 <span class="r-in"> height <span class="op">=</span> <span class="fl">80</span>,</span>
 <span class="r-in"> decimals <span class="op">=</span> <span class="fl">1</span>,</span>
 <span class="r-in"> statline <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span class="r-in"> bandline <span class="op">=</span> <span class="st">"innerquartiles"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
-<span class="r-in"></span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
