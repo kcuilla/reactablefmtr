@@ -78,7 +78,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.0.0" id="reactablefmtr-200---development-version">reactablefmtr 2.0.0 - development version<a class="anchor" aria-label="anchor" href="#reactablefmtr-200---development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.0.0" id="reactablefmtr-200">reactablefmtr 2.0.0<a class="anchor" aria-label="anchor" href="#reactablefmtr-200"></a></h2><p class="text-muted">CRAN release: 2022-03-16</p>
 <div class="section level4">
 <h4 id="new-features-2-0-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-0-0"></a></h4>
 <div class="section level5">
@@ -211,6 +211,7 @@
 <h4 id="bug-fixes-2-0-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-0"></a></h4>
 <ul><li>Fixed a bug that would not assign colors to values within <code><a href="../reference/color_scales.html">color_scales()</a></code>, <code><a href="../reference/color_tiles.html">color_tiles()</a></code>, and <code><a href="../reference/data_bars.html">data_bars()</a></code> if there was no variance within the column</li>
 <li>Fixed the sparkline tooltip to allow all values to show clearly on hover</li>
+<li>Fixed issue with <code><a href="../reference/icon_assign.html">icon_assign()</a></code> that displayed an error for columns containing all zeros</li>
 </ul></div>
 <div class="section level4">
 <h4 id="other-modifications-2-0-0">Other Modifications<a class="anchor" aria-label="anchor" href="#other-modifications-2-0-0"></a></h4>
@@ -220,6 +221,7 @@
 <li>The size of the text within <code><a href="../reference/data_bars.html">data_bars()</a></code> can now be changed with <code>text_size</code>
 </li>
 <li>Added two additional themes: sanfran and no_lines</li>
+<li>Changed the underlying package in <code>save_reactable()</code> from {webshot2} to {webshot}. The {webshot} package is available on CRAN, so there is no need for users to manually download {webshot2} from GitHub</li>
 <li>The entire contents of a table can be vertically centered by setting <code>centered</code> to TRUE within any of the {reactablefmtr} themes</li>
 </ul></div>
 </div>
@@ -295,7 +297,7 @@
 </ul></div>
 <div class="section level5">
 <h5 id="save_reactable-1-0-0">save_reactable()<a class="anchor" aria-label="anchor" href="#save_reactable-1-0-0"></a></h5>
-<ul><li>Reactable tables can now be saved as static .png files or dynamic .html files using <code><a href="../reference/save_reactable.html">save_reactable()</a></code>
+<ul><li>Reactable tables can now be saved as static .png files or dynamic .html files using <code>save_reactable()</code>
 </li>
 <li>If the reactable table was created in a .Rmd file and additional CSS styling are applied, reference the name of either the .Rmd file containing the reactable table or the .html file of the reactable table to save an image of the table</li>
 <li>Note: this feature requires the {webshot2} package which can be downloaded from <a href="https://github.com/rstudio/webshot2" class="external-link uri">https://github.com/rstudio/webshot2</a>.</li>
