@@ -11,9 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 In order to use the sparkline functions within {reactablefmtr}, one must first download the [{dataui}](https://timelyportfolio.github.io/dataui/index.html) package from GitHub.
 
-Once installed, users of the development version of {reactablefmtr} will have the ability to create highly customizable interactive sparkline line charts and bar charts.
-
-In order to download the development version, please use `remotes::install_github("kcuilla/reactablefmtr")`.
+Once installed, users will have the ability to create highly customizable interactive sparkline line charts and bar charts.
 
 ## `react_sparkline()`
 

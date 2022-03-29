@@ -307,8 +307,7 @@ df_lifexp %>%
 
 ## Color assignments by another column
 
-In the dev version of `{reactablefmtr}`, there is a `color_by` argument that allows for
-color assignment based on the values in another column.
+The `color_by` argument allows for color assignment based on the values in another column.
 
 ```{r}
 df %>%
