@@ -1,3 +1,9 @@
+# reactablefmtr 2.0.1
+
+### Bug Fixes
+
+* Fixed `save_reactable()` function to display as `save_reactable()` and not `save_reactable_test()`
+
 # reactablefmtr 2.0.0
 
 ### New Features
