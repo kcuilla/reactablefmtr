@@ -45,7 +45,7 @@
 #' }
 #' @export
 
-save_reactable_test <- function(input,
+save_reactable <- function(input,
                            output,
                            ...) {
 
