@@ -80,9 +80,22 @@ highlight_points <- function(all = "transparent",
 #'
 #' @param max_value The maximum value of the sparkline range.
 #'     Default is NULL (automatically the maximum value of each sparkline series).
+#'     Takes either:
+#'
+#'     1. a numeric vector of length 1
+#'     1. a numeric vector of length equal to the number of rows
+#'     1. a column name (as string) which holds the max_values to use
+#'     1. a function which is applied to the maximum value of each row
+#'
 #'
 #' @param min_value The minimum value of the sparkline range.
 #'     Default is NULL (automatically the minimum value of each sparkline series).
+#'     Takes either:
+#'
+#'     1. a numeric vector of length 1
+#'     1. a numeric vector of length equal to the number of rows
+#'     1. a column name (as string) which holds the min_values to use
+#'     1. a function which is applied to the minimum value of each row
 #'
 #' @param show_area Logical: show or hide area beneath line.
 #'     Default is FALSE.
