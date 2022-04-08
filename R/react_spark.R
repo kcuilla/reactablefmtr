@@ -368,26 +368,36 @@ react_sparkline <- function(data,
     # for max_ and min_value
     if (length(max_value) > 1) {
       if (length(max_value) != length(value_max)) {
-        stop(paste0("`max_value` must either be a numeric vector of length 1, ",
-                    "a numeric vector of length equal to the number of rows or a function."))
+        stop(paste0("Error in `react_sparklines()`:\n",
+                    "`max_value` must either be a numeric vector of length 1, ",
+                    "a numeric vector of length equal to the number of rows, ",
+                    "a function or a column name as string."))
       }
       max_value <- max_value[[index]]
     }
 
     if (length(min_value) > 1) {
       if (length(min_value) != length(value_min)) {
-        stop(paste0("`min_value` must either be a numeric vector of length 1, ",
-                    "a numeric vector of length equal to the number of rows or a function."))
+        stop(paste0("Error in `react_sparklines()`:\n",
+                    "`min_value` must either be a numeric vector of length 1, ",
+                    "a numeric vector of length equal to the number of rows, ",
+                    "a function or a column name as string."))
       }
       min_value <- min_value[[index]]
     }
 
     # Allow strings to get max_ and min_values from other columns
     if (is.character(max_value)) {
+      if (is.null(data[[max_value]][[index]])) {
+        stop(paste0("Error in `react_sparklines()`: `max_value`.\nColumn `", max_value, "` doesn't exist."))
+      }
       max_value <- data[[max_value]][[index]]
     }
 
     if (is.character(min_value)) {
+      if (is.null(data[[min_value]][[index]])) {
+        stop(paste0("Error in `react_sparklines()`: `min_value`.\nColumn `", min_value, "` doesn't exist."))
+      }
       min_value <- data[[min_value]][[index]]
     }
 
