@@ -355,6 +355,42 @@ react_sparkline <- function(data,
     value_min <- lapply(data[[name]], function(x) x[which.min(abs(x))])
     value_mean <- lapply(data[[name]], mean)
 
+    # Allow functions for max_ and min_value
+    if(is.function(max_value)) {
+      max_value <- lapply(value_max, max_value)
+    }
+
+    if(is.function(min_value)) {
+      min_value <- lapply(value_min, min_value)
+    }
+
+    # Allow vectors of length equal to the number of rows (same as `length(value_max`)
+    # for max_ and min_value
+    if (length(max_value) > 1) {
+      if (length(max_value) != length(value_max)) {
+        stop(paste0("`max_value` must either be a numeric vector of length 1, ",
+                    "a numeric vector of length equal to the number of rows or a function."))
+      }
+      max_value <- max_value[[index]]
+    }
+
+    if (length(min_value) > 1) {
+      if (length(min_value) != length(value_min)) {
+        stop(paste0("`min_value` must either be a numeric vector of length 1, ",
+                    "a numeric vector of length equal to the number of rows or a function."))
+      }
+      min_value <- min_value[[index]]
+    }
+
+    # Allow strings to get max_ and min_values from other columns
+    if (is.character(max_value)) {
+      max_value <- data[[max_value]][[index]]
+    }
+
+    if (is.character(min_value)) {
+      min_value <- data[[min_value]][[index]]
+    }
+
     ### create a statline with a bold label to the right
     if (!is.null(statline) && statline %in% c("mean","median","min","max")) {
 
