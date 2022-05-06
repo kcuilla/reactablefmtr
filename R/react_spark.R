@@ -80,9 +80,22 @@ highlight_points <- function(all = "transparent",
 #'
 #' @param max_value The maximum value of the sparkline range.
 #'     Default is NULL (automatically the maximum value of each sparkline series).
+#'     Takes either:
+#'
+#'     1. a numeric vector of length 1
+#'     1. a numeric vector of length equal to the number of rows
+#'     1. a column name (as string) which holds the max_values to use
+#'     1. a function which is applied to the maximum value of each row
+#'
 #'
 #' @param min_value The minimum value of the sparkline range.
 #'     Default is NULL (automatically the minimum value of each sparkline series).
+#'     Takes either:
+#'
+#'     1. a numeric vector of length 1
+#'     1. a numeric vector of length equal to the number of rows
+#'     1. a column name (as string) which holds the min_values to use
+#'     1. a function which is applied to the minimum value of each row
 #'
 #' @param show_area Logical: show or hide area beneath line.
 #'     Default is FALSE.
@@ -354,6 +367,52 @@ react_sparkline <- function(data,
     value_max <- lapply(data[[name]], function(x) x[which.max(abs(x))])
     value_min <- lapply(data[[name]], function(x) x[which.min(abs(x))])
     value_mean <- lapply(data[[name]], mean)
+
+    # Allow functions for max_ and min_value
+    if(is.function(max_value)) {
+      max_value <- lapply(value_max, max_value)
+    }
+
+    if(is.function(min_value)) {
+      min_value <- lapply(value_min, min_value)
+    }
+
+    # Allow vectors of length equal to the number of rows (same as `length(value_max`)
+    # for max_ and min_value
+    if (length(max_value) > 1) {
+      if (length(max_value) != length(value_max)) {
+        stop(paste0("Error in `react_sparklines()`:\n",
+                    "`max_value` must either be a numeric vector of length 1, ",
+                    "a numeric vector of length equal to the number of rows, ",
+                    "a function or a column name as string."))
+      }
+      max_value <- max_value[[index]]
+    }
+
+    if (length(min_value) > 1) {
+      if (length(min_value) != length(value_min)) {
+        stop(paste0("Error in `react_sparklines()`:\n",
+                    "`min_value` must either be a numeric vector of length 1, ",
+                    "a numeric vector of length equal to the number of rows, ",
+                    "a function or a column name as string."))
+      }
+      min_value <- min_value[[index]]
+    }
+
+    # Allow strings to get max_ and min_values from other columns
+    if (is.character(max_value)) {
+      if (is.null(data[[max_value]][[index]])) {
+        stop(paste0("Error in `react_sparklines()`: `max_value`.\nColumn `", max_value, "` doesn't exist."))
+      }
+      max_value <- data[[max_value]][[index]]
+    }
+
+    if (is.character(min_value)) {
+      if (is.null(data[[min_value]][[index]])) {
+        stop(paste0("Error in `react_sparklines()`: `min_value`.\nColumn `", min_value, "` doesn't exist."))
+      }
+      min_value <- data[[min_value]][[index]]
+    }
 
     ### create a statline with a bold label to the right
     if (!is.null(statline) && statline %in% c("mean","median","min","max")) {
