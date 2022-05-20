@@ -83,26 +83,25 @@ highlight_points <- function(all = "transparent",
 #'     Takes either:
 #'
 #'     1. a numeric vector of length 1
-#'     1. a numeric vector of length equal to the number of rows
-#'     1. a column name (as string) which holds the max_values to use
-#'     1. a function which is applied to the maximum value of each row
-#'
+#'     2. a numeric vector of length equal to the number of rows
+#'     3. a column name (as string) which holds the max_values to use
+#'     4. a function which is applied to the maximum value of each row
 #'
 #' @param min_value The minimum value of the sparkline range.
 #'     Default is NULL (automatically the minimum value of each sparkline series).
 #'     Takes either:
 #'
 #'     1. a numeric vector of length 1
-#'     1. a numeric vector of length equal to the number of rows
-#'     1. a column name (as string) which holds the min_values to use
-#'     1. a function which is applied to the minimum value of each row
+#'     2. a numeric vector of length equal to the number of rows
+#'     3. a column name (as string) which holds the min_values to use
+#'     4. a function which is applied to the minimum value of each row
 #'
 #' @param show_area Logical: show or hide area beneath line.
 #'     Default is FALSE.
 #'
 #' @param area_color The color of the area.
-#'      `show_area` must be set to TRUE for color to be shown.
-#'      Default is NULL (inherited from line_color).
+#'     `show_area` must be set to TRUE for color to be shown.
+#'     Default is NULL (inherited from line_color).
 #'
 #' @param area_color_ref Optionally assign area colors from another column
 #'     by providing the name of the column containing the colors in quotes.
@@ -808,11 +807,23 @@ highlight_bars <- function(first = "transparent",
 #' @param decimals Numeric: The number of decimals displayed in the labels and tooltip.
 #'     Default is 0.
 #'
-#' @param max_value Numeric: the maximum value of the sparkline range.
-#'     Default is NULL (automatically the maximum value of each sparkline series).
+#' @param max_value The maximum value of the sparkbar range.
+#'     Default is NULL (automatically the maximum value of each sparkbar series).
+#'     Takes either:
 #'
-#' @param min_value Numeric: the minimum value of the sparkline range.
-#'     Default is NULL (automatically the minimum value of each sparkline series).
+#'     1. a numeric vector of length 1
+#'     2. a numeric vector of length equal to the number of rows
+#'     3. a column name (as string) which holds the max_values to use
+#'     4. a function which is applied to the maximum value of each row
+#'
+#' @param min_value The minimum value of the sparkbar range.
+#'     Default is NULL (automatically the minimum value of each sparkbar series).
+#'     Takes either:
+#'
+#'     1. a numeric vector of length 1
+#'     2. a numeric vector of length equal to the number of rows
+#'     3. a column name (as string) which holds the min_values to use
+#'     4. a function which is applied to the minimum value of each row
 #'
 #' @param statline Inserts a horizontal dotted line representing a statistic,
 #'     and places the value of that statistic to the right of the line.
@@ -994,6 +1005,52 @@ react_sparkbar <- function(data,
     value_max <- lapply(data[[name]], function(x) x[which.max(abs(x))])
     value_min <- lapply(data[[name]], function(x) x[which.min(abs(x))])
     value_mean <- lapply(data[[name]], mean)
+
+    # Allow functions for max_ and min_value
+    if(is.function(max_value)) {
+      max_value <- lapply(value_max, max_value)
+    }
+
+    if(is.function(min_value)) {
+      min_value <- lapply(value_min, min_value)
+    }
+
+    # Allow vectors of length equal to the number of rows (same as `length(value_max`)
+    # for max_ and min_value
+    if (length(max_value) > 1) {
+      if (length(max_value) != length(value_max)) {
+        stop(paste0("Error in `react_sparklines()`:\n",
+                    "`max_value` must either be a numeric vector of length 1, ",
+                    "a numeric vector of length equal to the number of rows, ",
+                    "a function or a column name as string."))
+      }
+      max_value <- max_value[[index]]
+    }
+
+    if (length(min_value) > 1) {
+      if (length(min_value) != length(value_min)) {
+        stop(paste0("Error in `react_sparklines()`:\n",
+                    "`min_value` must either be a numeric vector of length 1, ",
+                    "a numeric vector of length equal to the number of rows, ",
+                    "a function or a column name as string."))
+      }
+      min_value <- min_value[[index]]
+    }
+
+    # Allow strings to get max_ and min_values from other columns
+    if (is.character(max_value)) {
+      if (is.null(data[[max_value]][[index]])) {
+        stop(paste0("Error in `react_sparklines()`: `max_value`.\nColumn `", max_value, "` doesn't exist."))
+      }
+      max_value <- data[[max_value]][[index]]
+    }
+
+    if (is.character(min_value)) {
+      if (is.null(data[[min_value]][[index]])) {
+        stop(paste0("Error in `react_sparklines()`: `min_value`.\nColumn `", min_value, "` doesn't exist."))
+      }
+      min_value <- data[[min_value]][[index]]
+    }
 
     if (!is.null(statline) && statline %in% c("mean","median","min","max")) {
 
