@@ -1,18 +1,31 @@
 template:
   bootstrap: 5
-  bootswatch: lumen
+  bootswatch: pulse
+  bslib:
+    pkgdown-nav-height: 100px
+    base_font: {google: "Open Sans"}
+    heading_font: {google: "Duru Sans"}
+    code_font: {google: "Open Sans"}
 
 home:
   title: reactablefmtr package
 
+toc:
+  depth: 2
+
+url: https://kcuilla.github.io/reactablefmtr/
+
+footer:
+  structure:
+    left: developed_by
+    right: built_with
+    center: reactablefmtr
+
 navbar:
   structure:
-    left: [home, reference, examples, articles, demos, tutorials, news]
+    left: [examples, articles, demos, tutorials, reference, news]
     right: [github]
   components:
-    home:
-      icon: fas fa-home fa-lg
-      href: index.html
     articles:
       text: Examples
       menu:
@@ -22,10 +35,6 @@ navbar:
         href: articles/color_tiles.html
       - text: Data Bars
         href: articles/data_bars.html
-      - text: Embed Images
-        href: articles/embed_img.html
-      - text: Highlight Min & Max
-        href: articles/highlight_min_max.html
       - text: Icon Assign
         href: articles/icon_assign.html
       - text: Icon Sets
@@ -37,6 +46,8 @@ navbar:
     demos:
       text: Demos
       menu:
+      - text: Cookbook
+        href: articles/reactablefmtr_cookbook.html
       - text: NBA Player Ratings
         href: articles/nba_player_ratings.html
       - text: NFL Standings

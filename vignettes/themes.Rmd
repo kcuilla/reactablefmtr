@@ -27,7 +27,20 @@ data %>%
   reactable(.,
     defaultColDef =
       colDef(
-        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+        cell = data_bars(., fill_color = viridis::mako(5), bar_height = 30)
+  )
+)
+```
+
+The "default" theme of {reactablefmtr} provides a similar appearance. The benefit of using `default()` or any {reactablefmtr} theme is that there are additional options available such as the ability to center text vertically (the text in the 'Model' column below is now centered):
+
+```{r}
+data %>%
+  reactable(.,
+    theme = default(centered = TRUE),
+    defaultColDef =
+      colDef(
+        cell = data_bars(., fill_color = viridis::mako(5), bar_height = 30)
   )
 )
 ```
@@ -40,7 +53,7 @@ data %>%
     theme = slate(),
     defaultColDef =
       colDef(
-        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end", background = "transparent")
   )
 )
 ```
@@ -59,7 +72,7 @@ data %>%
     theme = slate(font_size = 18, header_font_size = 20, header_font_color = "darkorange", cell_padding = 8),
     defaultColDef =
       colDef(
-        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end", background = "transparent")
   )
 )
 ```
@@ -112,7 +125,7 @@ data %>%
     theme = cyborg(),
     defaultColDef =
       colDef(
-        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end")
+        cell = data_bars(., fill_color = viridis::mako(5), text_position = "inside-end", background = "transparent")
   )
 )
 ```
@@ -134,7 +147,7 @@ In addition to the bootstrap-styled themes, there are also a few themes availabl
 
 ### The New York Times Theme
 
-To show how the "nytimes" theme can be applied to a reacatble table, we are going to re-create the "Where the Outbreak is the Worst" table in the [Monitoring the Coronavirus Outbreak in Metro Areas Across the U.S.](https://www.nytimes.com/interactive/2020/04/23/upshot/five-ways-to-monitor-coronavirus-outbreak-us.html) N.Y. Times article.
+To show how the "nytimes" theme can be applied to a reactable table, we are going to re-create the "Where the Outbreak is the Worst" table in the [Monitoring the Coronavirus Outbreak in Metro Areas Across the U.S.](https://www.nytimes.com/interactive/2020/04/23/upshot/five-ways-to-monitor-coronavirus-outbreak-us.html) N.Y. Times article.
 
 Note: The data below is only a small sample of the larger dataset and does not currently match the data displayed in the N.Y. Times article since that table is updated regularly.
 
@@ -367,7 +380,6 @@ iris %>%
   head(30) %>%
   reactable(.,
     theme = void(),
-    highlight = TRUE,
     defaultSorted = "Petal.Width",
     defaultSortOrder = "desc",
     defaultColDef = colDef(align = "center", 
@@ -404,7 +416,7 @@ Other additional custom themes include:
 * clean
 * default
 * midnight
+* no_lines
 * sunrise
-* void
 
 

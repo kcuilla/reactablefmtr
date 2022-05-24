@@ -93,11 +93,11 @@ data %>%
     rowStyle = group_border_sort("Division"),
     columns = list(
       Division = colDef(name = "Div.",
-                        maxWidth = 50,
+                        maxWidth = 85,
                         style = group_merge_sort("Division")),
       team_logo_espn = colDef(
         name = "",
-        maxWidth = 62,
+        maxWidth = 75,
         sortable = FALSE,
         style = background_img(height = "200%", width = "125%")
       ),
@@ -287,7 +287,7 @@ data %>%
               ),
               team_logo_espn = colDef(
                 name = "",
-                maxWidth = 62,
+                maxWidth = 75,
                 sortable = FALSE,
                 # render team logos from their image address and increase their size
                 style = background_img(height = "200%", width = "125%")
@@ -330,7 +330,7 @@ data %>%
               ),
               team_logo_espn = colDef(
                 name = "",
-                maxWidth = 62,
+                maxWidth = 75,
                 sortable = FALSE,
                 # render team logos from their image address and increase their size
                 style = background_img(height = "200%", width = "125%")
@@ -383,7 +383,7 @@ data %>%
               ),
               team_logo_espn = colDef(
                 name = "",
-                maxWidth = 62,
+                maxWidth = 75,
                 sortable = FALSE,
                 # render team logos from their image address and increase their size
                 style = background_img(height = "200%", width = "125%")
@@ -440,7 +440,7 @@ data %>%
               ),
               team_logo_espn = colDef(
                 name = "",
-                maxWidth = 62,
+                maxWidth = 75,
                 sortable = FALSE,
                 # render team logos from their image address and increase their size
                 style = background_img(height = "200%", width = "125%")
@@ -517,7 +517,7 @@ data %>%
               ),
               team_logo_espn = colDef(
                 name = "",
-                maxWidth = 62,
+                maxWidth = 75,
                 sortable = FALSE,
                 # render team logos from their image address and increase their size
                 style = background_img(height = "200%", width = "125%")
@@ -599,7 +599,7 @@ table <- data %>%
               ),
               team_logo_espn = colDef(
                 name = "",
-                maxWidth = 62,
+                maxWidth = 75,
                 sortable = FALSE,
                 # render team logos from their image address and increase their size
                 style = background_img(height = "200%", width = "125%")
@@ -727,12 +727,14 @@ data %>%
     ),
     rowStyle = group_border_sort("Division"),
     columns = list(
-      Division = colDef(name = "Div.",
-                        maxWidth = 50,
-                        style = group_merge_sort("Division")),
+      Division = colDef(
+        name = "Div.",
+        maxWidth = 85,
+        style = group_merge_sort("Division")
+      ),
       team_logo_espn = colDef(
         name = "",
-        maxWidth = 62,
+        maxWidth = 75,
         sortable = FALSE,
         style = background_img(height = "200%", width = "125%")
       ),
@@ -756,10 +758,14 @@ data %>%
         cell = icon_sets(., icon_set = "ski rating", icon_position = "over"),
         style = list(borderRight = "1px solid #777")
       ),
-      PF = colDef(maxWidth = 180,
-                  cell = data_bars(., text_size = 13, box_shadow = TRUE)),
-      PA = colDef(maxWidth = 180,
-                  cell = data_bars(., text_size = 13, box_shadow = TRUE)),
+      PF = colDef(
+        maxWidth = 180,
+        cell = data_bars(., text_size = 13, box_shadow = TRUE)
+      ),
+      PA = colDef(
+        maxWidth = 180,
+        cell = data_bars(., text_size = 13, box_shadow = TRUE)
+      ),
       MoV = colDef(
         maxWidth = 80,
         cell = pill_buttons(., number_fmt = function(value) sprintf("%+0.1f", value), colors = "transparent", opacity = 0, bold_text = TRUE, text_color_ref = "mov_cols"

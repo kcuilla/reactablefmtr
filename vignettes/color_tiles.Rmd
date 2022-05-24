@@ -395,7 +395,7 @@ reactable(
     cell = color_tiles(population_data, number_fmt = scales::comma, show_text = FALSE, tooltip = TRUE, span = TRUE)
     ),
     columns = list(
-      country = colDef(maxWidth = 175)
+      country = colDef(maxWidth = 200)
     )
   ) %>%
   add_title('Average Life Expectancy') %>%
@@ -421,7 +421,7 @@ reactable(
     cell = color_tiles(population_data, number_fmt = scales::comma, brighten_text = FALSE, text_color = 'grey', bold_text = TRUE, span = TRUE)
     ),
     columns = list(
-      country = colDef(maxWidth = 175)
+      country = colDef(maxWidth = 200)
     )
   ) %>%
   add_title('Average Life Expectancy') %>%
@@ -445,7 +445,7 @@ reactable(
     cell = color_tiles(population_data, number_fmt = scales::comma, text_size = 24, span = TRUE)
     ),
     columns = list(
-      country = colDef(maxWidth = 175)
+      country = colDef(maxWidth = 200)
     )
   ) %>%
   add_title('Average Life Expectancy') %>%

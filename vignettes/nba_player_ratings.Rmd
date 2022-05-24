@@ -44,7 +44,8 @@ minutes_filter <- filter_slider(
   column = ~ MIN,
   ticks = TRUE,
   dragRange = FALSE,
-  step = 100
+  step = 100,
+  width = "50%"
 )
 
 ### load font from google fonts
@@ -52,7 +53,8 @@ htmltools::tags$link(href = "https://fonts.googleapis.com/css?family=Chivo:400,6
 
 nba_table <-  reactable(
   crosstalk_data,
-  theme = fivethirtyeight(),
+  theme = fivethirtyeight(centered = TRUE),
+  compact = TRUE,
   ### add column group header
   columnGroups = list(
     colGroup(name = "OVERALL RAPTOR", columns = c("OFF","DEF","TOT"))

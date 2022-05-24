@@ -125,6 +125,13 @@ An example of the fivethirtyeight() theme:
 <img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/fivethirtyeightthemeexample.gif" align="center" />
 
 
+## Using with Crosstalk or Shiny
+
+{reactablefmtr} works well when linked to UI controls via [{crosstalk}](https://rstudio.github.io/crosstalk/using.html) or within a Shiny app. 
+
+<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/crosstalkexamplegif.gif" align="center" />
+
+
 ## Add a Title, Subtitle, and Source
 
 Titles and subtitles can be easily placed above any {reactablefmtr} or {reactable} table with `add_title()` and `add_subtitle()`. Also have the option to include a source below a table with `add_source()`. Additional customization options such as changing the alignment, font size, font family, font style, and font color are available within each formatter.
