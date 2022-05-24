@@ -1,249 +1,246 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/404.html</loc>
   </url>
   <url>
-    <loc>/articles/color_scales.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/color_scales.html</loc>
   </url>
   <url>
-    <loc>/articles/color_tiles.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/color_tiles.html</loc>
   </url>
   <url>
-    <loc>/articles/data_bars.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/data_bars.html</loc>
   </url>
   <url>
-    <loc>/articles/embed_img.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/icon_assign.html</loc>
   </url>
   <url>
-    <loc>/articles/highlight_min_max.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/icon_sets.html</loc>
   </url>
   <url>
-    <loc>/articles/icon_assign.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/icon_sets.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/nba_player_ratings.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/nfl_standings.html</loc>
   </url>
   <url>
-    <loc>/articles/nba_player_ratings.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/nfl_standings_tutorial.html</loc>
   </url>
   <url>
-    <loc>/articles/nfl_standings.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/reactablefmtr_cookbook.html</loc>
   </url>
   <url>
-    <loc>/articles/nfl_standings_tutorial.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/sparklines.html</loc>
   </url>
   <url>
-    <loc>/articles/sparklines.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/articles/themes.html</loc>
   </url>
   <url>
-    <loc>/articles/themes.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/authors.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/index.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/news/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/add_icon_legend.html</loc>
   </url>
   <url>
-    <loc>/reference/add_icon_legend.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/add_legend.html</loc>
   </url>
   <url>
-    <loc>/reference/add_legend.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/add_source.html</loc>
   </url>
   <url>
-    <loc>/reference/add_source.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/add_subtitle.html</loc>
   </url>
   <url>
-    <loc>/reference/add_subtitle.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/add_title.html</loc>
   </url>
   <url>
-    <loc>/reference/add_title.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/background_img.html</loc>
   </url>
   <url>
-    <loc>/reference/background_img.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/bubble_grid.html</loc>
   </url>
   <url>
-    <loc>/reference/bubble_grid.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/cell_style.html</loc>
   </url>
   <url>
-    <loc>/reference/cell_style.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/cerulean.html</loc>
   </url>
   <url>
-    <loc>/reference/cerulean.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/clean.html</loc>
   </url>
   <url>
-    <loc>/reference/clean.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/color_scales.html</loc>
   </url>
   <url>
-    <loc>/reference/color_scales.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/color_tiles.html</loc>
   </url>
   <url>
-    <loc>/reference/color_tiles.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/cosmo.html</loc>
   </url>
   <url>
-    <loc>/reference/column_stack.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/cyborg.html</loc>
   </url>
   <url>
-    <loc>/reference/cosmo.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/dark.html</loc>
   </url>
   <url>
-    <loc>/reference/cyborg.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/darkly.html</loc>
   </url>
   <url>
-    <loc>/reference/dark.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/data_bars.html</loc>
   </url>
   <url>
-    <loc>/reference/darkly.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/data_bars_gradient.html</loc>
   </url>
   <url>
-    <loc>/reference/data_bars.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/data_bars_pos_neg.html</loc>
   </url>
   <url>
-    <loc>/reference/data_bars_gradient.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/default.html</loc>
   </url>
   <url>
-    <loc>/reference/data_bars_pos_neg.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/embed_img.html</loc>
   </url>
   <url>
-    <loc>/reference/default.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/espn.html</loc>
   </url>
   <url>
-    <loc>/reference/embed_img.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/fivethirtyeight.html</loc>
   </url>
   <url>
-    <loc>/reference/espn.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/flatly.html</loc>
   </url>
   <url>
-    <loc>/reference/fivethirtyeight.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/gauge_chart.html</loc>
   </url>
   <url>
-    <loc>/reference/flatly.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/google_font.html</loc>
   </url>
   <url>
-    <loc>/reference/gauge_chart.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/group_border_sort.html</loc>
   </url>
   <url>
-    <loc>/reference/google_font.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/group_merge_sort.html</loc>
   </url>
   <url>
-    <loc>/reference/group_border_sort.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/highlight_bars.html</loc>
   </url>
   <url>
-    <loc>/reference/group_merge_sort.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/highlight_max.html</loc>
   </url>
   <url>
-    <loc>/reference/highlight_bars.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/highlight_min.html</loc>
   </url>
   <url>
-    <loc>/reference/highlight_max.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/highlight_min_max.html</loc>
   </url>
   <url>
-    <loc>/reference/highlight_min.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/highlight_points.html</loc>
   </url>
   <url>
-    <loc>/reference/highlight_min_max.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/hoverdark.html</loc>
   </url>
   <url>
-    <loc>/reference/highlight_points.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/hoverlight.html</loc>
   </url>
   <url>
-    <loc>/reference/hoverdark.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/html.html</loc>
   </url>
   <url>
-    <loc>/reference/hoverlight.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/icon_assign.html</loc>
   </url>
   <url>
-    <loc>/reference/html.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/icon_sets.html</loc>
   </url>
   <url>
-    <loc>/reference/icon_assign.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/icon_sets.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/journal.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/lux.html</loc>
   </url>
   <url>
-    <loc>/reference/journal.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/margin.html</loc>
   </url>
   <url>
-    <loc>/reference/lux.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/merge_column.html</loc>
   </url>
   <url>
-    <loc>/reference/margin.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/midnight.html</loc>
   </url>
   <url>
-    <loc>/reference/merge_column.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/midnightblue.html</loc>
   </url>
   <url>
-    <loc>/reference/midnight.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/minty.html</loc>
   </url>
   <url>
-    <loc>/reference/midnightblue.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/no_lines.html</loc>
   </url>
   <url>
-    <loc>/reference/minty.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/nytimes.html</loc>
   </url>
   <url>
-    <loc>/reference/no_lines.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/pff.html</loc>
   </url>
   <url>
-    <loc>/reference/nytimes.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/pill_buttons.html</loc>
   </url>
   <url>
-    <loc>/reference/pff.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/pos_neg_colors.html</loc>
   </url>
   <url>
-    <loc>/reference/pill_buttons.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/reactablefmtr-package.html</loc>
   </url>
   <url>
-    <loc>/reference/pos_neg_colors.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/react_sparkbar.html</loc>
   </url>
   <url>
-    <loc>/reference/reactablefmtr-package.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/react_sparkline.html</loc>
   </url>
   <url>
-    <loc>/reference/react_sparkbar.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/sandstone.html</loc>
   </url>
   <url>
-    <loc>/reference/react_sparkline.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/sanfran.html</loc>
   </url>
   <url>
-    <loc>/reference/sandstone.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/save_reactable.html</loc>
   </url>
   <url>
-    <loc>/reference/sanfran.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/save_reactable_test.html</loc>
   </url>
   <url>
-    <loc>/reference/save_reactable.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/slate.html</loc>
   </url>
   <url>
-    <loc>/reference/slate.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/spacelab.html</loc>
   </url>
   <url>
-    <loc>/reference/spacelab.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/sunrise.html</loc>
   </url>
   <url>
-    <loc>/reference/sunrise.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/superhero.html</loc>
   </url>
   <url>
-    <loc>/reference/superhero.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/tooltip.html</loc>
   </url>
   <url>
-    <loc>/reference/tooltip.html</loc>
-  </url>
-  <url>
-    <loc>/reference/void.html</loc>
+    <loc>https://kcuilla.github.io/reactablefmtr/reference/void.html</loc>
   </url>
 </urlset>

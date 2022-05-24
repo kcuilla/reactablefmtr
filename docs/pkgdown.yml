@@ -1,18 +1,20 @@
-pandoc: 2.11.4
+pandoc: 2.17.1.1
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   color_scales: color_scales.html
   color_tiles: color_tiles.html
   data_bars: data_bars.html
-  embed_img: embed_img.html
-  highlight_min_max: highlight_min_max.html
   icon_assign: icon_assign.html
   icon_sets: icon_sets.html
   nba_player_ratings: nba_player_ratings.html
   nfl_standings: nfl_standings.html
   nfl_standings_tutorial: nfl_standings_tutorial.html
+  reactablefmtr_cookbook: reactablefmtr_cookbook.html
   sparklines: sparklines.html
   themes: themes.html
-last_built: 2022-03-11T21:47Z
+last_built: 2022-05-24T20:43Z
+urls:
+  reference: https://kcuilla.github.io/reactablefmtr/reference
+  article: https://kcuilla.github.io/reactablefmtr/articles
 

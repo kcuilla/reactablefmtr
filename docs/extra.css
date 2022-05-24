@@ -1,5 +1,6 @@
+/* expand width of page */
 .row > main {
-  max-width: 100%;
+  max-width: 75%;
 }
 
 @media only screen and (min-width: 640px) {
@@ -8,4 +9,43 @@
     padding-left: 5rem;
     max-width: 75%;
   }
+}
+
+/* navbar gradient */
+.navbar {
+  background: linear-gradient(90deg, #0047a6, #004fb9, #0158ce, #0163e8, #046efe, #1d7dfe, #378bfe, #509afe, #61a4fe) !important;
+  box-shadow: 0 0 15px 5px rgba(0,0,0,.15);
+  border: none;
+  font-size: 1.2rem;
+}
+
+/* secondary color (pkg version) */
+.nav-text.text-muted.me-auto {
+  color: #ff914d !important;
+}
+
+/* light mode hover dropdown */
+#navbar > ul.navbar-nav.me-auto > li.nav-item.dropdown a:hover {
+  background-color: #046efe !important;
+  color: #fff;
+}
+
+/* dark mode */
+.navbar-dark .navbar-nav .active>.nav-link {
+  background-color: #046efe !important;  color: #fff;
+  border: none;
+}
+
+/* search bar dark mode */
+.navbar-dark input[type="search"] {
+  background-color: #fff !important;
+  color: #222 !important;
+}
+
+/* highlight color */
+::selection {
+  background: #ff914d90; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #ff914d90; /* Gecko Browsers */
 }
