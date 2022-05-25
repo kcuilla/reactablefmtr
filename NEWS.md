@@ -1,4 +1,10 @@
-# reactablefmtr 2.0.1
+# reactablefmtr 2.1.0
+
+### New Features
+
+#### react_sparkline() & react_sparkbar()
+
+* More options added to the min and max values of the sparklines within `min_value` and `max_value`. A user can adjust the min and max value displayed for each row by providing either a numeric vector of length equal to the number of rows, a column name (as string) which holds the min/max values to use, a function which is applied to the min/max value of each row. Thank you to Tim Tiefenbach for contributing to this enhacement!
 
 ### Bug Fixes
 

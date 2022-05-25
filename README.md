@@ -13,7 +13,7 @@ The {reactablefmtr} package streamlines and enhances the styling and formatting 
   
 * **Custom table themes** that can [easily](https://kcuilla.github.io/reactablefmtr/articles/themes.html) be applied to any {reactablefmtr} or {reactable} table.
   
-* **Embed images** directly from the web into your [table](https://kcuilla.github.io/reactablefmtr/articles/embed_img.html).
+* **Embed images** directly from the web into your table.
   
 * **Save tables** as static PNG files or as interactive HTML files.
 
@@ -104,18 +104,11 @@ Use `color_scales()` to assign conditional colors to cells based on their relati
 
 ### Bubble Grids
   
-Bubble grid tables can be created using `bubble_grid()`. Bubbles can be shown as circles or squares using the `shape` parameter.
+Bubble grid tables can be created using `bubble_grid()`. Bubbles can be shown as circles or squares using the `shape` parameter. To see how the example below was created, please check out the [bubble grids](https://kcuilla.github.io/reactablefmtr/articles/reactablefmtr_cookbook.html#adjust-size-of-bubbles) section in the {reactablefmtr} cookbook:
 
 <img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/bubblegridexample.gif" align="center"/>
 
  
-### Gauge Charts
-  
-Gauge charts aka speedometer charts, can be created using `gauge_chart()`. You may choose to display the min and max underneath the gauge chart by setting `show_min_max` to TRUE:
-  
-<img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/gaugechartgif.gif" align="center"/>
-
-
 ## Custom Themes
 
 Within {reactablefmtr}, there are 24+ custom table themes. The themes include [bootstrap](https://bootswatch.com/) themes, themes inspired by news/sports sites such as The New York Times, FiveThirtyEight, and ESPN, as well as other custom themes that can only be found within {reactablefmtr}. The themes can be applied easily to tables by simply referencing the theme name. Additional customization options, such as changing the font size, font color, etc. are also [available](https://kcuilla.github.io/reactablefmtr/articles/themes.html).
