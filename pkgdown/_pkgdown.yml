@@ -3,9 +3,10 @@ template:
   bootswatch: pulse
   bslib:
     pkgdown-nav-height: 100px
-    base_font: {google: "Open Sans"}
-    heading_font: {google: "Duru Sans"}
-    code_font: {google: "Open Sans"}
+    base_font: "proxima-nova,sans-serif"
+    # base_font: {google: "Open Sans"}
+    # heading_font: {google: "Duru Sans"}
+    # code_font: {google: "Open Sans"}
 
 home:
   title: reactablefmtr package

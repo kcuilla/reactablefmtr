@@ -3,11 +3,11 @@
   max-width: 75%;
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 640px) {
   main + .col-md-3 {
     margin-left: unset;
     padding-left: 5rem;
-    max-width: 100%;
+    max-width: 75%;
   }
 }
 
@@ -50,9 +50,25 @@
   background: #ff914d90; /* Gecko Browsers */
 }
 
-
+/* font family borrowed from ropensci.org */
 @font-face {
-  font-family: "Open Sans";
-  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-       url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  font-family: "proxima-nova";
+  src: url("https://ropensci.org/fonts/proxima/ProximaNova-Regular.eot");
+  src: local("Proxima Nova Regular"), local("ProximaNova-Regular"),
+    url("https://ropensci.org/fonts/proxima/ProximaNova-Regular.eot?#iefix") format("embedded-opentype"),
+    url("https://ropensci.org/fonts/proxima/ProximaNova-Regular.woff2") format("woff2"),
+    url("https://ropensci.org/fonts/proxima/ProximaNova-Regular.woff") format("woff"),
+    url("https://ropensci.org/fonts/proxima/ProximaNova-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: fallback;
+}
+
+/* Because ProximaNova is very thin by default */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #484f5e;
+  code {
+    font-weight: 500;
+  }
 }
