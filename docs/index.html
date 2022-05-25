@@ -137,7 +137,8 @@ sets</a>.</p></li>
 and available in line or bar format.</p></li>
 <li><p><strong>Custom table themes</strong> that can <a href="https://kcuilla.github.io/reactablefmtr/articles/themes.html">easily</a>
 be applied to any {reactablefmtr} or {reactable} table.</p></li>
-<li><p><strong>Embed images</strong> directly from the web into your <a href="https://kcuilla.github.io/reactablefmtr/articles/embed_img.html">table</a>.</p></li>
+<li><p><strong>Embed images</strong> directly from the web into your
+table.</p></li>
 <li><p><strong>Save tables</strong> as static PNG files or as
 interactive HTML files.</p></li>
 </ul>
@@ -243,17 +244,10 @@ for more examples.</p>
 </h3>
 <p>Bubble grid tables can be created using <code><a href="reference/bubble_grid.html">bubble_grid()</a></code>.
 Bubbles can be shown as circles or squares using the <code>shape</code>
-parameter.</p>
+parameter. To see how the example below was created, please check out
+the <a href="https://kcuilla.github.io/reactablefmtr/articles/reactablefmtr_cookbook.html#adjust-size-of-bubbles">bubble
+grids</a> section in the {reactablefmtr} cookbook:</p>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/bubblegridexample.gif" align="center"></p>
-</div>
-<div class="section level3">
-<h3 id="gauge-charts">Gauge Charts<a class="anchor" aria-label="anchor" href="#gauge-charts"></a>
-</h3>
-<p>Gauge charts aka speedometer charts, can be created using
-<code><a href="reference/gauge_chart.html">gauge_chart()</a></code>. You may choose to display the min and max
-underneath the gauge chart by setting <code>show_min_max</code> to
-TRUE:</p>
-<p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/gaugechartgif.gif" align="center"></p>
 </div>
 </div>
 <div class="section level2">
@@ -285,9 +279,9 @@ or {reactable} table with <code><a href="reference/add_title.html">add_title()</
 below a table with <code><a href="reference/add_source.html">add_source()</a></code>. Additional customization
 options such as changing the alignment, font size, font family, font
 style, and font color are available within each formatter.</p>
-<pre class="{r}"><code><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">29</span>, <span class="op">]</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/add_title.html">add_title</a></span><span class="op">(</span><span class="st">"This is a title"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/add_subtitle.html">add_subtitle</a></span><span class="op">(</span><span class="st">"This is a subtitle"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<pre class="{r}"><code><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">29</span>, <span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="reference/add_title.html">add_title</a></span><span class="op">(</span><span class="st">"This is a title"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="reference/add_subtitle.html">add_subtitle</a></span><span class="op">(</span><span class="st">"This is a subtitle"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="reference/add_source.html">add_source</a></span><span class="op">(</span><span class="st">"This is a source"</span><span class="op">)</span></code></pre>
 <p><img src="https://raw.githubusercontent.com/kcuilla/reactablefmtr/main/man/figures/README_add_title.png" align="center"></p>
 </div>
@@ -313,7 +307,7 @@ as a static PNG image or as an interactive HTML file with
 document:</p>
 <pre class="{r}"><code><span class="fu"><a href="reference/save_reactable.html">save_reactable</a></span><span class="op">(</span><span class="st">"table_name.Rmd"</span>, <span class="st">"table.png"</span><span class="op">)</span></code></pre>
 <p>If you prefer to use a pipe:</p>
-<pre class="{r}"><code><span class="va">table_name</span> <span class="op">%&gt;%</span>
+<pre class="{r}"><code><span class="va">table_name</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
 <span class="fu"><a href="reference/save_reactable.html">save_reactable</a></span><span class="op">(</span><span class="st">"table.png"</span><span class="op">)</span></code></pre>
 </div>
 <div class="section level2">
