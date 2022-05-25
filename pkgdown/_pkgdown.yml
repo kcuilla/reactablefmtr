@@ -1,0 +1,62 @@
+template:
+  bootstrap: 5
+  bootswatch: pulse
+  bslib:
+    pkgdown-nav-height: 100px
+    base_font: {google: "Open Sans"}
+    heading_font: {google: "Duru Sans"}
+    code_font: {google: "Open Sans"}
+
+home:
+  title: reactablefmtr package
+
+toc:
+  depth: 2
+
+url: https://kcuilla.github.io/reactablefmtr/
+
+footer:
+  structure:
+    left: developed_by
+    right: built_with
+    center: reactablefmtr
+
+navbar:
+  structure:
+    left: [examples, articles, demos, tutorials, reference, news]
+    right: [github]
+  components:
+    articles:
+      text: Examples
+      menu:
+      - text: Color Scales
+        href: articles/color_scales.html
+      - text: Color Tiles
+        href: articles/color_tiles.html
+      - text: Data Bars
+        href: articles/data_bars.html
+      - text: Icon Assign
+        href: articles/icon_assign.html
+      - text: Icon Sets
+        href: articles/icon_sets.html
+      - text: Sparklines
+        href: articles/sparklines.html
+      - text: Themes
+        href: articles/themes.html
+    demos:
+      text: Demos
+      menu:
+      - text: Cookbook
+        href: articles/reactablefmtr_cookbook.html
+      - text: NBA Player Ratings
+        href: articles/nba_player_ratings.html
+      - text: NFL Standings
+        href: articles/nfl_standings.html
+    tutorials:
+      text: Tutorials
+      menu:
+      - text: Building the NFL Standings Table
+        href: articles/nfl_standings_tutorial.html
+    reference:
+      text: Reference
+      href: reference/index.html
