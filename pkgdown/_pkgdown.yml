@@ -1,12 +1,8 @@
 template:
   bootstrap: 5
-  bootswatch: pulse
+  bootswatch: materia
   bslib:
     pkgdown-nav-height: 100px
-    base_font: "proxima-nova,sans-serif"
-    # base_font: {google: "Open Sans"}
-    # heading_font: {google: "Duru Sans"}
-    # code_font: {google: "Open Sans"}
 
 home:
   title: reactablefmtr package
@@ -15,12 +11,6 @@ toc:
   depth: 2
 
 url: https://kcuilla.github.io/reactablefmtr/
-
-footer:
-  structure:
-    left: developed_by
-    right: built_with
-    center: reactablefmtr
 
 navbar:
   structure:
