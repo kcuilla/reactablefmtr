@@ -1,12 +1,3 @@
-/* expand width of page */
-.row > main {
-  max-width: 65%;
-}
-
-@media screen and (min-width: 500px) {
-    max-width: 100%;
-}
-
 /* navbar gradient */
 .navbar {
   background: linear-gradient(90deg, #0047a6, #004fb9, #0158ce, #0163e8, #046efe, #1d7dfe, #378bfe, #509afe, #61a4fe) !important;
