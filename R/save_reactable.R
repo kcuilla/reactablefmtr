@@ -6,13 +6,13 @@
 #'     If the reactable table is located within an .Rmd file and has additional CSS styles provided,
 #'     specify the name of the .Rmd file as the input.
 #'     Alternatively, if the reactable table exists in an .html file, specify the name of the .html file as the input.
-#'     Additional parameters available within webshot::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
+#'     Additional parameters available within webshot2::webshot such as vwidth, vheight, and cliprect can be passed through `save_reactable()`.
 #'
 #' @param input A reactable table, .html file, or .Rmd file
 #'
 #' @param output A .png or .html file name for the saved image
 #'
-#' @param ... Optional additional parameters passed from webshot::webshot
+#' @param ... Optional additional parameters passed from webshot2::webshot
 #'
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom tools file_ext
@@ -80,11 +80,11 @@ save_reactable <- function(input,
 
     htmlwidgets::saveWidget(widget = input, file = temp_html, selfcontained = TRUE)
 
-    webshot::webshot(url = temp_html,
-                     file = output,
-                     zoom = 2,
-                     delay = 1,
-                     ...)
+    webshot2::webshot(url = temp_html,
+                      file = output,
+                      zoom = 2,
+                      delay = 1,
+                      ...)
 
     invisible(file.remove(temp_html))
 
@@ -94,21 +94,21 @@ save_reactable <- function(input,
 
     message("Knitting R Markdown document...")
 
-    webshot::rmdshot(doc = input,
-                     file = output,
-                     zoom = 2,
-                     delay = 1,
-                     ...)
+    webshot2::rmdshot(doc = input,
+                      file = output,
+                      zoom = 2,
+                      delay = 1,
+                      ...)
 
     message("image saved to ", getwd(), "/", output)
 
   } else if (tools::file_ext(input) == "html" && tools::file_ext(output) == "png") {
 
-    webshot::webshot(url = input,
-                     file = output,
-                     zoom = 2,
-                     delay = 1,
-                     ...)
+    webshot2::webshot(url = input,
+                      file = output,
+                      zoom = 2,
+                      delay = 1,
+                      ...)
 
     message("image saved to ", getwd(), "/", output)
 
