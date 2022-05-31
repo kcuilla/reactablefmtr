@@ -9,6 +9,7 @@ midnight(
   font_color = "#727272",
   header_font_size = 15,
   header_font_color = "#666666",
+  background_color = "#141518",
   cell_padding = 6,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #666666.}
+
+\item{background_color}{Background color of the table.
+Default is #141518.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}

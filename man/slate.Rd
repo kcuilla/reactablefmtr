@@ -9,6 +9,7 @@ slate(
   font_color = "#aaaaaa",
   header_font_size = 16,
   header_font_color = "#97999b",
+  background_color = "#272b30",
   cell_padding = 6,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 16.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #97999b.}
+
+\item{background_color}{Background color of the table.
+Default is #272b30.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}

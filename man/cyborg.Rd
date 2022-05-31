@@ -9,6 +9,7 @@ cyborg(
   font_color = "#888888",
   header_font_size = 15,
   header_font_color = "#7b7b7b",
+  background_color = "#060606",
   cell_padding = 6,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #7b7b7b.}
+
+\item{background_color}{Background color of the table.
+Default is #060606.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}

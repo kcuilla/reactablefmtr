@@ -9,6 +9,7 @@ minty(
   font_color = "#9a9a9a",
   header_font_size = 16,
   header_font_color = "#c9e7de",
+  background_color = NULL,
   cell_padding = 6,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 16.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #c9e7de.}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}

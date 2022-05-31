@@ -9,6 +9,7 @@ cosmo(
   font_color = "#141415",
   header_font_size = 15,
   header_font_color = "#ffffff",
+  background_color = "#f8f9fa",
   cell_padding = 6,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #ffffff.}
+
+\item{background_color}{Background color of the table.
+Default is #f8f9fa.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}

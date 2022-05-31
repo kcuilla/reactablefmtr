@@ -9,6 +9,7 @@ espn(
   font_color = "#6C6D6F",
   header_font_size = 11,
   header_font_color = "#48494a",
+  background_color = NULL,
   cell_padding = 7,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 11.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #48494a.}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 7.}

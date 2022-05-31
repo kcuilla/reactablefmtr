@@ -9,6 +9,7 @@ void(
   font_color = "#222222",
   header_font_size = 15,
   header_font_color = "transparent",
+  background_color = NULL,
   border_color = "transparent",
   border_width = 0,
   header_border_color = "transparent",
@@ -29,6 +30,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is transparent}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{border_color}{Color of the borders between cells.
 Default is transparent.}

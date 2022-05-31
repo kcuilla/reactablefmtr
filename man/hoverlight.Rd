@@ -8,6 +8,7 @@ hoverlight(
   font_size = 15,
   font_color = "#ffffff",
   header_font_size = 15,
+  background_color = "#000000",
   cell_padding = 4,
   centered = FALSE
 )
@@ -21,6 +22,9 @@ Default is #ffffff.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}
+
+\item{background_color}{Background color of the table.
+Default is #000000.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 4.}

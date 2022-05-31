@@ -9,6 +9,7 @@ no_lines(
   font_color = "#222222",
   header_font_size = 15,
   header_font_color = "#222222",
+  background_color = NULL,
   centered = FALSE,
   cell_padding = 6
 )
@@ -25,6 +26,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is transparent}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{centered}{Logical: vertically center the contents of the table.
 Default is FALSE.}

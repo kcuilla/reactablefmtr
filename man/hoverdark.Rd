@@ -8,6 +8,7 @@ hoverdark(
   font_size = 15,
   font_color = "#222222",
   header_font_size = 15,
+  background_color = NULL,
   cell_padding = 4,
   centered = FALSE
 )
@@ -21,6 +22,9 @@ Default is #222222.}
 
 \item{header_font_size}{Numeric value representing the size of the font within the table (in px).
 Default is 15.}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 4.}

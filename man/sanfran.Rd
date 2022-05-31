@@ -9,6 +9,7 @@ sanfran(
   font_color = "#222222",
   header_font_size = 15,
   header_font_color = "#212121",
+  background_color = NULL,
   cell_color = "#f5f5f5",
   cell_border_width = 6,
   cell_border_color = "#ffffff",
@@ -29,6 +30,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is transparent}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{cell_color}{Color of the background of the cells.
 Default is #f5f5f5.}

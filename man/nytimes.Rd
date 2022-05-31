@@ -9,6 +9,7 @@ nytimes(
   font_color = "#333333",
   header_font_size = 11,
   header_font_color = "#999999",
+  background_color = NULL,
   cell_padding = 5,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 11.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #999999.}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 5.}

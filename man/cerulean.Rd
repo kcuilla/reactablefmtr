@@ -9,6 +9,7 @@ cerulean(
   font_color = "#141415",
   header_font_size = 15,
   header_font_color = "#cfe9f7",
+  background_color = NULL,
   cell_padding = 6,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #cfe9f7.}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}

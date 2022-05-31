@@ -9,6 +9,7 @@ spacelab(
   font_color = "#8e8e8e",
   header_font_size = 15,
   header_font_color = "#8e8e8e",
+  background_color = NULL,
   cell_padding = 6,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is #8e8e8e.}
+
+\item{background_color}{Background color of the table.
+Default is NULL.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}

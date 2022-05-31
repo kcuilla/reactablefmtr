@@ -9,6 +9,7 @@ midnightblue(
   font_color = "#bababa",
   header_font_size = 15,
   header_font_color = "lightgrey",
+  background_color = "#002853",
   cell_padding = 6,
   centered = FALSE
 )
@@ -25,6 +26,9 @@ Default is 15.}
 
 \item{header_font_color}{Color of the font for the header text.
 Default is lightgrey.}
+
+\item{background_color}{Background color of the table.
+Default is #002853.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 6.}
