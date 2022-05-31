@@ -10,6 +10,10 @@
 
 * More options added to the min and max values of the sparklines within `min_value` and `max_value`. A user can adjust the min and max value displayed for each row by providing either a numeric vector of length equal to the number of rows, a column name (as string) which holds the min/max values to use, a function which is applied to the min/max value of each row. Thank you to Tim Tiefenbach for contributing to this enhacement!
 
+#### themes
+
+* Added the ability to change the background color in each table theme with `background_color`
+
 ### Bug Fixes
 
 * Fixed `save_reactable()` function to display as `save_reactable()` and not `save_reactable_test()`
