@@ -6,19 +6,18 @@
 \usage{
 data_bars(
   data,
-  text_position = "inside-end",
   fill_color = "#15607A",
   fill_color_ref = NULL,
   fill_by = NULL,
   fill_opacity = 1,
   fill_gradient = FALSE,
   background = "#EEEEEE",
-  number_fmt = NULL,
   bias = 1,
-  min_value = NULL,
   max_value = NULL,
+  min_value = NULL,
   align_bars = "left",
   bar_height = NULL,
+  text_position = "inside-end",
   force_outside = NULL,
   text_color = "black",
   text_color_ref = NULL,
@@ -26,6 +25,7 @@ data_bars(
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
+  number_fmt = NULL,
   border_width = NULL,
   border_style = NULL,
   border_color = NULL,
@@ -46,14 +46,6 @@ data_bars(
 }
 \arguments{
 \item{data}{Dataset containing at least one numeric column.}
-
-\item{text_position}{Choose where to display the text labels relative to the filled data bars.
-Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
-outside of the filled bars ("outside-end" or "outside-base"),
-within the center of the filled bars ("center"),
-above the filled bars ("above"),
-or not displayed at all ("none").
-Default is inside-end.}
 
 \item{fill_color}{A single color or a vector of fill_color for the fill of the data bars.
 fill_color should be given in order from low values to high values.
@@ -81,18 +73,15 @@ Default is FALSE.}
 \item{background}{The color for the background of the data bars.
 Default is #EEEEEE.}
 
-\item{number_fmt}{Optionally format numbers using formats from the scales package.
-Default is NULL.}
-
 \item{bias}{A positive value that determines the spacing between multiple colors.
 A higher value spaces out the colors at the higher end more than a lower number.
 Default is 1.}
 
-\item{min_value}{A value to use as the minimum value for the width of the filled bars.
-Default is NULL.}
-
 \item{max_value}{A value to use as the maximum value for the width of the filled bars.
 The default maximum value is the maximum value in the column.
+Default is NULL.}
+
+\item{min_value}{A value to use as the minimum value for the width of the filled bars.
 Default is NULL.}
 
 \item{align_bars}{Display filled bars from left-to-right or right-to-left.
@@ -101,6 +90,14 @@ Default is left.}
 
 \item{bar_height}{Numeric height of the data bars in px.
 Default is NULL.}
+
+\item{text_position}{Choose where to display the text labels relative to the filled data bars.
+Text labels can be displayed within the filled bars ("inside-end" or "inside-base"),
+outside of the filled bars ("outside-end" or "outside-base"),
+within the center of the filled bars ("center"),
+above the filled bars ("above"),
+or not displayed at all ("none").
+Default is inside-end.}
 
 \item{force_outside}{Optionally force a range of values to display their text labels on the outside-end of the filled bars
 when the text_position is set to either "inside-end", "inside-base", or "center".
@@ -128,6 +125,9 @@ Default is white.}
 
 \item{bold_text}{Logical: display the text labels in bold.
 Default is FALSE.}
+
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
+Default is NULL.}
 
 \item{border_width}{The width of the border around the filled data bars
 Options are "thin", "medium", "thick", or a numeric value with the units included such as "2px" or "2mm".

@@ -75,11 +75,23 @@ Default is 0.8em.}
 \item{decimals}{Numeric: The number of decimals displayed in the labels and tooltip.
 Default is 0.}
 
-\item{max_value}{Numeric: the maximum value of the sparkline range.
-Default is NULL (automatically the maximum value of each sparkline series).}
+\item{max_value}{The maximum value of the sparkbar range.
+    Default is NULL (automatically the maximum value of each sparkbar series).
+    Takes either:
 
-\item{min_value}{Numeric: the minimum value of the sparkline range.
-Default is NULL (automatically the minimum value of each sparkline series).}
+    1. a numeric vector of length 1
+    2. a numeric vector of length equal to the number of rows
+    3. a column name (as string) which holds the max_values to use
+    4. a function which is applied to the maximum value of each row}
+
+\item{min_value}{The minimum value of the sparkbar range.
+    Default is NULL (automatically the minimum value of each sparkbar series).
+    Takes either:
+
+    1. a numeric vector of length 1
+    2. a numeric vector of length equal to the number of rows
+    3. a column name (as string) which holds the min_values to use
+    4. a function which is applied to the minimum value of each row}
 
 \item{statline}{Inserts a horizontal dotted line representing a statistic,
 and places the value of that statistic to the right of the line.
@@ -142,21 +154,20 @@ The `react_sparkbar()` function utilizes the {dataui} package <https://github.co
     `react_sparkline()` should be placed within the cell argument in reactable::colDef.
 }
 \examples{
-\dontrun{
 library(dplyr)
 ## Default sparkline bar chart
 iris \%>\%
  group_by(Species) \%>\%
- summarize(sepal_length = list(Sepal.Length)) \%>\%
+ summarize(petal_width = list(Petal.Width)) \%>\%
  reactable(.,
- columns = list(sepal_length = colDef(cell = react_sparkbar(.))))
+ columns = list(petal_width = colDef(cell = react_sparkbar(.))))
 
 ## Highlight particular bars
 iris \%>\%
  group_by(Species) \%>\%
- summarize(sepal_length = list(Sepal.Length)) \%>\%
+ summarize(petal_width = list(Petal.Width)) \%>\%
  reactable(.,
- columns = list(sepal_length = colDef(cell = react_sparkbar(.,
+ columns = list(petal_width = colDef(cell = react_sparkbar(.,
  decimals = 1,
  min_value = 0,
  highlight_bars = highlight_bars(min="red",max="blue")))))
@@ -164,7 +175,7 @@ iris \%>\%
 ## Conditionally assign fill colors to groups
 iris \%>\%
  group_by(Species) \%>\%
- summarize(sepal_length = list(Sepal.Length)) \%>\%
+ summarize(petal_width = list(Petal.Width)) \%>\%
  mutate(flower_cols = case_when(
    Species == "setosa" ~ "purple",
    Species == "versicolor" ~ "darkgreen",
@@ -173,16 +184,16 @@ iris \%>\%
  )) \%>\%
  reactable(.,
  columns = list(flower_cols = colDef(show=FALSE),
- sepal_length = colDef(cell = react_sparkbar(.,
+ petal_width = colDef(cell = react_sparkbar(.,
  height = 80,
  fill_color_ref = "flower_cols"))))
 
 ## Add labels to particular bars
 iris \%>\%
  group_by(Species) \%>\%
- summarize(sepal_length = list(Sepal.Length)) \%>\%
+ summarize(petal_width = list(Petal.Width)) \%>\%
  reactable(.,
- columns = list(sepal_length = colDef(cell = react_sparkbar(.,
+ columns = list(petal_width = colDef(cell = react_sparkbar(.,
  height = 80,
  decimals = 1,
  highlight_bars = highlight_bars(first="blue",last="red"),
@@ -191,9 +202,9 @@ iris \%>\%
 ## Add statline to show the mean for each sparkbar
 iris \%>\%
  group_by(Species) \%>\%
- summarize(sepal_length = list(Sepal.Length)) \%>\%
+ summarize(petal_width = list(Petal.Width)) \%>\%
  reactable(.,
- columns = list(sepal_length = colDef(cell = react_sparkbar(.,
+ columns = list(petal_width = colDef(cell = react_sparkbar(.,
  height = 80,
  decimals = 1,
  statline = "mean"))))
@@ -201,12 +212,12 @@ iris \%>\%
 ## Combine multiple elements together
 iris \%>\%
  group_by(Species) \%>\%
- summarize(sepal_length = list(Sepal.Length)) \%>\%
+ summarize(petal_width = list(Petal.Width)) \%>\%
  reactable(.,
- columns = list(sepal_length = colDef(cell = react_sparkbar(.,
+ columns = list(petal_width = colDef(cell = react_sparkbar(.,
  height = 80,
  decimals = 1,
  statline = "mean",
  bandline = "innerquartiles"))))
-}
+
 }
