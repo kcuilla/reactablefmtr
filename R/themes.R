@@ -14,6 +14,9 @@
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #333333.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -41,6 +44,7 @@ default <- function(font_size = 15,
                     font_color = "#333333",
                     header_font_size = 15,
                     header_font_color = "#333333",
+                    background_color = NULL,
                     cell_padding = 6,
                     centered = FALSE) {
 
@@ -59,6 +63,7 @@ default <- function(font_size = 15,
     cellStyle = centered_content,
     color = font_color,
     cellPadding = cell_padding,
+    backgroundColor = background_color,
     tableStyle = list(fontSize = font_size),
     headerStyle = list(
       color = header_font_color,
@@ -85,6 +90,9 @@ default <- function(font_size = 15,
 #'
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #cfe9f7.
+#'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
 #'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
@@ -113,6 +121,7 @@ cerulean <- function(font_size = 14,
                      font_color = "#141415",
                      header_font_size = 15,
                      header_font_color = "#cfe9f7",
+                     background_color = NULL,
                      cell_padding = 6,
                      centered = FALSE) {
 
@@ -130,7 +139,7 @@ cerulean <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "#e9ecef",
     borderWidth = "1px",
     stripedColor = "#e9ecef",
@@ -199,6 +208,9 @@ cerulean <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #ffffff.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #f8f9fa.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -226,6 +238,7 @@ cosmo <- function(font_size = 14,
                   font_color = "#141415",
                   header_font_size = 15,
                   header_font_color = "#ffffff",
+                  background_color = "#f8f9fa",
                   cell_padding = 6,
                   centered = FALSE) {
 
@@ -243,7 +256,7 @@ cosmo <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#f8f9fa",
+    backgroundColor = background_color,
     borderColor = "#f8f9fa",
     borderWidth = "1px",
     stripedColor = "white",
@@ -311,6 +324,9 @@ cosmo <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #7b7b7b.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #060606.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -338,6 +354,7 @@ cyborg <- function(font_size = 14,
                    font_color = "#888888",
                    header_font_size = 15,
                    header_font_color = "#7b7b7b",
+                   background_color = "#060606",
                    cell_padding = 6,
                    centered = FALSE) {
 
@@ -355,7 +372,7 @@ cyborg <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#060606",
+    backgroundColor = background_color,
     borderColor = "#888888",
     borderWidth = "1px",
     stripedColor = "#282828",
@@ -423,6 +440,9 @@ cyborg <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #afbdcc.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #222222.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -450,6 +470,7 @@ darkly <- function(font_size = 14,
                    font_color = "#ffffff",
                    header_font_size = 15,
                    header_font_color = "#afbdcc",
+                   background_color = "#222222",
                    cell_padding = 6,
                    centered = FALSE) {
 
@@ -467,7 +488,7 @@ darkly <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#222222",
+    backgroundColor = background_color,
     borderColor = "#222222",
     borderWidth = "1px",
     stripedColor = "#adb5bd",
@@ -536,6 +557,9 @@ darkly <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #ffffff.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -563,6 +587,7 @@ flatly <- function(font_size = 14,
                    font_color = "#212529",
                    header_font_size = 15,
                    header_font_color = "#ffffff",
+                   background_color = NULL,
                    cell_padding = 6,
                    centered = FALSE) {
 
@@ -580,7 +605,7 @@ flatly <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "#ffffff",
     borderWidth = "1px",
     stripedColor = "#ecf0f1",
@@ -648,6 +673,9 @@ flatly <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #fad9d8.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -675,6 +703,7 @@ journal <- function(font_size = 14,
                     font_color = "#222222",
                     header_font_size = 15,
                     header_font_color = "#fad9d8",
+                    background_color = NULL,
                     cell_padding = 6,
                     centered = FALSE) {
 
@@ -692,7 +721,7 @@ journal <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "#aaaaaa",
     borderWidth = "1px",
     stripedColor = "#eeeeee",
@@ -760,6 +789,9 @@ journal <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #7f7f7f.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -787,6 +819,7 @@ lux <- function(font_size = 14,
                 font_color = "#8c8c8c",
                 header_font_size = 15,
                 header_font_color = "#7f7f7f",
+                background_color = NULL,
                 cell_padding = 6,
                 centered = FALSE) {
 
@@ -804,7 +837,7 @@ lux <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "#f7f7f9",
     borderWidth = "1px",
     stripedColor = "#dadada",
@@ -875,6 +908,9 @@ lux <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #c9e7de.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -902,6 +938,7 @@ minty <- function(font_size = 15,
                   font_color = "#9a9a9a",
                   header_font_size = 16,
                   header_font_color = "#c9e7de",
+                  background_color = NULL,
                   cell_padding = 6,
                   centered = FALSE) {
 
@@ -919,7 +956,7 @@ minty <- function(font_size = 15,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "#f7f7f9",
     borderWidth = "1px",
     stripedColor = "#ededed",
@@ -987,6 +1024,9 @@ minty <- function(font_size = 15,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #7c7a78.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -1014,6 +1054,7 @@ sandstone <- function(font_size = 15,
                       font_color = "#3e3f3a",
                       header_font_size = 16,
                       header_font_color = "#7c7a78",
+                      background_color = NULL,
                       cell_padding = 6,
                       centered = FALSE) {
 
@@ -1031,7 +1072,7 @@ sandstone <- function(font_size = 15,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "#f8f5f0",
     borderWidth = "1px",
     stripedColor = "#ededed",
@@ -1103,6 +1144,9 @@ sandstone <- function(font_size = 15,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #97999b.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #272b30.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -1130,6 +1174,7 @@ slate <- function(font_size = 15,
                   font_color = "#aaaaaa",
                   header_font_size = 16,
                   header_font_color = "#97999b",
+                  background_color = "#272b30",
                   cell_padding = 6,
                   centered = FALSE) {
 
@@ -1147,7 +1192,7 @@ slate <- function(font_size = 15,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#272b30",
+    backgroundColor = background_color,
     borderColor = "#272b30",
     borderWidth = "1px",
     stripedColor = "#464a4d",
@@ -1216,6 +1261,9 @@ slate <- function(font_size = 15,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #8e8e8e.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -1243,6 +1291,7 @@ spacelab <- function(font_size = 14,
                      font_color = "#8e8e8e",
                      header_font_size = 15,
                      header_font_color = "#8e8e8e",
+                     background_color = NULL,
                      cell_padding = 6,
                      centered = FALSE) {
 
@@ -1260,7 +1309,7 @@ spacelab <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "#eeeeee",
     borderWidth = "1px",
     stripedColor = "#dadada",
@@ -1322,6 +1371,9 @@ spacelab <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #ebebeb.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #2b3e50.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -1349,6 +1401,7 @@ superhero <- function(font_size = 14,
                       font_color = "#ebebeb",
                       header_font_size = 15,
                       header_font_color = "#ebebeb",
+                      background_color = "#2b3e50",
                       cell_padding = 6,
                       centered = FALSE) {
 
@@ -1366,7 +1419,7 @@ superhero <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#2b3e50",
+    backgroundColor = background_color,
     borderColor = "#2b3e50",
     borderWidth = "1px",
     stripedColor = "#4a5969",
@@ -1423,6 +1476,9 @@ superhero <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #48494a.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 7.
 #'
@@ -1450,6 +1506,7 @@ espn <- function(font_size = 12,
                  font_color = "#6C6D6F",
                  header_font_size = 11,
                  header_font_color = "#48494a",
+                 background_color = NULL,
                  cell_padding = 7,
                  centered = FALSE) {
 
@@ -1467,7 +1524,7 @@ espn <- function(font_size = 12,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderWidth = "1px",
     borderColor = "#ededed",
     stripedColor = "#fafafa",
@@ -1522,6 +1579,9 @@ espn <- function(font_size = 12,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #000000.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 5.
 #'
@@ -1549,6 +1609,7 @@ fivethirtyeight <- function(font_size = 14,
                             font_color = "#222222",
                             header_font_size = 12,
                             header_font_color = "#000000",
+                            background_color = NULL,
                             cell_padding = 5,
                             centered = FALSE) {
 
@@ -1566,7 +1627,7 @@ fivethirtyeight <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderWidth = "1px",
     borderColor = "#dddddd",
     stripedColor = "#dddddd",
@@ -1630,6 +1691,9 @@ fivethirtyeight <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #999999.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 5.
 #'
@@ -1657,6 +1721,7 @@ nytimes <- function(font_size = 13,
                     font_color = "#333333",
                     header_font_size = 11,
                     header_font_color = "#999999",
+                    background_color = NULL,
                     cell_padding = 5,
                     centered = FALSE) {
 
@@ -1674,7 +1739,7 @@ nytimes <- function(font_size = 13,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderWidth = "1px",
     borderColor = "#e7e7e7",
     stripedColor = "#e7e7e7",
@@ -1728,6 +1793,9 @@ nytimes <- function(font_size = 13,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #ffffff.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 4.
 #'
@@ -1755,6 +1823,7 @@ pff <- function(font_size = 16,
                 font_color = "#878e94",
                 header_font_size = 12,
                 header_font_color = "#ffffff",
+                background_color = NULL,
                 cell_padding = 4,
                 centered = FALSE) {
 
@@ -1772,7 +1841,7 @@ pff <- function(font_size = 16,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderWidth = "0px",
     stripedColor = "#f9f9fb",
     highlightColor = "#f1f3f4",
@@ -1857,6 +1926,9 @@ pff <- function(font_size = 16,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is transparent
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_color Color of the background of the cells.
 #'      Default is #f5f5f5.
 #'
@@ -1896,6 +1968,7 @@ sanfran <- function(font_size = 14,
                     font_color = "#222222",
                     header_font_size = 15,
                     header_font_color = "#212121",
+                    background_color = NULL,
                     cell_color = "#f5f5f5",
                     cell_border_width = 6,
                     cell_border_color = "#ffffff",
@@ -1926,7 +1999,7 @@ sanfran <- function(font_size = 14,
 
   reactableTheme(
     color = font_color,
-    backgroundColor = "transparent",
+    backgroundColor = background_color,
     borderColor = "#f5f5f5",
     stripedColor = "lightgrey",
     highlightColor = "lightgrey",
@@ -1954,6 +2027,9 @@ sanfran <- function(font_size = 14,
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 4.
 #'
@@ -1980,6 +2056,7 @@ sanfran <- function(font_size = 14,
 hoverdark <- function(font_size = 15,
                       font_color = "#222222",
                       header_font_size = 15,
+                      background_color = NULL,
                       cell_padding = 4,
                       centered = FALSE) {
 
@@ -1997,7 +2074,7 @@ hoverdark <- function(font_size = 15,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "grey",
     borderWidth = "1px",
     stripedColor = "#D6D6D6",
@@ -2030,6 +2107,9 @@ hoverdark <- function(font_size = 15,
 #' @param header_font_size Numeric value representing the size of the font within the table (in px).
 #'      Default is 15.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #000000.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 4.
 #'
@@ -2056,6 +2136,7 @@ hoverdark <- function(font_size = 15,
 hoverlight <- function(font_size = 15,
                        font_color = "#ffffff",
                        header_font_size = 15,
+                       background_color = "#000000",
                        cell_padding = 4,
                        centered = FALSE) {
 
@@ -2073,7 +2154,7 @@ hoverlight <- function(font_size = 15,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#000000",
+    backgroundColor = background_color,
     borderColor = "grey",
     borderWidth = "1px",
     stripedColor = "lightgrey",
@@ -2110,6 +2191,9 @@ hoverlight <- function(font_size = 15,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #FFFFFF.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #25252.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -2137,6 +2221,7 @@ dark <- function(font_size = 15,
                  font_color = "#FFFFFF",
                  header_font_size = 16,
                  header_font_color = "#FFFFFF",
+                 background_color = "#252525",
                  cell_padding = 6,
                  centered = FALSE) {
 
@@ -2156,7 +2241,7 @@ dark <- function(font_size = 15,
 
   reactableTheme(
     color = font_color,
-    backgroundColor = "#252525",
+    backgroundColor = background_color,
     borderWidth = "1px",
     borderColor = "#434343",
     stripedColor = "#303030",
@@ -2216,6 +2301,9 @@ dark <- function(font_size = 15,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #666666.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #141518.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -2243,6 +2331,7 @@ midnight <- function(font_size = 15,
                      font_color = "#727272",
                      header_font_size = 15,
                      header_font_color = "#666666",
+                     background_color = "#141518",
                      cell_padding = 6,
                      centered = FALSE) {
 
@@ -2272,7 +2361,7 @@ midnight <- function(font_size = 15,
 
   reactableTheme(
     color = font_color,
-    backgroundColor = "#141518",
+    backgroundColor = background_color,
     borderWidth = "0px",
     stripedColor = "#00468c",
     highlightColor = "#00468c",
@@ -2348,6 +2437,9 @@ midnight <- function(font_size = 15,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is lightgrey.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #002853.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -2376,6 +2468,7 @@ midnightblue <- function(font_size = 15,
                          font_color = "#bababa",
                          header_font_size = 15,
                          header_font_color = "lightgrey",
+                         background_color = "#002853",
                          cell_padding = 6,
                          centered = FALSE) {
 
@@ -2405,7 +2498,7 @@ midnightblue <- function(font_size = 15,
 
   reactableTheme(
     color = font_color,
-    backgroundColor = "#002853",
+    backgroundColor = background_color,
     borderWidth = "0px",
     stripedColor = "#00468c",
     highlightColor = "#00468c",
@@ -2482,6 +2575,9 @@ midnightblue <- function(font_size = 15,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #8069ff.
 #'
+#' @param background_color Background color of the table.
+#'      Default is #ffcb69.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -2509,6 +2605,7 @@ sunrise <- function(font_size = 15,
                     font_color = "#8069ff",
                     header_font_size = 15,
                     header_font_color = "#8069ff",
+                    background_color = "#ffcb69",
                     cell_padding = 6,
                     centered = FALSE) {
 
@@ -2538,7 +2635,7 @@ sunrise <- function(font_size = 15,
 
   reactableTheme(
     color = font_color,
-    backgroundColor = "#ffcb69",
+    backgroundColor = background_color,
     borderWidth = "0px",
     stripedColor = "lightblue",
     highlightColor = "#ffffff",
@@ -2605,6 +2702,9 @@ sunrise <- function(font_size = 15,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is #222222.
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param cell_padding Numeric value representing the padding size between cells (in px).
 #'      Default is 6.
 #'
@@ -2632,6 +2732,7 @@ clean <- function(font_size = 14,
                   font_color = "#222222",
                   header_font_size = 15,
                   header_font_color = "#222222",
+                  background_color = NULL,
                   cell_padding = 6,
                   centered = FALSE) {
 
@@ -2649,7 +2750,7 @@ clean <- function(font_size = 14,
   reactableTheme(
     cellStyle = centered_content,
     color = font_color,
-    backgroundColor = "#ffffff",
+    backgroundColor = background_color,
     borderColor = "#ffffff",
     stripedColor = "#e0e0e0",
     highlightColor = "#e0e0e0",
@@ -2682,6 +2783,9 @@ clean <- function(font_size = 14,
 #' @param header_font_color Color of the font for the header text.
 #'      Default is transparent
 #'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
+#'
 #' @param centered Logical: vertically center the contents of the table.
 #'     Default is FALSE.
 #'
@@ -2706,11 +2810,12 @@ clean <- function(font_size = 14,
 #' @export
 
 no_lines <- function(font_size = 14,
-                 font_color = "#222222",
-                 header_font_size = 15,
-                 header_font_color = "#222222",
-                 centered = FALSE,
-                 cell_padding = 6) {
+                     font_color = "#222222",
+                     header_font_size = 15,
+                     header_font_color = "#222222",
+                     background_color = NULL,
+                     centered = FALSE,
+                     cell_padding = 6) {
 
   if (!is.logical(centered)) {
 
@@ -2728,7 +2833,7 @@ no_lines <- function(font_size = 14,
 
   reactableTheme(
     color = font_color,
-    backgroundColor = "transparent",
+    backgroundColor = background_color,
     stripedColor = "lightgrey",
     highlightColor = "lightgrey",
     cellPadding = cell_padding,
@@ -2759,6 +2864,9 @@ no_lines <- function(font_size = 14,
 #'
 #' @param header_font_color Color of the font for the header text.
 #'      Default is transparent
+#'
+#' @param background_color Background color of the table.
+#'      Default is NULL.
 #'
 #' @param border_color Color of the borders between cells.
 #'      Default is transparent.
@@ -2799,6 +2907,7 @@ void <- function(font_size = 14,
                  font_color = "#222222",
                  header_font_size = 15,
                  header_font_color = "transparent",
+                 background_color = NULL,
                  border_color = "transparent",
                  border_width = 0,
                  header_border_color = "transparent",
@@ -2824,7 +2933,7 @@ void <- function(font_size = 14,
 
   reactableTheme(
     color = font_color,
-    backgroundColor = "transparent",
+    backgroundColor = background_color,
     stripedColor = "lightgrey",
     highlightColor = "lightgrey",
     cellPadding = cell_padding,
@@ -2837,4 +2946,3 @@ void <- function(font_size = 14,
     paginationStyle = list(color = "transparent")
   )
 }
-
