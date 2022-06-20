@@ -37,6 +37,16 @@
 #'     A higher value spaces out the colors at the higher end more than a lower number.
 #'     Default is 1.
 #'
+#' @param min_value The minimum value used for the color assignments.
+#'     This value must expand the range of the data within the column.
+#'     Therefore, the value must be less than or equal to the minimum value within the column.
+#'     Default is NULL.
+#'
+#' @param max_value The maximum value used for the color assignments.
+#'     This value must expand the range of the data within the column.
+#'     Therefore, the value must be greater than or equal to the maximum value within the column.
+#'     Default is NULL.
+#'
 #' @param number_fmt Optionally format numbers using formats from the scales package.
 #'     Default is NULL.
 #'
@@ -130,6 +140,8 @@ color_tiles <- function(data,
                         color_by = NULL,
                         opacity = 1,
                         bias = 1,
+                        min_value = NULL,
+                        max_value = NULL,
                         number_fmt = NULL,
                         text_size = NULL,
                         text_color = "black",
@@ -176,6 +188,16 @@ color_tiles <- function(data,
   if (opacity < 0 | opacity > 1) {
 
     stop("`opacity` must be a value between 0 and 1")
+  }
+
+  if (!is.null(min_value) & !is.numeric(min_value)) {
+
+    stop("`min_value` must be numeric")
+  }
+
+  if (!is.null(max_value) & !is.numeric(max_value)) {
+
+    stop("`max_value` must be numeric")
   }
 
   if (length(text_color) > 1) {
@@ -236,9 +258,18 @@ color_tiles <- function(data,
 
     if (is.logical(span)) {
 
+      # user supplied min and max values
+      if (is.null(min_value)) {
+      min_value_span <- min(dplyr::select_if(data, is.numeric), na.rm = TRUE)
+      } else { min_value_span <- min_value }
+
+      if (is.null(max_value)) {
+      max_value_span <- max(dplyr::select_if(data, is.numeric), na.rm = TRUE)
+      } else { max_value_span <- max_value }
+
       if (span) {
 
-        normalized <- (value - min(dplyr::select_if(data, is.numeric), na.rm = TRUE)) / (max(dplyr::select_if(data, is.numeric), na.rm = TRUE) - min(dplyr::select_if(data, is.numeric), na.rm = TRUE))
+        normalized <- (value - min_value_span) / (max_value_span - min_value_span)
 
       } else if (!is.null(color_ref)) {
 
@@ -261,7 +292,16 @@ color_tiles <- function(data,
 
           } else {
 
-            normalized <- (data[[color_by]][index] - min(data[[color_by]], na.rm = TRUE)) / (max(data[[color_by]], na.rm = TRUE) - min(data[[color_by]], na.rm = TRUE))
+            # user supplied min and max values
+            if (is.null(min_value)) {
+            min_value_color_by <- min(data[[color_by]], na.rm = TRUE)
+            } else { min_value_color_by <- min_value }
+
+            if (is.null(max_value)) {
+            max_value_color_by <- max(data[[color_by]], na.rm = TRUE)
+            } else { max_value_color_by <- max_value }
+
+            normalized <- (data[[color_by]][index] - min_value_color_by) / (max_value_color_by - min_value_color_by)
 
           }
 
@@ -283,10 +323,29 @@ color_tiles <- function(data,
 
           } else {
 
+            # user supplied min and max values
+            if (is.null(min_value)) {
+            min_value_normal <- min(data[[name]], na.rm = TRUE)
+            } else { min_value_normal <- min_value }
+
+            if (is.null(max_value)) {
+            max_value_normal <- max(data[[name]], na.rm = TRUE)
+            } else { max_value_normal <- max_value }
+
             # standard normalization
-            normalized <- (value - min(data[[name]], na.rm = TRUE)) / (max(data[[name]], na.rm = TRUE) - min(data[[name]], na.rm = TRUE))
+            normalized <- (value - min_value_normal) / (max_value_normal - min_value_normal)
 
           }
+
+            if (!is.null(min_value) & isTRUE(min_value > min(data[[name]], na.rm = TRUE))) {
+
+              stop("`min_value` must be less than the minimum value observed in the data")
+            }
+
+            if (!is.null(max_value) & isTRUE(max_value < max(data[[name]], na.rm = TRUE))) {
+
+              stop("`max_value` must be greater than the maximum value observed in the data")
+            }
 
         cell_color <- color_pal(normalized)
         cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
@@ -349,7 +408,17 @@ color_tiles <- function(data,
 
         if (is.character(span)) { span <- which(names(data) %in% span) }
 
-        normalized <- (value - min(dplyr::select(data, !!span), na.rm = TRUE)) / (max(dplyr::select(data, !!span), na.rm = TRUE) - min(dplyr::select(data, !!span), na.rm = TRUE))
+        # user supplied min and max values
+        if (is.null(min_value)) {
+        min_value_span2 <- min(dplyr::select(data, !!span), na.rm = TRUE)
+        } else { min_value_span2 <- min_value }
+
+        if (is.null(max_value)) {
+        max_value_span2 <- max(dplyr::select(data, !!span), na.rm = TRUE)
+        } else { max_value_span2 <- max_value }
+
+        normalized <- (value - min_value_span2) / (max_value_span2 - min_value_span2)
+
         cell_color <- if (name %in% colnames(data)[span]) { suppressWarnings(grDevices::adjustcolor(color_pal(normalized), alpha.f = opacity)) }
         font_color <- if (name %in% colnames(data)[span]) { assign_color(normalized) }
 
