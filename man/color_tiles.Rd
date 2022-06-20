@@ -11,6 +11,8 @@ color_tiles(
   color_by = NULL,
   opacity = 1,
   bias = 1,
+  min_value = NULL,
+  max_value = NULL,
   number_fmt = NULL,
   text_size = NULL,
   text_color = "black",
@@ -50,6 +52,16 @@ Default is 1.}
 \item{bias}{A positive value that determines the spacing between multiple colors.
 A higher value spaces out the colors at the higher end more than a lower number.
 Default is 1.}
+
+\item{min_value}{The minimum value used for the color assignments.
+This value must expand the range of the data within the column.
+Therefore, the value must be less than or equal to the minimum value within the column.
+Default is NULL.}
+
+\item{max_value}{The maximum value used for the color assignments.
+This value must expand the range of the data within the column.
+Therefore, the value must be greater than or equal to the maximum value within the column.
+Default is NULL.}
 
 \item{number_fmt}{Optionally format numbers using formats from the scales package.
 Default is NULL.}
