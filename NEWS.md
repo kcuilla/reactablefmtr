@@ -6,6 +6,12 @@
 
 * Apply a down/up/no-change arrow icon to a column containing trend/change data
 
+### Enhancements
+
+#### color_scales() & color_tiles()
+
+* Expand the range of data within a column for better control of color assignments with `min_value` and `max_value`. For example, if your data contains values from 30 to 90, but you would like to assign color to the values as if the range was 0 to 100, you could do so by setting the `min_value` to 0 and the `max_value` to 100. This feature can provide more consistency in assigning colors across many columns.
+
 #### react_sparkline() & react_sparkbar()
 
 * More options added to the min and max values of the sparklines within `min_value` and `max_value`. A user can adjust the min and max value displayed for each row by providing either a numeric vector of length equal to the number of rows, a column name (as string) which holds the min/max values to use, a function which is applied to the min/max value of each row. Thank you to Tim Tiefenbach for contributing to this enhacement!
