@@ -12,10 +12,10 @@
 #'     Default icon is a circle.
 #'
 #' @param fill_color A single color for the filled icons.
-#'     Default color is #1e90ff.
+#'     Default color is #15607A.
 #'
 #' @param empty_color A single color for the empty icons.
-#'     Default color is lightgrey.
+#'     Default color is #EEEEEE.
 #'
 #' @param fill_opacity A value between 0 and 1 that adjusts the opacity in fill_color.
 #'     A value of 0 is fully transparent, a value of 1 is fully opaque.
@@ -103,8 +103,8 @@
 
 icon_assign <- function(data,
                         icon = "circle",
-                        fill_color = "#67a9cf",
-                        empty_color = "lightgrey",
+                        fill_color = "#15607A",
+                        empty_color = "#EEEEEE",
                         fill_opacity = 1,
                         empty_opacity = 1,
                         align_icons = "left",
