@@ -1329,35 +1329,203 @@ google_font <- function(table = NULL,
 
 #' Apply a tooltip to cells.
 #'
-#' @param data Null.
+#' @param data Name of dataset.
+#'     Note: only required if `secondary_columns` are provided.
 #'
-#' @param number_fmt Optionally format numbers using formats from the scales package.
+#' @param show_name Logical: If set to TRUE, shows the name of the column before the value.
+#'     If set to FALSE, hides the name of the column and only shows the value.
+#'     Default is FALSE.
+#'
+#' @param number_fmt Format values using formatters from the scales package or a user-defined function.
 #'     Default is NULL.
 #'
-#' @return a function that applies a tooltip to a reactable table.
+#' @param style Apply a CSS style to the value within the tooltip.
+#'     Must provide valid CSS code, i.e. color:red; font-style:italic;, etc.
+#'     Default is NULL.
+#'
+#' @param dotted_line Add a dotted line underneath the values in the column to signal to users a tooltip is enabled.
+#'     Default is NULL.
+#'
+#' @param theme The theme of the tooltip.
+#'     Options are: 'light', 'light-border', 'material', or 'translucent'.
+#'     See https://atomiks.github.io/tippyjs/v5/themes/ for examples.
+#'     Default is 'material'.
+#'
+#' @param arrow Logical: determines if the tooltip box has an arrow.
+#'     Default is TRUE.
+#'
+#' @param trigger An event that causes the tooltip to show.
+#'     Options are: 'click', 'focus', 'focusin', 'manual', or 'mouseenter'.
+#'     Default is 'mouseenter'.
+#'
+#' @param animation The type of transition animation for the tooltip.
+#'     Options are: 'fade', 'perspective', 'shift-away', 'shift-toward', or 'scale'.
+#'     Default is 'fade'.
+#'
+#' @param duration The duration of the transition animation for the tooltip.
+#'     Possible values are a single number or a vector of two numbers for the show/hide, i.e. c(200,300).
+#'     If only one value is provided, it will be used for both the show/hide.
+#'     Default is c(275,250).
+#'
+#' @param distance How far in pixels the tooltip is from the cell.
+#'     Possible values are a number, i.e. 5 or a string with units 'rem', i.e. '5rem'.
+#'     Default is 10.
+#'
+#' @param placement Where the tooltip appears relative to the cell.
+#'     Options are: 'top', 'right', 'bottom', or 'left'.
+#'     Default is 'top'.
+#'
+#' @param auto_adjust Logical: if TRUE, then automatically adjust placement of tooltip show it can be viewed within viewport.
+#'     Default is TRUE.
+#'
+#' @param img_size The size (height, width) of the image displayed (if valid image link is present).
+#'     Possible values are a single number or a vector of two numbers for height/width, i.e. c(50,40).
+#'     Default is c(26,26).
+#'
+#' @param secondary_columns Show text/values from other columns within the dataset.
+#'     Can provide a single column name or a vector of column names, i.e. c('col1','col2','col3)
+#'     Default is NULL.
+#'
+#' @param show_name_secondary Logical: if TRUE, then show the name of the secondary column before the value.
+#'     If set to FALSE, hides the name of the secondary column and only shows the value.
+#'     Default is TRUE.
+#'
+#' @param number_fmt_secondary Format secondary values using formatters from the scales package or a user-defined function.
+#'     The number of formatters must be the same as the number of column names provided with `secondary_columns`.
+#'     The order of the formatters must match the order of names provided within `secondary_columns`.
+#'     If you do not want to format one or more of the columns, use NA for that column, i.e. c(scales::percent, NA, scales::dollar)
+#'     Default is NULL.
+#'
+#' @param style_secondary Apply a CSS style to the secondary values within the tooltip.
+#'     Must provide valid CSS code, i.e. color:red; font-style:italic;, etc.
+#'     Default is NULL.
+#'
+#' @return a function that adds a tooltip cells in a reactable table.
 #'
 #' @import reactable
 #'
 #' @examples
-#' \dontrun{
 #' data <- iris[10:29, ]
 #'
-#' ## Apply a tooltip to color_scales()
+#' ## Apply a tooltip to any column type:
 #' reactable(data,
-#'  columns = list(
-#'  Petal.Length = colDef(
-#'  cell = tooltip(),
-#'  style = color_scales(data))
-#'  ))
-#' }
+#' columns = list(
+#' Petal.Length = colDef(
+#' cell = tooltip()),
+#' Species = colDef(
+#' cell = tooltip())
+#' ))
+#'
+#' ## Modify the theme of the tooltip and apply CSS styles:
+#' reactable(data,
+#' columns = list(
+#' Species = colDef(
+#' cell = tooltip(
+#'   theme = "light",
+#'   style = "color:red"))
+#' ))
+#'
+#' ## Show data from other columns within the tooltip:
+#' reactable(data,
+#' columns = list(
+#' Species = colDef(
+#' cell = tooltip(
+#'   data = data,
+#'   secondary_columns = c("Petal.Length","Petal.Width")))
+#' ))
 #' @export
 
 tooltip <- function(data,
-                    number_fmt = NULL) {
+                    show_name = FALSE,
+                    number_fmt = NULL,
+                    style = NULL,
+                    dotted_line = FALSE,
+                    theme = "material",
+                    arrow = TRUE,
+                    trigger = "mouseenter",
+                    animation = "fade",
+                    duration = c(275,250),
+                    distance = 10,
+                    placement = "top",
+                    auto_adjust = TRUE,
+                    img_size = c(26,26),
+                    secondary_columns = NULL,
+                    show_name_secondary = TRUE,
+                    number_fmt_secondary = NULL,
+                    style_secondary = NULL) {
+
 
   cell <- function(value, index, name) {
 
-    if (!is.numeric(value)) return(value)
+    if (!is.logical(arrow)) {
+
+      stop("`arrow` must be TRUE or FALSE")
+    }
+
+    if (!is.logical(dotted_line)) {
+
+      stop("`dotted_line` must be TRUE or FALSE")
+    }
+
+    if (!is.logical(show_name)) {
+
+      stop("`show_name` must be TRUE or FALSE")
+    }
+
+    if (!is.logical(show_name_secondary)) {
+
+      stop("`show_name_secondary` must be TRUE or FALSE")
+    }
+
+    if (!theme %in% c("light", "light-border", "material", "translucent") == TRUE) {
+
+      stop("`theme` must be either 'light', 'light-border', 'material', or 'translucent'")
+    }
+
+    if (!trigger %in% c("click", "focus", "focusin", "manual", "mouseenter") == TRUE) {
+
+      stop("`trigger` must be either 'click', 'focus', 'focusin', 'manual', or 'mouseenter'")
+    }
+
+    if (!animation %in% c("fade", "perspective", "shift-away", "shift-toward", "scale") == TRUE) {
+
+      stop("`animation` must be either 'fade', 'perspective', 'shift-away', 'shift-toward', or 'scale'")
+    }
+
+    if (!placement %in% c("top", "right", "bottom", "left") == TRUE) {
+
+      stop("`placement` must be either 'top', 'right', 'bottom', or 'left'")
+    }
+
+    if (!is.null(duration) & !is.numeric(duration)) {
+
+      stop("`duration` must be a single number (i.e. 100) or a vector of length 2 (i.e. c(100,50))")
+    }
+
+    if (!is.logical(auto_adjust)) {
+
+      stop("`auto_adjust` must be TRUE or FALSE")
+    }
+
+    if (!is.null(number_fmt_secondary) & (length(number_fmt_secondary) != length(secondary_columns))) {
+
+      stop("`number_fmt_secondary` length is ", length(number_fmt_secondary), " but ", length(secondary_columns), " were provided.
+           Please provide ", length(secondary_columns), " formatters within `number_fmt_secondary`.
+           If you do not wish to provide a formatter for a column, denote with NA for that column in `number_fmt_secondary`.")
+    }
+
+    if (is.null(style)) {
+
+      style <- ''
+
+    } else style
+
+    if (is.null(style_secondary)) {
+
+      style_secondary <- ''
+
+    } else style_secondary
+
 
     if (is.null(number_fmt)) {
 
@@ -1366,15 +1534,146 @@ tooltip <- function(data,
     } else {
 
       label <- number_fmt(value)
+    }
+
+
+    if (is.null(duration)) {
+
+      duration <- c(275,250)
 
     }
 
-    tooltip_label <- sprintf('<span style="font-size:1.5em">%s</span>', label)
+    if (!is.null(img_size) & length(img_size) > 2) {
 
-    tippy::tippy(label,
-                 animateFill = FALSE,
-                 followCursor = TRUE,
-                 tooltip = tooltip_label)
+      stop("`img_size`accepts either 1 or 2 values.")
+    }
+
+    if (!is.null(img_size) & length(img_size) == 1) {
+
+      height = img_size[[1]]
+      width = img_size[[1]]
+
+    } else {
+
+      height = img_size[[1]]
+      width = img_size[[2]]
+    }
+
+    if (grepl("https|http", label) == TRUE) {
+
+      label <- htmltools::img(src = value, align = "center", height = height, width = width)
+
+    } else label <- label
+
+
+    # show column name
+    if (show_name == TRUE) {
+
+      primary_label <- glue::glue("<caption>{name}: {label}</caption>")
+
+      primary_label <- paste0('<span style="font-size:1.2em; display:block; font-weight:bold; text-align:left;',style,'">',primary_label,'</span>')
+
+
+    } else {
+
+      primary_label <- glue::glue("<caption>{label}</caption>")
+
+      primary_label <- paste0('<span style="font-size:1.2em; display:block; font-weight:bold; text-align:left;',style,'">',primary_label,'</span>')
+
+    }
+
+    if (!is.null(secondary_columns)) {
+
+      if (all(secondary_columns %in% names(data))) {
+
+      # get values from other columns specified
+      get_secondary_values <- function(secondary_columns) {
+
+        data[[secondary_columns]][index]
+
+      }
+
+      secondary_values <- purrr::map(secondary_columns, get_secondary_values)
+
+      # if the cell contains a link to an image
+      display_img <- function(secondary_values) {
+
+        if (grepl("https|http", secondary_values) == TRUE) {
+          htmltools::img(src = secondary_values, align = "center", height = height, width = width)
+        } else secondary_values <- secondary_values
+
+      }
+
+      secondary_values <- purrr::map(secondary_values, display_img)
+
+      # replace NA with empty function
+      if (!is.null(number_fmt_secondary)) {
+
+        number_fmt_secondary <- lapply(number_fmt_secondary,
+                                       function(x) ifelse(suppressWarnings(is.na(x)) == TRUE,
+                                       function(x) {return(x)},
+                                       x))
+
+
+      # apply formats to secondary_values
+      result <- list()
+
+      for(i in seq_along(number_fmt_secondary)){
+
+        formats_applied <- number_fmt_secondary[[i]](secondary_values[[i]])
+
+        result[[i]] <- list(formats_applied)
+
+      }
+
+      secondary_values <- result
+
+      }
+
+      inputs <- function(secondary_columns, secondary_values) {
+
+        if (show_name_secondary == TRUE) {
+
+          glue::glue("<td>{secondary_columns}: </td>
+                      <td>{secondary_values}</td>")
+
+        } else glue::glue("<td>{secondary_values}</td>")
+      }
+
+      secondary_labels <- purrr::map2(secondary_columns, secondary_values, inputs)
+
+      secondary_label <- glue::glue_collapse(
+        glue::glue("<tr>{secondary_labels}</tr>")
+      )
+
+      tooltip_label <- paste0(glue::glue('{primary_label}<span style="font-size:1.2em; text-align:left; ',style_secondary,'"><table>',secondary_label,'</table></span>'))
+
+      } else {
+
+        stop("Attempted to select non-existing column or non-character column with `secondary_columns`")
+      }
+
+    } else tooltip_label <- primary_label
+
+    if (dotted_line == TRUE) {
+
+      underline <- "text-decoration: underline; text-decoration-style: dotted;"
+
+    } else underline <- ""
+
+    htmltools::div(style = paste0(underline, "cursor: help;"),
+        tippy::tippy(value,
+                     arrow = arrow,
+                     animation = animation,
+                     duration = duration,
+                     distance = distance,
+                     followCursor = TRUE,
+                     theme = theme,
+                     trigger = trigger,
+                     placement = placement,
+                     flip = auto_adjust,
+                     tooltip = tooltip_label)
+    )
   }
 }
 
