@@ -20,6 +20,10 @@
 
 * Added the ability to change the background color in each table theme with `background_color`
 
+#### tooltip()
+
+* Added 16 new features to `tooltip()`, allowing users the ability to: show/hide the name of the column, apply CSS styles, select one of four pre-set themes, display images within the tooltip, display values/text from other columns within the tooltip
+
 ### Bug Fixes
 
 * Fixed `save_reactable()` function to display as `save_reactable()` and not `save_reactable_test()`

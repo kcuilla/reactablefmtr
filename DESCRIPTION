@@ -28,6 +28,7 @@ Depends:
     reactable (>= 0.2.0)
 Imports: 
     dplyr,
+    glue,
     grDevices,
     htmltools,
     htmlwidgets (>= 1.5.3),
