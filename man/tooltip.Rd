@@ -4,30 +4,132 @@
 \alias{tooltip}
 \title{Apply a tooltip to cells.}
 \usage{
-tooltip(data, number_fmt = NULL)
+tooltip(
+  data,
+  show_name = FALSE,
+  number_fmt = NULL,
+  style = NULL,
+  dotted_line = FALSE,
+  theme = "material",
+  arrow = TRUE,
+  trigger = "mouseenter",
+  animation = "fade",
+  duration = c(275, 250),
+  distance = 10,
+  placement = "top",
+  auto_adjust = TRUE,
+  img_size = c(26, 26),
+  secondary_columns = NULL,
+  show_name_secondary = TRUE,
+  number_fmt_secondary = NULL,
+  style_secondary = NULL
+)
 }
 \arguments{
-\item{data}{Null.}
+\item{data}{Name of dataset.
+Note: only required if `secondary_columns` are provided.}
 
-\item{number_fmt}{Optionally format numbers using formats from the scales package.
+\item{show_name}{Logical: If set to TRUE, shows the name of the column before the value.
+If set to FALSE, hides the name of the column and only shows the value.
+Default is FALSE.}
+
+\item{number_fmt}{Format values using formatters from the scales package or a user-defined function.
+Default is NULL.}
+
+\item{style}{Apply a CSS style to the value within the tooltip.
+Must provide valid CSS code, i.e. color:red; font-style:italic;, etc.
+Default is NULL.}
+
+\item{dotted_line}{Add a dotted line underneath the values in the column to signal to users a tooltip is enabled.
+Default is NULL.}
+
+\item{theme}{The theme of the tooltip.
+Options are: 'light', 'light-border', 'material', or 'translucent'.
+See https://atomiks.github.io/tippyjs/v5/themes/ for examples.
+Default is 'material'.}
+
+\item{arrow}{Logical: determines if the tooltip box has an arrow.
+Default is TRUE.}
+
+\item{trigger}{An event that causes the tooltip to show.
+Options are: 'click', 'focus', 'focusin', 'manual', or 'mouseenter'.
+Default is 'mouseenter'.}
+
+\item{animation}{The type of transition animation for the tooltip.
+Options are: 'fade', 'perspective', 'shift-away', 'shift-toward', or 'scale'.
+Default is 'fade'.}
+
+\item{duration}{The duration of the transition animation for the tooltip.
+Possible values are a single number or a vector of two numbers for the show/hide, i.e. c(200,300).
+If only one value is provided, it will be used for both the show/hide.
+Default is c(275,250).}
+
+\item{distance}{How far in pixels the tooltip is from the cell.
+Possible values are a number, i.e. 5 or a string with units 'rem', i.e. '5rem'.
+Default is 10.}
+
+\item{placement}{Where the tooltip appears relative to the cell.
+Options are: 'top', 'right', 'bottom', or 'left'.
+Default is 'top'.}
+
+\item{auto_adjust}{Logical: if TRUE, then automatically adjust placement of tooltip show it can be viewed within viewport.
+Default is TRUE.}
+
+\item{img_size}{The size (height, width) of the image displayed (if valid image link is present).
+Possible values are a single number or a vector of two numbers for height/width, i.e. c(50,40).
+Default is c(26,26).}
+
+\item{secondary_columns}{Show text/values from other columns within the dataset.
+Can provide a single column name or a vector of column names, i.e. c('col1','col2','col3)
+Default is NULL.}
+
+\item{show_name_secondary}{Logical: if TRUE, then show the name of the secondary column before the value.
+If set to FALSE, hides the name of the secondary column and only shows the value.
+Default is TRUE.}
+
+\item{number_fmt_secondary}{Format secondary values using formatters from the scales package or a user-defined function.
+The number of formatters must be the same as the number of column names provided with `secondary_columns`.
+The order of the formatters must match the order of names provided within `secondary_columns`.
+If you do not want to format one or more of the columns, use NA for that column, i.e. c(scales::percent, NA, scales::dollar)
+Default is NULL.}
+
+\item{style_secondary}{Apply a CSS style to the secondary values within the tooltip.
+Must provide valid CSS code, i.e. color:red; font-style:italic;, etc.
 Default is NULL.}
 }
 \value{
-a function that applies a tooltip to a reactable table.
+a function that adds a tooltip cells in a reactable table.
 }
 \description{
 Apply a tooltip to cells.
 }
 \examples{
-\dontrun{
 data <- iris[10:29, ]
 
-## Apply a tooltip to color_scales()
+## Apply a tooltip to any column type:
 reactable(data,
- columns = list(
- Petal.Length = colDef(
- cell = tooltip(),
- style = color_scales(data))
- ))
-}
+columns = list(
+Petal.Length = colDef(
+cell = tooltip()),
+Species = colDef(
+cell = tooltip())
+))
+
+## Modify the theme of the tooltip and apply CSS styles:
+reactable(data,
+columns = list(
+Species = colDef(
+cell = tooltip(
+  theme = "light",
+  style = "color:red"))
+))
+
+## Show data from other columns within the tooltip:
+reactable(data,
+columns = list(
+Species = colDef(
+cell = tooltip(
+  data = data,
+  secondary_columns = c("Petal.Length","Petal.Width")))
+))
 }
