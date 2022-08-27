@@ -11,9 +11,10 @@ color_tiles(
   color_by = NULL,
   opacity = 1,
   bias = 1,
+  number_fmt = NULL,
   min_value = NULL,
   max_value = NULL,
-  number_fmt = NULL,
+  even_breaks = FALSE,
   text_size = NULL,
   text_color = "black",
   text_color_ref = NULL,
@@ -21,10 +22,30 @@ color_tiles(
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
-  span = FALSE,
   box_shadow = FALSE,
+  border_width = NULL,
+  border_style = NULL,
+  border_color = NULL,
+  span = FALSE,
+  animation = "background 1s ease",
   tooltip = FALSE,
-  animation = "background 1s ease"
+  tooltip_show_name = FALSE,
+  tooltip_number_fmt = NULL,
+  tooltip_style = NULL,
+  tooltip_dotted_line = FALSE,
+  tooltip_theme = "material",
+  tooltip_arrow = TRUE,
+  tooltip_trigger = "mouseenter",
+  tooltip_animation = "fade",
+  tooltip_duration = c(275, 250),
+  tooltip_distance = 10,
+  tooltip_placement = "top",
+  tooltip_auto_adjust = TRUE,
+  tooltip_img_size = c(26, 26),
+  tooltip_secondary_columns = NULL,
+  tooltip_show_name_secondary = TRUE,
+  tooltip_number_fmt_secondary = NULL,
+  tooltip_style_secondary = NULL
 )
 }
 \arguments{
@@ -53,6 +74,9 @@ Default is 1.}
 A higher value spaces out the colors at the higher end more than a lower number.
 Default is 1.}
 
+\item{number_fmt}{Optionally format numbers using formats from the scales package.
+Default is NULL.}
+
 \item{min_value}{The minimum value used for the color assignments.
 This value must expand the range of the data within the column.
 Therefore, the value must be less than or equal to the minimum value within the column.
@@ -63,8 +87,11 @@ This value must expand the range of the data within the column.
 Therefore, the value must be greater than or equal to the maximum value within the column.
 Default is NULL.}
 
-\item{number_fmt}{Optionally format numbers using formats from the scales package.
-Default is NULL.}
+\item{even_breaks}{Logical: if TRUE, the colors will be assigned to values in distinct quantile bins rather than on a normalized scale.
+The number of breaks in the quantile bins is equal to the number of colors provided within `colors`.
+For example, if 4 colors are provided within `colors`, the values in the bottom 25% of the column will be assigned the lowest color,
+the values within 25-50% will be assigned the next color, etc. until all 4 colors are used.
+Default is FALSE.}
 
 \item{text_size}{Numeric value representing the size of the text labels.
 Default is NULL.}
@@ -90,15 +117,23 @@ Default is white.}
 \item{bold_text}{Logical: bold text.
 Default is FALSE.}
 
-\item{span}{Optionally apply colors to values across multiple columns instead of by each column.
-To apply across all columns set to TRUE.
-If applying to a set of columns, can provide either column names or column positions.
-Default is FALSE.}
-
 \item{box_shadow}{Logical: add a box shadow to the tiles.
 Default is FALSE.}
 
-\item{tooltip}{Logical: hover tooltip.
+\item{border_width}{The width of the four-sided border around the cell.
+Options are "thin", "medium", "thick", or a numeric value.
+Default is NULL.}
+
+\item{border_style}{The style of the four-sided border around the cell.
+Options are "solid", "dashed", "dotted", "double", "groove", "ridge", "inset", "outset", or "none".
+Default is NULL.}
+
+\item{border_color}{The color of the four-sided border around the cell.
+Default is NULL.}
+
+\item{span}{Optionally apply colors to values across multiple columns instead of by each column.
+To apply across all columns set to TRUE.
+If applying to a set of columns, can provide either column names or column positions.
 Default is FALSE.}
 
 \item{animation}{Control the duration and timing function of the animation
@@ -107,6 +142,77 @@ See [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/transitio
 for available timing functions and examples.
 Animation can be turned off by setting to "none".
 Default is "background 1s ease".}
+
+\item{tooltip}{Logical: hover tooltip.
+Default is FALSE.}
+
+\item{tooltip_show_name}{Logical: If set to TRUE, shows the name of the column before the value.
+If set to FALSE, hides the name of the column and only shows the value.
+Default is FALSE.}
+
+\item{tooltip_number_fmt}{Format values using formatters from the scales package or a user-defined function.
+Default is NULL.}
+
+\item{tooltip_style}{Apply a CSS style to the value within the tooltip.
+Must provide valid CSS code, i.e. color:red; font-style:italic;, etc.
+Default is NULL.}
+
+\item{tooltip_dotted_line}{Add a dotted line underneath the values in the column to signal to users a tooltip is enabled.
+Default is NULL.}
+
+\item{tooltip_theme}{The theme of the tooltip.
+Options are: 'light', 'light-border', 'material', or 'translucent'.
+See https://atomiks.github.io/tippyjs/v5/themes/ for examples.
+Default is 'material'.}
+
+\item{tooltip_arrow}{Logical: determines if the tooltip box has an arrow.
+Default is TRUE.}
+
+\item{tooltip_trigger}{An event that causes the tooltip to show.
+Options are: 'click', 'focus', 'focusin', 'manual', or 'mouseenter'.
+Default is 'mouseenter'.}
+
+\item{tooltip_animation}{The type of transition animation for the tooltip.
+Options are: 'fade', 'perspective', 'shift-away', 'shift-toward', or 'scale'.
+Default is 'fade'.}
+
+\item{tooltip_duration}{The duration of the transition animation for the tooltip.
+Possible values are a single number or a vector of two numbers for the show/hide, i.e. c(200,300).
+If only one value is provided, it will be used for both the show/hide.
+Default is c(275,250).}
+
+\item{tooltip_distance}{How far in pixels the tooltip is from the cell.
+Possible values are a number, i.e. 5 or a string with units 'rem', i.e. '5rem'.
+Default is 10.}
+
+\item{tooltip_placement}{Where the tooltip appears relative to the cell.
+Options are: 'top', 'right', 'bottom', or 'left'.
+Default is 'top'.}
+
+\item{tooltip_auto_adjust}{Logical: if TRUE, then automatically adjust placement of tooltip show it can be viewed within viewport.
+Default is TRUE.}
+
+\item{tooltip_img_size}{The size (height, width) of the image displayed (if valid image link is present).
+Possible values are a single number or a vector of two numbers for height/width, i.e. c(50,40).
+Default is c(26,26).}
+
+\item{tooltip_secondary_columns}{Show text/values from other columns within the dataset.
+Can provide a single column name or a vector of column names, i.e. c('col1','col2','col3)
+Default is NULL.}
+
+\item{tooltip_show_name_secondary}{Logical: if TRUE, then show the name of the secondary column before the value.
+If set to FALSE, hides the name of the secondary column and only shows the value.
+Default is TRUE.}
+
+\item{tooltip_number_fmt_secondary}{Format secondary values using formatters from the scales package or a user-defined function.
+The number of formatters must be the same as the number of column names provided with `secondary_columns`.
+The order of the formatters must match the order of names provided within `secondary_columns`.
+If you do not want to format one or more of the columns, use NA for that column, i.e. c(scales::percent, NA, scales::dollar)
+Default is NULL.}
+
+\item{tooltip_style_secondary}{Apply a CSS style to the secondary values within the tooltip.
+Must provide valid CSS code, i.e. color:red; font-style:italic;, etc.
+Default is NULL.}
 }
 \value{
 a function that applies conditional color tiles

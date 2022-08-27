@@ -13,6 +13,7 @@ color_scales(
   bias = 1,
   min_value = NULL,
   max_value = NULL,
+  even_breaks = FALSE,
   text_size = NULL,
   text_color = "black",
   text_color_ref = NULL,
@@ -20,6 +21,9 @@ color_scales(
   brighten_text = TRUE,
   brighten_text_color = "white",
   bold_text = FALSE,
+  border_width = NULL,
+  border_style = NULL,
+  border_color = NULL,
   span = FALSE,
   animation = "background 1s ease"
 )
@@ -59,6 +63,12 @@ This value must expand the range of the data within the column.
 Therefore, the value must be greater than or equal to the maximum value within the column.
 Default is NULL.}
 
+\item{even_breaks}{Logical: if TRUE, the colors will be assigned to values in distinct quantile bins rather than on a normalized scale.
+The number of breaks in the quantile bins is equal to the number of colors provided within `colors`.
+For example, if 4 colors are provided within `colors`, the values in the bottom 25% of the column will be assigned the lowest color,
+the values within 25-50% will be assigned the next color, etc. until all 4 colors are used.
+Default is FALSE.}
+
 \item{text_size}{Numeric value representing the size of the text labels.
 Default is NULL.}
 
@@ -82,6 +92,17 @@ Default is white.}
 
 \item{bold_text}{Logical: bold text.
 Default is FALSE.}
+
+\item{border_width}{The width of the four-sided border around the cell.
+Options are "thin", "medium", "thick", or a numeric value.
+Default is NULL.}
+
+\item{border_style}{The style of the four-sided border around the cell.
+Options are "solid", "dashed", "dotted", "double", "groove", "ridge", "inset", "outset", or "none".
+Default is NULL.}
+
+\item{border_color}{The color of the four-sided border around the cell.
+Default is NULL.}
 
 \item{span}{Optionally apply colors to values across multiple columns instead of by each column.
 To apply across all columns set to TRUE.
