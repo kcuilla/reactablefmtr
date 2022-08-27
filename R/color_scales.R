@@ -44,6 +44,12 @@
 #'     Therefore, the value must be greater than or equal to the maximum value within the column.
 #'     Default is NULL.
 #'
+#' @param even_breaks Logical: if TRUE, the colors will be assigned to values in distinct quantile bins rather than on a normalized scale.
+#'      The number of breaks in the quantile bins is equal to the number of colors provided within `colors`.
+#'      For example, if 4 colors are provided within `colors`, the values in the bottom 25% of the column will be assigned the lowest color,
+#'      the values within 25-50% will be assigned the next color, etc. until all 4 colors are used.
+#'      Default is FALSE.
+#'
 #' @param text_size Numeric value representing the size of the text labels.
 #'     Default is NULL.
 #'
@@ -67,6 +73,17 @@
 #'
 #' @param bold_text Logical: bold text.
 #'     Default is FALSE.
+#'
+#' @param border_width The width of the four-sided border around the cell.
+#'      Options are "thin", "medium", "thick", or a numeric value.
+#'      Default is NULL.
+#'
+#' @param border_style The style of the four-sided border around the cell.
+#'      Options are "solid", "dashed", "dotted", "double", "groove", "ridge", "inset", "outset", or "none".
+#'      Default is NULL.
+#'
+#' @param border_color The color of the four-sided border around the cell.
+#'      Default is NULL.
 #'
 #' @param span Optionally apply colors to values across multiple columns instead of by each column.
 #'     To apply across all columns set to TRUE.
@@ -128,6 +145,7 @@ color_scales <- function(data,
                          bias = 1,
                          min_value = NULL,
                          max_value = NULL,
+                         even_breaks = FALSE,
                          text_size = NULL,
                          text_color = "black",
                          text_color_ref = NULL,
@@ -135,6 +153,9 @@ color_scales <- function(data,
                          brighten_text = TRUE,
                          brighten_text_color = "white",
                          bold_text = FALSE,
+                         border_width = NULL,
+                         border_style = NULL,
+                         border_color = NULL,
                          span = FALSE,
                          animation = "background 1s ease") {
 
@@ -207,6 +228,51 @@ color_scales <- function(data,
 
   } else bold_text <- "normal"
 
+  if (!is.null(border_width) & !is.numeric(border_width) && !border_width %in% c("thin", "medium", "thick") == TRUE) {
+
+    stop("`border_width` must be either 'thin', 'medium', or 'thick' or a numeric value.")
+  }
+
+  if (!is.null(border_style) && !border_style %in% c("solid", "dotted", "dashed", "double", "groove", "ridge", "inset", "outset", "none") == TRUE) {
+
+    stop("`border_style` must be either 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset', or 'none'.")
+  }
+
+  if (is.null(border_width) & is.null(border_style) & is.null(border_color)) {
+    border_width = ""
+    border_style = ""
+    border_color = ""
+  }
+
+  if (is.null(border_width)) {
+    border_width = "thin"
+  }
+
+  if (is.null(border_style)) {
+    border_style = "solid"
+  }
+
+  if (is.null(border_color)) {
+    border_color = "lightgrey"
+  }
+
+  if (!is.null(border_width)) {
+
+    if (border_width == "thin") {
+
+      border_width = "1px 1px 1px 1px"
+
+    } else if (border_width == "medium") {
+
+      border_width = "2px 2px 2px 2px"
+
+    } else if (border_width == "thick") {
+
+      border_width = "3px 3px 3px 3px"
+
+    } else border_width = paste0("",border_width,"px")
+  }
+
   style <- function(value, index, name) {
 
     if (is.null(color_ref) & is.null(color_by) & !is.numeric(value)) return(value)
@@ -215,11 +281,11 @@ color_scales <- function(data,
 
       # user supplied min and max values
       if (is.null(min_value)) {
-      min_value_span <- min(dplyr::select_if(data, is.numeric), na.rm = TRUE)
+        min_value_span <- min(dplyr::select_if(data, is.numeric), na.rm = TRUE)
       } else { min_value_span <- min_value }
 
       if (is.null(max_value)) {
-      max_value_span <- max(dplyr::select_if(data, is.numeric), na.rm = TRUE)
+        max_value_span <- max(dplyr::select_if(data, is.numeric), na.rm = TRUE)
       } else { max_value_span <- max_value }
 
       if (span) {
@@ -232,44 +298,44 @@ color_scales <- function(data,
 
       } else {
 
-      ### color_by
-      if (is.character(color_by)) {
+        ### color_by
+        if (is.character(color_by)) {
 
-        # color_by column must be numeric
-        if (all(color_by %in% names(which(sapply(data, is.numeric))))) {
+          # color_by column must be numeric
+          if (all(color_by %in% names(which(sapply(data, is.numeric))))) {
 
-          if (is.character(color_by)) { color_by <- which(names(data) %in% color_by) }
+            if (is.character(color_by)) { color_by <- which(names(data) %in% color_by) }
 
-          # if there is no variance in the column, assign the same color to each value
-          if (is.numeric(data[[color_by]]) & mean((data[[color_by]] - mean(data[[color_by]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
+            # if there is no variance in the column, assign the same color to each value
+            if (is.numeric(data[[color_by]]) & mean((data[[color_by]] - mean(data[[color_by]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
 
-            normalized <- 1
+              normalized <- 1
+
+            } else {
+
+              # user supplied min and max values
+              if (is.null(min_value)) {
+                min_value_color_by <- min(data[[color_by]], na.rm = TRUE)
+              } else { min_value_color_by <- min_value }
+
+              if (is.null(max_value)) {
+                max_value_color_by <- max(data[[color_by]], na.rm = TRUE)
+              } else { max_value_color_by <- max_value }
+
+              normalized <- (data[[color_by]][index] - min_value_color_by) / (max_value_color_by - min_value_color_by)
+
+            }
+
+            cell_color <- color_pal(normalized)
+            cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
+            font_color <- assign_color(normalized)
 
           } else {
 
-            # user supplied min and max values
-            if (is.null(min_value)) {
-            min_value_color_by <- min(data[[color_by]], na.rm = TRUE)
-            } else { min_value_color_by <- min_value }
-
-            if (is.null(max_value)) {
-            max_value_color_by <- max(data[[color_by]], na.rm = TRUE)
-            } else { max_value_color_by <- max_value }
-
-            normalized <- (data[[color_by]][index] - min_value_color_by) / (max_value_color_by - min_value_color_by)
-
+            stop("Attempted to select non-existing column or non-numeric column with color_by")
           }
 
-          cell_color <- color_pal(normalized)
-          cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
-          font_color <- assign_color(normalized)
-
         } else {
-
-          stop("Attempted to select non-existing column or non-numeric column with color_by")
-        }
-
-      } else {
 
           # standard normalization (no variance check)
           if (is.numeric(value) & mean((data[[name]] - mean(data[[name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
@@ -280,11 +346,11 @@ color_scales <- function(data,
 
             # user supplied min and max values
             if (is.null(min_value)) {
-            min_value_normal <- min(data[[name]], na.rm = TRUE)
+              min_value_normal <- min(data[[name]], na.rm = TRUE)
             } else { min_value_normal <- min_value }
 
             if (is.null(max_value)) {
-            max_value_normal <- max(data[[name]], na.rm = TRUE)
+              max_value_normal <- max(data[[name]], na.rm = TRUE)
             } else { max_value_normal <- max_value }
 
             # standard normalization
@@ -292,19 +358,19 @@ color_scales <- function(data,
 
           }
 
-            if (!is.null(min_value) & isTRUE(min_value > min(data[[name]], na.rm = TRUE))) {
+          if (!is.null(min_value) & isTRUE(min_value > min(data[[name]], na.rm = TRUE))) {
 
-              stop("`min_value` must be less than the minimum value observed in the data")
-            }
+            stop("`min_value` must be less than the minimum value observed in the data")
+          }
 
-            if (!is.null(max_value) & isTRUE(max_value < max(data[[name]], na.rm = TRUE))) {
+          if (!is.null(max_value) & isTRUE(max_value < max(data[[name]], na.rm = TRUE))) {
 
-              stop("`max_value` must be greater than the maximum value observed in the data")
-            }
+            stop("`max_value` must be greater than the maximum value observed in the data")
+          }
 
-        cell_color <- color_pal(normalized)
-        cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
-        font_color <- assign_color(normalized)
+          cell_color <- color_pal(normalized)
+          cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
+          font_color <- assign_color(normalized)
 
         }
 
@@ -327,7 +393,7 @@ color_scales <- function(data,
 
       } else {
 
-         font_color <- text_color
+        font_color <- text_color
       }
 
       ### conditional fill color and font color
@@ -365,11 +431,11 @@ color_scales <- function(data,
 
         # user supplied min and max values
         if (is.null(min_value)) {
-        min_value_span2 <- min(dplyr::select(data, !!span), na.rm = TRUE)
+          min_value_span2 <- min(dplyr::select(data, !!span), na.rm = TRUE)
         } else { min_value_span2 <- min_value }
 
         if (is.null(max_value)) {
-        max_value_span2 <- max(dplyr::select(data, !!span), na.rm = TRUE)
+          max_value_span2 <- max(dplyr::select(data, !!span), na.rm = TRUE)
         } else { max_value_span2 <- max_value }
 
         normalized <- (value - min_value_span2) / (max_value_span2 - min_value_span2)
@@ -384,23 +450,27 @@ color_scales <- function(data,
 
     }
 
+    color_buckets <- dplyr::ntile(data[[name]], n = length(colors))
+    color_assign <- color_buckets[index]
+    colors <- grDevices::adjustcolor(colors, alpha.f = opacity)
+
+    if (even_breaks == FALSE) {
+      cell_color = cell_color
+    } else cell_color = colors[[color_assign]]
+
     if (brighten_text == FALSE & show_text == TRUE) {
 
-      list(background = cell_color, color = text_color, fontSize = text_size, fontWeight = bold_text, transition = animation)
+      list(background = cell_color, color = text_color, fontSize = text_size, fontWeight = bold_text, transition = animation, borderStyle = border_style, borderWidth = border_width, borderColor = border_color)
 
-     } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
+    } else if (brighten_text == TRUE & !is.null(text_color_ref) & show_text == TRUE) {
 
-      list(background = cell_color, color = text_color, fontSize = text_size, fontWeight = bold_text, transition = animation)
+      list(background = cell_color, color = text_color, fontSize = text_size, fontWeight = bold_text, transition = animation, borderStyle = border_style, borderWidth = border_width, borderColor = border_color)
 
-     } else if (brighten_text == FALSE & show_text == FALSE) {
+    } else if (show_text == FALSE) {
 
-      list(background = cell_color, color = "transparent", fontWeight = bold_text, transition = animation)
+      list(background = cell_color, color = "transparent", fontWeight = bold_text, transition = animation, borderStyle = border_style, borderWidth = border_width, borderColor = border_color)
 
-    } else if (brighten_text == TRUE & show_text == FALSE) {
-
-      list(background = cell_color, color = "transparent", fontWeight = bold_text, transition = animation)
-
-    } else list(background = cell_color, color = font_color, fontSize = text_size, fontWeight = bold_text, transition = animation)
+    } else list(background = cell_color, color = font_color, fontSize = text_size, fontWeight = bold_text, transition = animation, borderStyle = border_style, borderWidth = border_width, borderColor = border_color)
 
   }
 }
