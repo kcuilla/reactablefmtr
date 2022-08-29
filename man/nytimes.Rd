@@ -10,6 +10,8 @@ nytimes(
   header_font_size = 11,
   header_font_color = "#999999",
   background_color = NULL,
+  border_color = "#e7e7e7",
+  border_width = "1px",
   cell_padding = 5,
   centered = FALSE
 )
@@ -29,6 +31,12 @@ Default is #999999.}
 
 \item{background_color}{Background color of the table.
 Default is NULL.}
+
+\item{border_color}{The color of the borders between rows.
+Default is #e7e7e7.}
+
+\item{border_width}{The width of the border between rows (in px).
+Default is 1px.}
 
 \item{cell_padding}{Numeric value representing the padding size between cells (in px).
 Default is 5.}
