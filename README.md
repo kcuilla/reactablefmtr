@@ -175,6 +175,10 @@ table_name %>%
 save_reactable("table.png")
 ```
 
+## Additional Resources
+  
+A presentation given to the SoCal R Users Group:
+https://rpubs.com/kcuilla/reactablefmtr-socal-presentation
 
 ## Acknowledgments & Contributions
 
