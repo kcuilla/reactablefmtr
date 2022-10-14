@@ -260,7 +260,9 @@ data_bars <- function(data,
 
   cell <- function(value, index, name) {
 
-    if (is.null(fill_by) & !is.numeric(value) || is.na(value)) return(value)
+    if (is.null(fill_by) & !is.numeric(value)) return(value)
+
+    if (is.null(value) || is.na(value) || value == "NA" || value == "na" || stringr::str_detect(value, " ")) return("")
 
     ### stop messages
     if (!is.logical(fill_gradient)) {
