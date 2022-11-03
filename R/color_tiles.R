@@ -482,26 +482,10 @@ color_tiles <- function(data,
 
         } else {
 
-          # standard normalization (no variance check)
-          if (is.numeric(value) & mean((data[[name]] - mean(data[[name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
-
-            normalized <- 1
-
-          } else {
-
-            # user supplied min and max values
-            if (is.null(min_value)) {
-              min_value_normal <- min(data[[name]], na.rm = TRUE)
-            } else { min_value_normal <- min_value }
-
-            if (is.null(max_value)) {
-              max_value_normal <- max(data[[name]], na.rm = TRUE)
-            } else { max_value_normal <- max_value }
-
-            # standard normalization
-            normalized <- (value - min_value_normal) / (max_value_normal - min_value_normal)
-
-          }
+          effective_min_value <- coalesce(c(min_value, min(data[[name]], na.rm = TRUE)))
+          effective_max_value <- coalesce(c(max_value, max(data[[name]], na.rm = TRUE)))          
+          range <- effective_max_value - effective_min_value
+          normalized <- if (range > 0) (value - min_value_normal) / range else 1
 
           if (!is.null(min_value) & isTRUE(min_value > min(data[[name]], na.rm = TRUE))) {
 
