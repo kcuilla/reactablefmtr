@@ -451,25 +451,12 @@ color_tiles <- function(data,
 
             if (is.character(color_by)) { color_by <- which(names(data) %in% color_by) }
 
-            # if there is no variance in the column, assign the same color to each value
-            if (is.numeric(data[[color_by]]) & mean((data[[color_by]] - mean(data[[color_by]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
-
-              normalized <- 1
-
-            } else {
-
-              # user supplied min and max values
-              if (is.null(min_value)) {
-                min_value_color_by <- min(data[[color_by]], na.rm = TRUE)
-              } else { min_value_color_by <- min_value }
-
-              if (is.null(max_value)) {
-                max_value_color_by <- max(data[[color_by]], na.rm = TRUE)
-              } else { max_value_color_by <- max_value }
-
-              normalized <- (data[[color_by]][index] - min_value_color_by) / (max_value_color_by - min_value_color_by)
-
-            }
+            # utilize min and and max values if supplied, otherwise use data extents
+            null_replace <- function(a, b) if (is.null(a)) b else a
+            effective_min_value <- null_replace(min_value, min(data[[color_by]], na.rm = TRUE))
+            effective_max_value <- null_replace(max_value, max(data[[color_by]], na.rm = TRUE))          
+            range <- effective_max_value - effective_min_value
+            normalized <- if (range > 0) (data[[color_by]][index] - effective_min_value) / range else 1
 
             cell_color <- color_pal(normalized)
             cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
@@ -492,6 +479,7 @@ color_tiles <- function(data,
             stop("`max_value` must be greater than the maximum value observed in the data")
           }
           
+          # utilize min and and max values if supplied, otherwise use data extents
           null_replace <- function(a, b) if (is.null(a)) b else a
           effective_min_value <- null_replace(min_value, min(data[[name]], na.rm = TRUE))
           effective_max_value <- null_replace(max_value, max(data[[name]], na.rm = TRUE))          
