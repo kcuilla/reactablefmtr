@@ -496,7 +496,7 @@ color_tiles <- function(data,
           effective_min_value <- null_replace(min_value, min(data[[name]], na.rm = TRUE))
           effective_max_value <- null_replace(max_value, max(data[[name]], na.rm = TRUE))          
           range <- effective_max_value - effective_min_value
-          normalized <- if (range > 0) (value - min_value_normal) / range else 1
+          normalized <- if (range > 0) (value - effective_min_value) / range else 1
             
           cell_color <- color_pal(normalized)
           cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
