@@ -492,8 +492,9 @@ color_tiles <- function(data,
             stop("`max_value` must be greater than the maximum value observed in the data")
           }
           
-          effective_min_value <- coalesce(c(min_value, min(data[[name]], na.rm = TRUE)))
-          effective_max_value <- coalesce(c(max_value, max(data[[name]], na.rm = TRUE)))          
+          null_replace <- function(a, b) if (is.null(a)) b else a
+          effective_min_value <- null_replace(min_value, min(data[[name]], na.rm = TRUE)))
+          effective_max_value <- null_replace(max_value, max(data[[name]], na.rm = TRUE)))          
           range <- effective_max_value - effective_min_value
           normalized <- if (range > 0) (value - min_value_normal) / range else 1
             
