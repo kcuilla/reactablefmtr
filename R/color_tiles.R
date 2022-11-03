@@ -482,11 +482,6 @@ color_tiles <- function(data,
 
         } else {
 
-          effective_min_value <- coalesce(c(min_value, min(data[[name]], na.rm = TRUE)))
-          effective_max_value <- coalesce(c(max_value, max(data[[name]], na.rm = TRUE)))          
-          range <- effective_max_value - effective_min_value
-          normalized <- if (range > 0) (value - min_value_normal) / range else 1
-
           if (!is.null(min_value) & isTRUE(min_value > min(data[[name]], na.rm = TRUE))) {
 
             stop("`min_value` must be less than the minimum value observed in the data")
@@ -496,7 +491,12 @@ color_tiles <- function(data,
 
             stop("`max_value` must be greater than the maximum value observed in the data")
           }
-
+          
+          effective_min_value <- coalesce(c(min_value, min(data[[name]], na.rm = TRUE)))
+          effective_max_value <- coalesce(c(max_value, max(data[[name]], na.rm = TRUE)))          
+          range <- effective_max_value - effective_min_value
+          normalized <- if (range > 0) (value - min_value_normal) / range else 1
+            
           cell_color <- color_pal(normalized)
           cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
           font_color <- assign_color(normalized)
