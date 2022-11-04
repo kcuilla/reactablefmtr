@@ -457,6 +457,9 @@ color_tiles <- function(data,
             effective_max_value <- null_replace(max_value, max(data[[color_by]], na.rm = TRUE))          
             range <- effective_max_value - effective_min_value
             normalized <- if (range > 0) (data[[color_by]][index] - effective_min_value) / range else 1
+            # clamp data to valid range.  this can occur with user-provided range values
+            pclamp <- function(x, lower, upper) pmax(pmin(x, upper), lower)
+            normalized <- pclamp(normalized, 0, 1)
 
             cell_color <- color_pal(normalized)
             cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
@@ -468,16 +471,6 @@ color_tiles <- function(data,
           }
 
         } else {
-
-          if (!is.null(min_value) & isTRUE(min_value > min(data[[name]], na.rm = TRUE))) {
-
-            stop("`min_value` must be less than the minimum value observed in the data")
-          }
-
-          if (!is.null(max_value) & isTRUE(max_value < max(data[[name]], na.rm = TRUE))) {
-
-            stop("`max_value` must be greater than the maximum value observed in the data")
-          }
           
           # utilize min and and max values if supplied, otherwise use data extents
           null_replace <- function(a, b) if (is.null(a)) b else a
@@ -485,6 +478,10 @@ color_tiles <- function(data,
           effective_max_value <- null_replace(max_value, max(data[[name]], na.rm = TRUE))          
           range <- effective_max_value - effective_min_value
           normalized <- if (range > 0) (value - effective_min_value) / range else 1
+          # clamp data to valid range.  this can occur with user-provided range values
+          pclamp <- function(x, lower, upper) pmax(pmin(x, upper), lower)
+          normalized <- pclamp(normalized, 0, 1)
+            
             
           cell_color <- color_pal(normalized)
           cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
