@@ -41,13 +41,9 @@
 #'     Default is NULL.
 #'
 #' @param min_value The minimum value used for the color assignments.
-#'     This value must expand the range of the data within the column.
-#'     Therefore, the value must be less than or equal to the minimum value within the column.
 #'     Default is NULL.
 #'
 #' @param max_value The maximum value used for the color assignments.
-#'     This value must expand the range of the data within the column.
-#'     Therefore, the value must be greater than or equal to the maximum value within the column.
 #'     Default is NULL.
 #'
 #' @param even_breaks Logical: if TRUE, the colors will be assigned to values in distinct quantile bins rather than on a normalized scale.
