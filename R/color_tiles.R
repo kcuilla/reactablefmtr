@@ -447,15 +447,22 @@ color_tiles <- function(data,
 
             if (is.character(color_by)) { color_by <- which(names(data) %in% color_by) }
 
-            # utilize min and and max values if supplied, otherwise use data extents
-            null_replace <- function(a, b) if (is.null(a)) b else a
-            effective_min_value <- null_replace(min_value, min(data[[color_by]], na.rm = TRUE))
-            effective_max_value <- null_replace(max_value, max(data[[color_by]], na.rm = TRUE))          
-            range <- effective_max_value - effective_min_value
-            normalized <- if (range > 0) (data[[color_by]][index] - effective_min_value) / range else 1
-            # clamp data to valid range.  this can occur with user-provided range values
-            pclamp <- function(x, lower, upper) pmax(pmin(x, upper), lower)
-            normalized <- pclamp(normalized, 0, 1)
+            # user supplied min and max values
+            if (is.null(min_value)) {
+              min_value_color_by <- min(data[[color_by]], na.rm = TRUE)
+            } else { min_value_color_by <- min_value }
+
+            if (is.null(max_value)) {
+              max_value_color_by <- max(data[[color_by]], na.rm = TRUE)
+            } else { max_value_color_by <- max_value }
+            
+            range <- max_value_color_by - min_value_color_by
+
+            # range zero occurs for constant-valued columns (including single row tables)
+            normalized <- if (range > 0) (data[[color_by]][index] - min_value_color_by) / range else 1
+
+            # clamp data to [0,1] range
+            normalized <- pmax(pmin(normalized, 1), 0)
 
             cell_color <- color_pal(normalized)
             cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
@@ -468,16 +475,21 @@ color_tiles <- function(data,
 
         } else {
           
-          # utilize min and and max values if supplied, otherwise use data extents
-          null_replace <- function(a, b) if (is.null(a)) b else a
-          effective_min_value <- null_replace(min_value, min(data[[name]], na.rm = TRUE))
-          effective_max_value <- null_replace(max_value, max(data[[name]], na.rm = TRUE))          
-          range <- effective_max_value - effective_min_value
-          normalized <- if (range > 0) (value - effective_min_value) / range else 1
-          # clamp data to valid range.  this can occur with user-provided range values
-          pclamp <- function(x, lower, upper) pmax(pmin(x, upper), lower)
-          normalized <- pclamp(normalized, 0, 1)
-            
+          # user supplied min and max values
+          if (is.null(min_value)) {
+            min_value_normal <- min(data[[name]], na.rm = TRUE)
+          } else { min_value_normal <- min_value }
+          
+          if (is.null(max_value)) {
+            max_value_normal <- max(data[[name]], na.rm = TRUE)
+          } else { max_value_normal <- max_value }
+
+          # range zero occurs for constant-valued columns (including single row tables)
+          range <- max_value_normal - min_value_normal
+          normalized <- if (range > 0) (value - min_value_normal) / range else 1
+
+          # clamp data to [0,1] range
+          normalized <- pmax(pmin(normalized, 1), 0)  
             
           cell_color <- color_pal(normalized)
           cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
