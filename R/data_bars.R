@@ -262,7 +262,7 @@ data_bars <- function(data,
 
     if (is.null(fill_by) & !is.numeric(value)) return(value)
 
-    if (is.null(value) || is.na(value) || value == "NA" || value == "na" || stringr::str_detect(value, " ")) return("")
+    if (is.null(fill_by) & is.null(value) || is.null(fill_by) & is.na(value) || is.null(fill_by) & value == "NA" || is.null(fill_by) & value == "na" || is.null(fill_by) & stringr::str_detect(value, " ")) return("")
 
     ### stop messages
     if (!is.logical(fill_gradient)) {
