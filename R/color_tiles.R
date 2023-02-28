@@ -41,13 +41,9 @@
 #'     Default is NULL.
 #'
 #' @param min_value The minimum value used for the color assignments.
-#'     This value must expand the range of the data within the column.
-#'     Therefore, the value must be less than or equal to the minimum value within the column.
 #'     Default is NULL.
 #'
 #' @param max_value The maximum value used for the color assignments.
-#'     This value must expand the range of the data within the column.
-#'     Therefore, the value must be greater than or equal to the maximum value within the column.
 #'     Default is NULL.
 #'
 #' @param even_breaks Logical: if TRUE, the colors will be assigned to values in distinct quantile bins rather than on a normalized scale.
@@ -451,25 +447,22 @@ color_tiles <- function(data,
 
             if (is.character(color_by)) { color_by <- which(names(data) %in% color_by) }
 
-            # if there is no variance in the column, assign the same color to each value
-            if (is.numeric(data[[color_by]]) & mean((data[[color_by]] - mean(data[[color_by]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
+            # user supplied min and max values
+            if (is.null(min_value)) {
+              min_value_color_by <- min(data[[color_by]], na.rm = TRUE)
+            } else { min_value_color_by <- min_value }
 
-              normalized <- 1
+            if (is.null(max_value)) {
+              max_value_color_by <- max(data[[color_by]], na.rm = TRUE)
+            } else { max_value_color_by <- max_value }
+            
+            range <- max_value_color_by - min_value_color_by
 
-            } else {
+            # range zero occurs for constant-valued columns (including single row tables)
+            normalized <- if (range > 0) (data[[color_by]][index] - min_value_color_by) / range else 1
 
-              # user supplied min and max values
-              if (is.null(min_value)) {
-                min_value_color_by <- min(data[[color_by]], na.rm = TRUE)
-              } else { min_value_color_by <- min_value }
-
-              if (is.null(max_value)) {
-                max_value_color_by <- max(data[[color_by]], na.rm = TRUE)
-              } else { max_value_color_by <- max_value }
-
-              normalized <- (data[[color_by]][index] - min_value_color_by) / (max_value_color_by - min_value_color_by)
-
-            }
+            # clamp data to [0,1] range
+            normalized <- pmax(pmin(normalized, 1), 0)
 
             cell_color <- color_pal(normalized)
             cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
@@ -481,38 +474,23 @@ color_tiles <- function(data,
           }
 
         } else {
+          
+          # user supplied min and max values
+          if (is.null(min_value)) {
+            min_value_normal <- min(data[[name]], na.rm = TRUE)
+          } else { min_value_normal <- min_value }
+          
+          if (is.null(max_value)) {
+            max_value_normal <- max(data[[name]], na.rm = TRUE)
+          } else { max_value_normal <- max_value }
 
-          # standard normalization (no variance check)
-          if (is.numeric(value) & mean((data[[name]] - mean(data[[name]], na.rm=TRUE)) ^ 2, na.rm=TRUE) == 0) {
+          # range zero occurs for constant-valued columns (including single row tables)
+          range <- max_value_normal - min_value_normal
+          normalized <- if (range > 0) (value - min_value_normal) / range else 1
 
-            normalized <- 1
-
-          } else {
-
-            # user supplied min and max values
-            if (is.null(min_value)) {
-              min_value_normal <- min(data[[name]], na.rm = TRUE)
-            } else { min_value_normal <- min_value }
-
-            if (is.null(max_value)) {
-              max_value_normal <- max(data[[name]], na.rm = TRUE)
-            } else { max_value_normal <- max_value }
-
-            # standard normalization
-            normalized <- (value - min_value_normal) / (max_value_normal - min_value_normal)
-
-          }
-
-          if (!is.null(min_value) & isTRUE(min_value > min(data[[name]], na.rm = TRUE))) {
-
-            stop("`min_value` must be less than the minimum value observed in the data")
-          }
-
-          if (!is.null(max_value) & isTRUE(max_value < max(data[[name]], na.rm = TRUE))) {
-
-            stop("`max_value` must be greater than the maximum value observed in the data")
-          }
-
+          # clamp data to [0,1] range
+          normalized <- pmax(pmin(normalized, 1), 0)  
+            
           cell_color <- color_pal(normalized)
           cell_color <- suppressWarnings(grDevices::adjustcolor(cell_color, alpha.f = opacity))
           font_color <- assign_color(normalized)
