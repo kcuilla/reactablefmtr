@@ -72,7 +72,7 @@ save_reactable <- function(input,
 
     message("html file saved to ", getwd(), "/", output)
 
-  } else if (tools::file_ext(output) == "png" && tools::file_ext(input) != "Rmd" && tools::file_ext(input) != "html") {
+  } else if (tools::file_ext(output) == "png" && all(tools::file_ext(input) != "Rmd") && all(tools::file_ext(input) != "html")) {
 
     temp_html <- tempfile(
       pattern = tools::file_path_sans_ext(basename(output)),
