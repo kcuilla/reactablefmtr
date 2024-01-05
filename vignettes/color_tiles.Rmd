@@ -64,10 +64,10 @@ df %>%
   reactable(
     columns = list(
       pop = colDef(
-        cell = color_tiles(., number_fmt = scales::label_number_si(accuracy = 0.1))
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 0.1, scale_cut = scales::cut_short_scale()))
       ),
       gdpPercap = colDef(
-        cell = color_tiles(., number_fmt = scales::comma)
+        cell = color_tiles(., number_fmt = scales::label_comma())
       ),
       lifeExp = colDef(
         cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1))
@@ -90,10 +90,10 @@ df %>%
     defaultSortOrder = 'desc',
     columns = list(
       pop = colDef(
-        cell = color_tiles(., number_fmt = scales::label_number_si(accuracy = 0.1), colors = viridis::viridis(5))
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 0.1, scale_cut = scales::cut_short_scale()), colors = viridis::viridis(5))
       ),
       gdpPercap = colDef(
-        cell = color_tiles(., number_fmt = scales::comma, colors = RColorBrewer::brewer.pal(7, 'Greens'))
+        cell = color_tiles(., number_fmt = scales::label_comma(), colors = RColorBrewer::brewer.pal(7, 'Greens'))
       ),
       lifeExp = colDef(
         cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1), colors = c('tomato','white','dodgerblue'))
@@ -127,7 +127,7 @@ df %>%
   reactable(
     columns = list(
       lifeExp = colDef(
-        cell = color_tiles(., number_fmt = scales::comma)
+        cell = color_tiles(., number_fmt = scales::label_comma())
       )
     )
   ) %>% 
@@ -209,10 +209,10 @@ df %>%
   reactable(
     columns = list(
       pop = colDef(
-        cell = color_tiles(., number_fmt = scales::label_number_si(accuracy = 0.1), box_shadow = TRUE)
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 0.1, scale_cut = scales::cut_short_scale()), box_shadow = TRUE)
       ),
       gdpPercap = colDef(
-        cell = color_tiles(., number_fmt = scales::comma, box_shadow = TRUE)
+        cell = color_tiles(., number_fmt = scales::label_comma(), box_shadow = TRUE)
       ),
       lifeExp = colDef(
         cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1), box_shadow = TRUE)
@@ -249,10 +249,10 @@ df_continents %>%
     columns = list(
       continent_cols = colDef(show = FALSE),
       pop = colDef(
-        cell = color_tiles(., number_fmt = scales::label_number_si(accuracy = 0.1), color_ref = 'continent_cols')
+        cell = color_tiles(., number_fmt = scales::label_number(accuracy = 0.1, cut_scale = scales::cut_short_scale()), color_ref = 'continent_cols')
       ),
       gdpPercap = colDef(
-        cell = color_tiles(., number_fmt = scales::comma, color_ref = 'continent_cols')
+        cell = color_tiles(., number_fmt = scales::label_comma(), color_ref = 'continent_cols')
       ),
       lifeExp = colDef(
         cell = color_tiles(., number_fmt = scales::label_number(accuracy = 1), color_ref = 'continent_cols')
