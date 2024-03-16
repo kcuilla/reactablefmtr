@@ -27,6 +27,9 @@
 #'     Options are "bold" or "normal".
 #'     Default is "bold".
 #'
+#' @param font-family The font family of the title.
+#'     Default is NULL.
+#'
 #' @param text_decoration Add an underline, overline, or line-through title.
 #'     Default is NULL.
 #'
@@ -77,6 +80,7 @@ add_title <- function(table = NULL,
                       font_size = 32,
                       font_style = "normal",
                       font_weight = "bold",
+                      font_family = NULL,
                       text_decoration = NULL,
                       text_transform = NULL,
                       letter_spacing = NULL,
@@ -127,6 +131,7 @@ add_title <- function(table = NULL,
                                       "font-size:", font_size, "px;",
                                       "font-style:", font_style, ";",
                                       "font-weight:", font_weight, ";",
+                                      "font-family:", font_family, ";",
                                       "text-decoration:", text_decoration, ";",
                                       "letter-spacing:", letter_spacing, "px;",
                                       "word-spacing:", word_spacing, "px;",
@@ -170,6 +175,9 @@ add_title <- function(table = NULL,
 #' @param font_weight The font weight of the subtitle.
 #'      Options are "bold" or "normal".
 #'      Default is "bold".
+#'
+#' @param font-family The font family of the title.
+#'     Default is NULL.
 #'
 #' @param text_decoration Add an underline, overline, or line-through subtitle.
 #'      Options are "underline", "overline", "underline overline", or "line-through".
@@ -227,6 +235,7 @@ add_subtitle <- function(table = NULL,
                          font_size = 24,
                          font_style = "normal",
                          font_weight = "bold",
+                         font_family = NULL,
                          text_decoration = NULL,
                          text_transform = NULL,
                          letter_spacing = NULL,
@@ -283,6 +292,7 @@ add_subtitle <- function(table = NULL,
                                       "font-size:", font_size, "px;",
                                       "font-style:", font_style, ";",
                                       "font-weight:", font_weight, ";",
+                                      "font-family:", font_family, ";",
                                       "text-decoration:", text_decoration, ";",
                                       "letter-spacing:", letter_spacing, "px;",
                                       "word-spacing:", word_spacing, "px;",
@@ -325,7 +335,10 @@ add_subtitle <- function(table = NULL,
 #'
 #' @param font_weight The font weight of the source.
 #'      Options are "bold" or "normal".
-#'      Default is "normal".
+#'      Default is "normal"
+#'
+#' @param font-family The font family of the title.
+#'     Default is NULL.
 #'
 #' @param text_decoration Add an underline, overline, or line-through source.
 #'      Options are "underline", "overline", "underline overline", or "line-through".
@@ -378,6 +391,7 @@ add_source <- function(table = NULL,
                         font_size = 16,
                         font_style = "normal",
                         font_weight = "normal",
+                        font_family = NULL,
                         text_decoration = NULL,
                         text_transform = NULL,
                         letter_spacing = NULL,
@@ -433,6 +447,7 @@ add_source <- function(table = NULL,
                                      "font-size:", font_size, "px;",
                                      "font-style:", font_style, ";",
                                      "font-weight:", font_weight, ";",
+                                     "font-family:", font_family, ";",
                                      "text-decoration:", text_decoration, ";",
                                      "letter-spacing:", letter_spacing, "px;",
                                      "word-spacing:", word_spacing, "px;",

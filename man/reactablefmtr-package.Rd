@@ -6,9 +6,9 @@
 \alias{reactablefmtr-package}
 \title{reactablefmtr: Streamlined Table Styling and Formatting for Reactable}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides various features to streamline and enhance the styling of interactive reactable tables with easy-to-use and highly-customizable functions and themes. Apply conditional formatting to cells with data bars, color scales, color tiles, and icon sets. Utilize custom table themes inspired by popular websites such and bootstrap themes. Apply sparkline line & bar charts (note this feature requires the 'dataui' package which can be downloaded from <https://github.com/timelyportfolio/dataui>). Increase the portability and reproducibility of reactable tables by embedding images from the web directly into cells. Save the final table output as a static image or interactive file.
+Provides various features to streamline and enhance the styling of interactive reactable tables with easy-to-use and highly-customizable functions and themes. Apply conditional formatting to cells with data bars, color scales, color tiles, and icon sets. Utilize custom table themes inspired by popular websites such and bootstrap themes. Apply sparkline line & bar charts (note this feature requires the 'dataui' package which can be downloaded from \url{https://github.com/timelyportfolio/dataui}). Increase the portability and reproducibility of reactable tables by embedding images from the web directly into cells. Save the final table output as a static image or interactive file.
 }
 \seealso{
 Useful links:

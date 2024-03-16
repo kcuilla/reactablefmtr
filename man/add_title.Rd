@@ -12,6 +12,7 @@ add_title(
   font_size = 32,
   font_style = "normal",
   font_weight = "bold",
+  font_family = NULL,
   text_decoration = NULL,
   text_transform = NULL,
   letter_spacing = NULL,
@@ -67,6 +68,9 @@ Default is NULL.}
 Default is #FFFFFF.}
 
 \item{margin}{Use margin() to set the margin around the text (top, right, bottom, left).
+Default is NULL.}
+
+\item{font-family}{The font family of the title.
 Default is NULL.}
 }
 \value{

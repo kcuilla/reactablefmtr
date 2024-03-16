@@ -12,6 +12,7 @@ add_source(
   font_size = 16,
   font_style = "normal",
   font_weight = "normal",
+  font_family = NULL,
   text_decoration = NULL,
   text_transform = NULL,
   letter_spacing = NULL,
@@ -42,7 +43,7 @@ Default is "normal".}
 
 \item{font_weight}{The font weight of the source.
 Options are "bold" or "normal".
-Default is "normal".}
+Default is "normal"}
 
 \item{text_decoration}{Add an underline, overline, or line-through source.
 Options are "underline", "overline", "underline overline", or "line-through".
@@ -68,6 +69,9 @@ Default is NULL.}
 Default is #FFFFFF.}
 
 \item{margin}{Use margin() to set the margin around the text (top, right, bottom, left).
+Default is NULL.}
+
+\item{font-family}{The font family of the title.
 Default is NULL.}
 }
 \value{
